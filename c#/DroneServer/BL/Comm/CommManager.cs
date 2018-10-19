@@ -108,9 +108,11 @@ namespace DroneServer.BL.Comm
             return m_instance;
         }
 
-        public void execMission(Mission mission)
+        public void execMission(LeafMission mission)
         {
-            //TODO
+            String message_to_android = mission.encode();
+
+            m_socket.Send(Encoding.ASCII.GetBytes(message_to_android));
         }
 
     }

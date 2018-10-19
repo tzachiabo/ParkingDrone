@@ -15,6 +15,7 @@ namespace DroneServer.BL
         private Configuration()
         {
             m_doc = new XmlDocument();
+            String location = AppDomain.CurrentDomain.BaseDirectory;
             m_doc.Load("BaseConfig.txt");//TODO 
 
         }

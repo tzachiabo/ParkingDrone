@@ -11,7 +11,6 @@ namespace DroneServer.BL.Missions
     {
         protected ComplexMission m_ParentMission;
 
-
         public abstract void execute();
 
         public abstract void done();

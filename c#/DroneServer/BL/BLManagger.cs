@@ -9,24 +9,26 @@ using log4net;
 
 namespace DroneServer.BL
 {
-    class BLManagger
+    public class BLManagger
     {
         private static BLManagger instance = null;
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private BLManagger()
         {
             if (File.Exists("./MyTestAppender.log"))
+            {
                 File.WriteAllLines("./MyTestAppender.log", new string[0]);
-
+            }
+            Log.Debug("sasdasdasddf");
         }
-        public BLManagger getInstance()
+
+        public static BLManagger getInstance()
         {
             if (instance == null)
                 instance = new BLManagger();
             return instance;
         }
-
-
 
         //public bool createParkingSpot(ParkingSpot p)
         //{

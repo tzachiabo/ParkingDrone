@@ -16,9 +16,6 @@ C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.Proper
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.csproj.GenerateResource.Cache
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.exe
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.pdb
-<<<<<<< HEAD
-=======
->>>>>>> 3004669... commInfra
 C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\bin\Debug\DroneServer.exe.config
 C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.exe
 C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.pdb
@@ -36,7 +33,6 @@ C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.
 C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Debug\DroneServer.exe.config
 C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Debug\DroneServer.exe
 C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Debug\DroneServer.pdb
->>>>>>> d90f21f... tmp
 C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.csprojAssemblyReference.cache
 C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.GUI.resources
 C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.Properties.Resources.resources
@@ -50,3 +46,4 @@ C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\bin\Debug
 C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\bin\Debug\log4net.dll
 C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\bin\Debug\log4net.xml
 C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.csproj.CopyComplete
+C:\Programing\Matrice200-Project\DrownCode\ParkingDrown\c#\DroneServer\bin\Debug\BaseConfig.txt
