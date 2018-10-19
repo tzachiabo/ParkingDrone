@@ -1,0 +1,9 @@
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Release\DroneServer.exe.config
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Release\DroneServer.exe
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Release\DroneServer.pdb
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Release\DroneServer.GUI.resources
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Release\DroneServer.Properties.Resources.resources
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Release\DroneServer.csproj.GenerateResource.cache
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Release\DroneServer.csproj.CoreCompileInputs.cache
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Release\DroneServer.exe
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Release\DroneServer.pdb
