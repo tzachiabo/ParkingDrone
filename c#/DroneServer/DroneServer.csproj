@@ -46,8 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\BaseDeploy.cs" />
-    <Compile Include="BL\Comm\CommManager.cs" />
+    <Compile Include="BL\Missions\ComplexMission.cs" />
+    <Compile Include="BL\Missions\GetCarPlate.cs" />
+    <Compile Include="BL\Missions\GetCarSticker.cs" />
+    <Compile Include="BL\Missions\GoToCar.cs" />
+    <Compile Include="BL\Missions\InitParkingMission.cs" />
+    <Compile Include="BL\Missions\Landing.cs" />
+    <Compile Include="BL\Missions\LeafMission.cs" />
+    <Compile Include="BL\Missions\Mission.cs" />
+    <Compile Include="BL\Missions\Move.cs" />
+    <Compile Include="BL\Missions\MoveToGPSPoint.cs" />
+    <Compile Include="BL\Missions\ParkingMission.cs" />
+    <Compile Include="BL\Missions\ScanCars.cs" />
+    <Compile Include="BL\Missions\ScanSingleCar.cs" />
+    <Compile Include="BL\Missions\TakeOff.cs" />
+    <Compile Include="BL\Missions\TakePhoto.cs" />
+    <Compile Include="BL\Missions\VerifyLocation.cs" />
     <Compile Include="PL\BaseObservable.cs" />
     <Compile Include="PL\BaseObserver.cs" />
     <Compile Include="PL\GUI.cs">
