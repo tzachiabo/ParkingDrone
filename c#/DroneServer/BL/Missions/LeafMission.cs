@@ -12,6 +12,7 @@ namespace DroneServer.BL.Missions
         {
             m_ParentMission.notify(this);
         }
-        
+
+        public abstract string encode();
     }
 }

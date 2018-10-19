@@ -46,10 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3004669... commInfra
     <Compile Include="BL\Missions\ComplexMission.cs" />
     <Compile Include="BL\Missions\GetCarPlate.cs" />
     <Compile Include="BL\Missions\GetCarSticker.cs" />
@@ -66,13 +62,7 @@
     <Compile Include="BL\Missions\TakeOff.cs" />
     <Compile Include="BL\Missions\TakePhoto.cs" />
     <Compile Include="BL\Missions\VerifyLocation.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="BL\BaseDeploy.cs" />
     <Compile Include="BL\Comm\CommManager.cs" />
->>>>>>> d90f21f... tmp
-=======
->>>>>>> 3004669... commInfra
     <Compile Include="PL\BaseObservable.cs" />
     <Compile Include="PL\BaseObserver.cs" />
     <Compile Include="PL\GUI.cs">
