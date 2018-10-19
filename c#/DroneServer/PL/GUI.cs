@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
+using log4net;
+
 namespace DroneServer
 {
     public partial class GUI : Form
@@ -19,13 +21,21 @@ namespace DroneServer
             InitializeComponent();
         }
 
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private void GUI_Load(object sender, EventArgs e)
         {
-
+            Log.Debug("sasdasdasddf");
+            
         }
 
 
-
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        //home section
+        private void start_home_btn_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //dummy section
@@ -63,5 +73,6 @@ namespace DroneServer
         {
 
         }
+
     }
 }

@@ -95,6 +95,7 @@
             this.start_home_btn.TabIndex = 2;
             this.start_home_btn.Text = "Start";
             this.start_home_btn.UseVisualStyleBackColor = true;
+            this.start_home_btn.Click += new System.EventHandler(this.start_home_btn_Click);
             // 
             // logger_home_lst
             // 
