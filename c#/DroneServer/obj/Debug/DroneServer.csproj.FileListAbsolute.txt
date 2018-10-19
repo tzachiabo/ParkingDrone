@@ -16,3 +16,10 @@ C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.Proper
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.csproj.GenerateResource.Cache
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.exe
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.pdb
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\bin\Debug\DroneServer.exe.config
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.exe
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.pdb
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.csprojResolveAssemblyReference.cache
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.GUI.resources
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.Properties.Resources.resources
+C:\Users\aviv9_000\Desktop\git\ParkingDrown\c#\DroneServer\obj\Debug\DroneServer.csproj.GenerateResource.Cache
