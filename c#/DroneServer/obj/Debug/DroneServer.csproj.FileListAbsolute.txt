@@ -16,3 +16,13 @@ C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.Proper
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.csproj.GenerateResource.Cache
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.exe
 C:\Users\Zahi\Dropbox\Drone\DroneServer\DroneServer\obj\Debug\DroneServer.pdb
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.csprojAssemblyReference.cache
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.GUI.resources
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.Properties.Resources.resources
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.csproj.GenerateResource.cache
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.csproj.CoreCompileInputs.cache
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.exe
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\obj\Debug\DroneServer.pdb
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Debug\DroneServer.exe.config
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Debug\DroneServer.exe
+C:\Programing\Matrice200-Project\DroneCode\c#\DroneServer\bin\Debug\DroneServer.pdb

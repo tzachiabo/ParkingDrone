@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,12 +12,20 @@ namespace DroneServer
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        //[STAThread]
+        //static void Main()
+        //{
+        //    Application.EnableVisualStyles();
+        //    Application.SetCompatibleTextRenderingDefault(false);
+        //    Application.Run(new GUI());
+        //}
+
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GUI());
+            BaseDeploy b = new BaseDeploy();
+            Console.WriteLine(b.get("bar"));
+            Console.ReadLine();
+
         }
     }
 }

@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\BaseDeploy.cs" />
+    <Compile Include="BL\Comm\CommManager.cs" />
     <Compile Include="PL\BaseObservable.cs" />
     <Compile Include="PL\BaseObserver.cs" />
     <Compile Include="PL\GUI.cs">
@@ -84,9 +86,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
