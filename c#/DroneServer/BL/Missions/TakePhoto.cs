@@ -15,7 +15,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return null;
+            return "takePhoto " + m_index;
         }
     }
 }

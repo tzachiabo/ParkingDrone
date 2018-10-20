@@ -8,6 +8,7 @@ namespace DroneServer.BL.Missions
 {
     class MoveToGPSPoint : LeafMission
     {
+        
         public override void stop()
         {
 

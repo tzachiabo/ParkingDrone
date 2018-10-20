@@ -4,10 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DroneServer.SharedClasses;
+
 namespace DroneServer.BL.Missions
 {
     class Move : LeafMission
     {
+        private double distance;
+        private Direction direction;
+
+        public Move(Direction direction, double distance)
+        {
+            this.direction = direction;
+            this.distance = distance;
+        }
+
         public override void stop()
         {
 
@@ -15,7 +26,8 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return null;
+            
+            return "takePhoto " + m_index+" "+ direction + " "+ distance;
         }
     }
 }
