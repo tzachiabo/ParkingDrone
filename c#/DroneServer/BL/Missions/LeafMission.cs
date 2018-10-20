@@ -11,7 +11,10 @@ namespace DroneServer.BL.Missions
     {
         public override void done()
         {
-            m_ParentMission.notify(this);
+            if(m_ParentMission != null)
+            {
+                m_ParentMission.notify(this);
+            }
         }
 
         public override void execute()

@@ -16,7 +16,7 @@ namespace DroneServer.BL.Comm
     class CommManager
     {
         private static CommManager m_instance = null;
-        private Socket m_socket;
+        private NetworkStream ns;
         private ConcurrentDictionary<int, Mission> m_missions;
         private ConcurrentQueue<Response> m_main_responses;
         private ConcurrentQueue<Response> m_status_responses;
@@ -28,18 +28,23 @@ namespace DroneServer.BL.Comm
 
         private CommManager()
         {
+            Console.WriteLine("start comm manager");
             m_missions = new ConcurrentDictionary<int, Mission>();
             m_main_responses = new ConcurrentQueue<Response>();
             m_status_responses = new ConcurrentQueue<Response>();
 
             Configuration conf = Configuration.getInstance();
             int port = Int32.Parse(conf.get("port"));
-            IPAddress ipAddress = IPAddress.Parse(conf.get("address"));
 
-            IPEndPoint ipe = new IPEndPoint(ipAddress, port);
-            m_socket = new Socket(ipe.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            TcpListener server = new TcpListener(IPAddress.Any, port);
 
-            m_socket.Connect(ipe);
+            server.Start();
+
+            Console.WriteLine("start listening");
+            TcpClient client = server.AcceptTcpClient();
+            Console.WriteLine("recived connection");
+
+            ns = client.GetStream();
 
             //TODO Refactor
             m_reader = new Thread(() =>
@@ -48,21 +53,21 @@ namespace DroneServer.BL.Comm
                 while (true)
                 {
                     byte[] bytes = new byte[1024];
-                    int bytesRec = m_socket.Receive(bytes);
-                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    if (data.IndexOf("\n") > -1)
+                    int bytesRec = ns.Read(bytes, 0, bytes.Length);
+                    data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+                    Console.WriteLine(data);
+                    Response res = Decoder.decode(data);
+                    if (res.Type == MissionType.MainMission)
                     {
-                        Response res = Decoder.decode(data);
-                        if (res.Type == MissionType.MainMission)
-                        {
-                            m_main_responses.Enqueue(res);
-                        }
-                        else
-                        {
-                            m_status_responses.Enqueue(res);
-                        }
-                        data = "";
+                        m_main_responses.Enqueue(res);
                     }
+                    else
+                    {
+                        m_status_responses.Enqueue(res);
+                    }
+                    data = "";
+                    
                 }
             });
 
@@ -121,7 +126,10 @@ namespace DroneServer.BL.Comm
 
             String message_to_android = mission.encode();
 
-            m_socket.Send(Encoding.ASCII.GetBytes(message_to_android));
+            Console.WriteLine(message_to_android);
+
+            byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
+            ns.Write(to_send, 0 , to_send.Length);
         }
 
     }

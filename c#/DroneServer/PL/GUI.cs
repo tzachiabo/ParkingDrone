@@ -26,7 +26,7 @@ namespace DroneServer
 
         private void GUI_Load(object sender, EventArgs e)
         {
-            Log.Debug("sasdasdasddf");
+            BLManagger.getInstance();
             
         }
 

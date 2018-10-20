@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using log4net;
 using DroneServer.BL.Missions;
+using DroneServer.BL.Comm;
 
 namespace DroneServer.BL
 {
@@ -16,6 +17,9 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
+            Console.WriteLine("start BL Manager");
+            CommManager.getInstance();
+
             if (File.Exists("./MyTestAppender.log"))
             {
                 File.WriteAllLines("./MyTestAppender.log", new string[0]);
