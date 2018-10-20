@@ -12,7 +12,6 @@ namespace DroneServer.BL
     public class BLManagger
     {
         private static BLManagger instance = null;
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private BLManagger()
         {
@@ -20,7 +19,6 @@ namespace DroneServer.BL
             {
                 File.WriteAllLines("./MyTestAppender.log", new string[0]);
             }
-            Log.Debug("sasdasdasddf");
         }
 
         public static BLManagger getInstance()
@@ -48,32 +46,32 @@ namespace DroneServer.BL
 
         public void endMission()
         {
-
+            throw new NotImplementedException();
         }
 
         public void stop()
         {
-
+            throw new NotImplementedException();
         }
 
         public void abort()
         {
-
+            throw new NotImplementedException();
         }
 
         public void registerToLogs(object o)
         {
-
+            throw new NotImplementedException();
         }
 
         public void registerToConnection(object o)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void registerToDroneLocation(object o)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

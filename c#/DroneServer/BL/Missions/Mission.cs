@@ -9,6 +9,15 @@ namespace DroneServer.BL.Missions
 {
     abstract class Mission
     {
+        static int NextIndex = 1;
+
+        public Mission()
+        {
+            m_index = getNextIndex();
+        }
+
+        public int m_index;
+
         protected ComplexMission m_ParentMission;
 
         public abstract void execute();
@@ -16,6 +25,11 @@ namespace DroneServer.BL.Missions
         public abstract void done();
         
         public abstract void stop();
+
+        protected int getNextIndex()
+        {
+            return NextIndex++;
+        }
         
         
     }

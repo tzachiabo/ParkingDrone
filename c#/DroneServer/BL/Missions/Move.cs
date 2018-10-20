@@ -8,10 +8,6 @@ namespace DroneServer.BL.Missions
 {
     class Move : LeafMission
     {
-        public override void execute()
-        {
-
-        }
         public override void stop()
         {
 

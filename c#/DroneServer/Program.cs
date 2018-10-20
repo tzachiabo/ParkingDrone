@@ -12,17 +12,12 @@ namespace DroneServer
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        //[STAThread]
-        //static void Main()
-        //{
-        //    Application.EnableVisualStyles();
-        //    Application.SetCompatibleTextRenderingDefault(false);
-        //    Application.Run(new GUI());
-        //}
-
+        [STAThread]
         static void Main()
         {
-            BLManagger.getInstance();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new GUI());
         }
     }
 }

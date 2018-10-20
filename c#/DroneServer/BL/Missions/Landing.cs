@@ -8,10 +8,6 @@ namespace DroneServer.BL.Missions
 {
     class Landing : LeafMission
     {
-        public override void execute()
-        {
-
-        }
         public override void stop()
         {
 
@@ -19,7 +15,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return null;
+            return "landing " + m_index;
         }
     }
 }

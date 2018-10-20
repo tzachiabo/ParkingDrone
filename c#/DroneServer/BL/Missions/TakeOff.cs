@@ -8,10 +8,6 @@ namespace DroneServer.BL.Missions
 {
     class TakeOff:LeafMission
     {
-        public override void execute()
-        {
-
-        }
         public override void stop()
         {
 
@@ -19,7 +15,8 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return null;
+            return "takeOff " + m_index;
         }
+
     }
 }

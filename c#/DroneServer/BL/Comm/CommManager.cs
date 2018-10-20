@@ -17,7 +17,7 @@ namespace DroneServer.BL.Comm
     {
         private static CommManager m_instance = null;
         private Socket m_socket;
-        private ConcurrentDictionary<String, Mission> m_missions;
+        private ConcurrentDictionary<int, Mission> m_missions;
         private ConcurrentQueue<Response> m_main_responses;
         private ConcurrentQueue<Response> m_status_responses;
 
@@ -28,7 +28,7 @@ namespace DroneServer.BL.Comm
 
         private CommManager()
         {
-            m_missions = new ConcurrentDictionary<String, Mission>();
+            m_missions = new ConcurrentDictionary<int, Mission>();
             m_main_responses = new ConcurrentQueue<Response>();
             m_status_responses = new ConcurrentQueue<Response>();
 
@@ -85,7 +85,7 @@ namespace DroneServer.BL.Comm
                 while (true)
                 {
                     Response current_response;
-                    if (m_status_responses.TryDequeue(out current_response))
+                    if (m_status_responses.TryDequeue(out current_response))//TODO else yeild
                     {
                         Mission mission;
                         m_missions.TryRemove(current_response.Key, out mission); //TODO assert
@@ -110,6 +110,8 @@ namespace DroneServer.BL.Comm
 
         public void execMission(LeafMission mission)
         {
+            m_missions.TryAdd(mission.m_index, mission); //TODO assert on result
+
             String message_to_android = mission.encode();
 
             m_socket.Send(Encoding.ASCII.GetBytes(message_to_android));
