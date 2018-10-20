@@ -1,9 +1,11 @@
 package BL.missions;
 
 public class GoHomeMission extends Mission {
-    public GoHomeMission(){
-        super("goHome");
+
+    public GoHomeMission(int index){
+        super("goHome", index);
     }
+
     @Override
     void start() {
 

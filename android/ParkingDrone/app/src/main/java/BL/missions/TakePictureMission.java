@@ -1,9 +1,11 @@
 package BL.missions;
 
 public class TakePictureMission extends Mission {
-    public TakePictureMission(){
-        super("takePicture");
+
+    public TakePictureMission(int index){
+        super("takePicture", index);
     }
+
     @Override
     void start() {
 

@@ -2,8 +2,10 @@ package BL.missions;
 
 public abstract class Mission {
     private String name;
-    public Mission(String name){
+    private int index;
+    public Mission(String name, int index){
         this.name=name;
+        this.index=index;
     }
     abstract void start();
     abstract void stop();

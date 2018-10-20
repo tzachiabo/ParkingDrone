@@ -2,8 +2,8 @@ package BL.missions;
 
 public class LandingMission extends Mission {
 
-    public LandingMission(){
-        super("landing");
+    public LandingMission(int index){
+        super("landing", index);
     }
 
     @Override

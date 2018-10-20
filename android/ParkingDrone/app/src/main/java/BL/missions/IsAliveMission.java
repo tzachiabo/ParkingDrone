@@ -2,8 +2,8 @@ package BL.missions;
 
 public class IsAliveMission extends Mission {
 
-    public  IsAliveMission(){
-        super("IsAlive");
+    public  IsAliveMission(int index){
+        super("IsAlive", index);
     }
 
     @Override

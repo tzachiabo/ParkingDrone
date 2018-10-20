@@ -1,8 +1,8 @@
 package BL.missions;
 
 public class StopMission extends Mission {
-    public StopMission(){
-        super("stop");
+    public StopMission(int index){
+        super("stop", index);
     }
     @Override
     void start() {
