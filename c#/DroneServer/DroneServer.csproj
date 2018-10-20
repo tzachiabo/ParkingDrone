@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DroneServer</RootNamespace>
     <AssemblyName>DroneServer</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -53,6 +53,7 @@
     <Compile Include="BL\BLManagger.cs" />
     <Compile Include="BL\Comm\CommManager.cs" />
     <Compile Include="BL\Comm\Decoder.cs" />
+    <Compile Include="SharedClasses\Assertions.cs" />
     <Compile Include="SharedClasses\Configuration.cs" />
     <Compile Include="BL\Missions\ComplexMission.cs" />
     <Compile Include="BL\Missions\GetCarPlate.cs" />
