@@ -22,6 +22,6 @@ public class MoveMission extends Mission {
 
     @Override
     String encode() {
-        return null;
+        return getName() +" "+ getIndex() + " " + "Done";
     }
 }

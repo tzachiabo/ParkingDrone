@@ -6,7 +6,7 @@ public class MoveCameraGimbalMission extends Mission {
     private double HorDegree;
 
     public MoveCameraGimbalMission(int index, double VerDegree, double HorDegree){
-        super("moveCameraGimbal", index);
+        super("moveGimbal", index);
         this.VerDegree=VerDegree;
         this.HorDegree=HorDegree;
     }
@@ -22,6 +22,6 @@ public class MoveCameraGimbalMission extends Mission {
 
     @Override
     String encode() {
-        return null;
+        return getName() +" "+ getIndex() + "Done";
     }
 }

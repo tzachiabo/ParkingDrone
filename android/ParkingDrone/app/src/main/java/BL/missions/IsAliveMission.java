@@ -3,7 +3,7 @@ package BL.missions;
 public class IsAliveMission extends Mission {
 
     public  IsAliveMission(int index){
-        super("IsAlive", index);
+        super("isAlive", index);
     }
 
     @Override
@@ -18,6 +18,6 @@ public class IsAliveMission extends Mission {
 
     @Override
     String encode() {
-        return null;
+        return getName() +" "+ getIndex()+ " " + "Done";
     }
 }

@@ -7,7 +7,7 @@ public class MoveByGPSMission extends Mission {
     private double zLOC;
 
     public MoveByGPSMission(int index, double x, double y, double z){
-        super("moveByGPS", index);
+        super("goToGPS", index);
         xLoc=x;
         yLoc=y;
         zLOC=z;
@@ -25,6 +25,6 @@ public class MoveByGPSMission extends Mission {
 
     @Override
     String encode() {
-        return null;
+        return getName() +" "+ getIndex() + "Done";
     }
 }

@@ -2,8 +2,11 @@ package BL.missions;
 
 public class TakePictureMission extends Mission {
 
+    int size;
+    byte[] picture;
+
     public TakePictureMission(int index){
-        super("takePicture", index);
+        super("takePhoto", index);
     }
 
     @Override
@@ -18,6 +21,6 @@ public class TakePictureMission extends Mission {
 
     @Override
     String encode() {
-        return null;
+        return getName() +" "+ getIndex() + " " + "Done" + " " + size + " " + picture;
     }
 }

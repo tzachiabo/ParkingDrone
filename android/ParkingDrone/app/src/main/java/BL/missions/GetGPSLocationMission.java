@@ -1,8 +1,11 @@
 package BL.missions;
 
 public class GetGPSLocationMission extends Mission {
+    int LocX;
+    int LocY;
+    int LocZ;
     public GetGPSLocationMission(int index){
-        super("getGPSLocation", index);
+        super("getLocation", index);
     }
 
     @Override
@@ -17,6 +20,6 @@ public class GetGPSLocationMission extends Mission {
 
     @Override
     String encode() {
-        return null;
+        return getName() +" "+ getIndex()+ " " + LocX + " " + LocY + " " + LocZ;
     }
 }

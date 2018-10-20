@@ -13,4 +13,5 @@ public abstract class Mission {
     public String getName(){
         return name;
     }
+    public int getIndex(){return index;}
 }
