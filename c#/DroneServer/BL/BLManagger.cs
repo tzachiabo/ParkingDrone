@@ -22,16 +22,13 @@ namespace DroneServer.BL
 
             if (File.Exists("./MyTestAppender.log"))
             {
-<<<<<<< HEAD
-          ///      File.WriteAllLines("./MyTestAppender.log", new string[0]);
-=======
+
                 try
                 {
                     File.WriteAllLines("./MyTestAppender.log", new string[0]);
                 }
                 catch (Exception){}
-                
->>>>>>> 9ca8a3a... aviv comit
+
             }
         }
 

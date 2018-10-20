@@ -84,6 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PL\SpecificObservable.cs" />
     <Compile Include="PL\TextObserver.cs" />
+    <Compile Include="SharedClasses\Direction.cs" />
     <Compile Include="SharedClasses\Logger.cs" />
     <Compile Include="SharedClasses\MissionType.cs" />
     <Compile Include="SharedClasses\Response.cs" />
