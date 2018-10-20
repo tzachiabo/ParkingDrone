@@ -1,8 +1,8 @@
 package BL.missions;
 
 public class GetDroneStatusMission extends Mission {
-    public GetDroneStatusMission(){
-      super("getDroneStatus");
+    public GetDroneStatusMission(int index){
+      super("getDroneStatus", index);
     }
     @Override
     void start() {
@@ -12,5 +12,10 @@ public class GetDroneStatusMission extends Mission {
     @Override
     void stop() {
 
+    }
+
+    @Override
+    String encode() {
+        return null;
     }
 }

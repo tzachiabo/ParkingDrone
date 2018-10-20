@@ -2,13 +2,13 @@ package BL.missions;
 
 public class MoveCameraGimbalMission extends Mission {
 
-    private int degriseVertical;
-    private int degreeseOrisental;
+    private double VerDegree;
+    private double HorDegree;
 
-    public MoveCameraGimbalMission(int degriseVertical, int degreeseOrisental){
-        super("moveCameraGimbal");
-        this.degriseVertical=degriseVertical;
-        this.degreeseOrisental=degreeseOrisental;
+    public MoveCameraGimbalMission(int index, double VerDegree, double HorDegree){
+        super("moveCameraGimbal", index);
+        this.VerDegree=VerDegree;
+        this.HorDegree=HorDegree;
     }
     @Override
     void start() {
@@ -18,5 +18,10 @@ public class MoveCameraGimbalMission extends Mission {
     @Override
     void stop() {
 
+    }
+
+    @Override
+    String encode() {
+        return null;
     }
 }

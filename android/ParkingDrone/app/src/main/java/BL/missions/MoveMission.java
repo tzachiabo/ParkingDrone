@@ -4,9 +4,9 @@ import SharedClasses.Direction;
 public class MoveMission extends Mission {
 
     private Direction direction;
-    private int distance;
-    public MoveMission(Direction direction, int distance){
-        super("move");
+    private double distance;
+    public MoveMission(int index, Direction direction, double distance){
+        super("move", index);
         this.direction=direction;
         this.distance=distance;
     }
@@ -18,5 +18,10 @@ public class MoveMission extends Mission {
     @Override
     void stop() {
 
+    }
+
+    @Override
+    String encode() {
+        return null;
     }
 }

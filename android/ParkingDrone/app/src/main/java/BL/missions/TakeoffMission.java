@@ -1,8 +1,8 @@
 package BL.missions;
 
 public class TakeoffMission extends Mission {
-    public TakeoffMission(){
-        super("takeOff");
+    public TakeoffMission(int index){
+        super("takeOff", index);
     }
     @Override
     void start() {
@@ -12,5 +12,10 @@ public class TakeoffMission extends Mission {
     @Override
     void stop() {
 
+    }
+
+    @Override
+    String encode() {
+        return null;
     }
 }

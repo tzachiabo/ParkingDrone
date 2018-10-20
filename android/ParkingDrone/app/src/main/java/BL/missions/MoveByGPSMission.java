@@ -2,13 +2,15 @@ package BL.missions;
 
 public class MoveByGPSMission extends Mission {
 
-    private int xLoc;
-    private  int yLoc;
+    private double xLoc;
+    private double yLoc;
+    private double zLOC;
 
-    public MoveByGPSMission(int x,int y){
-        super("moveByGPS");
+    public MoveByGPSMission(int index, double x, double y, double z){
+        super("moveByGPS", index);
         xLoc=x;
         yLoc=y;
+        zLOC=z;
     }
 
     @Override
@@ -19,5 +21,10 @@ public class MoveByGPSMission extends Mission {
     @Override
     void stop() {
 
+    }
+
+    @Override
+    String encode() {
+        return null;
     }
 }
