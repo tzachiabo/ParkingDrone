@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using System.IO;
 using log4net;
+using DroneServer.BL.Missions;
 
 namespace DroneServer.BL
 {
@@ -72,6 +73,20 @@ namespace DroneServer.BL
         public void registerToDroneLocation(object o)
         {
             throw new NotImplementedException();
+        }
+
+
+
+        public void TakeOffForTest()
+        {
+            TakeOff take_off = new TakeOff();
+            take_off.execute();
+        }
+
+        public void LandingForTest()
+        {
+            Landing landing = new Landing();
+            landing.execute();
         }
     }
 }

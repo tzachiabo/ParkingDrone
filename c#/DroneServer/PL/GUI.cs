@@ -11,6 +11,7 @@ using System.IO;
 using System.Diagnostics;
 
 using log4net;
+using DroneServer.BL;
 
 namespace DroneServer
 {
@@ -41,17 +42,17 @@ namespace DroneServer
         //dummy section
         private void move_dummy_btn_Click(object sender, EventArgs e)
         {
-
+         
         }
 
         private void takeOff_dummy_btn_Click(object sender, EventArgs e)
         {
-
+            BLManagger.getInstance().TakeOffForTest();
         }
 
         private void Landing_dummy_btn_Click(object sender, EventArgs e)
         {
-
+            BLManagger.getInstance().LandingForTest();
         }
 
         private void goHome_dummy_btn_Click(object sender, EventArgs e)

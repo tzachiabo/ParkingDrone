@@ -9,7 +9,7 @@ namespace DroneServer.BL.Missions
 {
     abstract class Mission
     {
-        static int NextIndex = 1;
+        static int NextIndex = 1;//TODO atomicInteger
 
         public Mission()
         {
