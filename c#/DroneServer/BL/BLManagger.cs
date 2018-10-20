@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 using System.IO;
 using log4net;
 using DroneServer.BL.Missions;
+using DroneServer.SharedClasses;
+using System.Windows.Forms;
 
-namespace DroneServer.BL
+namespace DroneServer.BL 
 {
     public class BLManagger
     {
         private static BLManagger instance = null;
+        private static Logger logger = Logger.getInstance();
 
         private BLManagger()
         {
@@ -60,9 +63,9 @@ namespace DroneServer.BL
             throw new NotImplementedException();
         }
 
-        public void registerToLogs(object o)
+        public void registerToLogs(ListBox list)
         {
-            throw new NotImplementedException();
+            logger.register(new ListObserver(list));
         }
 
         public void registerToConnection(object o)
