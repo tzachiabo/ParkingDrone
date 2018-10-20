@@ -48,6 +48,7 @@ namespace DroneServer.BL.Comm
 
                     break;
             }
+            Assertions.verify(false, "decoder faild to decode the recived message : " + data);
             return null;
         }
 

@@ -74,7 +74,10 @@ namespace DroneServer.BL.Comm
                     if(m_main_responses.TryDequeue(out current_response))
                     {
                         Mission mission;
-                        m_missions.TryRemove(current_response.Key, out mission); //TODO assert
+
+                        bool res = m_missions.TryRemove(current_response.Key, out mission);
+                        Assertions.verify(res, "main mission thread tried faild to remove a response from queue");
+
                         mission.done(); //TODO may do done on ack message
                     }
                 }
@@ -88,7 +91,10 @@ namespace DroneServer.BL.Comm
                     if (m_status_responses.TryDequeue(out current_response))//TODO else yeild
                     {
                         Mission mission;
-                        m_missions.TryRemove(current_response.Key, out mission); //TODO assert
+
+                        bool res = m_missions.TryRemove(current_response.Key, out mission); //TODO assert
+                        Assertions.verify(res, "status mission thread tried faild to remove a response from queue");
+
                         mission.done(); //TODO may do done on ack message
                     }
                 }
@@ -110,7 +116,8 @@ namespace DroneServer.BL.Comm
 
         public void execMission(LeafMission mission)
         {
-            m_missions.TryAdd(mission.m_index, mission); //TODO assert on result
+            bool res = m_missions.TryAdd(mission.m_index, mission);
+            Assertions.verify(res, "failed when trying to add mission to comm map missions");
 
             String message_to_android = mission.encode();
 
