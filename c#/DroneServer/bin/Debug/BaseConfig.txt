@@ -1,4 +1,3 @@
 <xml>
 <port>3000</port>
-<address>192.168.1.5</address>
 </xml>

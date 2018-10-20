@@ -39,75 +39,79 @@ namespace DroneServer.BL.Comm
             TcpListener server = new TcpListener(IPAddress.Any, port);
 
             server.Start();
-
-            Console.WriteLine("start listening");
-            TcpClient client = server.AcceptTcpClient();
-            Console.WriteLine("recived connection");
-
-            ns = client.GetStream();
-
-            //TODO Refactor
-            m_reader = new Thread(() =>
+            Thread Initiator = new Thread(() => 
             {
-                String data = "";
-                while (true)
+                Console.WriteLine("start listening");
+                TcpClient client = server.AcceptTcpClient();
+                Console.WriteLine("recived connection");
+
+                ns = client.GetStream();
+
+                //TODO Refactor
+                m_reader = new Thread(() =>
                 {
-                    byte[] bytes = new byte[1024];
-                    int bytesRec = ns.Read(bytes, 0, bytes.Length);
-                    data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    Console.WriteLine(data);
-                    Response res = Decoder.decode(data);
-                    if (res.Type == MissionType.MainMission)
+                    String data = "";
+                    while (true)
                     {
-                        m_main_responses.Enqueue(res);
-                    }
-                    else
-                    {
-                        m_status_responses.Enqueue(res);
-                    }
-                    data = "";
-                    
-                }
-            });
+                        byte[] bytes = new byte[1024];
+                        int bytesRec = ns.Read(bytes, 0, bytes.Length);
+                        data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
-            m_main_mission_handler = new Thread(() =>
-            {
-                while (true)
+                        Console.WriteLine(data);
+                        Response res = Decoder.decode(data);
+                        if (res.Type == MissionType.MainMission)
+                        {
+                            m_main_responses.Enqueue(res);
+                        }
+                        else
+                        {
+                            m_status_responses.Enqueue(res);
+                        }
+                        data = "";
+
+                    }
+                });
+
+                m_main_mission_handler = new Thread(() =>
                 {
-                    Response current_response;
-                    if(m_main_responses.TryDequeue(out current_response))
+                    while (true)
                     {
-                        Mission mission;
+                        Response current_response;
+                        if (m_main_responses.TryDequeue(out current_response))
+                        {
+                            Mission mission;
 
-                        bool res = m_missions.TryRemove(current_response.Key, out mission);
-                        Assertions.verify(res, "main mission thread tried faild to remove a response from queue");
+                            bool res = m_missions.TryRemove(current_response.Key, out mission);
+                            Assertions.verify(res, "main mission thread tried faild to remove a response from queue");
 
-                        mission.done(); //TODO may do done on ack message
+                            mission.done(); //TODO may do done on ack message
+                        }
                     }
-                }
-            });
+                });
 
-            m_status_mission_handler = new Thread(() =>
-            {
-                while (true)
+                m_status_mission_handler = new Thread(() =>
                 {
-                    Response current_response;
-                    if (m_status_responses.TryDequeue(out current_response))//TODO else yeild
+                    while (true)
                     {
-                        Mission mission;
+                        Response current_response;
+                        if (m_status_responses.TryDequeue(out current_response))//TODO else yeild
+                        {
+                            Mission mission;
 
-                        bool res = m_missions.TryRemove(current_response.Key, out mission); //TODO assert
-                        Assertions.verify(res, "status mission thread tried faild to remove a response from queue");
+                            bool res = m_missions.TryRemove(current_response.Key, out mission); //TODO assert
+                            Assertions.verify(res, "status mission thread tried faild to remove a response from queue");
 
-                        mission.done(); //TODO may do done on ack message
+                            mission.done(); //TODO may do done on ack message
+                        }
                     }
-                }
-            });
+                });
 
-            m_reader.Start();
-            m_main_mission_handler.Start();
-            m_status_mission_handler.Start();
+                m_reader.Start();
+                m_main_mission_handler.Start();
+                m_status_mission_handler.Start();
+
+            });
+            
         }
 
         public static CommManager getInstance()
