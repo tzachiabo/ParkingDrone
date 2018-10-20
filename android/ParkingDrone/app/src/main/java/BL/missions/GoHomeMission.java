@@ -15,4 +15,9 @@ public class GoHomeMission extends Mission {
     void stop() {
 
     }
+
+    @Override
+    String encode() {
+        return null;
+    }
 }

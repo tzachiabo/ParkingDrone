@@ -14,4 +14,9 @@ public class GetGPSLocationMission extends Mission {
     void stop() {
 
     }
+
+    @Override
+    String encode() {
+        return null;
+    }
 }

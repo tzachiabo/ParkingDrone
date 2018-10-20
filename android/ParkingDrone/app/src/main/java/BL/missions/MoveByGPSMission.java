@@ -22,4 +22,9 @@ public class MoveByGPSMission extends Mission {
     void stop() {
 
     }
+
+    @Override
+    String encode() {
+        return null;
+    }
 }

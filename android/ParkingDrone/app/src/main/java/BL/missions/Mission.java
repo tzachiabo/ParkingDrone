@@ -9,6 +9,7 @@ public abstract class Mission {
     }
     abstract void start();
     abstract void stop();
+    abstract String encode();
     public String getName(){
         return name;
     }

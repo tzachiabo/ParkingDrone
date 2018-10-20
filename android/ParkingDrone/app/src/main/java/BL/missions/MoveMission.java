@@ -19,4 +19,9 @@ public class MoveMission extends Mission {
     void stop() {
 
     }
+
+    @Override
+    String encode() {
+        return null;
+    }
 }
