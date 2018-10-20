@@ -10,8 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
-using log4net;
 using DroneServer.BL;
+using DroneServer.SharedClasses;
 
 namespace DroneServer
 {
@@ -22,12 +22,14 @@ namespace DroneServer
             InitializeComponent();
         }
 
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        BLManagger bl = BL.BLManagger.getInstance();
 
         private void GUI_Load(object sender, EventArgs e)
         {
-            Log.Debug("GUI initialozied");
-            
+            bl.registerToLogs(logger_home_lst);
+            bl.registerToLogs(logger_mission_lst);
+
+
         }
 
 
