@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 
-using System.IO;
 using log4net;
 using DroneServer.BL.Missions;
+<<<<<<< HEAD
 using DroneServer.SharedClasses;
 using System.Windows.Forms;
+=======
+using DroneServer.BL.Comm;
+>>>>>>> a422d24... Comm layer is now using Server socket
 
 namespace DroneServer.BL 
 {
@@ -19,6 +19,9 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
+            Console.WriteLine("start BL Manager");
+            CommManager.getInstance();
+
             if (File.Exists("./MyTestAppender.log"))
             {
                 File.WriteAllLines("./MyTestAppender.log", new string[0]);
