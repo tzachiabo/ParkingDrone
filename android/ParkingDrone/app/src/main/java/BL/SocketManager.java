@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import BL.missions.Mission;
+
 public class SocketManager {
 
     private static SocketManager manager = null;
@@ -42,15 +44,14 @@ public class SocketManager {
                     int bytesRead;
                     inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
-                    /*
-                     * notice: inputStream.read() will block if no data return
-                     */
+
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
-                        response += byteArrayOutputStream.toString("UTF-8");
-                        outputStream.write(byteArrayOutputStream.toByteArray());
+                        Mission current = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
+                        current.start();
+//                      outputStream.write(byteArrayOutputStream.toByteArray());
                         byteArrayOutputStream.flush();
-                        outputStream.flush();
+//                      outputStream.flush();
                         buffer = new byte[BUFFER_SIZE];
                     }
 

@@ -7,9 +7,9 @@ public abstract class Mission {
         this.name=name;
         this.index=index;
     }
-    abstract void start();
-    abstract void stop();
-    abstract String encode();
+    public abstract void start();
+    public abstract void stop();
+    public abstract String encode();
     public String getName(){
         return name;
     }
