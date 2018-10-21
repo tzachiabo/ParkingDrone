@@ -35,12 +35,6 @@
         app:layout_constraintVertical_bias="0.012"
         tools:background="@android:color/darker_gray" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="384dp"
-        android:layout_height="312dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="44dp" />
 
     <ImageButton
         android:id="@+id/stopButton"
