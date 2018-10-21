@@ -5,17 +5,17 @@ public class StopMission extends Mission {
         super("stop", index);
     }
     @Override
-    void start() {
+    public void start() {
 
     }
 
     @Override
-    void stop() {
+    public void stop() {
 
     }
 
     @Override
-    String encode() {
+    public String encode() {
         return getName() +" "+ getIndex() + "Done";
     }
 }

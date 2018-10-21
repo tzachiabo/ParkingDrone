@@ -7,17 +7,17 @@ public class GoHomeMission extends Mission {
     }
 
     @Override
-    void start() {
+    public void start() {
 
     }
 
     @Override
-    void stop() {
+    public void stop() {
 
     }
 
     @Override
-    String encode() {
+    public String encode() {
         return getName() +" "+ getIndex()+ " " + "Done";
     }
 }
