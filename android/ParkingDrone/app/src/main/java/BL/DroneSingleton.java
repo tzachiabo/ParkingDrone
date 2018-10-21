@@ -11,4 +11,5 @@ public class DroneSingleton {
             drone = new DroneSingleton();
         return drone;
     }
+
 }

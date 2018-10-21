@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aviad.parkingdrone">
+
     <!-- Permissions and features -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -25,6 +26,7 @@
     <uses-feature
         android:name="android.hardware.usb.accessory"
         android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,7 +34,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.dji.sdk.API_KEY"
+            android:value="8a06664789332f26c86f2d0d" />
         <activity android:name=".MainActivity">
+        </activity>
+        <activity
+            android:name=".Loading"
+            android:label="@string/title_activity_loading"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,5 +51,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>
