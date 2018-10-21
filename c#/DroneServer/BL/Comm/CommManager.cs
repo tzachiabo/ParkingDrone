@@ -73,7 +73,7 @@ namespace DroneServer.BL.Comm
 
             String message_to_android = mission.encode();
 
-            Console.WriteLine(message_to_android);
+            Logger.getInstance().info("send this message to Android : " + message_to_android);
 
             byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
             m_ns.Write(to_send, 0 , to_send.Length);

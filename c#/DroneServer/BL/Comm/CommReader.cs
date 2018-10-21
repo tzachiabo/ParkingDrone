@@ -35,7 +35,8 @@ namespace DroneServer.BL.Comm
                     int bytesRec = ns.Read(bytes, 0, bytes.Length);
                     data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
-                    Console.WriteLine(data);
+                    Logger.getInstance().info("receive this message from Android : " + data);
+
                     Response res = Decoder.decode(data);
                     if (res.Type == MissionType.MainMission)
                     {
