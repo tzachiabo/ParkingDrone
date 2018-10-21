@@ -18,6 +18,7 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
+            Logger.getInstance().debug("Initiate BL");
             CommManager.getInstance();
 
             if (File.Exists("./MyTestAppender.log"))

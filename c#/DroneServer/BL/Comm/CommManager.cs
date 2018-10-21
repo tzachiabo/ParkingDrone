@@ -28,7 +28,8 @@ namespace DroneServer.BL.Comm
 
         private CommManager()
         {
-            Console.WriteLine("start comm manager");
+            Logger.getInstance().debug("Initiate Comm manager");
+
             m_missions = new ConcurrentDictionary<int, Mission>();
             m_main_responses = new ConcurrentQueue<Response>();
             m_status_responses = new ConcurrentQueue<Response>();
@@ -41,9 +42,9 @@ namespace DroneServer.BL.Comm
             server.Start();
             Thread Initiator = new Thread(() => 
             {
-                Console.WriteLine("start listening");
+                Logger.getInstance().debug("start listening at port : " + port);
                 TcpClient client = server.AcceptTcpClient();
-                Console.WriteLine("recived connection");
+                Logger.getInstance().debug("recevied a connction from the drown");
 
                 ns = client.GetStream();
 
@@ -111,7 +112,10 @@ namespace DroneServer.BL.Comm
                 m_status_mission_handler.Start();
 
             });
-            
+
+            Initiator.Start();
+
+
         }
 
         public static CommManager getInstance()

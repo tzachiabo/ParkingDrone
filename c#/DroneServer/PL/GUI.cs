@@ -26,15 +26,11 @@ namespace DroneServer
 
         private void GUI_Load(object sender, EventArgs e)
         {
-
+            Logger.getInstance().debug("Gui Load has started");
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
 
-
-
             BLManagger.getInstance();
-            
-
         }
 
 
