@@ -8,6 +8,7 @@ public abstract class Mission {
     private String name;
     private int index;
     MissionReport onResult;
+
     public Mission(String name, int index){
         this.name=name;
         this.index=index;

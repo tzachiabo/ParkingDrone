@@ -1,5 +1,7 @@
 package BL.missions;
 
+import dji.common.error.DJIError;
+import dji.common.util.CommonCallbacks;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
@@ -9,9 +11,19 @@ public class TakeoffMission extends Mission {
     }
     @Override
     public void start() {
-        Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         if(aircraft != null)
-            aircraft.getFlightController().startTakeoff(this.onResult);
+            aircraft.getFlightController().startTakeoff(new CommonCallbacks.CompletionCallback() {
+                @Override
+                public void onResult(DJIError djiError) {
+                    float height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
+                    while(height < 1.1){
+                        height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
+                    }
+                    onResult.onResult(djiError);
+                }
+            });
+
     }
 
     @Override
