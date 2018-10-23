@@ -22,15 +22,15 @@ namespace DroneServer
             InitializeComponent();
         }
 
-        BLManagger bl = BL.BLManagger.getInstance();
+        BLManagger bl;
 
         private void GUI_Load(object sender, EventArgs e)
         {
             Logger.getInstance().debug("Gui Load has started");
+            bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
 
-            BLManagger.getInstance();
         }
 
 
