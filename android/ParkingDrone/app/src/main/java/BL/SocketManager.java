@@ -18,7 +18,7 @@ public class SocketManager {
     OutputStream outputStream;
     TaskManager taskManager;
     //Constants
-    final String DST_ADDRESS="192.168.1.6";
+    final String DST_ADDRESS="192.168.43.154";
     final int DST_PORT= 3000;
     final  int BUFFER_SIZE = 1024;
 
@@ -52,7 +52,7 @@ public class SocketManager {
                         Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
                         taskManager.addTask(current_task);
                         taskManager.start(current_task.getIndex());
-                        byteArrayOutputStream.flush();
+                        byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                         buffer = new byte[BUFFER_SIZE];
                     }
 

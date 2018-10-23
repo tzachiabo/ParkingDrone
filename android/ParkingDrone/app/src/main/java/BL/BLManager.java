@@ -19,34 +19,20 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class BLManager {
     private static BLManager instance = null;
-    DroneSingleton  drone;
     SocketManager socket_manager;
 
 
     private BLManager()
     {
-        drone = DroneSingleton.getInstance();
         socket_manager = SocketManager.getInstance();
     }
 
-    public static CompletableFuture<Boolean> init(Context context)
-    {
-        return null;
-    }
     public static BLManager getInstance(){
+        if (instance == null)
+        {
+            instance = new BLManager();
+        }
         return instance;
     }
 
-
-    private class Register extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            return "Download failed";
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-
-    }
-}
 }
