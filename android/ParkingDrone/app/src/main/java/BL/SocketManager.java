@@ -49,15 +49,9 @@ public class SocketManager {
 
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
-<<<<<<< HEAD
-                        Mission current = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
-                        current.start();
-//                      outputStream.write(byteArrayOutputStream.toByteArray());
-=======
                         Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
                         taskManager.addTask(current_task);
                         taskManager.start(current_task.getIndex());
->>>>>>> 6edeaf9... confirm landing / startlanding leafs created
                         byteArrayOutputStream.flush();
                         buffer = new byte[BUFFER_SIZE];
                     }
@@ -68,13 +62,7 @@ public class SocketManager {
                 } catch (IOException e) {
                     e.printStackTrace();
                     response = "IOException: " + e.toString();
-<<<<<<< HEAD
-=======
-                } catch (MissionAlreadyExistException e) {
-                    e.printStackTrace();
-                } catch (MissionNotExistException e) {
-                    e.printStackTrace();
->>>>>>> 6edeaf9... confirm landing / startlanding leafs created
+
                 } finally {
                     if (socket != null) {
                         try {

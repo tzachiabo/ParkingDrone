@@ -18,9 +18,9 @@ public class TaskManager {
         return instance;
     }
 
-    public void addTask(Mission mission) throws MissionAlreadyExistException {
+    public void addTask(Mission mission){
         if(this.running_missions.containsKey(mission.getIndex())){
-            throw new MissionAlreadyExistException();
+            //assert
         }
         this.running_missions.put(mission.getIndex(),mission);
     }
@@ -44,12 +44,12 @@ public class TaskManager {
             removeTask(mission);
         }
     }
-    public void start(Integer mission_id) throws MissionNotExistException {
+    public void start(Integer mission_id) {
         if(this.running_missions.containsKey(mission_id)){
            this.running_missions.get(mission_id).start();
         }
         else{
-            throw new MissionNotExistException();
+            //assert
         }
     }
 }
