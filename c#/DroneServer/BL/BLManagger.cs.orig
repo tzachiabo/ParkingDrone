@@ -1,13 +1,18 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
+using System.IO;
 using log4net;
 using DroneServer.BL.Missions;
+<<<<<<< HEAD
 using DroneServer.SharedClasses;
 using System.Windows.Forms;
+=======
 using DroneServer.BL.Comm;
-using System.IO;
-using System;
+>>>>>>> a422d24... Comm layer is now using Server socket
 
 namespace DroneServer.BL 
 {
@@ -18,18 +23,12 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
-            Logger.getInstance().debug("Initiate BL");
+            Console.WriteLine("start BL Manager");
             CommManager.getInstance();
 
             if (File.Exists("./MyTestAppender.log"))
             {
-
-                try
-                {
-                    File.WriteAllLines("./MyTestAppender.log", new string[0]);
-                }
-                catch (Exception){}
-
+                File.WriteAllLines("./MyTestAppender.log", new string[0]);
             }
         }
 
@@ -94,22 +93,10 @@ namespace DroneServer.BL
             take_off.execute();
         }
 
-        public void StartLandingForTest()
+        public void LandingForTest()
         {
-            StartLanding startLanding = new StartLanding();
-            startLanding.execute();
-        }
-
-        public void ConfirmLandingForTest()
-        {
-            ConfirmLanding confirmLanding = new ConfirmLanding();
-            confirmLanding.execute();
-        }
-
-        public void ParkingForTest()
-        {
-            ParkingMission parkingMission = new ParkingMission();
-            parkingMission.execute();
+            Landing landing = new Landing();
+            landing.execute();
         }
     }
 }

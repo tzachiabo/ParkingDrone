@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class Landing : LeafMission
+    class StartLanding : LeafMission
     {
+        public StartLanding() { }
+
+        public StartLanding(ComplexMission mission) { m_ParentMission = mission; }
+
         public override void stop()
         {
 
@@ -15,7 +19,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "landing " + m_index;
+            return "startLanding " + m_index;
         }
     }
 }

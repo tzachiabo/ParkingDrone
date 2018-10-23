@@ -26,11 +26,15 @@ namespace DroneServer
 
         private void GUI_Load(object sender, EventArgs e)
         {
-            Logger.getInstance().debug("Gui Load has started");
+<<<<<<< HEAD
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
 
+
+=======
             BLManagger.getInstance();
+            
+>>>>>>> a422d24... Comm layer is now using Server socket
         }
 
 
@@ -55,7 +59,7 @@ namespace DroneServer
 
         private void Landing_dummy_btn_Click(object sender, EventArgs e)
         {
-            BLManagger.getInstance().StartLandingForTest();
+            BLManagger.getInstance().LandingForTest();
         }
 
         private void goHome_dummy_btn_Click(object sender, EventArgs e)
@@ -78,14 +82,5 @@ namespace DroneServer
 
         }
 
-        private void ConfirmLanding_dummy_btn_Click(object sender, EventArgs e)
-        {
-            BLManagger.getInstance().ConfirmLandingForTest();
-        }
-
-        private void parking_mission_dummy_btn_Click(object sender, EventArgs e)
-        {
-            BLManagger.getInstance().ParkingForTest();
-        }
     }
 }

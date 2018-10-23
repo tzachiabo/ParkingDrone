@@ -52,7 +52,10 @@
   <ItemGroup>
     <Compile Include="BL\BLManagger.cs" />
     <Compile Include="BL\Comm\CommManager.cs" />
+    <Compile Include="BL\Comm\CommReader.cs" />
     <Compile Include="BL\Comm\Decoder.cs" />
+    <Compile Include="BL\Comm\ResponseConsumer.cs" />
+    <Compile Include="BL\Missions\ConfirmLanding.cs" />
     <Compile Include="SharedClasses\Assertions.cs" />
     <Compile Include="SharedClasses\Configuration.cs" />
     <Compile Include="BL\Missions\ComplexMission.cs" />
@@ -60,7 +63,7 @@
     <Compile Include="BL\Missions\GetCarSticker.cs" />
     <Compile Include="BL\Missions\GoToCar.cs" />
     <Compile Include="BL\Missions\InitParkingMission.cs" />
-    <Compile Include="BL\Missions\Landing.cs" />
+    <Compile Include="BL\Missions\StartLanding.cs" />
     <Compile Include="BL\Missions\LeafMission.cs" />
     <Compile Include="BL\Missions\Mission.cs" />
     <Compile Include="BL\Missions\Move.cs" />

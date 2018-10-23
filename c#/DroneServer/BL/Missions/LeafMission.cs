@@ -1,4 +1,5 @@
 ﻿using DroneServer.BL.Comm;
+using DroneServer.SharedClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,13 @@ namespace DroneServer.BL.Missions
         {
             if(m_ParentMission != null)
             {
-                m_ParentMission.notify(this);
+                m_ParentMission.notify();
             }
         }
 
         public override void execute()
         {
+            Logger.getInstance().debug("start executing a leaf mission");
             CommManager.getInstance().execMission(this);
         }
 

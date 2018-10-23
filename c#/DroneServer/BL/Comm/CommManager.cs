@@ -15,6 +15,8 @@ namespace DroneServer.BL.Comm
 {
     class CommManager
     {
+        private bool isSocketInitiated;
+
         private static CommManager m_instance = null;
         private NetworkStream m_ns;
         private ConcurrentDictionary<int, Mission> m_missions;
@@ -27,6 +29,7 @@ namespace DroneServer.BL.Comm
         
         private CommManager()
         {
+            isSocketInitiated = false;
             Logger.getInstance().debug("Initiate Comm manager");
 
             m_missions = new ConcurrentDictionary<int, Mission>();
@@ -46,6 +49,9 @@ namespace DroneServer.BL.Comm
                 Logger.getInstance().debug("recevied a connction from the drown");
 
                 m_ns = client.GetStream();
+
+                isSocketInitiated = true;
+                Logger.getInstance().debug("socket has been initiated successfully");
 
                 comm_reader = new CommReader(m_ns, m_main_responses, m_status_responses);
 
@@ -68,6 +74,8 @@ namespace DroneServer.BL.Comm
 
         public void execMission(LeafMission mission)
         {
+            Assertions.verify(isSocketInitiated, "socket was not initiated");
+
             bool res = m_missions.TryAdd(mission.m_index, mission);
             Assertions.verify(res, "failed when trying to add mission to comm map missions");
 

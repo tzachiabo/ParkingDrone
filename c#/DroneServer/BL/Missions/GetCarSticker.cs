@@ -21,9 +21,6 @@ namespace DroneServer.BL.Missions
         {
 
         }
-        public override Mission notify(Mission m)
-        {
-            return null;
-        }
+   
     }
 }

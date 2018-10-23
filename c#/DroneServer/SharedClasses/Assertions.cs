@@ -12,7 +12,8 @@ namespace DroneServer.SharedClasses
         {
             if (!predicat)
             {
-                //TODO add message to logs
+                Logger.getInstance().error("assertion failure with message : " + message);
+
                 System.Windows.Forms.Application.Exit();
             }
 

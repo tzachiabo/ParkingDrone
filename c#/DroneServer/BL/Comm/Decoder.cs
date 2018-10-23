@@ -20,8 +20,11 @@ namespace DroneServer.BL.Comm
                 case "takeOff":
                     return parseTakeOff(words);
 
-                case "landing":
-                    return parseLanding(words);
+                case "startLanding":
+                    return parseStartLanding(words);
+
+                case "confirmLanding":
+                    return parseConfirmLanding(words);
 
                 case "goHome":
 
@@ -58,7 +61,13 @@ namespace DroneServer.BL.Comm
             return res;
         }
 
-        private static Response parseLanding(string[] sentance) // TODO assert sentance[2] == "Done"
+        private static Response parseStartLanding(string[] sentance) // TODO assert sentance[2] == "Done"
+        {
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
+            return res;
+        }
+
+        private static Response parseConfirmLanding(string[] sentance) // TODO assert sentance[2] == "Done"
         {
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
@@ -66,5 +75,5 @@ namespace DroneServer.BL.Comm
 
     }
 
-   
+
 }
