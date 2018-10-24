@@ -50,6 +50,7 @@ public class SocketManager {
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
                         Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
+                        MyLogger.log("Mission Recived - "+ byteArrayOutputStream.toString());
                         taskManager.addTask(current_task);
                         taskManager.start(current_task.getIndex());
                         byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
@@ -78,6 +79,7 @@ public class SocketManager {
 
     }
     public void send(String data){
+        MyLogger.log("sending to server "+data);
         try {
             outputStream.write(data.getBytes("UTF-8"));
             outputStream.flush();

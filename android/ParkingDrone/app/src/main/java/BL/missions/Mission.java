@@ -14,6 +14,9 @@ public abstract class Mission {
         this.index=index;
         this.onResult = new MissionReport();
     }
+    public MissionReport getOnResult(){
+        return onResult;
+    }
     public abstract void start();
     public abstract void stop();
     public abstract String encode();
@@ -22,7 +25,7 @@ public abstract class Mission {
     }
     public int getIndex(){return index;}
 
-    class MissionReport implements CommonCallbacks.CompletionCallback {
+    public class MissionReport implements CommonCallbacks.CompletionCallback {
 
         @Override
         public void onResult(DJIError djiError) {
