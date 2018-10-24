@@ -8,6 +8,6 @@ namespace DroneServer.SharedClasses
 {
     public enum Direction
     {
-        left,right,up,down,forward,backward
+        left, right, up, down, forward, backward
     }
 }

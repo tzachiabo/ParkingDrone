@@ -15,8 +15,8 @@ namespace DroneServer.BL.Comm
             switch (words[0])
             {
                 case "move":
-
-                    break;
+                    return parseMove(words);
+                    
                 case "takeOff":
                     return parseTakeOff(words);
 
@@ -68,6 +68,12 @@ namespace DroneServer.BL.Comm
         }
 
         private static Response parseConfirmLanding(string[] sentance) // TODO assert sentance[2] == "Done"
+        {
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
+            return res;
+        }
+
+        private static Response parseMove(string[] sentance) // TODO assert sentance[2] == "Done"
         {
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;

@@ -86,7 +86,7 @@ namespace DroneServer.BL
             throw new NotImplementedException();
         }
 
-
+        //----------------------------------tests-------------------------------//
 
         public void TakeOffForTest()
         {
@@ -106,9 +106,21 @@ namespace DroneServer.BL
             confirmLanding.execute();
         }
 
+        public void LandingForTest()
+        {
+            Landing landingMission = new Landing();
+            landingMission.execute();
+        }
+
         public void ParkingForTest()
         {
             ParkingMission parkingMission = new ParkingMission();
+            parkingMission.execute();
+        }
+
+        public void MoveForTest(int amount_to_move, Direction d)
+        {
+            Move parkingMission = new Move(d, amount_to_move);
             parkingMission.execute();
         }
     }
