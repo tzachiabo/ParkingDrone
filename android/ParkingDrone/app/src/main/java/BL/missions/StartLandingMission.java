@@ -1,5 +1,6 @@
 package BL.missions;
 
+import BL.MyLogger;
 import BL.SocketManager;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
@@ -7,6 +8,8 @@ import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.mission.timeline.actions.AircraftYawAction;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
+
+import static java.lang.Thread.yield;
 
 public class StartLandingMission extends Mission {
 
@@ -23,10 +26,7 @@ public class StartLandingMission extends Mission {
                 controller.startLanding(new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
-                        float height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
-                        while(height > 0.8){
-                            height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
-                        }
+                        while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded());
                         onResult.onResult(djiError);
                     }
                 });

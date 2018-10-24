@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import BL.BLManager;
+import BL.MyLogger;
 
 public class MainActivity extends AppCompatActivity {
     private BLManager bl_manager;
