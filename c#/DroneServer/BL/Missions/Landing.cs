@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class ParkingMission : ComplexMission
+    class Landing : ComplexMission
     {
-        //protected ParkingLotManager m_PLM;
 
-        public ParkingMission() : base()
+        public Landing() : this(null)
         {
-            m_SubMission.Enqueue(new TakeOff(this));
-            m_SubMission.Enqueue(new Landing(this));
+        }
+
+        public Landing(ComplexMission parent_mission) : base()
+        {
+            m_ParentMission = parent_mission;
+            m_SubMission.Enqueue(new StartLanding(this));
+            m_SubMission.Enqueue(new ConfirmLanding(this));
         }
 
         public override void execute()
@@ -32,9 +36,5 @@ namespace DroneServer.BL.Missions
 
         }
 
-        //public void updateBasePhoto(Photo photo)
-        //{
-
-        //}
     }
 }
