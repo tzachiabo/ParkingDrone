@@ -26,8 +26,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            
-            return "takePhoto " + m_index+" "+ direction + " "+ distance;
+            return "move " + m_index + " " + direction + " " + distance;
         }
     }
 }
