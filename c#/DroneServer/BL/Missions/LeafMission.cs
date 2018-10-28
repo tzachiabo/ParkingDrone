@@ -10,6 +10,13 @@ namespace DroneServer.BL.Missions
 {
     abstract class LeafMission : Mission
     {
+        int m_version;
+
+        public LeafMission() : base()
+        {
+            m_version = BLManagger.getInstance().get_version();
+        }
+
         public override void done()
         {
             if(m_ParentMission != null)
@@ -22,6 +29,11 @@ namespace DroneServer.BL.Missions
         {
             Logger.getInstance().debug("start executing a leaf mission");
             CommManager.getInstance().execMission(this);
+        }
+
+        public bool validate_version()
+        {
+            return m_version == BLManagger.getInstance().get_version();
         }
 
         public abstract string encode();

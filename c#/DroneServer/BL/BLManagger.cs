@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using DroneServer.BL.Comm;
 using System.IO;
 using System;
+using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace DroneServer.BL 
 {
@@ -15,6 +17,7 @@ namespace DroneServer.BL
     {
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
+        private static int Version;
 
         private BLManagger()
         {
@@ -38,6 +41,18 @@ namespace DroneServer.BL
             if (instance == null)
                 instance = new BLManagger();
             return instance;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void increment_version()
+        {
+            Version++;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int get_version()
+        {
+            return Version;
         }
 
         //public bool createParkingSpot(ParkingSpot p)

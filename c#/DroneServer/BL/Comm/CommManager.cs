@@ -10,6 +10,7 @@ using DroneServer.BL.Missions;
 using System.Threading;
 using DroneServer.SharedClasses;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 
 namespace DroneServer.BL.Comm
 {
@@ -18,10 +19,11 @@ namespace DroneServer.BL.Comm
         private bool isSocketInitiated;
 
         private static CommManager m_instance = null;
-        private NetworkStream m_ns;
+        internal NetworkStream m_ns;
         private ConcurrentDictionary<int, Mission> m_missions;
-        private ConcurrentQueue<Response> m_main_responses;
-        private ConcurrentQueue<Response> m_status_responses;
+        internal ConcurrentQueue<Response> m_main_responses;
+        internal ConcurrentQueue<Response> m_status_responses;
+        private TcpListener m_server;
 
         private CommReader comm_reader;
         private ResponseConsumer m_main_mission_consumer;
@@ -39,13 +41,13 @@ namespace DroneServer.BL.Comm
             Configuration conf = Configuration.getInstance();
             int port = Int32.Parse(conf.get("port"));
 
-            TcpListener server = new TcpListener(IPAddress.Any, port);
+            m_server = new TcpListener(IPAddress.Any, port);
 
-            server.Start();
+            m_server.Start();
             Thread Initiator = new Thread(() => 
             {
                 Logger.getInstance().debug("start listening at port : " + port);
-                TcpClient client = server.AcceptTcpClient();
+                TcpClient client = m_server.AcceptTcpClient();
                 Logger.getInstance().debug("recevied a connction from the drown");
 
                 m_ns = client.GetStream();
@@ -53,7 +55,7 @@ namespace DroneServer.BL.Comm
                 isSocketInitiated = true;
                 Logger.getInstance().debug("socket has been initiated successfully");
 
-                comm_reader = new CommReader(m_ns, m_main_responses, m_status_responses);
+                comm_reader = new CommReader(m_main_responses, m_status_responses);
 
                 m_main_mission_consumer = new ResponseConsumer(m_missions, m_main_responses);
 
@@ -72,9 +74,34 @@ namespace DroneServer.BL.Comm
             return m_instance;
         }
 
+        internal void ClientDisconnect()
+        {
+            Logger.getInstance().error("client has disconnect");
+            Response res;
+
+            Logger.getInstance().info("move to new Mission Version");
+            BLManagger.getInstance().increment_version();
+
+            Logger.getInstance().info("clear mission map and responses queue");
+            m_missions.Clear();
+            while (m_main_responses.TryDequeue(out res)) ;
+            while (m_status_responses.TryDequeue(out res)) ;
+    
+            TcpClient client = m_server.AcceptTcpClient();
+            Logger.getInstance().info("client has reconnected");
+            m_ns = client.GetStream();
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void execMission(LeafMission mission)
         {
             Assertions.verify(isSocketInitiated, "socket was not initiated");
+
+            if (!mission.validate_version())
+            {
+                Logger.getInstance().info("mission was out of version");
+                return;
+            }
 
             bool res = m_missions.TryAdd(mission.m_index, mission);
             Assertions.verify(res, "failed when trying to add mission to comm map missions");

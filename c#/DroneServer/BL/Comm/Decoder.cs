@@ -50,31 +50,38 @@ namespace DroneServer.BL.Comm
                 case "getLocation":
 
                     break;
+                case "":
+                    return new Response(0, Status.Ok, MissionType.EndOfSocket, null);
             }
             Assertions.verify(false, "decoder faild to decode the recived message : " + data);
             return null;
         }
 
-        private static Response parseTakeOff(string[] sentance) // TODO assert sentance[2] == "Done"
+        private static Response parseTakeOff(string[] sentance) 
         {
+            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }
 
-        private static Response parseStartLanding(string[] sentance) // TODO assert sentance[2] == "Done"
+        private static Response parseStartLanding(string[] sentance) 
         {
+            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }
 
-        private static Response parseConfirmLanding(string[] sentance) // TODO assert sentance[2] == "Done"
+        private static Response parseConfirmLanding(string[] sentance) 
         {
+            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }
 
-        private static Response parseMove(string[] sentance) // TODO assert sentance[2] == "Done"
+        private static Response parseMove(string[] sentance) 
         {
+            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
+
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }

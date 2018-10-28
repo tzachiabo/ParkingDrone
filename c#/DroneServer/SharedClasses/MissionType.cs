@@ -9,6 +9,7 @@ namespace DroneServer.SharedClasses
     public enum MissionType
     {
         MainMission,
-        StateMission
+        StateMission,
+        EndOfSocket
     }
 }

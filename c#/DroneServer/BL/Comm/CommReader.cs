@@ -12,17 +12,14 @@ namespace DroneServer.BL.Comm
 {
     class CommReader
     {
-        private NetworkStream m_ns;
         private ConcurrentQueue<Response> m_main_responses;
         private ConcurrentQueue<Response> m_status_responses;
 
         Thread thread;
 
-        public CommReader(NetworkStream ns, 
-                          ConcurrentQueue<Response> main_responses, 
+        public CommReader(ConcurrentQueue<Response> main_responses, 
                           ConcurrentQueue<Response> status_responses)
         {
-            m_ns = ns;
             m_main_responses = main_responses;
             m_status_responses = status_responses;
 
@@ -31,6 +28,7 @@ namespace DroneServer.BL.Comm
                 String data = "";
                 while (true)
                 {
+                    NetworkStream ns = CommManager.getInstance().m_ns;
                     byte[] bytes = new byte[1024];
                     int bytesRec = ns.Read(bytes, 0, bytes.Length);
                     data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
@@ -38,14 +36,21 @@ namespace DroneServer.BL.Comm
                     Logger.getInstance().info("receive this message from Android : " + data);
 
                     Response res = Decoder.decode(data);
-                    if (res.Type == MissionType.MainMission)
+                    switch (res.Type)
                     {
-                        m_main_responses.Enqueue(res);
+                        case MissionType.MainMission:
+                            m_main_responses.Enqueue(res);
+                            break;
+
+                        case MissionType.StateMission:
+                            m_status_responses.Enqueue(res);
+                            break;
+
+                        case MissionType.EndOfSocket:
+                            CommManager.getInstance().ClientDisconnect();
+                            break;
                     }
-                    else
-                    {
-                        m_status_responses.Enqueue(res);
-                    }
+
                     data = "";
 
                 }

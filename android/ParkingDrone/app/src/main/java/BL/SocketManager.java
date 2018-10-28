@@ -18,8 +18,6 @@ public class SocketManager {
     OutputStream outputStream;
     TaskManager taskManager;
     //Constants
-    final String DST_ADDRESS="192.168.43.154";
-    final int DST_PORT= 3000;
     final  int BUFFER_SIZE = 1024;
 
     public static SocketManager getInstance(){
@@ -39,7 +37,7 @@ public class SocketManager {
                 String response = "";
                 try {
                     ByteArrayOutputStream byteArrayOutputStream;
-                    socket = new Socket(DST_ADDRESS, DST_PORT);
+                    socket = new Socket(Config.DST_ADDRESS, Config.DST_PORT);
                     byteArrayOutputStream = new ByteArrayOutputStream(
                             BUFFER_SIZE);
                     byte[] buffer = new byte[BUFFER_SIZE];
