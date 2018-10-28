@@ -3,6 +3,8 @@ package com.example.aviad.parkingdrone;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import BL.BLManager;
 import BL.MyLogger;
@@ -14,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bl_manager = BLManager.getInstance();
+         bl_manager = BLManager.getInstance();
 
     }
     public void stopProgram(View v){
