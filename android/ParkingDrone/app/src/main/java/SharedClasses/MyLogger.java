@@ -1,12 +1,17 @@
 package SharedClasses;
 
 
+import android.os.Bundle;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.*;
 
 public class MyLogger {
+    public FirebaseAnalytics mFirebaseAnalytics;
     private final static Logger LOGGER =
             Logger.getLogger("Logger.My_Logger");
     private static MyLogger instance = null;
@@ -25,6 +30,10 @@ public class MyLogger {
 
     public void debug(String message)
     {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "test1");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         LOGGER.fine(message);
     }
     public void info(String message)
