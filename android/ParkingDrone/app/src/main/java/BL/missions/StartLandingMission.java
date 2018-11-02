@@ -1,6 +1,5 @@
 package BL.missions;
 
-import BL.MyLogger;
 import BL.SocketManager;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
