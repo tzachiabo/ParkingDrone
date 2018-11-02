@@ -2,6 +2,7 @@ package BL.missions;
 
 import java.util.List;
 
+import SharedClasses.Assertions;
 import dji.common.error.DJIError;
 import dji.common.gimbal.Rotation;
 import dji.common.util.CommonCallbacks;
@@ -43,6 +44,7 @@ public class MoveCameraGimbalMission extends Mission {
                 gimbal_to_move = gimbal;
             }
         }
+        Assertions.verify(gimbal_to_move != null, "Gimbal is null");
         gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError djiError) {

@@ -1,19 +1,6 @@
 package BL;
 
-import BL.missions.ConfirmLandingMission;
-import BL.missions.GetDroneStatusMission;
-import BL.missions.GetGPSLocationMission;
-import BL.missions.GoHomeMission;
-import BL.missions.IsAliveMission;
-import BL.missions.LandingMission;
-import BL.missions.Mission;
-import BL.missions.MoveByGPSMission;
-import BL.missions.MoveCameraGimbalMission;
-import BL.missions.MoveMission;
-import BL.missions.StartLandingMission;
-import BL.missions.StopMission;
-import BL.missions.TakePictureMission;
-import BL.missions.TakeoffMission;
+import BL.missions.*;
 import SharedClasses.Direction;
 
 public class Decoder {
@@ -33,9 +20,6 @@ public class Decoder {
                 break;
             case "takeOff":
                  to_return= new TakeoffMission(index);
-                break;
-            case "landing":
-                to_return = new LandingMission(index);
                 break;
             case "startLanding":
                 to_return = new StartLandingMission(index);
