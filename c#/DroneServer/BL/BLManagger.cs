@@ -138,5 +138,11 @@ namespace DroneServer.BL
             Move parkingMission = new Move(d, amount_to_move);
             parkingMission.execute();
         }
+
+        public void GoToGpsTest()
+        {
+            MoveToGPSPoint mtgp = new MoveToGPSPoint(22.54281,113.95890,5);
+            mtgp.execute();
+        }
     }
 }

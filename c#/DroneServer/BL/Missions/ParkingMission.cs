@@ -13,6 +13,10 @@ namespace DroneServer.BL.Missions
         public ParkingMission() : base()
         {
             m_SubMission.Enqueue(new TakeOff(this));
+            m_SubMission.Enqueue(new Move(this, SharedClasses.Direction.forward, 10));
+            m_SubMission.Enqueue(new Move(this, SharedClasses.Direction.left, 10));
+            m_SubMission.Enqueue(new Move(this, SharedClasses.Direction.backward, 10));
+            m_SubMission.Enqueue(new Move(this, SharedClasses.Direction.right, 10));
             m_SubMission.Enqueue(new Landing(this));
         }
 

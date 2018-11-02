@@ -75,7 +75,7 @@ namespace DroneServer
 
         private void goToGPS_dummy_btn_Click(object sender, EventArgs e)
         {
-
+            BLManagger.getInstance().GoToGpsTest();
         }
 
         private void takePhoto_dummy_btn_Click(object sender, EventArgs e)

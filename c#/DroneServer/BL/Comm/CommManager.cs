@@ -79,14 +79,14 @@ namespace DroneServer.BL.Comm
             Logger.getInstance().error("client has disconnect");
             Response res;
 
-            Logger.getInstance().info("move to new Mission Version");
-            BLManagger.getInstance().increment_version();
-
             Logger.getInstance().info("clear mission map and responses queue");
             m_missions.Clear();
             while (m_main_responses.TryDequeue(out res)) ;
             while (m_status_responses.TryDequeue(out res)) ;
-    
+
+            Logger.getInstance().info("move to new Mission Version");
+            BLManagger.getInstance().increment_version();
+
             TcpClient client = m_server.AcceptTcpClient();
             Logger.getInstance().info("client has reconnected");
             m_ns = client.GetStream();

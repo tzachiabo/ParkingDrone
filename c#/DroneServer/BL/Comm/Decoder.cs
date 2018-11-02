@@ -59,28 +59,28 @@ namespace DroneServer.BL.Comm
 
         private static Response parseTakeOff(string[] sentance) 
         {
-            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }
 
         private static Response parseStartLanding(string[] sentance) 
         {
-            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }
 
         private static Response parseConfirmLanding(string[] sentance) 
         {
-            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;
         }
 
         private static Response parseMove(string[] sentance) 
         {
-            Assertions.verify(sentance[2] == "done", "message recive is not according to protocol");
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
 
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
             return res;

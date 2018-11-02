@@ -13,10 +13,14 @@ namespace DroneServer.BL.Missions
         private double distance;
         private Direction direction;
 
-        public Move(Direction direction, double distance)
+        public Move(ComplexMission parent_mission, Direction direction, double distance)
         {
+            this.m_ParentMission = parent_mission;
             this.direction = direction;
             this.distance = distance;
+        }
+        public Move(Direction direction, double distance) : this(null, direction, distance)
+        {
         }
 
         public override void stop()
