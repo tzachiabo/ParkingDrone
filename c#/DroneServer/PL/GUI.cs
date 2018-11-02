@@ -70,7 +70,10 @@ namespace DroneServer
 
         private void moveGimbal_dummy_btn_Click(object sender, EventArgs e)
         {
-
+            int roll = Convert.ToInt32(Roll.Value);
+            int pitch = Convert.ToInt32(Pitch.Value);
+            int yaw = Convert.ToInt32(Yaw.Value);
+            BLManagger.getInstance().MoveGimbalTest(Gimbal.left, roll, pitch, yaw);
         }
 
         private void goToGPS_dummy_btn_Click(object sender, EventArgs e)

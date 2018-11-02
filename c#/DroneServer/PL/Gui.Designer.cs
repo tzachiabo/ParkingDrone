@@ -63,12 +63,18 @@
             this.StartLanding_dummy_btn = new System.Windows.Forms.Button();
             this.takeOff_dummy_btn = new System.Windows.Forms.Button();
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
+            this.Roll = new System.Windows.Forms.NumericUpDown();
+            this.Pitch = new System.Windows.Forms.NumericUpDown();
+            this.Yaw = new System.Windows.Forms.NumericUpDown();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.createTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yaw)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -264,6 +270,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.Yaw);
+            this.tabPage2.Controls.Add(this.Pitch);
+            this.tabPage2.Controls.Add(this.Roll);
             this.tabPage2.Controls.Add(this.MoveAmount);
             this.tabPage2.Controls.Add(this.moveDown_dummy_btn);
             this.tabPage2.Controls.Add(this.moveUp_dummy_btn);
@@ -485,6 +494,57 @@
             this.moveForward_dummy_btn.UseVisualStyleBackColor = true;
             this.moveForward_dummy_btn.Click += new System.EventHandler(this.move_dummy_btn_Click);
             // 
+            // Roll
+            // 
+            this.Roll.Location = new System.Drawing.Point(1101, 685);
+            this.Roll.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.Roll.Name = "Roll";
+            this.Roll.Size = new System.Drawing.Size(82, 26);
+            this.Roll.TabIndex = 32;
+            this.Roll.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // Pitch
+            // 
+            this.Pitch.Location = new System.Drawing.Point(1211, 685);
+            this.Pitch.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.Pitch.Name = "Pitch";
+            this.Pitch.Size = new System.Drawing.Size(82, 26);
+            this.Pitch.TabIndex = 33;
+            this.Pitch.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // Yaw
+            // 
+            this.Yaw.Location = new System.Drawing.Point(1312, 685);
+            this.Yaw.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.Yaw.Name = "Yaw";
+            this.Yaw.Size = new System.Drawing.Size(82, 26);
+            this.Yaw.TabIndex = 34;
+            this.Yaw.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -506,6 +566,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Yaw)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -546,6 +609,9 @@
         private System.Windows.Forms.Button moveRight_dummy_btn;
         private System.Windows.Forms.Button moveLeft_dummy_btn;
         private System.Windows.Forms.NumericUpDown MoveAmount;
+        private System.Windows.Forms.NumericUpDown Yaw;
+        private System.Windows.Forms.NumericUpDown Pitch;
+        private System.Windows.Forms.NumericUpDown Roll;
     }
 }
 

@@ -144,5 +144,11 @@ namespace DroneServer.BL
             MoveToGPSPoint mtgp = new MoveToGPSPoint(22.54281,113.95890,5);
             mtgp.execute();
         }
+
+        public void MoveGimbalTest(Gimbal gimbal, double roll, double pitch, double yaw)
+        {
+            MoveGimbal mg = new MoveGimbal(gimbal, roll, pitch, yaw);
+            mg.execute();
+        }
     }
 }
