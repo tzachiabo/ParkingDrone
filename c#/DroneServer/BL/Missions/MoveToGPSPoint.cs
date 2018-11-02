@@ -26,7 +26,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "goToGps "+ m_index + " " + m_x + " " + m_y + " " + m_z;
+            return "goToGPS "+ m_index + " " + m_x + " " + m_y + " " + m_z;
         }
     }
 }

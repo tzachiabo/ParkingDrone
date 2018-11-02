@@ -33,8 +33,8 @@ namespace DroneServer.BL.Comm
 
                     break;
                 case "goToGPS":
-
-                    break;
+                    return parseGoToGPS(words);
+                    
                 case "takePhoto":
 
                     break;
@@ -55,6 +55,13 @@ namespace DroneServer.BL.Comm
             }
             Assertions.verify(false, "decoder faild to decode the recived message : " + data);
             return null;
+        }
+
+        private static Response parseGoToGPS(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
+            return res;
         }
 
         private static Response parseTakeOff(string[] sentance) 
