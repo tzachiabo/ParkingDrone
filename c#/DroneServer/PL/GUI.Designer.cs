@@ -35,16 +35,21 @@
             this.logger_home_lst = new System.Windows.Forms.ListBox();
             this.parkings_home_btn = new System.Windows.Forms.ListBox();
             this.createTab = new System.Windows.Forms.TabPage();
+            this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.finish_create_btn = new System.Windows.Forms.Button();
             this.parkName_create_txt = new System.Windows.Forms.TextBox();
             this.points_create_lst = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
             this.logger_mission_lst = new System.Windows.Forms.ListBox();
             this.connected_mission_lbl = new System.Windows.Forms.Label();
             this.abort_mission_btn = new System.Windows.Forms.Button();
             this.stop_mission_btn = new System.Windows.Forms.Button();
             this.end_mission_btn = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Yaw = new System.Windows.Forms.NumericUpDown();
+            this.Pitch = new System.Windows.Forms.NumericUpDown();
+            this.Roll = new System.Windows.Forms.NumericUpDown();
             this.MoveAmount = new System.Windows.Forms.NumericUpDown();
             this.moveDown_dummy_btn = new System.Windows.Forms.Button();
             this.moveUp_dummy_btn = new System.Windows.Forms.Button();
@@ -61,21 +66,16 @@
             this.StartLanding_dummy_btn = new System.Windows.Forms.Button();
             this.takeOff_dummy_btn = new System.Windows.Forms.Button();
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
-            this.Roll = new System.Windows.Forms.NumericUpDown();
-            this.Pitch = new System.Windows.Forms.NumericUpDown();
-            this.Yaw = new System.Windows.Forms.NumericUpDown();
             this.move_dummy_btn = new System.Windows.Forms.Button();
-            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
-            this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.createTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -151,6 +151,35 @@
             this.createTab.Text = "Create";
             this.createTab.UseVisualStyleBackColor = true;
             // 
+            // map_create_map
+            // 
+            this.map_create_map.BackColor = System.Drawing.Color.DarkRed;
+            this.map_create_map.Bearing = 0F;
+            this.map_create_map.CanDragMap = true;
+            this.map_create_map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map_create_map.GrayScaleMode = false;
+            this.map_create_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.map_create_map.LevelsKeepInMemmory = 5;
+            this.map_create_map.Location = new System.Drawing.Point(5, 110);
+            this.map_create_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.map_create_map.MarkersEnabled = true;
+            this.map_create_map.MaxZoom = 2;
+            this.map_create_map.MinZoom = 2;
+            this.map_create_map.MouseWheelZoomEnabled = true;
+            this.map_create_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map_create_map.Name = "map_create_map";
+            this.map_create_map.NegativeMode = false;
+            this.map_create_map.PolygonsEnabled = true;
+            this.map_create_map.RetryLoadTile = 0;
+            this.map_create_map.RoutesEnabled = true;
+            this.map_create_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map_create_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.map_create_map.ShowTileGridLines = false;
+            this.map_create_map.Size = new System.Drawing.Size(1061, 506);
+            this.map_create_map.TabIndex = 5;
+            this.map_create_map.Zoom = 0D;
+            this.map_create_map.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.map_create_map_MouseDoubleClick);
+            // 
             // finish_create_btn
             // 
             this.finish_create_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -172,16 +201,6 @@
             this.parkName_create_txt.TabIndex = 2;
             this.parkName_create_txt.Text = "Parking name";
             // 
-            // map_create_map
-            // 
-            this.map_create_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_create_map.Location = new System.Drawing.Point(6, 138);
-            this.map_create_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.map_create_map.Name = "map_create_map";
-            this.map_create_map.Size = new System.Drawing.Size(1194, 632);
-            this.map_create_map.TabIndex = 1;
-            // 
-
             // points_create_lst
             // 
             this.points_create_lst.FormattingEnabled = true;
@@ -194,7 +213,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.map_mission_map);
             this.tabPage1.Controls.Add(this.logger_mission_lst);
             this.tabPage1.Controls.Add(this.connected_mission_lbl);
             this.tabPage1.Controls.Add(this.abort_mission_btn);
@@ -203,12 +221,39 @@
             this.tabPage1.Controls.Add(this.map_mission_map);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(1567, 967);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Mission";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // map_mission_map
+            // 
+            this.map_mission_map.BackColor = System.Drawing.Color.DarkRed;
+            this.map_mission_map.Bearing = 0F;
+            this.map_mission_map.CanDragMap = true;
+            this.map_mission_map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map_mission_map.GrayScaleMode = false;
+            this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.map_mission_map.LevelsKeepInMemmory = 5;
+            this.map_mission_map.Location = new System.Drawing.Point(8, 78);
+            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.map_mission_map.MarkersEnabled = true;
+            this.map_mission_map.MaxZoom = 2;
+            this.map_mission_map.MinZoom = 2;
+            this.map_mission_map.MouseWheelZoomEnabled = true;
+            this.map_mission_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map_mission_map.Name = "map_mission_map";
+            this.map_mission_map.NegativeMode = false;
+            this.map_mission_map.PolygonsEnabled = true;
+            this.map_mission_map.RetryLoadTile = 0;
+            this.map_mission_map.RoutesEnabled = true;
+            this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.map_mission_map.ShowTileGridLines = false;
+            this.map_mission_map.Size = new System.Drawing.Size(1366, 553);
+            this.map_mission_map.TabIndex = 11;
+            this.map_mission_map.Zoom = 0D;
             // 
             // logger_mission_lst
             // 
@@ -264,15 +309,7 @@
             this.end_mission_btn.Text = "End Mission";
             this.end_mission_btn.UseVisualStyleBackColor = true;
             // 
-            // map_mission_map
-            // 
-            this.map_mission_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_mission_map.Location = new System.Drawing.Point(9, 98);
-            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.map_mission_map.Name = "map_mission_map";
-            this.map_mission_map.Size = new System.Drawing.Size(1537, 691);
-            this.map_mission_map.TabIndex = 2;
-            // 
+            // tabPage2
             // 
             this.tabPage2.Controls.Add(this.Yaw);
             this.tabPage2.Controls.Add(this.Pitch);
@@ -300,6 +337,27 @@
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Dummy";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Yaw
+            // 
+            this.Yaw.Location = new System.Drawing.Point(1312, 685);
+            this.Yaw.Name = "Yaw";
+            this.Yaw.Size = new System.Drawing.Size(82, 26);
+            this.Yaw.TabIndex = 34;
+            // 
+            // Pitch
+            // 
+            this.Pitch.Location = new System.Drawing.Point(1211, 685);
+            this.Pitch.Name = "Pitch";
+            this.Pitch.Size = new System.Drawing.Size(82, 26);
+            this.Pitch.TabIndex = 33;
+            // 
+            // Roll
+            // 
+            this.Roll.Location = new System.Drawing.Point(1101, 685);
+            this.Roll.Name = "Roll";
+            this.Roll.Size = new System.Drawing.Size(82, 26);
+            this.Roll.TabIndex = 32;
             // 
             // MoveAmount
             // 
@@ -498,109 +556,12 @@
             this.moveForward_dummy_btn.UseVisualStyleBackColor = true;
             this.moveForward_dummy_btn.Click += new System.EventHandler(this.move_dummy_btn_Click);
             // 
-            // Roll
+            // move_dummy_btn
             // 
-            this.Roll.Location = new System.Drawing.Point(1101, 685);
-            this.Roll.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.Roll.Name = "Roll";
-            this.Roll.Size = new System.Drawing.Size(82, 26);
-            this.Roll.TabIndex = 32;
-            this.Roll.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // Pitch
-            // 
-            this.Pitch.Location = new System.Drawing.Point(1211, 685);
-            this.Pitch.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.Pitch.Name = "Pitch";
-            this.Pitch.Size = new System.Drawing.Size(82, 26);
-            this.Pitch.TabIndex = 33;
-            this.Pitch.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // Yaw
-            // 
-            this.Yaw.Location = new System.Drawing.Point(1312, 685);
-            this.Yaw.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.Yaw.Name = "Yaw";
-            this.Yaw.Size = new System.Drawing.Size(82, 26);
-            this.Yaw.TabIndex = 34;
-            this.Yaw.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // map_mission_map
-            // 
-            this.map_mission_map.Bearing = 0F;
-            this.map_mission_map.CanDragMap = true;
-            this.map_mission_map.EmptyTileColor = System.Drawing.Color.Navy;
-            this.map_mission_map.GrayScaleMode = false;
-            this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.map_mission_map.LevelsKeepInMemmory = 5;
-            this.map_mission_map.Location = new System.Drawing.Point(8, 78);
-            this.map_mission_map.MarkersEnabled = true;
-            this.map_mission_map.MaxZoom = 2;
-            this.map_mission_map.MinZoom = 2;
-            this.map_mission_map.MouseWheelZoomEnabled = true;
-            this.map_mission_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.map_mission_map.Name = "map_mission_map";
-            this.map_mission_map.NegativeMode = false;
-            this.map_mission_map.PolygonsEnabled = true;
-            this.map_mission_map.RetryLoadTile = 0;
-            this.map_mission_map.RoutesEnabled = true;
-            this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.map_mission_map.ShowTileGridLines = false;
-            this.map_mission_map.Size = new System.Drawing.Size(1366, 553);
-            this.map_mission_map.TabIndex = 11;
-            this.map_mission_map.Zoom = 0D;
-            // 
-            // map_create_map
-            // 
-            this.map_create_map.Bearing = 0F;
-            this.map_create_map.CanDragMap = true;
-            this.map_create_map.EmptyTileColor = System.Drawing.Color.Navy;
-            this.map_create_map.GrayScaleMode = false;
-            this.map_create_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.map_create_map.LevelsKeepInMemmory = 5;
-            this.map_create_map.Location = new System.Drawing.Point(5, 110);
-            this.map_create_map.MarkersEnabled = true;
-            this.map_create_map.MaxZoom = 2;
-            this.map_create_map.MinZoom = 2;
-            this.map_create_map.MouseWheelZoomEnabled = true;
-            this.map_create_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.map_create_map.Name = "map_create_map";
-            this.map_create_map.NegativeMode = false;
-            this.map_create_map.PolygonsEnabled = true;
-            this.map_create_map.RetryLoadTile = 0;
-            this.map_create_map.RoutesEnabled = true;
-            this.map_create_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.map_create_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.map_create_map.ShowTileGridLines = false;
-            this.map_create_map.Size = new System.Drawing.Size(1061, 506);
-            this.map_create_map.TabIndex = 5;
-            this.map_create_map.Zoom = 0D;
-            this.map_create_map.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.map_create_map_MouseDoubleClick);
+            this.move_dummy_btn.Location = new System.Drawing.Point(0, 0);
+            this.move_dummy_btn.Name = "move_dummy_btn";
+            this.move_dummy_btn.Size = new System.Drawing.Size(75, 23);
+            this.move_dummy_btn.TabIndex = 0;
             // 
             // GUI
             // 
@@ -622,10 +583,10 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).EndInit();
             this.ResumeLayout(false);
 
         }

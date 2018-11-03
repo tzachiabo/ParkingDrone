@@ -11,6 +11,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import SharedClasses.RemoteLogCat;
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
 import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
@@ -30,6 +31,7 @@ public class BLManager {
 
     private BLManager()
     {
+        RemoteLogCat.debug("initiate BL");
         socket_manager = SocketManager.getInstance();
     }
 

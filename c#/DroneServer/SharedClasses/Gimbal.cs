@@ -10,4 +10,9 @@ namespace DroneServer.SharedClasses
     {
         left, right
     }
+
+    public enum GimbalMovementType
+    {
+        absolute, relative
+    }
 }

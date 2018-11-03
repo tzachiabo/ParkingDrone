@@ -2,12 +2,13 @@ package BL;
 
 import BL.missions.*;
 import SharedClasses.Direction;
+import SharedClasses.RemoteLogCat;
 
 public class Decoder {
 
     public static Mission decode(String mission_string){
         Mission to_return = null;
-
+        RemoteLogCat.debug("decoder : decoding message : " + mission_string);
         String[] dispatched = mission_string.split(" ");
         int index =Integer.parseInt(dispatched[1]);
         String missionName=dispatched[0];
@@ -31,11 +32,14 @@ public class Decoder {
                 to_return= new GoHomeMission(index);
                 break;
             case "moveGimbal":
+                RemoteLogCat.debug("decoder : start decoding move gimbal ");
                 String gimbal = dispatched[2];
-                double roll =Double.parseDouble(dispatched[3]);
-                double pitch =Double.parseDouble(dispatched[4]);
-                double yaw =Double.parseDouble(dispatched[5]);
-                to_return= new MoveCameraGimbalMission(index, gimbal, roll, pitch, yaw);
+                String gimbal_movment_type = dispatched[3];
+                double roll =Double.parseDouble(dispatched[4]);
+                double pitch =Double.parseDouble(dispatched[5]);
+                double yaw =Double.parseDouble(dispatched[6]);
+                RemoteLogCat.debug("decoder : finish decoding move gimbal ");
+                to_return= new MoveCameraGimbalMission(index, gimbal, gimbal_movment_type, roll, pitch, yaw);
                 break;
             case "goToGPS":
                 double x=Double.parseDouble(dispatched[2]);

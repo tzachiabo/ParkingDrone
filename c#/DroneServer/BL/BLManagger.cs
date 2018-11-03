@@ -22,7 +22,7 @@ namespace DroneServer.BL
         private BLManagger()
         {
             logger.debug("Initiate BL");
-            //CommManager.getInstance();
+            CommManager.getInstance();
 
         }
 
@@ -138,7 +138,7 @@ namespace DroneServer.BL
 
         public void MoveGimbalTest(Gimbal gimbal, double roll, double pitch, double yaw)
         {
-            MoveGimbal mg = new MoveGimbal(gimbal, roll, pitch, yaw);
+            MoveGimbal mg = new MoveGimbal(gimbal, GimbalMovementType.relative, roll, pitch, yaw);
             mg.execute();
         }
        
