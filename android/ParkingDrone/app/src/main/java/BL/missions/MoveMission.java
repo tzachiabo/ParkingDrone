@@ -81,7 +81,7 @@ public class MoveMission extends Mission {
 
 
             }
-        },this,Config.MOVMENT_BASE_INTERVAL,totalTime);
+        },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
         st.schedule();
     }
 

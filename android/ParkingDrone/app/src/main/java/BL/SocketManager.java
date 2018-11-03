@@ -78,6 +78,7 @@ public class SocketManager {
         }).start();
 
     }
+
     public void send(String data){
         RemoteLogCat.debug("sending to server "+data);
         try {
@@ -88,5 +89,9 @@ public class SocketManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void close_socket() throws IOException {
+        socket.close();
     }
 }

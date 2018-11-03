@@ -3,6 +3,7 @@ package BL;
 import java.util.concurrent.ConcurrentHashMap;
 
 import BL.missions.Mission;
+import SharedClasses.Assertions;
 
 public class TaskManager {
     private static TaskManager instance = null;
@@ -19,10 +20,10 @@ public class TaskManager {
     }
 
     public void addTask(Mission mission){
-        if(this.running_missions.containsKey(mission.getIndex())){
-            //assert
-        }
-        this.running_missions.put(mission.getIndex(),mission);
+        Assertions.verify(this.running_missions.containsKey(mission.getIndex()),
+                "TaskManager: task allready exist in the task queue");
+
+        this.running_missions.put(mission.getIndex(), mission);
     }
     public boolean removeTask(Integer id){
         if(this.running_missions.containsKey(id)){
@@ -45,11 +46,9 @@ public class TaskManager {
         }
     }
     public void start(Integer mission_id) {
-        if(this.running_missions.containsKey(mission_id)){
-           this.running_missions.get(mission_id).start();
-        }
-        else{
-            //assert
-        }
+        Assertions.verify(this.running_missions.containsKey(mission_id),
+                "TaskManager:start mission is not exist in queue");
+
+        this.running_missions.get(mission_id).start();
     }
 }
