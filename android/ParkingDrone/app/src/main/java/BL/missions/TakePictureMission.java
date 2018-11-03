@@ -26,15 +26,18 @@ public class TakePictureMission extends Mission {
 
     @Override
     public void start() {
+        RemoteLogCat.debug("start take photo");
         SettingsDefinitions.ShootPhotoMode photoMode = SettingsDefinitions.ShootPhotoMode.SINGLE;
         handler = new Handler();
         camera.setShootPhotoMode(photoMode,new CommonCallbacks.CompletionCallback(){
             @Override
             public void onResult(DJIError djiError) {
                 if (null == djiError) {
+                    RemoteLogCat.debug("set camara take photo ");
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            RemoteLogCat.debug("try take photo ");
                             camera.startShootPhoto(new CommonCallbacks.CompletionCallback() {
                                 @Override
                                 public void onResult(DJIError djiError) {
