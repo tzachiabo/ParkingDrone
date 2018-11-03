@@ -27,11 +27,7 @@ namespace DroneServer
             InitializeComponent();
         }
 
-<<<<<<< HEAD
         BLManagger bl;
-=======
-        BLManagger bl = BLManagger.getInstance();
->>>>>>> 1bdffa1... add map to gui
 
         private void GUI_Load(object sender, EventArgs e)
         {
@@ -39,15 +35,7 @@ namespace DroneServer
             bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
-
-<<<<<<< HEAD
-=======
             initMaps();
-            
-
-
-
->>>>>>> 1bdffa1... add map to gui
         }
 
 
@@ -137,7 +125,6 @@ namespace DroneServer
 
         }
 
-<<<<<<< HEAD
         private void ConfirmLanding_dummy_btn_Click(object sender, EventArgs e)
         {
             BLManagger.getInstance().ConfirmLandingForTest();
@@ -197,9 +184,7 @@ namespace DroneServer
 
             BLManagger.getInstance().MoveForTest(move_amount, Direction.up);
         }
-=======
-        /////////////////////////////////////////////////////////////////////////////////////////////////
-        //functions section
+
         public void initMaps()
         {
             double lat = 31.2646168738942;
@@ -229,7 +214,5 @@ namespace DroneServer
             
         }
 
-        
->>>>>>> 1bdffa1... add map to gui
     }
 }
