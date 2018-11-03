@@ -56,6 +56,8 @@
     <Compile Include="BL\Comm\Decoder.cs" />
     <Compile Include="BL\Comm\ResponseConsumer.cs" />
     <Compile Include="BL\Missions\ConfirmLanding.cs" />
+    <Compile Include="BL\Missions\Landing.cs" />
+    <Compile Include="BL\Missions\MoveGimbal.cs" />
     <Compile Include="SharedClasses\Assertions.cs" />
     <Compile Include="SharedClasses\Configuration.cs" />
     <Compile Include="BL\Missions\ComplexMission.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="PL\SpecificObservable.cs" />
     <Compile Include="PL\TextObserver.cs" />
     <Compile Include="SharedClasses\Direction.cs" />
+    <Compile Include="SharedClasses\Gimbal.cs" />
     <Compile Include="SharedClasses\Logger.cs" />
     <Compile Include="SharedClasses\MissionType.cs" />
     <Compile Include="SharedClasses\Response.cs" />
