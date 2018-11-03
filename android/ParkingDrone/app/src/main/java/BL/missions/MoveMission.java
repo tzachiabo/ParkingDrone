@@ -21,7 +21,7 @@ public class MoveMission extends Mission {
 
     private Direction direction;
     private double distance;
-    RemoteLogCat logger=new RemoteLogCat();
+    RemoteLogCat logger=RemoteLogCat.getInstance();
     public MoveMission(int index, Direction direction, double distance){
         super("move", index);
         this.direction=direction;

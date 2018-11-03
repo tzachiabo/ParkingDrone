@@ -2,6 +2,7 @@ package BL;
 
 import BL.missions.*;
 import SharedClasses.Direction;
+import SharedClasses.RemoteLogCat;
 
 public class Decoder {
 
@@ -31,8 +32,10 @@ public class Decoder {
                 to_return= new GoHomeMission(index);
                 break;
             case "moveGimbal":
+
                 String gimbal = dispatched[2];
                 double roll =Double.parseDouble(dispatched[3]);
+
                 double pitch =Double.parseDouble(dispatched[4]);
                 double yaw =Double.parseDouble(dispatched[5]);
                 to_return= new MoveCameraGimbalMission(index, gimbal, roll, pitch, yaw);

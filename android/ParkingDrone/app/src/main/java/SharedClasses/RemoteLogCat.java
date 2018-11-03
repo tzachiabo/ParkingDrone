@@ -14,8 +14,18 @@ import java.net.URLEncoder;
 public class RemoteLogCat extends AsyncTask<String, String, String> {
 
     private String apikey="5bd57e77889d6";
+    private static RemoteLogCat instance = null;
 
-    public RemoteLogCat(){
+    public static RemoteLogCat getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new RemoteLogCat();
+        }
+        return instance;
+    }
+
+    private RemoteLogCat(){
        // this.apikey = apikey;
     }
 

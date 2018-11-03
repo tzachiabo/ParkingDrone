@@ -18,7 +18,7 @@ public class SocketManager {
     InputStream inputStream;
     OutputStream outputStream;
     TaskManager taskManager;
-    RemoteLogCat logger=new RemoteLogCat();
+    RemoteLogCat logger= RemoteLogCat.getInstance();
     //Constants
     final  int BUFFER_SIZE = 1024;
 
