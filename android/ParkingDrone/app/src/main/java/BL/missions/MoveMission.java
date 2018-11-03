@@ -21,7 +21,6 @@ public class MoveMission extends Mission {
 
     private Direction direction;
     private double distance;
-    RemoteLogCat logger=new RemoteLogCat();
     public MoveMission(int index, Direction direction, double distance){
         super("move", index);
         this.direction=direction;
@@ -36,7 +35,7 @@ public class MoveMission extends Mission {
         aircraft.getFlightController().setVerticalControlMode(VerticalControlMode.VELOCITY);
         aircraft.getFlightController().setRollPitchCoordinateSystem(FlightCoordinateSystem.BODY);
         long totalTime = ((long)distance/(long)Config.BASE_SPEED) * 1000;
-        logger.debug("start-move-mission "+"distance is "+distance+" totalTime is "+totalTime);
+        RemoteLogCat.debug("start-move-mission "+"distance is "+distance+" totalTime is "+totalTime);
         SuperTimer st = new SuperTimer(new TimerTask() {
             @Override
             public void run() {
@@ -56,25 +55,25 @@ public class MoveMission extends Mission {
                         break;
                     case up:
                         fcd = new FlightControlData(0,0,0,Config.BASE_SPEED);
-                        logger.debug("UP mission");
+                        RemoteLogCat.debug("UP mission");
                         break;
                     case down:
                         fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED);
                         break;
                     default:
-                        logger.error("Couldnt parse move direction");
+                        RemoteLogCat.error("Couldnt parse move direction");
                         break;
                 }
 
-                logger.debug("start-move-mission with thortle " + fcd.getVerticalThrottle());
+                RemoteLogCat.debug("start-move-mission with thortle " + fcd.getVerticalThrottle());
                 aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
                         if(djiError != null)
-                            logger.debug("after move djierror is " + djiError.toString());
+                            RemoteLogCat.debug("after move djierror is " + djiError.toString());
                         else
                         {
-                            logger.error("after move djierror is null");
+                            RemoteLogCat.error("after move djierror is null");
                         }
                         //aircraft.getFlightController().setVirtualStickModeEnabled(false, null);
                     }

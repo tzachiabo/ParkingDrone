@@ -15,18 +15,17 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
 
     private String apikey="5bd57e77889d6";
 
-    public RemoteLogCat(){
-       // this.apikey = apikey;
+
+    private RemoteLogCat(){
+
     }
 
-    public RemoteLogCat(String apikey){
-        this.apikey = apikey;
-    }
 
-    public void log(String channel,String message)
+    public static void log(String channel,String message)
     {
+        RemoteLogCat logCat=new RemoteLogCat();
         try {
-            this.execute("http://www.remotelogcat.com/log.php?apikey=" + apikey +
+            logCat.execute("http://www.remotelogcat.com/log.php?apikey=" + logCat.apikey +
                     "&channel=" + URLEncoder.encode(channel, "utf-8") +
                     "&log=" + URLEncoder.encode(message, "utf-8"));
             Log.i(channel, message);
@@ -36,10 +35,11 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
         }
     }
 
-    public void debug(String message)
+    public static void debug(String message)
     {
+        RemoteLogCat logCat=new RemoteLogCat();
         try {
-            this.execute("http://www.remotelogcat.com/log.php?apikey=" + apikey +
+            logCat.execute("http://www.remotelogcat.com/log.php?apikey=" + logCat.apikey +
                     "&channel=" + URLEncoder.encode("debug", "utf-8") +
                     "&log=" + URLEncoder.encode(message, "utf-8"));
             Log.i("debug", message);
@@ -48,10 +48,11 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
 
         }
     }
-    public void info(String message)
+    public static void info(String message)
     {
+        RemoteLogCat logCat=new RemoteLogCat();
         try {
-            this.execute("http://www.remotelogcat.com/log.php?apikey=" + apikey +
+            logCat.execute("http://www.remotelogcat.com/log.php?apikey=" + logCat.apikey +
                     "&channel=" + URLEncoder.encode("info", "utf-8") +
                     "&log=" + URLEncoder.encode(message, "utf-8"));
             Log.i("info", message);
@@ -60,10 +61,11 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
 
         }
     }
-    public void error(String message)
+    public static void error(String message)
     {
+        RemoteLogCat logCat=new RemoteLogCat();
         try {
-            this.execute("http://www.remotelogcat.com/log.php?apikey=" + apikey +
+            logCat.execute("http://www.remotelogcat.com/log.php?apikey=" + logCat.apikey +
                     "&channel=" + URLEncoder.encode("error", "utf-8") +
                     "&log=" + URLEncoder.encode(message, "utf-8"));
             Log.i("error", message);
@@ -72,10 +74,11 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
 
         }
     }
-    public void fatal(String message)
+    public static void fatal(String message)
     {
+        RemoteLogCat logCat=new RemoteLogCat();
         try {
-            this.execute("http://www.remotelogcat.com/log.php?apikey=" + apikey +
+            logCat.execute("http://www.remotelogcat.com/log.php?apikey=" + logCat.apikey +
                     "&channel=" + URLEncoder.encode("fatal", "utf-8") +
                     "&log=" + URLEncoder.encode(message, "utf-8"));
             Log.i("fatal", message);
@@ -84,10 +87,11 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
 
         }
     }
-    public void warn(String message)
+    public static void warn(String message)
     {
+        RemoteLogCat logCat=new RemoteLogCat();
         try {
-            this.execute("http://www.remotelogcat.com/log.php?apikey=" + apikey +
+            logCat.execute("http://www.remotelogcat.com/log.php?apikey=" + logCat.apikey +
                     "&channel=" + URLEncoder.encode("warn", "utf-8") +
                     "&log=" + URLEncoder.encode(message, "utf-8"));
             Log.i("warn", message);
@@ -97,10 +101,11 @@ public class RemoteLogCat extends AsyncTask<String, String, String> {
         }
     }
 
-    public void log(String channel,String message,String apikey)
+    public static void log(String channel,String message,String apikey)
     {
-        this.apikey = apikey;
-        this.log(channel, message);
+        RemoteLogCat logCat=new RemoteLogCat();
+        logCat.apikey = apikey;
+        logCat.log(channel, message);
     }
 
     @Override

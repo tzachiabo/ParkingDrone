@@ -6,6 +6,7 @@ import android.view.View;
 
 
 import BL.BLManager;
+import SharedClasses.RemoteLogCat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        for (int i=0;i<100;i++)
+            RemoteLogCat.error("try "+ i);
          bl_manager = BLManager.getInstance();
 
     }
