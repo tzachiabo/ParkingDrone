@@ -141,6 +141,12 @@ namespace DroneServer.BL
             MoveGimbal mg = new MoveGimbal(gimbal, GimbalMovementType.relative, roll, pitch, yaw);
             mg.execute();
         }
-       
+
+        public void TakePhoto()
+        {
+            TakePhoto tp = new TakePhoto();
+            tp.execute();
+        }
+
     }
 }

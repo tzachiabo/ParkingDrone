@@ -122,7 +122,7 @@ namespace DroneServer
 
         private void takePhoto_dummy_btn_Click(object sender, EventArgs e)
         {
-
+            BLManagger.getInstance().TakePhoto();
         }
 
         private void ConfirmLanding_dummy_btn_Click(object sender, EventArgs e)
