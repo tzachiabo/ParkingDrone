@@ -13,7 +13,11 @@ namespace DroneServer.BL.Missions
         private double distance;
         private Direction direction;
 
+<<<<<<< HEAD
         public Move(ComplexMission parent_mission, Direction direction, double distance)
+=======
+        public Move(Direction direction, double distance):base()
+>>>>>>> 1bdffa1... add map to gui
         {
             this.m_ParentMission = parent_mission;
             this.direction = direction;
@@ -30,7 +34,12 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
+<<<<<<< HEAD
             return "move " + m_index + " " + direction + " " + distance;
+=======
+            
+            return "move " + m_index+" "+ direction + " "+ distance;
+>>>>>>> 1bdffa1... add map to gui
         }
     }
 }

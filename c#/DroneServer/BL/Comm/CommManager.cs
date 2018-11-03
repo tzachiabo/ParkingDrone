@@ -28,7 +28,7 @@ namespace DroneServer.BL.Comm
         private CommReader comm_reader;
         private ResponseConsumer m_main_mission_consumer;
         private ResponseConsumer m_status_mission_consumer;
-        
+
         private CommManager()
         {
             isSocketInitiated = false;
@@ -43,8 +43,13 @@ namespace DroneServer.BL.Comm
 
             m_server = new TcpListener(IPAddress.Any, port);
 
+<<<<<<< HEAD
             m_server.Start();
             Thread Initiator = new Thread(() => 
+=======
+            server.Start();
+            Thread Initiator = new Thread(() =>
+>>>>>>> 1bdffa1... add map to gui
             {
                 Logger.getInstance().debug("start listening at port : " + port);
                 TcpClient client = m_server.AcceptTcpClient();
@@ -67,7 +72,7 @@ namespace DroneServer.BL.Comm
 
         public static CommManager getInstance()
         {
-            if(m_instance == null)
+            if (m_instance == null)
             {
                 m_instance = new CommManager();
             }
@@ -111,7 +116,7 @@ namespace DroneServer.BL.Comm
             Logger.getInstance().info("send this message to Android : " + message_to_android);
 
             byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
-            m_ns.Write(to_send, 0 , to_send.Length);
+            m_ns.Write(to_send, 0, to_send.Length);
         }
 
     }
