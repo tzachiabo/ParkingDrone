@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DroneServer.SharedClasses;
 
 namespace DroneServer.BL.Missions
 {
-    class MoveToGPSPoint : LeafMission
+    class IsAlive : LeafMission
     {
-        private Point location;
-        
-        public MoveToGPSPoint(Point location):base()
+        public IsAlive():base()
         {
-            this.location = location;
+
         }
 
         public override void stop()
@@ -23,7 +20,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "goToGPS " + m_index + " " + location.x + " " + location.y+" "+location.z;
+            return "isAlive " + m_index;
         }
     }
 }

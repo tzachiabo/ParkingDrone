@@ -9,6 +9,11 @@ namespace DroneServer.BL.Missions
 {
     abstract class LeafMission : Mission
     {
+        public LeafMission():base()
+        {
+
+        }
+
         public override void done()
         {
             if(m_ParentMission != null)
@@ -19,7 +24,7 @@ namespace DroneServer.BL.Missions
 
         public override void execute()
         {
-            CommManager.getInstance().execMission(this);
+            //CommManager.getInstance().execMission(this);
         }
 
         public abstract string encode();

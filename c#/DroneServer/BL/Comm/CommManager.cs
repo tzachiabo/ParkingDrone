@@ -15,69 +15,69 @@ namespace DroneServer.BL.Comm
 {
     class CommManager
     {
-        private static CommManager m_instance = null;
-        private NetworkStream m_ns;
-        private ConcurrentDictionary<int, Mission> m_missions;
-        private ConcurrentQueue<Response> m_main_responses;
-        private ConcurrentQueue<Response> m_status_responses;
+        //private static CommManager m_instance = null;
+        //private NetworkStream m_ns;
+        //private ConcurrentDictionary<int, Mission> m_missions;
+        //private ConcurrentQueue<Response> m_main_responses;
+        //private ConcurrentQueue<Response> m_status_responses;
 
-        private CommReader comm_reader;
-        private ResponseConsumer m_main_mission_consumer;
-        private ResponseConsumer m_status_mission_consumer;
+        //private CommReader comm_reader;
+        //private ResponseConsumer m_main_mission_consumer;
+        //private ResponseConsumer m_status_mission_consumer;
         
-        private CommManager()
-        {
-            Logger.getInstance().debug("Initiate Comm manager");
+        //private CommManager()
+        //{
+        //    Logger.getInstance().debug("Initiate Comm manager");
 
-            m_missions = new ConcurrentDictionary<int, Mission>();
-            m_main_responses = new ConcurrentQueue<Response>();
-            m_status_responses = new ConcurrentQueue<Response>();
+        //    m_missions = new ConcurrentDictionary<int, Mission>();
+        //    m_main_responses = new ConcurrentQueue<Response>();
+        //    m_status_responses = new ConcurrentQueue<Response>();
 
-            Configuration conf = Configuration.getInstance();
-            int port = Int32.Parse(conf.get("port"));
+        //    Configuration conf = Configuration.getInstance();
+        //    int port = Int32.Parse(conf.get("port"));
 
-            TcpListener server = new TcpListener(IPAddress.Any, port);
+        //    TcpListener server = new TcpListener(IPAddress.Any, port);
 
-            server.Start();
-            Thread Initiator = new Thread(() => 
-            {
-                Logger.getInstance().debug("start listening at port : " + port);
-                TcpClient client = server.AcceptTcpClient();
-                Logger.getInstance().debug("recevied a connction from the drown");
+        //    server.Start();
+        //    Thread Initiator = new Thread(() => 
+        //    {
+        //        Logger.getInstance().debug("start listening at port : " + port);
+        //        TcpClient client = server.AcceptTcpClient();
+        //        Logger.getInstance().debug("recevied a connction from the drown");
 
-                m_ns = client.GetStream();
+        //        m_ns = client.GetStream();
 
-                comm_reader = new CommReader(m_ns, m_main_responses, m_status_responses);
+        //        comm_reader = new CommReader(m_ns, m_main_responses, m_status_responses);
 
-                m_main_mission_consumer = new ResponseConsumer(m_missions, m_main_responses);
+        //        m_main_mission_consumer = new ResponseConsumer(m_missions, m_main_responses);
 
-                m_status_mission_consumer = new ResponseConsumer(m_missions, m_status_responses);
-            });
+        //        m_status_mission_consumer = new ResponseConsumer(m_missions, m_status_responses);
+        //    });
 
-            Initiator.Start();
-        }
+        //    Initiator.Start();
+        //}
 
-        public static CommManager getInstance()
-        {
-            if(m_instance == null)
-            {
-                m_instance = new CommManager();
-            }
-            return m_instance;
-        }
+        //public static CommManager getInstance()
+        //{
+        //    if(m_instance == null)
+        //    {
+        //        m_instance = new CommManager();
+        //    }
+        //    return m_instance;
+        //}
 
-        public void execMission(LeafMission mission)
-        {
-            bool res = m_missions.TryAdd(mission.m_index, mission);
-            Assertions.verify(res, "failed when trying to add mission to comm map missions");
+        //public void execMission(LeafMission mission)
+        //{
+        //    bool res = m_missions.TryAdd(mission.m_index, mission);
+        //    Assertions.verify(res, "failed when trying to add mission to comm map missions");
 
-            String message_to_android = mission.encode();
+        //    String message_to_android = mission.encode();
 
-            Logger.getInstance().info("send this message to Android : " + message_to_android);
+        //    Logger.getInstance().info("send this message to Android : " + message_to_android);
 
-            byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
-            m_ns.Write(to_send, 0 , to_send.Length);
-        }
+        //    byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
+        //    m_ns.Write(to_send, 0 , to_send.Length);
+        //}
 
     }
 

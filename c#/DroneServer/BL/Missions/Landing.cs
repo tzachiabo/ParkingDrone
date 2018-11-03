@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,11 @@ namespace DroneServer.BL.Missions
 {
     class Landing : LeafMission
     {
+        public Landing() : base()
+        {
+
+        }
+
         public override void stop()
         {
 
@@ -15,7 +20,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "landing " + m_index;
+            return "startLanding " + m_index;
         }
     }
 }

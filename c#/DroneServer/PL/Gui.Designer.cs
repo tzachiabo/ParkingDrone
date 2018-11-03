@@ -35,17 +35,17 @@
             this.logger_home_lst = new System.Windows.Forms.ListBox();
             this.parkings_home_btn = new System.Windows.Forms.ListBox();
             this.createTab = new System.Windows.Forms.TabPage();
+            this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.finish_create_btn = new System.Windows.Forms.Button();
             this.parkName_create_txt = new System.Windows.Forms.TextBox();
-            this.map_create_map = new System.Windows.Forms.Panel();
             this.points_create_lst = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
             this.logger_mission_lst = new System.Windows.Forms.ListBox();
             this.connected_mission_lbl = new System.Windows.Forms.Label();
             this.abort_mission_btn = new System.Windows.Forms.Button();
             this.stop_mission_btn = new System.Windows.Forms.Button();
             this.end_mission_btn = new System.Windows.Forms.Button();
-            this.map_mission_map = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.moveGimbal_dummy_btn = new System.Windows.Forms.Button();
             this.goToGPS_dummy_btn = new System.Windows.Forms.Button();
@@ -117,9 +117,9 @@
             // 
             // createTab
             // 
+            this.createTab.Controls.Add(this.map_create_map);
             this.createTab.Controls.Add(this.finish_create_btn);
             this.createTab.Controls.Add(this.parkName_create_txt);
-            this.createTab.Controls.Add(this.map_create_map);
             this.createTab.Controls.Add(this.points_create_lst);
             this.createTab.Location = new System.Drawing.Point(4, 25);
             this.createTab.Name = "createTab";
@@ -127,6 +127,33 @@
             this.createTab.TabIndex = 1;
             this.createTab.Text = "Create";
             this.createTab.UseVisualStyleBackColor = true;
+            // 
+            // map_create_map
+            // 
+            this.map_create_map.Bearing = 0F;
+            this.map_create_map.CanDragMap = true;
+            this.map_create_map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map_create_map.GrayScaleMode = false;
+            this.map_create_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.map_create_map.LevelsKeepInMemmory = 5;
+            this.map_create_map.Location = new System.Drawing.Point(5, 110);
+            this.map_create_map.MarkersEnabled = true;
+            this.map_create_map.MaxZoom = 2;
+            this.map_create_map.MinZoom = 2;
+            this.map_create_map.MouseWheelZoomEnabled = true;
+            this.map_create_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map_create_map.Name = "map_create_map";
+            this.map_create_map.NegativeMode = false;
+            this.map_create_map.PolygonsEnabled = true;
+            this.map_create_map.RetryLoadTile = 0;
+            this.map_create_map.RoutesEnabled = true;
+            this.map_create_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map_create_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.map_create_map.ShowTileGridLines = false;
+            this.map_create_map.Size = new System.Drawing.Size(1061, 506);
+            this.map_create_map.TabIndex = 4;
+            this.map_create_map.Zoom = 0D;
+            this.map_create_map.DoubleClick += new System.EventHandler(this.map_create_map_DoubleClick);
             // 
             // finish_create_btn
             // 
@@ -137,6 +164,7 @@
             this.finish_create_btn.TabIndex = 3;
             this.finish_create_btn.Text = "Finish";
             this.finish_create_btn.UseVisualStyleBackColor = true;
+            this.finish_create_btn.Click += new System.EventHandler(this.finish_create_btn_Click);
             // 
             // parkName_create_txt
             // 
@@ -145,14 +173,6 @@
             this.parkName_create_txt.Size = new System.Drawing.Size(163, 22);
             this.parkName_create_txt.TabIndex = 2;
             this.parkName_create_txt.Text = "Parking name";
-            // 
-            // map_create_map
-            // 
-            this.map_create_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_create_map.Location = new System.Drawing.Point(5, 110);
-            this.map_create_map.Name = "map_create_map";
-            this.map_create_map.Size = new System.Drawing.Size(1061, 506);
-            this.map_create_map.TabIndex = 1;
             // 
             // points_create_lst
             // 
@@ -165,18 +185,44 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.map_mission_map);
             this.tabPage1.Controls.Add(this.logger_mission_lst);
             this.tabPage1.Controls.Add(this.connected_mission_lbl);
             this.tabPage1.Controls.Add(this.abort_mission_btn);
             this.tabPage1.Controls.Add(this.stop_mission_btn);
             this.tabPage1.Controls.Add(this.end_mission_btn);
-            this.tabPage1.Controls.Add(this.map_mission_map);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(1392, 771);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Mission";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // map_mission_map
+            // 
+            this.map_mission_map.Bearing = 0F;
+            this.map_mission_map.CanDragMap = true;
+            this.map_mission_map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map_mission_map.GrayScaleMode = false;
+            this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.map_mission_map.LevelsKeepInMemmory = 5;
+            this.map_mission_map.Location = new System.Drawing.Point(8, 78);
+            this.map_mission_map.MarkersEnabled = true;
+            this.map_mission_map.MaxZoom = 2;
+            this.map_mission_map.MinZoom = 2;
+            this.map_mission_map.MouseWheelZoomEnabled = true;
+            this.map_mission_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map_mission_map.Name = "map_mission_map";
+            this.map_mission_map.NegativeMode = false;
+            this.map_mission_map.PolygonsEnabled = true;
+            this.map_mission_map.RetryLoadTile = 0;
+            this.map_mission_map.RoutesEnabled = true;
+            this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.map_mission_map.ShowTileGridLines = false;
+            this.map_mission_map.Size = new System.Drawing.Size(1366, 553);
+            this.map_mission_map.TabIndex = 10;
+            this.map_mission_map.Zoom = 0D;
             // 
             // logger_mission_lst
             // 
@@ -227,14 +273,6 @@
             this.end_mission_btn.TabIndex = 5;
             this.end_mission_btn.Text = "End Mission";
             this.end_mission_btn.UseVisualStyleBackColor = true;
-            // 
-            // map_mission_map
-            // 
-            this.map_mission_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_mission_map.Location = new System.Drawing.Point(8, 78);
-            this.map_mission_map.Name = "map_mission_map";
-            this.map_mission_map.Size = new System.Drawing.Size(1366, 553);
-            this.map_mission_map.TabIndex = 2;
             // 
             // tabPage2
             // 
@@ -363,7 +401,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox parkName_create_txt;
-        private System.Windows.Forms.Panel map_create_map;
         private System.Windows.Forms.ListBox points_create_lst;
         private System.Windows.Forms.Button finish_create_btn;
         private System.Windows.Forms.ListBox logger_mission_lst;
@@ -371,7 +408,6 @@
         private System.Windows.Forms.Button abort_mission_btn;
         private System.Windows.Forms.Button stop_mission_btn;
         private System.Windows.Forms.Button end_mission_btn;
-        private System.Windows.Forms.Panel map_mission_map;
         private System.Windows.Forms.Button moveGimbal_dummy_btn;
         private System.Windows.Forms.Button goToGPS_dummy_btn;
         private System.Windows.Forms.Button takePhoto_dummy_btn;
@@ -379,6 +415,8 @@
         private System.Windows.Forms.Button Landing_dummy_btn;
         private System.Windows.Forms.Button takeOff_dummy_btn;
         private System.Windows.Forms.Button move_dummy_btn;
+        private GMap.NET.WindowsForms.GMapControl map_create_map;
+        private GMap.NET.WindowsForms.GMapControl map_mission_map;
     }
 }
 

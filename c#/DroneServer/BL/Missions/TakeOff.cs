@@ -8,6 +8,11 @@ namespace DroneServer.BL.Missions
 {
     class TakeOff:LeafMission
     {
+        public TakeOff() : base()
+        {
+
+        }
+
         public override void stop()
         {
 

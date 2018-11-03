@@ -18,19 +18,9 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
-            Logger.getInstance().debug("Initiate BL");
-            CommManager.getInstance();
+            logger.debug("Initiate BL");
+            //CommManager.getInstance();
 
-            if (File.Exists("./MyTestAppender.log"))
-            {
-
-                try
-                {
-                    File.WriteAllLines("./MyTestAppender.log", new string[0]);
-                }
-                catch (Exception){}
-
-            }
         }
 
         public static BLManagger getInstance()
@@ -74,6 +64,7 @@ namespace DroneServer.BL
         public void registerToLogs(ListBox list)
         {
             logger.register(new ListObserver(list));
+            logger.debug("The ListBox "+list.Name+" has registered");
         }
 
         public void registerToConnection(object o)
@@ -99,5 +90,6 @@ namespace DroneServer.BL
             Landing landing = new Landing();
             landing.execute();
         }
+       
     }
 }
