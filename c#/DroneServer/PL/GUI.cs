@@ -214,5 +214,9 @@ namespace DroneServer
             
         }
 
+        private void stop_dummy_btn_Click(object sender, EventArgs e)
+        {
+            BLManagger.getInstance().stop();
+        }
     }
 }

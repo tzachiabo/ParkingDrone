@@ -45,6 +45,7 @@ namespace DroneServer.BL
             return Version;
         }
 
+
         //public bool createParkingSpot(ParkingSpot p)
         //{
 
@@ -68,7 +69,8 @@ namespace DroneServer.BL
 
         public void stop()
         {
-            throw new NotImplementedException();
+            stopMission stop_mission = new stopMission();
+            stop_mission.execute();
         }
 
         public void abort()

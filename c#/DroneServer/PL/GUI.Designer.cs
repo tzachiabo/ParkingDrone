@@ -67,6 +67,7 @@
             this.takeOff_dummy_btn = new System.Windows.Forms.Button();
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
+            this.stop_dummy_btn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.createTab.SuspendLayout();
@@ -311,6 +312,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.stop_dummy_btn);
             this.tabPage2.Controls.Add(this.Yaw);
             this.tabPage2.Controls.Add(this.Pitch);
             this.tabPage2.Controls.Add(this.Roll);
@@ -578,6 +580,18 @@
             this.move_dummy_btn.Size = new System.Drawing.Size(75, 23);
             this.move_dummy_btn.TabIndex = 0;
             // 
+            // stop_dummy_btn
+            // 
+            this.stop_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_dummy_btn.Location = new System.Drawing.Point(1036, 154);
+            this.stop_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.stop_dummy_btn.Name = "stop_dummy_btn";
+            this.stop_dummy_btn.Size = new System.Drawing.Size(257, 60);
+            this.stop_dummy_btn.TabIndex = 36;
+            this.stop_dummy_btn.Text = "stop";
+            this.stop_dummy_btn.UseVisualStyleBackColor = true;
+            this.stop_dummy_btn.Click += new System.EventHandler(this.stop_dummy_btn_Click);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -646,6 +660,7 @@
         private System.Windows.Forms.Button move_dummy_btn;
         private GMap.NET.WindowsForms.GMapControl map_create_map;
         private GMap.NET.WindowsForms.GMapControl map_mission_map;
+        private System.Windows.Forms.Button stop_dummy_btn;
     }
 }
 
