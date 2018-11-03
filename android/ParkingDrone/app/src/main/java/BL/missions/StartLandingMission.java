@@ -1,14 +1,11 @@
 package BL.missions;
 
-import BL.SocketManager;
+
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
-import dji.sdk.mission.timeline.actions.AircraftYawAction;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
-
-import static java.lang.Thread.yield;
 
 public class StartLandingMission extends Mission {
 

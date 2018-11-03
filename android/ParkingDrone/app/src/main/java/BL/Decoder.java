@@ -40,7 +40,7 @@ public class Decoder {
             case "goToGPS":
                 double x=Double.parseDouble(dispatched[2]);
                 double y=Double.parseDouble(dispatched[3]);
-                double z=Double.parseDouble(dispatched[4]);
+                float z=Float.parseFloat(dispatched[4]);
                 to_return = new MoveByGPSMission(index,x,y,z);
                 break;
             case "takePhoto":
