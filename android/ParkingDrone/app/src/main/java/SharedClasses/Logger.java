@@ -1,6 +1,8 @@
 package SharedClasses;
 
 import android.os.AsyncTask;
+
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 public class Logger {
@@ -26,7 +28,8 @@ public class Logger {
                     con.getResponseCode();
                     con.disconnect();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new NullPointerException();
+
                 }
 
                 return "";
