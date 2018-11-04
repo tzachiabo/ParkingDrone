@@ -16,7 +16,6 @@ public class Assertions {
         if (!predicat)
         {
             Logger.error("assertion failure with message : " + message);
-
             try {
                 SocketManager.getInstance().close_socket();
             }
@@ -29,7 +28,7 @@ public class Assertions {
                 @Override
                 public void onResult(DJIError djiError) {
                     if(djiError == null){
-                        Logger.info("set virtual stick off");
+                        Logger.info("set virtual stick off2");
                     }
                     else {
                         Logger.fatal("Failed to set virtual stick off");
