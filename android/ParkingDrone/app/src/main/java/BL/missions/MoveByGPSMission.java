@@ -37,8 +37,8 @@ public class MoveByGPSMission extends Mission {
                 .autoFlightSpeed(2.0f)
                 .maxFlightSpeed(3.0f)
                 .flightPathMode(WaypointMissionFlightPathMode.NORMAL)
-                .addWaypoint(new Waypoint(xLoc,yLoc,zLOC))
                 .addWaypoint(new Waypoint(xLoc,yLoc+0.00005,zLOC))
+                .addWaypoint(new Waypoint(xLoc,yLoc,zLOC))
                 .repeatTimes(0)
                 .waypointCount(mission_builder.getWaypointList().size());
 
