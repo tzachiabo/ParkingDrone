@@ -46,7 +46,7 @@ public class SocketManager {
                     int bytesRead;
                     inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
-
+                    Logger.info("Connected to server");
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
                         Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
