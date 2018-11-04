@@ -15,13 +15,13 @@ public class Assertions {
     {
         if (!predicat)
         {
-            RemoteLogCat.error("assertion failure with message : " + message);
+            Logger.error("assertion failure with message : " + message);
 
             try {
                 SocketManager.getInstance().close_socket();
             }
             catch (IOException e){
-                RemoteLogCat.fatal("Failed to close socket");
+                Logger.fatal("Failed to close socket");
             }
 
             final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
@@ -29,10 +29,10 @@ public class Assertions {
                 @Override
                 public void onResult(DJIError djiError) {
                     if(djiError == null){
-                        RemoteLogCat.info("set virtual stick off");
+                        Logger.info("set virtual stick off");
                     }
                     else {
-                        RemoteLogCat.fatal("Failed to set virtual stick off");
+                        Logger.fatal("Failed to set virtual stick off");
                     }
                 }
             });

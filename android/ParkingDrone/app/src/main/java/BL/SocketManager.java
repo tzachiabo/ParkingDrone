@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import BL.missions.Mission;
-import SharedClasses.RemoteLogCat;
+import SharedClasses.Logger;
 
 public class SocketManager {
 
@@ -50,7 +50,7 @@ public class SocketManager {
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
                         Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
-                        RemoteLogCat.debug("Mission Recived - "+ byteArrayOutputStream.toString());
+                        Logger.debug("Mission Recived - "+ byteArrayOutputStream.toString());
                         taskManager.addTask(current_task);
                         taskManager.start(current_task.getIndex());
                         byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
@@ -80,7 +80,7 @@ public class SocketManager {
     }
 
     public void send(String data){
-        RemoteLogCat.debug("sending to server "+data);
+        Logger.debug("sending to server "+data);
         try {
             outputStream.write(data.getBytes("UTF-8"));
             outputStream.flush();

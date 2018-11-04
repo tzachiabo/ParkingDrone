@@ -3,7 +3,7 @@ package BL.missions;
 import java.util.List;
 
 import SharedClasses.Assertions;
-import SharedClasses.RemoteLogCat;
+import SharedClasses.Logger;
 import dji.common.error.DJIError;
 import dji.common.gimbal.GimbalMode;
 import dji.common.gimbal.Rotation;
@@ -32,7 +32,7 @@ public class MoveCameraGimbalMission extends Mission {
     @Override
     public void start() {
         Gimbal gimbal_to_move = null;
-        RemoteLogCat.info("start move gimbal mission");
+        Logger.info("start move gimbal mission");
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
 
         List<Gimbal> gimbals= aircraft.getGimbals();
@@ -47,39 +47,39 @@ public class MoveCameraGimbalMission extends Mission {
                 gimbal_to_move = gimbal;
             }
         }
-        RemoteLogCat.debug("send gimbal mode free");
+        Logger.debug("send gimbal mode free");
         gimbal_to_move.setMode(GimbalMode.FREE, new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError djiError) {
                 if(djiError != null)
-                    RemoteLogCat.debug("allow rotate gimbal result : " + djiError.toString());
+                    Logger.debug("allow rotate gimbal result : " + djiError.toString());
                 else
-                    RemoteLogCat.debug("allow rotate gimbal return djiError null");
+                    Logger.debug("allow rotate gimbal return djiError null");
 
                 final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-                RemoteLogCat.debug("start rotate Gimbal");
+                Logger.debug("start rotate Gimbal");
                 List<Gimbal> gimbals= aircraft.getGimbals();
-                RemoteLogCat.debug("Gimbals were collected");
+                Logger.debug("Gimbals were collected");
                 Rotation.Builder builder = new Rotation.Builder();
                 builder.yaw((float)yaw);
-                RemoteLogCat.info("Move gimbal set yaw : "+ yaw);
+                Logger.info("Move gimbal set yaw : "+ yaw);
                 builder.pitch((float)pitch);
-                RemoteLogCat.info("Move gimbal set pitch : "+ pitch);
+                Logger.info("Move gimbal set pitch : "+ pitch);
                 builder.roll((float)roll);
                 if(gimbal_movement_type.equals("absolute")) {
-                    RemoteLogCat.info("Move gimbal absolute");
+                    Logger.info("Move gimbal absolute");
                     builder.mode(RotationMode.ABSOLUTE_ANGLE);
                 }
                 else if(gimbal_movement_type.equals("relative"))
                 {
-                    RemoteLogCat.info("Move gimbal relative");
+                    Logger.info("Move gimbal relative");
                     builder.mode(RotationMode.RELATIVE_ANGLE);
                 }
                 builder.time(2);
-                RemoteLogCat.info("Move gimbal set roll : "+ roll);
+                Logger.info("Move gimbal set roll : "+ roll);
 
                 final Rotation rotation = builder.build();
-                RemoteLogCat.debug("Rotate obj was created");
+                Logger.debug("Rotate obj was created");
                 Gimbal gimbal_to_move = null;
                 for(Gimbal gimbal : gimbals){
                     if(gimbal.getIndex() == 0 && direction.equals("left"))// left gimbal
@@ -91,14 +91,14 @@ public class MoveCameraGimbalMission extends Mission {
                         gimbal_to_move = gimbal;
                     }
                 }
-                RemoteLogCat.debug("Gimbal was choosed");
+                Logger.debug("Gimbal was choosed");
 
                 Assertions.verify(gimbal_to_move != null, "Gimbal is null");
                 gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
                         if(djiError != null)
-                            RemoteLogCat.error("Move gimbal result in djiError : "+ djiError.toString());
+                            Logger.error("Move gimbal result in djiError : "+ djiError.toString());
 
                         onResult.onResult(djiError);
                     }

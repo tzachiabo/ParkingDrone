@@ -6,7 +6,6 @@ import android.view.View;
 
 
 import BL.BLManager;
-import SharedClasses.RemoteLogCat;
 
 public class MainActivity extends AppCompatActivity {
 

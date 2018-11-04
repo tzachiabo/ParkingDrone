@@ -1,12 +1,10 @@
 package BL.missions;
-import java.util.Date;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import BL.Config;
 import BL.SuperTimer;
 import SharedClasses.Direction;
-import SharedClasses.RemoteLogCat;
+import SharedClasses.Logger;
 import dji.common.error.DJIError;
 import dji.common.flightcontroller.virtualstick.FlightControlData;
 import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
@@ -35,7 +33,7 @@ public class MoveMission extends Mission {
         aircraft.getFlightController().setVerticalControlMode(VerticalControlMode.VELOCITY);
         aircraft.getFlightController().setRollPitchCoordinateSystem(FlightCoordinateSystem.BODY);
         long totalTime = ((long)distance/(long)Config.BASE_SPEED) * 1000;
-        RemoteLogCat.debug("start-move-mission "+"distance is "+distance+" totalTime is "+totalTime);
+        Logger.debug("start-move-mission "+"distance is "+distance+" totalTime is "+totalTime);
         SuperTimer st = new SuperTimer(new TimerTask() {
             @Override
             public void run() {
@@ -55,25 +53,25 @@ public class MoveMission extends Mission {
                         break;
                     case up:
                         fcd = new FlightControlData(0,0,0,Config.BASE_SPEED);
-                        RemoteLogCat.debug("UP mission");
+                        Logger.debug("UP mission");
                         break;
                     case down:
                         fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED);
                         break;
                     default:
-                        RemoteLogCat.error("Couldnt parse move direction");
+                        Logger.error("Couldnt parse move direction");
                         break;
                 }
 
-                RemoteLogCat.debug("start-move-mission with thortle " + fcd.getVerticalThrottle());
+                Logger.debug("start-move-mission with thortle " + fcd.getVerticalThrottle());
                 aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
                         if(djiError != null)
-                            RemoteLogCat.debug("after move djierror is " + djiError.toString());
+                            Logger.debug("after move djierror is " + djiError.toString());
                         else
                         {
-                            RemoteLogCat.error("after move djierror is null");
+                            Logger.error("after move djierror is null");
                         }
                         //aircraft.getFlightController().setVirtualStickModeEnabled(false, null);
                     }

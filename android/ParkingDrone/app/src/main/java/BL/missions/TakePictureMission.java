@@ -2,15 +2,11 @@ package BL.missions;
 
 import android.os.Handler;
 
-import com.dji.mapkit.core.camera.DJICameraUpdateFactory;
-
-import SharedClasses.RemoteLogCat;
+import SharedClasses.Logger;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.camera.*;
-import dji.common.camera.*;
-import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 
@@ -26,25 +22,25 @@ public class TakePictureMission extends Mission {
 
     @Override
     public void start() {
-        RemoteLogCat.debug("start take photo");
+        Logger.debug("start take photo");
         SettingsDefinitions.ShootPhotoMode photoMode = SettingsDefinitions.ShootPhotoMode.SINGLE;
         handler = new Handler();
         camera.setShootPhotoMode(photoMode,new CommonCallbacks.CompletionCallback(){
             @Override
             public void onResult(DJIError djiError) {
                 if (null == djiError) {
-                    RemoteLogCat.debug("set camara take photo ");
+                    Logger.debug("set camara take photo ");
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            RemoteLogCat.debug("try take photo ");
+                            Logger.debug("try take photo ");
                             camera.startShootPhoto(new CommonCallbacks.CompletionCallback() {
                                 @Override
                                 public void onResult(DJIError djiError) {
                                     if (djiError == null) {
-                                        RemoteLogCat.debug("take photo: success");
+                                        Logger.debug("take photo: success");
                                     } else {
-                                        RemoteLogCat.error(djiError.getDescription());
+                                        Logger.error(djiError.getDescription());
                                     }
                                 }
                             });
