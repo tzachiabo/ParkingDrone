@@ -5,8 +5,10 @@ import SharedClasses.Logger;
 import android.arch.core.util.Function;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -33,6 +35,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 public class BLManager {
     private static BLManager instance = null;
     SocketManager socket_manager;
+    public static File file;
 
 
     private BLManager() {
@@ -47,6 +50,13 @@ public class BLManager {
         return instance;
     }
 
+    public static void initFs(Context context){
+          file = new File(Environment.getExternalStorageDirectory(), "zahibar");
+          file.mkdirs();
+//        File mydir = context.getDir("mydir",Context.MODE_PRIVATE);
+//        file = new File(mydir,"mydir");
+//        Logger.info("main dir" + file.getAbsolutePath());
+    }
     public static void initCamera() {
         List<Camera> cameras = DJISDKManager.getInstance().getProduct().getCameras();
         Camera camera = null;

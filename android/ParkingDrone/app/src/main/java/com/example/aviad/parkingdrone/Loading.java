@@ -141,6 +141,7 @@ public class Loading extends AppCompatActivity {
                             Log.d(TAG, String.format("onProductConnect newProduct:%s", baseProduct));
                             showToast("Product Connected");
                             BLManager.initCamera();
+                            BLManager.initFs(getBaseContext());
                         }
                         @Override
                         public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent,
