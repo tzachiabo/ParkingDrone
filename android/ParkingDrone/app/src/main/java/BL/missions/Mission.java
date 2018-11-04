@@ -1,6 +1,7 @@
 package BL.missions;
 
 import BL.SocketManager;
+import BL.TaskManager;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 
@@ -29,6 +30,7 @@ public abstract class Mission {
 
         @Override
         public void onResult(DJIError djiError) {
+            TaskManager.getInstance().removeTask(index);
             SocketManager.getInstance().send(Mission.this.encode());
         }
     }

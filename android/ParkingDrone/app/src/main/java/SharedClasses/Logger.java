@@ -2,7 +2,6 @@ package SharedClasses;
 
 import android.os.AsyncTask;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 public class Logger {
@@ -10,7 +9,7 @@ public class Logger {
     private Logger() {
     }
 
-    private static void innerLog(final String toLog) {
+    private static synchronized void innerLog(final String toLog) {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {

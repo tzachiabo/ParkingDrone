@@ -20,7 +20,7 @@ public class TaskManager {
     }
 
     public void addTask(Mission mission){
-        Assertions.verify(this.running_missions.containsKey(mission.getIndex()),
+        Assertions.verify(!this.running_missions.containsKey(mission.getIndex()),
                 "TaskManager: task allready exist in the task queue");
 
         this.running_missions.put(mission.getIndex(), mission);
