@@ -84,6 +84,7 @@
     <Compile Include="BL\Comm\CommManager.cs" />
     <Compile Include="BL\Comm\CommReader.cs" />
     <Compile Include="BL\Comm\Decoder.cs" />
+    <Compile Include="BL\Comm\Publisher.cs" />
     <Compile Include="BL\Comm\ResponseConsumer.cs" />
     <Compile Include="BL\Missions\ConfirmLanding.cs" />
     <Compile Include="BL\Missions\Landing.cs" />

@@ -23,17 +23,21 @@ namespace DroneServer.BL.Comm
         private ConcurrentDictionary<int, Mission> m_missions;
         internal ConcurrentQueue<Response> m_main_responses;
         internal ConcurrentQueue<Response> m_status_responses;
+
+        private Publisher m_publisher;
         private TcpListener m_server;
 
         private CommReader comm_reader;
         private ResponseConsumer m_main_mission_consumer;
         private ResponseConsumer m_status_mission_consumer;
 
+
         private CommManager()
         {
             isSocketInitiated = false;
             Logger.getInstance().debug("Initiate Comm manager");
 
+            m_publisher = new Publisher();
             m_missions = new ConcurrentDictionary<int, Mission>();
             m_main_responses = new ConcurrentQueue<Response>();
             m_status_responses = new ConcurrentQueue<Response>();
@@ -46,8 +50,10 @@ namespace DroneServer.BL.Comm
             m_server.Start();
             Thread Initiator = new Thread(() => 
             {
+                m_publisher.startPublish();
                 Logger.getInstance().debug("start listening at port : " + port);
                 TcpClient client = m_server.AcceptTcpClient();
+                m_publisher.stopPublish();
                 Logger.getInstance().debug("recevied a connction from the drown");
 
                 m_ns = client.GetStream();
@@ -87,9 +93,13 @@ namespace DroneServer.BL.Comm
             Logger.getInstance().info("move to new Mission Version");
             BLManagger.getInstance().increment_version();
 
+            m_publisher.startPublish();
+
             TcpClient client = m_server.AcceptTcpClient();
             Logger.getInstance().info("client has reconnected");
             m_ns = client.GetStream();
+
+            m_publisher.stopPublish();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

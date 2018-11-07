@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -35,11 +38,17 @@ public class SocketManager {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                byte[] receiveData = new byte[1024];
 
                 String response = "";
                 try {
+                    DatagramSocket serverSocket = new DatagramSocket(3001);
+
+                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                    serverSocket.receive(receivePacket);
+                    InetAddress IPAddress = receivePacket.getAddress();
                     ByteArrayOutputStream byteArrayOutputStream;
-                    socket = new Socket(Config.DST_ADDRESS, Config.DST_PORT);
+                    socket = new Socket(IPAddress.toString(), Config.DST_PORT);
                     byteArrayOutputStream = new ByteArrayOutputStream(
                             BUFFER_SIZE);
                     byte[] buffer = new byte[BUFFER_SIZE];
