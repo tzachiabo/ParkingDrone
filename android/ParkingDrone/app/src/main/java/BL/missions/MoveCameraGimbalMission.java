@@ -1,7 +1,7 @@
 package BL.missions;
 
 import java.util.List;
-
+import BL.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;
@@ -31,9 +31,72 @@ public class MoveCameraGimbalMission extends Mission {
     }
     @Override
     public void start() {
-        Gimbal gimbal_to_move = null;
         Logger.info("start move gimbal mission");
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        Assertions.verify(aircraft != null, "when tring to move gimbal got null aircraft");
+
+        Gimbal gimbal_to_move = getGimbal(aircraft);
+
+        Logger.debug("send gimbal mode free");
+        gimbal_to_move.setMode(GimbalMode.FREE, new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if(djiError != null){
+                    Logger.debug("allow rotate gimbal result : " + djiError.toString());
+                    Assertions.verify(false, "failed to set gimbal mode to free");
+                }
+
+                Logger.debug("start rotate Gimbal");
+                List<Gimbal> gimbals= aircraft.getGimbals();
+                Rotation.Builder builder = new Rotation.Builder();
+                builder.yaw((float)yaw);
+                builder.pitch((float)pitch);
+                builder.roll((float)roll);
+                if(gimbal_movement_type.equals("absolute")) {
+                    Logger.info("Move gimbal absolute");
+                    builder.mode(RotationMode.ABSOLUTE_ANGLE);
+                }
+                else if(gimbal_movement_type.equals("relative"))
+                {
+                    Logger.info("Move gimbal relative");
+                    builder.mode(RotationMode.RELATIVE_ANGLE);
+                }
+                builder.time(Config.TIME_OF_GIMBAL_MOVE);
+
+                final Rotation rotation = builder.build();
+                Gimbal gimbal_to_move = getGimbal(aircraft);
+
+                gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
+                    @Override
+                    public void onResult(DJIError djiError) {
+                        if(djiError != null){
+                            Logger.error("Move gimbal result in djiError : "+ djiError.toString());
+                            Assertions.verify(false, "failed to move gimbal");
+                        }
+                        else{
+                            Logger.debug("move gimbal has finished");
+                            onResult.onResult(djiError);
+                        }
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    @Override
+    public void stop() {
+        Logger.info("move camera got stop request - do nothing");
+    }
+
+    @Override
+    public String encode() {
+        return getName() +" "+ getIndex() + " Done";
+    }
+
+    private Gimbal getGimbal(Aircraft aircraft){
+        Gimbal gimbal_to_move = null;
 
         List<Gimbal> gimbals= aircraft.getGimbals();
 
@@ -47,75 +110,9 @@ public class MoveCameraGimbalMission extends Mission {
                 gimbal_to_move = gimbal;
             }
         }
-        Logger.debug("send gimbal mode free");
-        gimbal_to_move.setMode(GimbalMode.FREE, new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError djiError) {
-                if(djiError != null)
-                    Logger.debug("allow rotate gimbal result : " + djiError.toString());
-                else
-                    Logger.debug("allow rotate gimbal return djiError null");
 
-                final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-                Logger.debug("start rotate Gimbal");
-                List<Gimbal> gimbals= aircraft.getGimbals();
-                Logger.debug("Gimbals were collected");
-                Rotation.Builder builder = new Rotation.Builder();
-                builder.yaw((float)yaw);
-                Logger.info("Move gimbal set yaw : "+ yaw);
-                builder.pitch((float)pitch);
-                Logger.info("Move gimbal set pitch : "+ pitch);
-                builder.roll((float)roll);
-                if(gimbal_movement_type.equals("absolute")) {
-                    Logger.info("Move gimbal absolute");
-                    builder.mode(RotationMode.ABSOLUTE_ANGLE);
-                }
-                else if(gimbal_movement_type.equals("relative"))
-                {
-                    Logger.info("Move gimbal relative");
-                    builder.mode(RotationMode.RELATIVE_ANGLE);
-                }
-                builder.time(2);
-                Logger.info("Move gimbal set roll : "+ roll);
+        Assertions.verify(gimbal_to_move != null, "could not find a gimbal to move");
 
-                final Rotation rotation = builder.build();
-                Logger.debug("Rotate obj was created");
-                Gimbal gimbal_to_move = null;
-                for(Gimbal gimbal : gimbals){
-                    if(gimbal.getIndex() == 0 && direction.equals("left"))// left gimbal
-                    {
-                        gimbal_to_move = gimbal;
-                    }
-                    else if(gimbal.getIndex() == 1 && direction.equals("right"))// right gimbal
-                    {
-                        gimbal_to_move = gimbal;
-                    }
-                }
-                Logger.debug("Gimbal was choosed");
-
-                Assertions.verify(gimbal_to_move != null, "Gimbal is null");
-                gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
-                    @Override
-                    public void onResult(DJIError djiError) {
-                        if(djiError != null)
-                            Logger.error("Move gimbal result in djiError : "+ djiError.toString());
-
-                        onResult.onResult(djiError);
-                    }
-                });
-            }
-        });
-
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public String encode() {
-        return getName() +" "+ getIndex() + " Done";
+        return gimbal_to_move;
     }
 }

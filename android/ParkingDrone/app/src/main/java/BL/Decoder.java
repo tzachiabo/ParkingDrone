@@ -56,9 +56,6 @@ public class Decoder {
             case "getStatus":
                 to_return = new GetDroneStatusMission(index);
                 break;
-            case "isAlive":
-                to_return = new IsAliveMission(index);
-                break;
             case "getLocation":
                 to_return = new GetGPSLocationMission(index);
                 break;

@@ -1,22 +1,15 @@
 package BL.missions;
 
-import android.os.Environment;
 import android.os.Handler;
-
 import BL.BLManager;
 import SharedClasses.Logger;
-
-
-import java.io.File;
 import java.util.List;
-
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.camera.*;
 import dji.sdk.media.DownloadListener;
 import dji.sdk.media.MediaFile;
-import dji.sdk.media.MediaManager;
 
 public class TakePictureMission extends Mission {
     private Handler handler;
@@ -59,7 +52,7 @@ public class TakePictureMission extends Mission {
 //                                            Logger.debug("filename: " + file.getFileName());
 //                                        }
                                         MediaFile file = sdCardFileListSnapshot.get(0);
-                                        file.fetchFileData(BLManager.file,"basePhoto", new DownloadListener<String>() {
+                                        file.fetchFileData(BLManager.getInstance().file,"basePhoto", new DownloadListener<String>() {
                                             @Override
                                             public void onStart() {
                                                 Logger.info("fetching file");

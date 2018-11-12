@@ -15,6 +15,7 @@ public abstract class Mission {
         this.index=index;
         this.onResult = new MissionReport();
     }
+
     public MissionReport getOnResult(){
         return onResult;
     }
@@ -24,7 +25,7 @@ public abstract class Mission {
     public String getName(){
         return name;
     }
-    public int getIndex(){return index;}
+    public int getIndex() { return index; }
 
     public class MissionReport implements CommonCallbacks.CompletionCallback {
 

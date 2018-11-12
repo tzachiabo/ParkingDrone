@@ -1,6 +1,7 @@
 package BL.missions;
 
-
+import SharedClasses.Assertions;
+import SharedClasses.Logger;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
@@ -16,18 +17,22 @@ public class StartLandingMission extends Mission {
     @Override
     public void start() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        if(aircraft != null) {
-            FlightController controller = aircraft.getFlightController();
-            if (controller != null) {
-                controller.startLanding(new CommonCallbacks.CompletionCallback() {
-                    @Override
-                    public void onResult(DJIError djiError) {
-                        while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded());
-                        onResult.onResult(djiError);
-                    }
-                });
+        Assertions.verify(aircraft != null, "when try to start landing got null aircraft");
+
+        FlightController controller = aircraft.getFlightController();
+        Assertions.verify(controller != null, "when try to start landing got null controller");
+
+        controller.startLanding(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if(djiError != null) {
+                    Logger.error("after start landing djierror is " + djiError.toString());
+                    Assertions.verify(false, "failed to move drone");
+                }
+                while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded());
+                onResult.onResult(djiError);
             }
-        }
+        });
     }
 
     @Override

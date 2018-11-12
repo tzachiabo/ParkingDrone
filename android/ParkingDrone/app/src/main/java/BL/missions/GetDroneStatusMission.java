@@ -1,5 +1,7 @@
 package BL.missions;
 
+import SharedClasses.Assertions;
+
 public class GetDroneStatusMission extends Mission {
     int status;
     public GetDroneStatusMission(int index){
@@ -7,7 +9,7 @@ public class GetDroneStatusMission extends Mission {
     }
     @Override
     public void start() {
-
+        Assertions.verify(false, "get status is not implemented yet");
     }
 
     @Override

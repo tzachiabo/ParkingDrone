@@ -29,13 +29,13 @@ public class SocketManager {
         }
         return manager;
     }
+
     private SocketManager(){
         taskManager = TaskManager.getInstance();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 String response = "";
                 try {
                     ByteArrayOutputStream byteArrayOutputStream;
@@ -94,4 +94,5 @@ public class SocketManager {
     public void close_socket() throws IOException {
         socket.close();
     }
+
 }

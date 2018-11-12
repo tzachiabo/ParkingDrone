@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import BL.missions.Mission;
+import SharedClasses.Logger;
 
 public class SuperTimer extends Timer {
 
@@ -38,6 +39,7 @@ public class SuperTimer extends Timer {
             if(counter * interval > totalTime)
             {
                 superTimer.cancel();
+                Logger.info("a mission "+ mission.getName()+" was ended");
                 mission.getOnResult().onResult(null);
             }
             else

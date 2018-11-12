@@ -1,5 +1,7 @@
 package BL.missions;
 
+import SharedClasses.Assertions;
+
 public class GetGPSLocationMission extends Mission {
     int LocX;
     int LocY;
@@ -10,7 +12,7 @@ public class GetGPSLocationMission extends Mission {
 
     @Override
     public void start() {
-
+        Assertions.verify(false, "get location is not implemented yet");
     }
 
     @Override

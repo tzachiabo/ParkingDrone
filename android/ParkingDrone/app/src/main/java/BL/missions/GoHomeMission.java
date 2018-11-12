@@ -1,5 +1,7 @@
 package BL.missions;
 
+import SharedClasses.Assertions;
+
 public class GoHomeMission extends Mission {
 
     public GoHomeMission(int index){
@@ -8,7 +10,7 @@ public class GoHomeMission extends Mission {
 
     @Override
     public void start() {
-
+        Assertions.verify(false, "go home is not implemented yet");
     }
 
     @Override

@@ -1,5 +1,7 @@
 package BL.missions;
 
+import SharedClasses.Assertions;
+import SharedClasses.Logger;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.products.Aircraft;
@@ -12,17 +14,25 @@ public class TakeoffMission extends Mission {
     @Override
     public void start() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        if(aircraft != null)
-            aircraft.getFlightController().startTakeoff(new CommonCallbacks.CompletionCallback() {
-                @Override
-                public void onResult(DJIError djiError) {
-                    float height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
-                    while(height < 1.1){
-                        height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
-                    }
-                    onResult.onResult(djiError);
+        Assertions.verify(aircraft != null, "when take off mission aircraft is null");
+
+        aircraft.getFlightController().startTakeoff(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if(djiError != null) {
+                    Logger.error("after takeoff djierror is " + djiError.toString());
+                    Assertions.verify(false, "failed to move drone");
                 }
-            });
+
+                float height;
+                do {
+                    height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
+                }
+                while(height < 1.1);
+
+                onResult.onResult(djiError);
+            }
+        });
 
     }
 

@@ -1,46 +1,33 @@
 package BL;
 
 import SharedClasses.Logger;
-
-import android.arch.core.util.Function;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Environment;
-import android.util.Log;
-
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
+import java.util.concurrent.atomic.AtomicInteger;
 import BL.missions.TakePictureMission;
 import SharedClasses.Assertions;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
-import dji.common.error.DJISDKError;
 import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
 import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
 import dji.common.flightcontroller.virtualstick.VerticalControlMode;
 import dji.common.flightcontroller.virtualstick.YawControlMode;
 import dji.common.util.CommonCallbacks;
-import dji.sdk.base.BaseComponent;
-import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class BLManager {
     private static BLManager instance = null;
-    SocketManager socket_manager;
-    public static File file;
-
+    private SocketManager socket_manager;
+    public File file;
+    private AtomicInteger DroneStatus;
 
     private BLManager() {
         Logger.debug("initiate BL");
         socket_manager = SocketManager.getInstance();
+        DroneStatus = new AtomicInteger();
     }
 
     public static BLManager getInstance() {
@@ -50,37 +37,76 @@ public class BLManager {
         return instance;
     }
 
-    public static void initFs(Context context){
-          file = new File(Environment.getExternalStorageDirectory(), "zahibar");
-          file.mkdirs();
-//        File mydir = context.getDir("mydir",Context.MODE_PRIVATE);
-//        file = new File(mydir,"mydir");
-//        Logger.info("main dir" + file.getAbsolutePath());
-    }
-    public static void initCamera() {
-        List<Camera> cameras = DJISDKManager.getInstance().getProduct().getCameras();
-        Camera camera = null;
-        for (Camera c : cameras) {
-            if (c.getDisplayName().equals(Config.MAIN_CAMERA_NAME)) {
-                camera = c;
-                Logger.info("Using camera " + camera.getDisplayName());
-            }
-        }
-        if (camera != null) {
-            TakePictureMission.camera = camera;
-            camera.setShootPhotoMode(SettingsDefinitions.ShootPhotoMode.SINGLE, new CommonCallbacks.CompletionCallback() {
-                @Override
-                public void onResult(DJIError djiError) {
-                    if (djiError != null) {
-                        Logger.error("Setting Photo mode result " + djiError.toString());
-                    } else {
-                        Logger.info("Photo mode is Single");
-                    }
-                }
-            });
-        } else {
-            Assertions.verify(false, "Camera object is null at camera init");
-        }
+    public void init(){
+        initFs();
+        initCamera();
+        initFlightController();
     }
 
+    private void initFlightController(){
+        Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        Assertions.verify(aircraft != null, "while init flight controller aircraft was null");
+
+        aircraft.getFlightController().setRollPitchControlMode(RollPitchControlMode.VELOCITY);
+        aircraft.getFlightController().setYawControlMode(YawControlMode.ANGULAR_VELOCITY);
+        aircraft.getFlightController().setVerticalControlMode(VerticalControlMode.VELOCITY);
+        aircraft.getFlightController().setRollPitchCoordinateSystem(FlightCoordinateSystem.BODY);
+
+        aircraft.getFlightController().setVirtualStickModeEnabled(true, new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError != null) {
+                    Logger.error("Setting virtual stick mode resulted " + djiError.toString());
+                    Assertions.verify(false, "failed to set virtual stick");
+                } else {
+                    Logger.info("init FlightController has been done");
+                    DroneStatus.getAndIncrement();
+                }
+            }
+        });
+    }
+
+    public boolean isDroneReady(){
+        return DroneStatus.get() == 3;
+    }
+
+    private void initFs(){
+          file = new File(Environment.getExternalStorageDirectory(),
+                          Config.DJI_PHOTO_DIR);
+          file.mkdirs();
+          Logger.info("main dir" + file.getAbsolutePath());
+          DroneStatus.getAndIncrement();
+    }
+
+    private void initCamera() {
+        Camera camera = getCamera();
+        TakePictureMission.camera = camera;
+        camera.setShootPhotoMode(SettingsDefinitions.ShootPhotoMode.SINGLE, new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError != null) {
+                    Logger.error("Setting Photo mode resulted " + djiError.toString());
+                    Assertions.verify(false, "failed to set camera mode to single");
+                } else {
+                    Logger.info("Photo mode is Single");
+                    DroneStatus.getAndIncrement();
+                }
+            }
+        });
+    }
+
+    private Camera getCamera(){
+        Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        Assertions.verify(aircraft != null, "while init camera aircraft was null");
+        List<Camera> cameras = DJISDKManager.getInstance().getProduct().getCameras();
+
+        for (Camera c : cameras) {
+            if (c.getDisplayName().equals(Config.MAIN_CAMERA_NAME)) {
+                return c;
+            }
+        }
+
+        Assertions.verify(false, "camera "+ Config.MAIN_CAMERA_NAME +"could not be found");
+        return null;
+    }
 }

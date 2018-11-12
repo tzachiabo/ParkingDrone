@@ -1,6 +1,7 @@
 package BL.missions;
 
 import BL.TaskManager;
+import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
@@ -16,6 +17,8 @@ public class StopMission extends Mission {
         TaskManager.getInstance().stopAllTasks();
 
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        Assertions.verify(aircraft != null, "when stop mission aircraft is null");
+
         aircraft.getFlightController().setVirtualStickModeEnabled(false, new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError djiError) {
@@ -31,7 +34,7 @@ public class StopMission extends Mission {
 
     @Override
     public void stop() {
-
+        Logger.warn("stop mission number "+ getIndex() + " has requested to stop");
     }
 
     @Override
