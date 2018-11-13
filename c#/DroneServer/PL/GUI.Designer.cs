@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
-            this.delete_home_btn = new System.Windows.Forms.Button();
+            this.missionPanel = new System.Windows.Forms.Panel();
+            this.androidLogger_mission_lst = new System.Windows.Forms.ListBox();
+            this.back_mission_btn = new System.Windows.Forms.Button();
+            this.end_mission_btn = new System.Windows.Forms.Button();
+            this.logger_mission_lst = new System.Windows.Forms.ListBox();
+            this.stop_mission_btn = new System.Windows.Forms.Button();
+            this.connected_mission_lbl = new System.Windows.Forms.Label();
+            this.abort_mission_btn = new System.Windows.Forms.Button();
+            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
+            this.homePanel = new System.Windows.Forms.Panel();
+            this.androidLogger_home_lst = new System.Windows.Forms.ListBox();
             this.start_home_btn = new System.Windows.Forms.Button();
-            this.logger_home_lst = new System.Windows.Forms.ListBox();
             this.parkings_home_lst = new System.Windows.Forms.ListBox();
+            this.logger_home_lst = new System.Windows.Forms.ListBox();
+            this.delete_home_btn = new System.Windows.Forms.Button();
             this.createTab = new System.Windows.Forms.TabPage();
             this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.finish_create_btn = new System.Windows.Forms.Button();
@@ -62,24 +74,17 @@
             this.takeOff_dummy_btn = new System.Windows.Forms.Button();
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
-            this.homePanel = new System.Windows.Forms.Panel();
-            this.missionPanel = new System.Windows.Forms.Panel();
-            this.end_mission_btn = new System.Windows.Forms.Button();
-            this.logger_mission_lst = new System.Windows.Forms.ListBox();
-            this.stop_mission_btn = new System.Windows.Forms.Button();
-            this.connected_mission_lbl = new System.Windows.Forms.Label();
-            this.abort_mission_btn = new System.Windows.Forms.Button();
-            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
+            this.missionPanel.SuspendLayout();
+            this.homePanel.SuspendLayout();
             this.createTab.SuspendLayout();
             this.dummyTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).BeginInit();
-            this.homePanel.SuspendLayout();
-            this.missionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -105,16 +110,139 @@
             this.homeTab.Text = "Home";
             this.homeTab.UseVisualStyleBackColor = true;
             // 
-            // delete_home_btn
+            // missionPanel
             // 
-            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.delete_home_btn.Location = new System.Drawing.Point(684, 17);
-            this.delete_home_btn.Name = "delete_home_btn";
-            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
-            this.delete_home_btn.TabIndex = 3;
-            this.delete_home_btn.Text = "Delete";
-            this.delete_home_btn.UseVisualStyleBackColor = true;
-            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
+            this.missionPanel.Controls.Add(this.androidLogger_mission_lst);
+            this.missionPanel.Controls.Add(this.back_mission_btn);
+            this.missionPanel.Controls.Add(this.end_mission_btn);
+            this.missionPanel.Controls.Add(this.logger_mission_lst);
+            this.missionPanel.Controls.Add(this.stop_mission_btn);
+            this.missionPanel.Controls.Add(this.connected_mission_lbl);
+            this.missionPanel.Controls.Add(this.abort_mission_btn);
+            this.missionPanel.Controls.Add(this.map_mission_map);
+            this.missionPanel.Location = new System.Drawing.Point(3, 16);
+            this.missionPanel.Name = "missionPanel";
+            this.missionPanel.Size = new System.Drawing.Size(1371, 727);
+            this.missionPanel.TabIndex = 13;
+            // 
+            // androidLogger_mission_lst
+            // 
+            this.androidLogger_mission_lst.FormattingEnabled = true;
+            this.androidLogger_mission_lst.ItemHeight = 16;
+            this.androidLogger_mission_lst.Location = new System.Drawing.Point(702, 524);
+            this.androidLogger_mission_lst.Name = "androidLogger_mission_lst";
+            this.androidLogger_mission_lst.Size = new System.Drawing.Size(667, 180);
+            this.androidLogger_mission_lst.TabIndex = 13;
+            // 
+            // back_mission_btn
+            // 
+            this.back_mission_btn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("back_mission_btn.BackgroundImage")));
+            this.back_mission_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.back_mission_btn.Location = new System.Drawing.Point(1098, 24);
+            this.back_mission_btn.Name = "back_mission_btn";
+            this.back_mission_btn.Size = new System.Drawing.Size(49, 48);
+            this.back_mission_btn.TabIndex = 12;
+            this.back_mission_btn.UseVisualStyleBackColor = true;
+            this.back_mission_btn.Click += new System.EventHandler(this.back_mission_btn_Click);
+            // 
+            // end_mission_btn
+            // 
+            this.end_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.end_mission_btn.Location = new System.Drawing.Point(11, 24);
+            this.end_mission_btn.Name = "end_mission_btn";
+            this.end_mission_btn.Size = new System.Drawing.Size(108, 48);
+            this.end_mission_btn.TabIndex = 5;
+            this.end_mission_btn.Text = "End Mission";
+            this.end_mission_btn.UseVisualStyleBackColor = true;
+            // 
+            // logger_mission_lst
+            // 
+            this.logger_mission_lst.FormattingEnabled = true;
+            this.logger_mission_lst.ItemHeight = 16;
+            this.logger_mission_lst.Location = new System.Drawing.Point(11, 524);
+            this.logger_mission_lst.Name = "logger_mission_lst";
+            this.logger_mission_lst.Size = new System.Drawing.Size(685, 180);
+            this.logger_mission_lst.TabIndex = 9;
+            // 
+            // stop_mission_btn
+            // 
+            this.stop_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_mission_btn.Location = new System.Drawing.Point(125, 24);
+            this.stop_mission_btn.Name = "stop_mission_btn";
+            this.stop_mission_btn.Size = new System.Drawing.Size(108, 48);
+            this.stop_mission_btn.TabIndex = 6;
+            this.stop_mission_btn.Text = "Stop";
+            this.stop_mission_btn.UseVisualStyleBackColor = true;
+            // 
+            // connected_mission_lbl
+            // 
+            this.connected_mission_lbl.AutoSize = true;
+            this.connected_mission_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.connected_mission_lbl.ForeColor = System.Drawing.Color.LimeGreen;
+            this.connected_mission_lbl.Location = new System.Drawing.Point(1153, 27);
+            this.connected_mission_lbl.Name = "connected_mission_lbl";
+            this.connected_mission_lbl.Size = new System.Drawing.Size(184, 39);
+            this.connected_mission_lbl.TabIndex = 8;
+            this.connected_mission_lbl.Text = "Connected";
+            // 
+            // abort_mission_btn
+            // 
+            this.abort_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abort_mission_btn.Location = new System.Drawing.Point(239, 24);
+            this.abort_mission_btn.Name = "abort_mission_btn";
+            this.abort_mission_btn.Size = new System.Drawing.Size(108, 48);
+            this.abort_mission_btn.TabIndex = 7;
+            this.abort_mission_btn.Text = "Abort";
+            this.abort_mission_btn.UseVisualStyleBackColor = true;
+            // 
+            // map_mission_map
+            // 
+            this.map_mission_map.BackColor = System.Drawing.Color.DarkRed;
+            this.map_mission_map.Bearing = 0F;
+            this.map_mission_map.CanDragMap = true;
+            this.map_mission_map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map_mission_map.GrayScaleMode = false;
+            this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.map_mission_map.LevelsKeepInMemmory = 5;
+            this.map_mission_map.Location = new System.Drawing.Point(11, 79);
+            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.map_mission_map.MarkersEnabled = true;
+            this.map_mission_map.MaxZoom = 2;
+            this.map_mission_map.MinZoom = 2;
+            this.map_mission_map.MouseWheelZoomEnabled = true;
+            this.map_mission_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map_mission_map.Name = "map_mission_map";
+            this.map_mission_map.NegativeMode = false;
+            this.map_mission_map.PolygonsEnabled = true;
+            this.map_mission_map.RetryLoadTile = 0;
+            this.map_mission_map.RoutesEnabled = true;
+            this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.map_mission_map.ShowTileGridLines = false;
+            this.map_mission_map.Size = new System.Drawing.Size(1357, 442);
+            this.map_mission_map.TabIndex = 11;
+            this.map_mission_map.Zoom = 0D;
+            // 
+            // homePanel
+            // 
+            this.homePanel.Controls.Add(this.androidLogger_home_lst);
+            this.homePanel.Controls.Add(this.start_home_btn);
+            this.homePanel.Controls.Add(this.parkings_home_lst);
+            this.homePanel.Controls.Add(this.logger_home_lst);
+            this.homePanel.Controls.Add(this.delete_home_btn);
+            this.homePanel.Location = new System.Drawing.Point(37, 114);
+            this.homePanel.Name = "homePanel";
+            this.homePanel.Size = new System.Drawing.Size(1386, 726);
+            this.homePanel.TabIndex = 4;
+            // 
+            // androidLogger_home_lst
+            // 
+            this.androidLogger_home_lst.FormattingEnabled = true;
+            this.androidLogger_home_lst.ItemHeight = 16;
+            this.androidLogger_home_lst.Location = new System.Drawing.Point(534, 102);
+            this.androidLogger_home_lst.Name = "androidLogger_home_lst";
+            this.androidLogger_home_lst.Size = new System.Drawing.Size(536, 612);
+            this.androidLogger_home_lst.TabIndex = 4;
             // 
             // start_home_btn
             // 
@@ -127,15 +255,6 @@
             this.start_home_btn.UseVisualStyleBackColor = true;
             this.start_home_btn.Click += new System.EventHandler(this.start_home_btn_Click);
             // 
-            // logger_home_lst
-            // 
-            this.logger_home_lst.FormattingEnabled = true;
-            this.logger_home_lst.ItemHeight = 16;
-            this.logger_home_lst.Location = new System.Drawing.Point(2, 102);
-            this.logger_home_lst.Name = "logger_home_lst";
-            this.logger_home_lst.Size = new System.Drawing.Size(1067, 612);
-            this.logger_home_lst.TabIndex = 1;
-            // 
             // parkings_home_lst
             // 
             this.parkings_home_lst.FormattingEnabled = true;
@@ -144,6 +263,26 @@
             this.parkings_home_lst.Name = "parkings_home_lst";
             this.parkings_home_lst.Size = new System.Drawing.Size(301, 708);
             this.parkings_home_lst.TabIndex = 0;
+            // 
+            // logger_home_lst
+            // 
+            this.logger_home_lst.FormattingEnabled = true;
+            this.logger_home_lst.ItemHeight = 16;
+            this.logger_home_lst.Location = new System.Drawing.Point(2, 102);
+            this.logger_home_lst.Name = "logger_home_lst";
+            this.logger_home_lst.Size = new System.Drawing.Size(526, 612);
+            this.logger_home_lst.TabIndex = 1;
+            // 
+            // delete_home_btn
+            // 
+            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_home_btn.Location = new System.Drawing.Point(684, 17);
+            this.delete_home_btn.Name = "delete_home_btn";
+            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.delete_home_btn.TabIndex = 3;
+            this.delete_home_btn.Text = "Delete";
+            this.delete_home_btn.UseVisualStyleBackColor = true;
+            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
             // 
             // createTab
             // 
@@ -205,6 +344,7 @@
             this.parkName_create_txt.Size = new System.Drawing.Size(163, 22);
             this.parkName_create_txt.TabIndex = 2;
             this.parkName_create_txt.Text = "Parking name";
+            this.parkName_create_txt.Enter += new System.EventHandler(this.parkName_create_txt_Enter);
             // 
             // points_create_lst
             // 
@@ -500,112 +640,15 @@
             this.move_dummy_btn.Size = new System.Drawing.Size(75, 23);
             this.move_dummy_btn.TabIndex = 0;
             // 
-            // homePanel
+            // timer
             // 
-            this.homePanel.Controls.Add(this.start_home_btn);
-            this.homePanel.Controls.Add(this.parkings_home_lst);
-            this.homePanel.Controls.Add(this.logger_home_lst);
-            this.homePanel.Controls.Add(this.delete_home_btn);
-            this.homePanel.Location = new System.Drawing.Point(37, 114);
-            this.homePanel.Name = "homePanel";
-            this.homePanel.Size = new System.Drawing.Size(1386, 726);
-            this.homePanel.TabIndex = 4;
-            // 
-            // missionPanel
-            // 
-            this.missionPanel.Controls.Add(this.end_mission_btn);
-            this.missionPanel.Controls.Add(this.logger_mission_lst);
-            this.missionPanel.Controls.Add(this.stop_mission_btn);
-            this.missionPanel.Controls.Add(this.connected_mission_lbl);
-            this.missionPanel.Controls.Add(this.abort_mission_btn);
-            this.missionPanel.Controls.Add(this.map_mission_map);
-            this.missionPanel.Location = new System.Drawing.Point(184, 26);
-            this.missionPanel.Name = "missionPanel";
-            this.missionPanel.Size = new System.Drawing.Size(1371, 727);
-            this.missionPanel.TabIndex = 13;
-            // 
-            // end_mission_btn
-            // 
-            this.end_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.end_mission_btn.Location = new System.Drawing.Point(11, 24);
-            this.end_mission_btn.Name = "end_mission_btn";
-            this.end_mission_btn.Size = new System.Drawing.Size(108, 48);
-            this.end_mission_btn.TabIndex = 5;
-            this.end_mission_btn.Text = "End Mission";
-            this.end_mission_btn.UseVisualStyleBackColor = true;
-            // 
-            // logger_mission_lst
-            // 
-            this.logger_mission_lst.FormattingEnabled = true;
-            this.logger_mission_lst.ItemHeight = 16;
-            this.logger_mission_lst.Location = new System.Drawing.Point(8, 525);
-            this.logger_mission_lst.Name = "logger_mission_lst";
-            this.logger_mission_lst.Size = new System.Drawing.Size(1360, 196);
-            this.logger_mission_lst.TabIndex = 9;
-            // 
-            // stop_mission_btn
-            // 
-            this.stop_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_mission_btn.Location = new System.Drawing.Point(125, 24);
-            this.stop_mission_btn.Name = "stop_mission_btn";
-            this.stop_mission_btn.Size = new System.Drawing.Size(108, 48);
-            this.stop_mission_btn.TabIndex = 6;
-            this.stop_mission_btn.Text = "Stop";
-            this.stop_mission_btn.UseVisualStyleBackColor = true;
-            // 
-            // connected_mission_lbl
-            // 
-            this.connected_mission_lbl.AutoSize = true;
-            this.connected_mission_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.connected_mission_lbl.ForeColor = System.Drawing.Color.LimeGreen;
-            this.connected_mission_lbl.Location = new System.Drawing.Point(1153, 27);
-            this.connected_mission_lbl.Name = "connected_mission_lbl";
-            this.connected_mission_lbl.Size = new System.Drawing.Size(184, 39);
-            this.connected_mission_lbl.TabIndex = 8;
-            this.connected_mission_lbl.Text = "Connected";
-            // 
-            // abort_mission_btn
-            // 
-            this.abort_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.abort_mission_btn.Location = new System.Drawing.Point(239, 24);
-            this.abort_mission_btn.Name = "abort_mission_btn";
-            this.abort_mission_btn.Size = new System.Drawing.Size(108, 48);
-            this.abort_mission_btn.TabIndex = 7;
-            this.abort_mission_btn.Text = "Abort";
-            this.abort_mission_btn.UseVisualStyleBackColor = true;
-            // 
-            // map_mission_map
-            // 
-            this.map_mission_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_mission_map.Bearing = 0F;
-            this.map_mission_map.CanDragMap = true;
-            this.map_mission_map.EmptyTileColor = System.Drawing.Color.Navy;
-            this.map_mission_map.GrayScaleMode = false;
-            this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.map_mission_map.LevelsKeepInMemmory = 5;
-            this.map_mission_map.Location = new System.Drawing.Point(11, 79);
-            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.map_mission_map.MarkersEnabled = true;
-            this.map_mission_map.MaxZoom = 2;
-            this.map_mission_map.MinZoom = 2;
-            this.map_mission_map.MouseWheelZoomEnabled = true;
-            this.map_mission_map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.map_mission_map.Name = "map_mission_map";
-            this.map_mission_map.NegativeMode = false;
-            this.map_mission_map.PolygonsEnabled = true;
-            this.map_mission_map.RetryLoadTile = 0;
-            this.map_mission_map.RoutesEnabled = true;
-            this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.map_mission_map.ShowTileGridLines = false;
-            this.map_mission_map.Size = new System.Drawing.Size(1357, 442);
-            this.map_mission_map.TabIndex = 11;
-            this.map_mission_map.Zoom = 0D;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1381, 751);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -617,6 +660,9 @@
             this.Load += new System.EventHandler(this.GUI_Load);
             this.tabControl.ResumeLayout(false);
             this.homeTab.ResumeLayout(false);
+            this.missionPanel.ResumeLayout(false);
+            this.missionPanel.PerformLayout();
+            this.homePanel.ResumeLayout(false);
             this.createTab.ResumeLayout(false);
             this.createTab.PerformLayout();
             this.dummyTab.ResumeLayout(false);
@@ -624,9 +670,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).EndInit();
-            this.homePanel.ResumeLayout(false);
-            this.missionPanel.ResumeLayout(false);
-            this.missionPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -674,6 +717,10 @@
         private System.Windows.Forms.Label connected_mission_lbl;
         private System.Windows.Forms.Button abort_mission_btn;
         private GMap.NET.WindowsForms.GMapControl map_mission_map;
+        private System.Windows.Forms.Button back_mission_btn;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ListBox androidLogger_home_lst;
+        private System.Windows.Forms.ListBox androidLogger_mission_lst;
     }
 }
 

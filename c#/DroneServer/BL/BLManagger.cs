@@ -117,6 +117,11 @@ namespace DroneServer.BL
                 map.setLocation(new Point(lng, lat));
         }
 
+        public void startMission(Parking parking)
+        {
+
+        }
+
         public void shutdown()
         {
             CommManager.getInstance().shutDown();

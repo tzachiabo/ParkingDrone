@@ -18,6 +18,7 @@ using GMap.NET;
 using DroneServer.BL;
 using DroneServer.SharedClasses;
 using Point = DroneServer.SharedClasses.Point;
+using System.Net;
 
 namespace DroneServer
 {
@@ -27,6 +28,15 @@ namespace DroneServer
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// big screen done
+        /// back button done
+        /// place holder done
+        /// split log 
+        /// https://floating-fjord-95063.herokuapp.com/log
+        /// 
+        /// </summary>
 
         BLManagger bl;
         List<Parking> parkingList = new List<Parking>();
@@ -39,6 +49,7 @@ namespace DroneServer
 
             Logger.getInstance().debug("Gui Load has started");
             confige();
+            timer.Start();
             bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
@@ -50,6 +61,33 @@ namespace DroneServer
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             bl.shutdown();
+            timer.Stop();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            string Url = "https://floating-fjord-95063.herokuapp.com/log";
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+            myRequest.Method = "GET";
+            WebResponse myResponse = myRequest.GetResponse();
+            StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
+            string result = sr.ReadToEnd();
+            sr.Close();
+            myResponse.Close();
+
+            result = result.Replace("<br/>", "#");
+            string[] s = result.Split('#');
+            androidLogger_home_lst.Items.Clear();
+            androidLogger_mission_lst.Items.Clear();
+            foreach (string item in s)
+            {
+                if (item != "")
+                {
+                    androidLogger_home_lst.Items.Add(item);
+                    androidLogger_mission_lst.Items.Add(item);
+                }
+                    
+            }
         }
 
 
@@ -67,10 +105,13 @@ namespace DroneServer
             missionPanel.Visible = true;
             Parking p= parkingList[parkings_home_lst.SelectedIndex];
             
+            
             map_mission_map.Position = new PointLatLng(p.lat, p.lng);
             map_mission_map.MinZoom = (int)p.minZoom;
             map_mission_map.MaxZoom = (int)p.maxZoom;
             map_mission_map.Zoom = (int)p.zoom;
+
+            bl.startMission(p);
         }
 
         private void delete_home_btn_Click(object sender, EventArgs e)
@@ -135,6 +176,13 @@ namespace DroneServer
 
 
         }
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        //mission section
+        private void back_mission_btn_Click(object sender, EventArgs e)
+        {
+            missionPanel.Visible = false;
+            homePanel.Visible = true;
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //create section
@@ -153,6 +201,11 @@ namespace DroneServer
         private void abort_mission_btn_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void parkName_create_txt_Enter(object sender, EventArgs e)
+        {
+            parkName_create_txt.Text = "";
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -310,7 +363,9 @@ namespace DroneServer
             if (Configuration.getInstance().get("debugMode")=="false")
             {
                 tabControl.TabPages.Remove(dummyTab);
+                back_mission_btn.Visible = false;
             }
+            timer.Interval = Convert.ToInt32(Configuration.getInstance().get("interval"));
 
         }
 
