@@ -9,13 +9,14 @@ namespace DroneServer.BL.Missions
 {
     class ParkingMission : ComplexMission
     {
-        //protected ParkingLotManager m_PLM;
+        protected Parking m_parking;
 
-        public ParkingMission() : base()
+        public ParkingMission(Parking parking) : base()
         {
             m_SubMission.Enqueue(new TakeOff(this));
             m_SubMission.Enqueue(new InitParkingMission(this));
             m_SubMission.Enqueue(new Landing(this));
+            m_parking = parking;
         }
 
         public override void done(Response response)

@@ -1,0 +1,9 @@
+<xml>
+<port>3000</port>
+<debugMode>true</debugMode>
+<<<<<<< HEAD
+<interval>5000</interval>
+=======
+<getLocationInterval>3000</getLocationInterval>
+>>>>>>> 049d190... create a mission tree for test
+</xml>

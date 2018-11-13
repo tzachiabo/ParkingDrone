@@ -111,7 +111,8 @@ namespace DroneServer.BL
 
         public void startMission(Parking parking)
         {
-
+            ParkingMission start_mission = new ParkingMission();
+            start_mission.execute();
         }
 
         public void shutdown()
