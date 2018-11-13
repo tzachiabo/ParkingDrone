@@ -1,5 +1,6 @@
 package BL.missions;
 
+import BL.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;
@@ -25,8 +26,11 @@ public class TakeoffMission extends Mission {
                 }
 
                 float height;
+                long startTime = System.currentTimeMillis();
                 do {
                     height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
+                    Assertions.verify( System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_TAKEOFF,
+                            "Takeoff timeout: wait too much time for takeoff");
                 }
                 while(height < 1.1);
 
