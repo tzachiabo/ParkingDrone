@@ -1,6 +1,6 @@
 package BL.missions;
 
-import BL.Config;
+import SharedClasses.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;

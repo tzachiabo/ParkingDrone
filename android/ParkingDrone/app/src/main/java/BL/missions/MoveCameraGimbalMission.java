@@ -1,7 +1,7 @@
 package BL.missions;
 
 import java.util.List;
-import BL.Config;
+import SharedClasses.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;

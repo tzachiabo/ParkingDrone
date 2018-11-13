@@ -1,4 +1,4 @@
-package BL;
+package SharedClasses;
 
 public interface Config {
     float BASE_SPEED = 2;

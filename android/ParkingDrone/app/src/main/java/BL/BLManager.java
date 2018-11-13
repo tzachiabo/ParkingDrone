@@ -1,5 +1,6 @@
 package BL;
 
+import SharedClasses.Config;
 import SharedClasses.Logger;
 import android.os.Environment;
 import java.io.File;

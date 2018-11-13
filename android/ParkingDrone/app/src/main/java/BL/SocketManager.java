@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import BL.missions.Mission;
+import SharedClasses.Config;
 import SharedClasses.Logger;
 
 public class SocketManager {

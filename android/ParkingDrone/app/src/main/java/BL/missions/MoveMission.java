@@ -1,7 +1,7 @@
 package BL.missions;
 import java.util.TimerTask;
 
-import BL.Config;
+import SharedClasses.Config;
 import BL.SuperTimer;
 import SharedClasses.Assertions;
 import SharedClasses.Direction;
