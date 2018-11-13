@@ -13,6 +13,8 @@ using System.Runtime.CompilerServices;
 
 using GMap.NET.WindowsForms;
 using DroneServer.PL;
+using DroneServer.PL.Observers;
+
 namespace DroneServer.BL 
 {
     public class BLManagger
@@ -20,6 +22,7 @@ namespace DroneServer.BL
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
         private static ParkingList parkingList = new ParkingList();
+        private static Map map= new Map();
         private static int Version;
 
         private BLManagger()
@@ -74,11 +77,15 @@ namespace DroneServer.BL
             logger.debug("The Parking " + name + " has deleted from the ListBox");
         }
 
-        public void startMission(int index)
+        public void startMission(GMapControl m, int index)
         {
+            Parking p= parkingList.getParking(index);
+            m.Position = new GMap.NET.PointLatLng(p.lat, p.lng);
+            m.MinZoom = (int)p.minZoom;
+            m.MaxZoom = (int)p.maxZoom;
+            m.Zoom = (int)p.zoom;
 
         }
-
 
 
         public void endMission()
@@ -117,6 +124,18 @@ namespace DroneServer.BL
         public void registerToDroneLocation(object o)
         {
             throw new NotImplementedException();
+        }
+
+        public void registerToMap(GMapControl Gmap)
+        {
+            map.register(new MapObserver(Gmap));
+            logger.debug("The Gmap " + Gmap.Name + " has registered");
+        }
+
+        public void setLocation(double lat,double lng)
+        {
+            if (map!=null)
+                map.setLocation(new Point(lng, lat));
         }
 
         public void shutdown()

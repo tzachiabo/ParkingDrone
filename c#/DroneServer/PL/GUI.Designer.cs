@@ -261,6 +261,7 @@
             this.abort_mission_btn.TabIndex = 7;
             this.abort_mission_btn.Text = "Abort";
             this.abort_mission_btn.UseVisualStyleBackColor = true;
+            this.abort_mission_btn.Click += new System.EventHandler(this.abort_mission_btn_Click);
             // 
             // stop_mission_btn
             // 
@@ -271,6 +272,7 @@
             this.stop_mission_btn.TabIndex = 6;
             this.stop_mission_btn.Text = "Stop";
             this.stop_mission_btn.UseVisualStyleBackColor = true;
+            this.stop_mission_btn.Click += new System.EventHandler(this.stop_mission_btn_Click);
             // 
             // end_mission_btn
             // 
@@ -281,6 +283,7 @@
             this.end_mission_btn.TabIndex = 5;
             this.end_mission_btn.Text = "End Mission";
             this.end_mission_btn.UseVisualStyleBackColor = true;
+            this.end_mission_btn.Click += new System.EventHandler(this.end_mission_btn_Click);
             // 
             // map_mission_map
             // 

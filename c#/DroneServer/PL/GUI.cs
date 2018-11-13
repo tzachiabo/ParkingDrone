@@ -30,14 +30,14 @@ namespace DroneServer
         BLManagger bl;
 
         private void GUI_Load(object sender, EventArgs e)
-        {
-            
+        {           
             Logger.getInstance().debug("Gui Load has started");
             confige();
             bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
             bl.registerToParkings(parkings_home_lst);
+            bl.registerToMap(map_mission_map);
             bl.restoreData();
             initMaps();
         }
@@ -59,7 +59,7 @@ namespace DroneServer
             }
 
             tabControl.SelectedIndex = 2;//change tab, has to be replace with panels
-            bl.startMission(parkings_home_lst.SelectedIndex);
+            bl.startMission(map_mission_map,parkings_home_lst.SelectedIndex);
 
         }
 
@@ -119,6 +119,26 @@ namespace DroneServer
 
 
         }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        //create section
+        private void end_mission_btn_Click(object sender, EventArgs e)
+        {
+            double lat = 31.2656169738942;
+            double lng = 34.8071413572861;
+            bl.setLocation(lat, lng);
+        }
+
+        private void stop_mission_btn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void abort_mission_btn_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //dummy section
         private void move_dummy_btn_Click(object sender, EventArgs e)

@@ -129,14 +129,22 @@ namespace DroneServer
                 try
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        Point p = new Point(reader.GetFloat(0), reader.GetFloat(1));
-                        l.Add(p);
+                        while (reader.Read())
+                        {
+                            Point p = new Point((double)reader.GetValue(0), (double)reader.GetValue(1));
+                            l.Add(p);
+                        }
                     }
                     s[i].border = l;
                 }
-                catch (Exception) { Console.WriteLine("err2"); }
+                catch (Exception e) {
+                    Console.WriteLine("err2");
+                    cmd.Dispose();
+                    con.Close();
+                    return null ;
+                }
 
                 cmd.Dispose();
                 con.Close();

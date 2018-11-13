@@ -96,8 +96,16 @@ namespace DroneServer.BL.Comm
 
             Logger.getInstance().info("move to new Mission Version");
             BLManagger.getInstance().increment_version();
-
-            TcpClient client = m_server.AcceptTcpClient();
+            TcpClient client;
+            try
+            {
+                client = m_server.AcceptTcpClient();
+            }
+            catch (System.Net.Sockets.SocketException e)
+            {
+                Assertions.verify(running == false, "socket got unexpected exception");
+                return;
+            }
             Logger.getInstance().info("client has reconnected");
             m_ns = client.GetStream();
         }

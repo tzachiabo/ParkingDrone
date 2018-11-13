@@ -44,5 +44,11 @@ namespace DroneServer.PL
 
             notifyAll();
         }
+        public Parking getParking(int index)
+        {
+            if (list.Count > index)
+                return list[index];
+            return null;
+        }
     }
 }

@@ -135,6 +135,7 @@ public class Loading extends AppCompatActivity {
                         public void onProductDisconnect() {
                             Log.d(TAG, "onProductDisconnect");
                             showToast("Product Disconnected");
+                            BLManager.getInstance().DisconnectDrone();
                         }
                         @Override
                         public void onProductConnect(BaseProduct baseProduct) {

@@ -24,9 +24,11 @@ public class BLManager {
     private SocketManager socket_manager;
     public File file;
     private AtomicInteger DroneStatus;
+    private boolean isConnected;
 
     private BLManager() {
         Logger.debug("initiate BL");
+        isConnected = false;
         socket_manager = SocketManager.getInstance();
         DroneStatus = new AtomicInteger();
     }
@@ -38,10 +40,19 @@ public class BLManager {
         return instance;
     }
 
-    public void init(){
+    public synchronized void init(){
         initFs();
         initCamera();
         initFlightController();
+        isConnected = true;
+    }
+
+    public synchronized void DisconnectDrone(){
+        isConnected = false;
+    }
+
+    public synchronized boolean isDroneConnected(){
+        return isDroneReady() && isConnected;
     }
 
     private void initFlightController(){
