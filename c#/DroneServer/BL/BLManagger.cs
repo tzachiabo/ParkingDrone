@@ -120,6 +120,11 @@ namespace DroneServer.BL
             throw new NotImplementedException();
         }
 
+        public void shutdown()
+        {
+
+        }
+
 
         //----------------------------------tests-------------------------------//
 

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
+            this.delete_home_btn = new System.Windows.Forms.Button();
             this.start_home_btn = new System.Windows.Forms.Button();
             this.logger_home_lst = new System.Windows.Forms.ListBox();
             this.parkings_home_lst = new System.Windows.Forms.ListBox();
@@ -46,7 +47,8 @@
             this.stop_mission_btn = new System.Windows.Forms.Button();
             this.end_mission_btn = new System.Windows.Forms.Button();
             this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dummyTab = new System.Windows.Forms.TabPage();
+            this.stop_dummy_btn = new System.Windows.Forms.Button();
             this.Yaw = new System.Windows.Forms.NumericUpDown();
             this.Pitch = new System.Windows.Forms.NumericUpDown();
             this.Roll = new System.Windows.Forms.NumericUpDown();
@@ -67,14 +69,11 @@
             this.takeOff_dummy_btn = new System.Windows.Forms.Button();
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
-            this.stop_dummy_btn = new System.Windows.Forms.Button();
-            this.delete_home_btn = new System.Windows.Forms.Button();
-
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.createTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.dummyTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
@@ -86,7 +85,7 @@
             this.tabControl.Controls.Add(this.homeTab);
             this.tabControl.Controls.Add(this.createTab);
             this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.dummyTab);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -106,6 +105,17 @@
             this.homeTab.TabIndex = 0;
             this.homeTab.Text = "Home";
             this.homeTab.UseVisualStyleBackColor = true;
+            // 
+            // delete_home_btn
+            // 
+            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_home_btn.Location = new System.Drawing.Point(684, 17);
+            this.delete_home_btn.Name = "delete_home_btn";
+            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.delete_home_btn.TabIndex = 3;
+            this.delete_home_btn.Text = "Delete";
+            this.delete_home_btn.UseVisualStyleBackColor = true;
+            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
             // 
             // start_home_btn
             // 
@@ -158,9 +168,8 @@
             this.map_create_map.GrayScaleMode = false;
             this.map_create_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map_create_map.LevelsKeepInMemmory = 5;
-            this.map_create_map.Location = new System.Drawing.Point(5, 110);
-            this.map_create_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.map_create_map.Location = new System.Drawing.Point(4, 88);
+            this.map_create_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.map_create_map.MarkersEnabled = true;
             this.map_create_map.MaxZoom = 2;
             this.map_create_map.MinZoom = 2;
@@ -174,7 +183,6 @@
             this.map_create_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map_create_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map_create_map.ShowTileGridLines = false;
-            this.map_create_map.Size = new System.Drawing.Size(1061, 506);
             this.map_create_map.Size = new System.Drawing.Size(943, 405);
             this.map_create_map.TabIndex = 5;
             this.map_create_map.Zoom = 0D;
@@ -216,9 +224,8 @@
             this.tabPage1.Controls.Add(this.stop_mission_btn);
             this.tabPage1.Controls.Add(this.end_mission_btn);
             this.tabPage1.Controls.Add(this.map_mission_map);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(1392, 771);
             this.tabPage1.TabIndex = 2;
@@ -284,10 +291,8 @@
             this.map_mission_map.GrayScaleMode = false;
             this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map_mission_map.LevelsKeepInMemmory = 5;
-            this.map_mission_map.Location = new System.Drawing.Point(8, 78);
-            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-
             this.map_mission_map.Location = new System.Drawing.Point(7, 62);
+            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.map_mission_map.MarkersEnabled = true;
             this.map_mission_map.MaxZoom = 2;
             this.map_mission_map.MinZoom = 2;
@@ -301,76 +306,53 @@
             this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map_mission_map.ShowTileGridLines = false;
-            this.map_mission_map.Size = new System.Drawing.Size(1366, 553);
-
             this.map_mission_map.Size = new System.Drawing.Size(1214, 442);
             this.map_mission_map.TabIndex = 11;
             this.map_mission_map.Zoom = 0D;
             // 
-            // tabPage2
+            // dummyTab
             // 
-            this.tabPage2.Controls.Add(this.stop_dummy_btn);
-            this.tabPage2.Controls.Add(this.Yaw);
-            this.tabPage2.Controls.Add(this.Pitch);
-            this.tabPage2.Controls.Add(this.Roll);
-            this.tabPage2.Controls.Add(this.MoveAmount);
-            this.tabPage2.Controls.Add(this.moveDown_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveUp_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveRight_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveLeft_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveBackward_dummy_btn);
-            this.tabPage2.Controls.Add(this.Landing_dummy_btn);
-            this.tabPage2.Controls.Add(this.parking_mission_dummy_btn);
-            this.tabPage2.Controls.Add(this.ConfirmLanding_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveGimbal_dummy_btn);
-            this.tabPage2.Controls.Add(this.goToGPS_dummy_btn);
-            this.tabPage2.Controls.Add(this.takePhoto_dummy_btn);
-            this.tabPage2.Controls.Add(this.goHome_dummy_btn);
-            this.tabPage2.Controls.Add(this.StartLanding_dummy_btn);
-            this.tabPage2.Controls.Add(this.takeOff_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveForward_dummy_btn);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1392, 771);
-            this.tabPage2.TabIndex = 3;
-            this.tabPage2.Text = "Dummy";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.dummyTab.Controls.Add(this.stop_dummy_btn);
+            this.dummyTab.Controls.Add(this.Yaw);
+            this.dummyTab.Controls.Add(this.Pitch);
+            this.dummyTab.Controls.Add(this.Roll);
+            this.dummyTab.Controls.Add(this.MoveAmount);
+            this.dummyTab.Controls.Add(this.moveDown_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveUp_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveRight_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveLeft_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveBackward_dummy_btn);
+            this.dummyTab.Controls.Add(this.Landing_dummy_btn);
+            this.dummyTab.Controls.Add(this.parking_mission_dummy_btn);
+            this.dummyTab.Controls.Add(this.ConfirmLanding_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveGimbal_dummy_btn);
+            this.dummyTab.Controls.Add(this.goToGPS_dummy_btn);
+            this.dummyTab.Controls.Add(this.takePhoto_dummy_btn);
+            this.dummyTab.Controls.Add(this.goHome_dummy_btn);
+            this.dummyTab.Controls.Add(this.StartLanding_dummy_btn);
+            this.dummyTab.Controls.Add(this.takeOff_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveForward_dummy_btn);
+            this.dummyTab.Location = new System.Drawing.Point(4, 25);
+            this.dummyTab.Name = "dummyTab";
+            this.dummyTab.Size = new System.Drawing.Size(1392, 771);
+            this.dummyTab.TabIndex = 3;
+            this.dummyTab.Text = "Dummy";
+            this.dummyTab.UseVisualStyleBackColor = true;
+            // 
+            // stop_dummy_btn
+            // 
+            this.stop_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_dummy_btn.Location = new System.Drawing.Point(1036, 154);
+            this.stop_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.stop_dummy_btn.Name = "stop_dummy_btn";
+            this.stop_dummy_btn.Size = new System.Drawing.Size(257, 60);
+            this.stop_dummy_btn.TabIndex = 36;
+            this.stop_dummy_btn.Text = "stop";
+            this.stop_dummy_btn.UseVisualStyleBackColor = true;
+            this.stop_dummy_btn.Click += new System.EventHandler(this.stop_dummy_btn_Click);
             // 
             // Yaw
             // 
-            this.Yaw.Location = new System.Drawing.Point(1312, 685);
-            this.Yaw.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.Yaw.Name = "Yaw";
-            this.Yaw.Size = new System.Drawing.Size(82, 26);
-            this.Yaw.TabIndex = 34;
-            // 
-            // Pitch
-            // 
-            this.Pitch.Location = new System.Drawing.Point(1211, 685);
-            this.Pitch.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.Pitch.Name = "Pitch";
-            this.Pitch.Size = new System.Drawing.Size(82, 26);
-            this.Pitch.TabIndex = 33;
-            // 
-            // Roll
-            // 
-            this.Roll.Location = new System.Drawing.Point(1101, 685);
-            this.Roll.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.Roll.Name = "Roll";
-            this.Roll.Size = new System.Drawing.Size(82, 26);
-            this.Roll.TabIndex = 32;
             this.Yaw.Location = new System.Drawing.Point(1166, 548);
             this.Yaw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Yaw.Minimum = new decimal(new int[] {
@@ -613,27 +595,6 @@
             this.move_dummy_btn.Size = new System.Drawing.Size(75, 23);
             this.move_dummy_btn.TabIndex = 0;
             // 
-
-            this.stop_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_dummy_btn.Location = new System.Drawing.Point(1036, 154);
-            this.stop_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.stop_dummy_btn.Name = "stop_dummy_btn";
-            this.stop_dummy_btn.Size = new System.Drawing.Size(257, 60);
-            this.stop_dummy_btn.TabIndex = 36;
-            this.stop_dummy_btn.Text = "stop";
-            this.stop_dummy_btn.UseVisualStyleBackColor = true;
-            this.stop_dummy_btn.Click += new System.EventHandler(this.stop_dummy_btn_Click);
-            // delete_home_btn
-            // 
-            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.delete_home_btn.Location = new System.Drawing.Point(684, 17);
-            this.delete_home_btn.Name = "delete_home_btn";
-            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
-            this.delete_home_btn.TabIndex = 3;
-            this.delete_home_btn.Text = "Delete";
-            this.delete_home_btn.UseVisualStyleBackColor = true;
-            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
-            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -645,6 +606,7 @@
             this.MinimumSize = new System.Drawing.Size(1399, 798);
             this.Name = "GUI";
             this.Text = "Drone Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GUI_FormClosing);
             this.Load += new System.EventHandler(this.GUI_Load);
             this.tabControl.ResumeLayout(false);
             this.homeTab.ResumeLayout(false);
@@ -652,7 +614,7 @@
             this.createTab.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.dummyTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
@@ -670,7 +632,7 @@
         private System.Windows.Forms.Button start_home_btn;
         private System.Windows.Forms.ListBox logger_home_lst;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage dummyTab;
         private System.Windows.Forms.TextBox parkName_create_txt;
         private System.Windows.Forms.ListBox points_create_lst;
         private System.Windows.Forms.Button finish_create_btn;

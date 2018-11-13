@@ -31,13 +31,20 @@ namespace DroneServer
 
         private void GUI_Load(object sender, EventArgs e)
         {
+            //tabControl.TabPages.Remove(dummyTab);
             Logger.getInstance().debug("Gui Load has started");
+            confige();
             bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
             bl.registerToParkings(parkings_home_lst);
             bl.restoreData();
             initMaps();
+        }
+
+        private void GUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bl.shutdown();
         }
 
 
@@ -214,6 +221,11 @@ namespace DroneServer
             BLManagger.getInstance().MoveForTest(move_amount, Direction.up);
         }
 
+        private void stop_dummy_btn_Click(object sender, EventArgs e)
+        {
+            BLManagger.getInstance().stop();
+        }
+
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //functions section
         public void initMaps()
@@ -245,10 +257,11 @@ namespace DroneServer
             
         }
 
-        private void stop_dummy_btn_Click(object sender, EventArgs e)
+        public void confige()
         {
-            BLManagger.getInstance().stop();
+            
         }
+
         
     }
 }
