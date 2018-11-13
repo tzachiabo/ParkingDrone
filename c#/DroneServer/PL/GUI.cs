@@ -31,7 +31,7 @@ namespace DroneServer
 
         private void GUI_Load(object sender, EventArgs e)
         {
-            //tabControl.TabPages.Remove(dummyTab);
+            
             Logger.getInstance().debug("Gui Load has started");
             confige();
             bl = BLManagger.getInstance();
@@ -57,6 +57,9 @@ namespace DroneServer
                 MessageBox.Show("Please select parking");
                 return;
             }
+
+            tabControl.SelectedIndex = 2;//change tab, has to be replace with panels
+            bl.startMission(parkings_home_lst.SelectedIndex);
 
         }
 
@@ -259,7 +262,11 @@ namespace DroneServer
 
         public void confige()
         {
-            
+            if (Configuration.getInstance().get("debugMode")=="false")
+            {
+                tabControl.TabPages.Remove(dummyTab);
+            }
+
         }
 
         

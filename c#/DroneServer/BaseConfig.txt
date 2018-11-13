@@ -1,4 +1,4 @@
 <xml>
 <port>3000</port>
-<dummyVisible>false</dummyVisible>
+<debugMode>true</debugMode>
 </xml>

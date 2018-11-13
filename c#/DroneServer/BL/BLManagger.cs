@@ -67,18 +67,17 @@ namespace DroneServer.BL
         }
 
         public void deleteParking(string name)
-        {
-            
+        {        
             DB.deleteParking(name);
             logger.debug("The Parking " + name + " has deleted from DB");
             parkingList.delete(name);
             logger.debug("The Parking " + name + " has deleted from the ListBox");
         }
 
-        //public void startMission(ParkingSpot p)
-        //{
+        public void startMission(int index)
+        {
 
-        //}
+        }
 
 
 
