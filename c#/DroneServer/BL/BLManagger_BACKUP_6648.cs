@@ -13,16 +13,13 @@ using System.Runtime.CompilerServices;
 
 using GMap.NET.WindowsForms;
 using DroneServer.PL;
-using DroneServer.PL.Observers;
-using System.Collections.Generic;
-
 namespace DroneServer.BL 
 {
     public class BLManagger
     {
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
-        private static Map map= new Map();
+        private static ParkingList parkingList = new ParkingList();
         private static int Version;
 
         private BLManagger()
@@ -51,24 +48,45 @@ namespace DroneServer.BL
             return Version;
         }
 
+<<<<<<< HEAD
 
-        public List<Parking> DBGetAllParkings()
+        //public bool createParkingSpot(ParkingSpot p)
+        //{
+=======
+        public void restoreData()
         {
-            return DB.selectAllParkings();
+            foreach (Parking p in DB.selectAllParkings())
+            {
+                parkingList.add(p);
+            }
+            
+             
         }
+>>>>>>> add parking object to gui and db
 
-
-        public void DBAddParking(Parking p)
+        public void createParking(TextBox name,GMapControl map, ListBox border)
         {
+            Parking p = new Parking(name, map, border);
             DB.addParking(p);
-            logger.debug("The Parking " +p.name + " has added to DB");
+            logger.debug("The Parking " + name.Text + " has added to DB");
+            parkingList.add(p);
+            logger.debug("The Parking " + name.Text + " has added to the ListBox: "+ border.Name);
         }
 
-        public void DBDeleteParking(string name)
-        {        
+        public void deleteParking(string name)
+        {
+            
             DB.deleteParking(name);
             logger.debug("The Parking " + name + " has deleted from DB");
+            parkingList.delete(name);
+            logger.debug("The Parking " + name + " has deleted from the ListBox");
         }
+
+        //public void startMission(ParkingSpot p)
+        //{
+
+        //}
+
 
 
         public void endMission()
@@ -93,7 +111,11 @@ namespace DroneServer.BL
             logger.debug("The ListBox "+list.Name+" has registered");
         }
 
-
+        public void registerToParkings(ListBox list)
+        {
+            parkingList.register(new ListObserver(list));
+            logger.debug("The ListBox " + list.Name + " has registered");
+        }
 
         public void registerToConnection(object o)
         {
@@ -103,23 +125,6 @@ namespace DroneServer.BL
         public void registerToDroneLocation(object o)
         {
             throw new NotImplementedException();
-        }
-
-        public void registerToMap(GMapControl Gmap)
-        {
-            map.register(new MapObserver(Gmap));
-            logger.debug("The Gmap " + Gmap.Name + " has registered");
-        }
-
-        public void setLocation(double lat,double lng)
-        {
-            if (map!=null)
-                map.setLocation(new Point(lng, lat));
-        }
-
-        public void shutdown()
-        {
-            CommManager.getInstance().shutDown();
         }
 
 

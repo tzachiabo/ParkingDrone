@@ -17,6 +17,7 @@ using GMap.NET;
 
 using DroneServer.BL;
 using DroneServer.SharedClasses;
+using Point = DroneServer.SharedClasses.Point;
 
 namespace DroneServer
 {
@@ -28,17 +29,21 @@ namespace DroneServer
         }
 
         BLManagger bl;
+        List<Parking> parkingList = new List<Parking>();
 
         private void GUI_Load(object sender, EventArgs e)
-        {           
+        {
+            homePanel.Location = new System.Drawing.Point(0, 0);
+            missionPanel.Location = new System.Drawing.Point(0, 0);
+            missionPanel.Visible = false;
+
             Logger.getInstance().debug("Gui Load has started");
             confige();
             bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
-            bl.registerToParkings(parkings_home_lst);
             bl.registerToMap(map_mission_map);
-            bl.restoreData();
+            initParkingList();
             initMaps();
         }
 
@@ -58,9 +63,14 @@ namespace DroneServer
                 return;
             }
 
-            tabControl.SelectedIndex = 2;//change tab, has to be replace with panels
-            bl.startMission(map_mission_map,parkings_home_lst.SelectedIndex);
-
+            homePanel.Visible = false;
+            missionPanel.Visible = true;
+            Parking p= parkingList[parkings_home_lst.SelectedIndex];
+            
+            map_mission_map.Position = new PointLatLng(p.lat, p.lng);
+            map_mission_map.MinZoom = (int)p.minZoom;
+            map_mission_map.MaxZoom = (int)p.maxZoom;
+            map_mission_map.Zoom = (int)p.zoom;
         }
 
         private void delete_home_btn_Click(object sender, EventArgs e)
@@ -70,17 +80,15 @@ namespace DroneServer
                 MessageBox.Show("Please select parking");
                 return;
             }
-               
-           
-            bl.deleteParking(parkings_home_lst.Items[parkings_home_lst.SelectedIndex].ToString());
+            int index = parkings_home_lst.SelectedIndex;
+            bl.DBDeleteParking(parkings_home_lst.Items[index].ToString());
+            parkings_home_lst.Items.RemoveAt(index);
+            parkingList.RemoveAt(index);
+            
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //create section
-        //private void map_create_map_DoubleClick(object sender, EventArgs e)
-        //{
-
-        //}
         private void map_create_map_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             double lat = map_create_map.FromLocalToLatLng(e.X, e.Y).Lat;
@@ -107,8 +115,16 @@ namespace DroneServer
                 return;
             }
 
+          
+            List<Point> lp = new List<Point>();
+            foreach (string item in points_create_lst.Items)
+                lp.Add(new SharedClasses.Point(Convert.ToDouble(item.Split(' ')[1]), Convert.ToDouble(item.Split(' ')[0])));
+            Parking tmp = new Parking(parkName_create_txt.Text, map_create_map.Position.Lat, map_create_map.Position.Lng, map_create_map.Zoom, map_create_map.MaxZoom, map_create_map.MinZoom, lp);
 
-            bl.createParking(parkName_create_txt, map_create_map, points_create_lst);
+            parkingList.Add(tmp);
+            parkings_home_lst.Items.Add(parkName_create_txt.Text);
+            bl.DBAddParking(tmp);
+
 
             //clear page and move to Home page
             parkName_create_txt.Text = "Parking name";
@@ -278,6 +294,15 @@ namespace DroneServer
                 MessageBox.Show("Cant show map, no internet connection");
             }
             
+        }
+        public void initParkingList()
+        {
+            List<Parking> tmp = bl.DBGetAllParkings();
+            foreach (Parking item in tmp)
+            {
+                parkingList.Add(item);
+                parkings_home_lst.Items.Add(item.name);
+            }
         }
 
         public void confige()

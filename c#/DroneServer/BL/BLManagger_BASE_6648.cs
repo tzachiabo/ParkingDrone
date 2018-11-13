@@ -11,24 +11,18 @@ using System;
 using System.Threading;
 using System.Runtime.CompilerServices;
 
-using GMap.NET.WindowsForms;
-using DroneServer.PL;
-using DroneServer.PL.Observers;
-using System.Collections.Generic;
-
 namespace DroneServer.BL 
 {
     public class BLManagger
     {
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
-        private static Map map= new Map();
         private static int Version;
 
         private BLManagger()
         {
             logger.debug("Initiate BL");
-            CommManager.getInstance();
+            //CommManager.getInstance();
 
         }
 
@@ -51,25 +45,21 @@ namespace DroneServer.BL
             return Version;
         }
 
+        //public bool createParkingSpot(ParkingSpot p)
+        //{
 
-        public List<Parking> DBGetAllParkings()
-        {
-            return DB.selectAllParkings();
-        }
+            //return false;
+        //}
 
+        //public void startMission(ParkingSpot p)
+        //{
 
-        public void DBAddParking(Parking p)
-        {
-            DB.addParking(p);
-            logger.debug("The Parking " +p.name + " has added to DB");
-        }
+        //}
 
-        public void DBDeleteParking(string name)
-        {        
-            DB.deleteParking(name);
-            logger.debug("The Parking " + name + " has deleted from DB");
-        }
+        //public List<ParkingSpot> getAllParkingSpots()
+        //{
 
+        //}
 
         public void endMission()
         {
@@ -78,8 +68,7 @@ namespace DroneServer.BL
 
         public void stop()
         {
-            stopMission stop_mission = new stopMission();
-            stop_mission.execute();
+            throw new NotImplementedException();
         }
 
         public void abort()
@@ -93,8 +82,6 @@ namespace DroneServer.BL
             logger.debug("The ListBox "+list.Name+" has registered");
         }
 
-
-
         public void registerToConnection(object o)
         {
             throw new NotImplementedException();
@@ -104,24 +91,6 @@ namespace DroneServer.BL
         {
             throw new NotImplementedException();
         }
-
-        public void registerToMap(GMapControl Gmap)
-        {
-            map.register(new MapObserver(Gmap));
-            logger.debug("The Gmap " + Gmap.Name + " has registered");
-        }
-
-        public void setLocation(double lat,double lng)
-        {
-            if (map!=null)
-                map.setLocation(new Point(lng, lat));
-        }
-
-        public void shutdown()
-        {
-            CommManager.getInstance().shutDown();
-        }
-
 
         //----------------------------------tests-------------------------------//
 
@@ -169,15 +138,9 @@ namespace DroneServer.BL
 
         public void MoveGimbalTest(Gimbal gimbal, double roll, double pitch, double yaw)
         {
-            MoveGimbal mg = new MoveGimbal(gimbal, GimbalMovementType.relative, roll, pitch, yaw);
+            MoveGimbal mg = new MoveGimbal(gimbal, roll, pitch, yaw);
             mg.execute();
         }
-
-        public void TakePhoto()
-        {
-            TakePhoto tp = new TakePhoto();
-            tp.execute();
-        }
-
+       
     }
 }
