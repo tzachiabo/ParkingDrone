@@ -15,16 +15,18 @@ namespace DroneServer.BL.Comm
         private ConcurrentDictionary<int, Mission> m_missions;
         private ConcurrentQueue<Response> m_responses;
         private Thread thread;
+        private Boolean running;
 
         public ResponseConsumer(ConcurrentDictionary<int, Mission> missions, 
                                 ConcurrentQueue<Response> responses)
         {
+            running = false;
             m_missions = missions;
             m_responses = responses;
 
             thread = new Thread(() =>
             {
-                while (true)
+                while (running)
                 {
                     Response current_response;
                     if (m_responses.TryDequeue(out current_response))

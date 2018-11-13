@@ -114,6 +114,13 @@ namespace DroneServer.BL.Comm
             m_ns.Write(to_send, 0, to_send.Length);
         }
 
+        public void shutDown()
+        {
+            comm_reader.shutDown();
+            m_main_mission_consumer.shutDown();
+            m_status_mission_consumer.shutDown();
+        }
+
     }
 
 }

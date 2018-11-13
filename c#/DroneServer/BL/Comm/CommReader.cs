@@ -14,19 +14,21 @@ namespace DroneServer.BL.Comm
     {
         private ConcurrentQueue<Response> m_main_responses;
         private ConcurrentQueue<Response> m_status_responses;
+        private Boolean running;
 
         Thread thread;
 
         public CommReader(ConcurrentQueue<Response> main_responses, 
                           ConcurrentQueue<Response> status_responses)
         {
+            running = true;
             m_main_responses = main_responses;
             m_status_responses = status_responses;
 
             thread = new Thread(() =>
             {
                 String data = "";
-                while (true)
+                while (running)
                 {
                     NetworkStream ns = CommManager.getInstance().m_ns;
                     byte[] bytes = new byte[1024];
@@ -57,6 +59,11 @@ namespace DroneServer.BL.Comm
             });
 
             thread.Start();
+        }
+
+        public void shutDown()
+        {
+            running = false;
         }
     }
 }
