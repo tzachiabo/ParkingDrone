@@ -56,6 +56,8 @@ namespace DroneServer.BL.Comm
                     data = "";
 
                 }
+                Logger.getInstance().warn("Comm reader has been shut down");
+
             });
 
             thread.Start();

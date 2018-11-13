@@ -32,9 +32,10 @@ public class StartLandingMission extends Mission {
                 }
 
                 long startTime = System.currentTimeMillis();
+                Logger.debug("start time "+ startTime);
 
                 while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded()){
-                    Assertions.verify( System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_LANDING,
+                    Assertions.verify( System.currentTimeMillis() - startTime < Config.MAX_TIME_WAIT_FOR_LANDING,
                             "Start Landing timeout: wait too much time for landing confirmation");
                 }
 
