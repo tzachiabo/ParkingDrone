@@ -34,31 +34,31 @@ namespace DroneServer.SharedClasses
         public void debug(string message)
         {
             Log.Debug(message);
-            llogs.Add(message);
+            llogs.Insert(0, message);
             notifyAll();
         }
         public void info(string message)
         {
             Log.Info(message);
-            llogs.Add(message);
+            llogs.Insert(0, message);
             notifyAll();
         }
         public void error(string message)
         {
             Log.Error(message);
-            llogs.Add(message);
+            llogs.Insert(0, message);
             notifyAll();
         }
         public void fatal(string message)
         {
             Log.Fatal(message);
-            llogs.Add(message);
+            llogs.Insert(0, message);
             notifyAll();
         }
         public void warn(string message)
         {
             Log.Warn(message);
-            llogs.Add(message);
+            llogs.Insert(0, message);
             notifyAll();
         }
     }

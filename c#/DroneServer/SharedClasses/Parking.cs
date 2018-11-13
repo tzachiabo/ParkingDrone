@@ -43,8 +43,8 @@ namespace DroneServer.SharedClasses
         public Parking(TextBox parkingName ,GMapControl map,ListBox points)
         {
             name = parkingName.Text;
-            lat = map.Location.Y;
-            lng = map.Location.X;
+            lat = map.Position.Lat;
+            lng = map.Position.Lng;
             zoom = map.Zoom;
             maxZoom = map.MaxZoom;
             minZoom = map.MinZoom;

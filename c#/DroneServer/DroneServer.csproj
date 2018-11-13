@@ -108,6 +108,8 @@
     <Compile Include="BL\Missions\LeafMission\MoveGimbal.cs" />
     <Compile Include="BL\Missions\LeafMission\stopMission.cs" />
     <Compile Include="DL\DB.cs" />
+    <Compile Include="PL\Observers\MapObserver.cs" />
+    <Compile Include="SharedClasses\Map.cs" />
     <Compile Include="SharedClasses\ParkingList.cs" />
     <Compile Include="SharedClasses\Assertions.cs" />
     <Compile Include="SharedClasses\Configuration.cs" />

@@ -11,6 +11,7 @@ namespace DroneServer
     class ListObserver : BaseObserver
     {
         protected ListBox listbox;
+        
         public ListObserver(ListBox l) : base()
         {
             listbox = l;
@@ -27,8 +28,7 @@ namespace DroneServer
                     listbox.Items.Add(s);
             }
             catch (Exception){return;}
-
-            
+          
         }
     }
 }
