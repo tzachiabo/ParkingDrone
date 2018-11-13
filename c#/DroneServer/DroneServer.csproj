@@ -141,6 +141,7 @@
     <Compile Include="PL\TextObserver.cs" />
     <Compile Include="SharedClasses\Direction.cs" />
     <Compile Include="SharedClasses\Gimbal.cs" />
+    <Compile Include="SharedClasses\GPSPoint.cs" />
     <Compile Include="SharedClasses\Logger.cs" />
     <Compile Include="SharedClasses\MissionType.cs" />
     <Compile Include="SharedClasses\Parking.cs" />

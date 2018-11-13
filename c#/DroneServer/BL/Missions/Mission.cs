@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    abstract class Mission
+    public abstract class Mission
     {
         static int NextIndex = 1;
 

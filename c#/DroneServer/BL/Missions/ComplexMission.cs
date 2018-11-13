@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    abstract class ComplexMission : Mission
+    public abstract class ComplexMission : Mission
     {
         protected Queue<Mission> m_SubMission;
 
