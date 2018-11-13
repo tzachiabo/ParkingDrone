@@ -10,7 +10,7 @@ using GMap.NET.WindowsForms;
 
 namespace DroneServer.SharedClasses
 {
-    class Parking
+    public class Parking
     {
         public string name;
         public double lat;

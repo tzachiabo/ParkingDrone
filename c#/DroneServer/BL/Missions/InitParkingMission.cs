@@ -10,19 +10,17 @@ namespace DroneServer.BL.Missions
 {
     public class InitParkingMission : ComplexMission
     {
-        private GPSPoint gps1;
-        private GPSPoint gps2;
-        private GPSPoint gps3;
-        private GPSPoint gps4;
-        
-        public InitParkingMission(GPSPoint gps1, GPSPoint gps2, GPSPoint gps3, GPSPoint gps4) : this(null, gps1, gps2, gps3, gps4)
+        private Parking parking;
+
+
+        public InitParkingMission(Parking parking) : this(null, parking)
         {
 
         }
-        public InitParkingMission(ComplexMission parent_mission, GPSPoint gps1, GPSPoint gps2, GPSPoint gps3, GPSPoint gps4) : base()
+        public InitParkingMission(ComplexMission parent_mission, Parking parking) : base()
         {
             m_ParentMission = parent_mission;
-            GPSPoint basePoint = getBaseLocation(gps1, gps2, gps3, gps4);
+            Point basePoint = GetBaseLocation(parking.border);
             m_SubMission.Enqueue(new MoveToGPSPoint(basePoint.x, basePoint.y, basePoint.z));
             
         }
@@ -40,11 +38,17 @@ namespace DroneServer.BL.Missions
         {
 
         }
-        public static GPSPoint getBaseLocation(GPSPoint gps1, GPSPoint gps2, GPSPoint gps3, GPSPoint gps4)
+        public static Point GetBaseLocation(List<Point> points)
         {
-            var Xlist = new[] { gps1.x, gps2.x, gps3.x, gps4.x };
-            var Ylist = new[] { gps1.y, gps2.y, gps3.y, gps4.y };
-            var Zlist = new[] { gps1.z, gps2.z, gps3.z, gps4.z };
+            List<double> Xlist= new List<double>(); 
+            List<double> Ylist= new List<double>(); ;
+            List<double> Zlist= new List<double>(); ;
+            foreach (Point p in points)
+            {
+                Xlist.Add(p.x);
+                Ylist.Add(p.y);
+                Zlist.Add(p.z);
+            }
             double minX = Xlist.Min();
             double maxX = Xlist.Max();
             double minY = Ylist.Min();
@@ -55,7 +59,7 @@ namespace DroneServer.BL.Missions
             double middleY = (minY + maxY) / 2;
             Configuration conf = Configuration.getInstance();
             double highet = Math.Sqrt(Math.Pow((maxX - minX), 2) + Math.Pow((maxY - minY), 2)) / conf.getHighetfix()+ maxZ;
-            return new GPSPoint(middleX, middleY, highet);
+            return new Point(middleX, middleY, highet);
 
         }
 

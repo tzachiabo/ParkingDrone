@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.SharedClasses
 {
-    class Point
+    public class Point
     {
         public double x;//lng
         public double y;//lat
