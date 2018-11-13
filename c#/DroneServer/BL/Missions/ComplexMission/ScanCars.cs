@@ -9,10 +9,7 @@ namespace DroneServer.BL.Missions
 {
     class ScanCars : ComplexMission
     {
-        public override void execute()
-        {
 
-        }
         public override void done(Response respone)
         {
 

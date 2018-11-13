@@ -10,10 +10,7 @@ namespace DroneServer.BL.Missions
     class GetCarSticker :ComplexMission
     {
         
-        public override void execute()
-        {
 
-        }
         public override void done(Response respone)
         {
 

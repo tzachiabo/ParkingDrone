@@ -51,12 +51,10 @@ namespace DroneServer.BL
             return Version;
         }
 
-
         public List<Parking> DBGetAllParkings()
         {
             return DB.selectAllParkings();
         }
-
 
         public void DBAddParking(Parking p)
         {
@@ -93,14 +91,7 @@ namespace DroneServer.BL
             logger.debug("The ListBox "+list.Name+" has registered");
         }
 
-
-
         public void registerToConnection(object o)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void registerToDroneLocation(object o)
         {
             throw new NotImplementedException();
         }
@@ -109,6 +100,7 @@ namespace DroneServer.BL
         {
             map.register(new MapObserver(Gmap));
             logger.debug("The Gmap " + Gmap.Name + " has registered");
+            LocationManager.init();
         }
 
         public void setLocation(double lat,double lng)
@@ -125,6 +117,7 @@ namespace DroneServer.BL
         public void shutdown()
         {
             CommManager.getInstance().shutDown();
+            LocationManager.shutDown();
         }
 
 

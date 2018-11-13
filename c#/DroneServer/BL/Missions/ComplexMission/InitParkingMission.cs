@@ -9,13 +9,22 @@ namespace DroneServer.BL.Missions
 {
     class InitParkingMission : ComplexMission
     {
-        public override void execute()
-        {
+        public InitParkingMission() : this(null) { }
 
+        public InitParkingMission(ComplexMission parent_mission) : base()
+        {
+            m_ParentMission = parent_mission;
+            m_SubMission.Enqueue(new Move(this, Direction.up, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.forward, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.left, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.backward, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.right, 10));
         }
-        public override void done(Response respone)
-        {
 
+        public override void done(Response response)
+        {
+            if (m_ParentMission != null)
+                m_ParentMission.notify(response);
         }
         public override void stop()
         {

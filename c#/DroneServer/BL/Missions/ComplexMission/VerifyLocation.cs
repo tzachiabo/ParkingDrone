@@ -9,10 +9,7 @@ namespace DroneServer.BL.Missions
 {
     class VerifyLocation : ComplexMission 
     {
-        public override void execute()
-        {
 
-        }
         public override void done(Response respone)
         {
 

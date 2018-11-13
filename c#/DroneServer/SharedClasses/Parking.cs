@@ -40,6 +40,7 @@ namespace DroneServer.SharedClasses
             this.minZoom = minZoom;
             this.border = border;
         }
+
         public Parking(TextBox parkingName ,GMapControl map,ListBox points)
         {
             name = parkingName.Text;

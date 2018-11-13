@@ -16,6 +16,13 @@ namespace DroneServer.BL.Missions
             m_SubMission = new Queue<Mission>();
         }
 
+        public override void execute()
+        {
+            Mission mission = m_SubMission.Dequeue();
+
+            mission.execute();
+        }
+
         public void notify(Response response)
         {
             if (m_SubMission.Count == 0)

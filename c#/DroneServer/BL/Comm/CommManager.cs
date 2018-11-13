@@ -16,7 +16,7 @@ namespace DroneServer.BL.Comm
 {
     class CommManager
     {
-        private bool isSocketInitiated;
+        public bool isSocketInitiated;
 
         private static CommManager m_instance = null;
         internal NetworkStream m_ns;

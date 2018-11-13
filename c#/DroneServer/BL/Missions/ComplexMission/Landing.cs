@@ -22,12 +22,6 @@ namespace DroneServer.BL.Missions
             m_SubMission.Enqueue(new ConfirmLanding(this));
         }
 
-        public override void execute()
-        {
-            Mission mission = m_SubMission.Dequeue();
-
-            mission.execute();
-        }
         public override void done(Response response)
         {
             if (m_ParentMission != null)
