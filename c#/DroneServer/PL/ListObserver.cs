@@ -22,12 +22,13 @@ namespace DroneServer
             try
             {
                 l = (List<string>)observable.getData();
+                listbox.Items.Clear();
+                foreach (string s in l)
+                    listbox.Items.Add(s);
             }
             catch (Exception){return;}
 
-            listbox.Items.Clear();
-            foreach (string s in l)
-                listbox.Items.Add(s);
+            
         }
     }
 }

@@ -11,12 +11,15 @@ using System;
 using System.Threading;
 using System.Runtime.CompilerServices;
 
+using GMap.NET.WindowsForms;
+using DroneServer.PL;
 namespace DroneServer.BL 
 {
     public class BLManagger
     {
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
+        private static ParkingList parkingList = new ParkingList();
         private static int Version;
 
         private BLManagger()
@@ -45,21 +48,40 @@ namespace DroneServer.BL
             return Version;
         }
 
-        //public bool createParkingSpot(ParkingSpot p)
-        //{
+        public void restoreData()
+        {
+            foreach (Parking p in DB.selectAllParkings())
+            {
+                parkingList.add(p);
+            }
+            
+             
+        }
 
-            //return false;
-        //}
+        public void createParking(TextBox name,GMapControl map, ListBox border)
+        {
+            Parking p = new Parking(name, map, border);
+            DB.addParking(p);
+            logger.debug("The Parking " + name.Text + " has added to DB");
+            parkingList.add(p);
+            logger.debug("The Parking " + name.Text + " has added to the ListBox: "+ border.Name);
+        }
+
+        public void deleteParking(string name)
+        {
+            
+            DB.deleteParking(name);
+            logger.debug("The Parking " + name + " has deleted from DB");
+            parkingList.delete(name);
+            logger.debug("The Parking " + name + " has deleted from the ListBox");
+        }
 
         //public void startMission(ParkingSpot p)
         //{
 
         //}
 
-        //public List<ParkingSpot> getAllParkingSpots()
-        //{
 
-        //}
 
         public void endMission()
         {
@@ -82,6 +104,12 @@ namespace DroneServer.BL
             logger.debug("The ListBox "+list.Name+" has registered");
         }
 
+        public void registerToParkings(ListBox list)
+        {
+            parkingList.register(new ListObserver(list));
+            logger.debug("The ListBox " + list.Name + " has registered");
+        }
+
         public void registerToConnection(object o)
         {
             throw new NotImplementedException();
@@ -91,6 +119,7 @@ namespace DroneServer.BL
         {
             throw new NotImplementedException();
         }
+
 
         //----------------------------------tests-------------------------------//
 

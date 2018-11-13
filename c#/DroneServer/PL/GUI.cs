@@ -35,6 +35,8 @@ namespace DroneServer
             bl = BLManagger.getInstance();
             bl.registerToLogs(logger_home_lst);
             bl.registerToLogs(logger_mission_lst);
+            bl.registerToParkings(parkings_home_lst);
+            bl.restoreData();
             initMaps();
         }
 
@@ -43,20 +45,36 @@ namespace DroneServer
         //home section
         private void start_home_btn_Click(object sender, EventArgs e)
         {
-            
+            if (parkings_home_lst.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select parking");
+                return;
+            }
+
+        }
+
+        private void delete_home_btn_Click(object sender, EventArgs e)
+        {
+            if (parkings_home_lst.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select parking");
+                return;
+            }
+               
+           
+            bl.deleteParking(parkings_home_lst.Items[parkings_home_lst.SelectedIndex].ToString());
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //create section
         //private void map_create_map_DoubleClick(object sender, EventArgs e)
         //{
-            
+
         //}
         private void map_create_map_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            MouseEventArgs mea = (MouseEventArgs)e;
-            double lat = map_create_map.FromLocalToLatLng(mea.X, mea.Y).Lat;
-            double lng = map_create_map.FromLocalToLatLng(mea.X, mea.Y).Lng;
+            double lat = map_create_map.FromLocalToLatLng(e.X, e.Y).Lat;
+            double lng = map_create_map.FromLocalToLatLng(e.X, e.Y).Lng;
             GMapOverlay markerOverlay = new GMapOverlay("markers");
             GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(lat, lng), GMarkerGoogleType.green_pushpin);
             markerOverlay.Markers.Add(marker);
@@ -78,6 +96,17 @@ namespace DroneServer
                 MessageBox.Show("Please mark at least 3 points");
                 return;
             }
+
+
+            bl.createParking(parkName_create_txt, map_create_map, points_create_lst);
+
+            //clear page and move to Home page
+            parkName_create_txt.Text = "Parking name";
+            points_create_lst.Items.Clear();
+            map_create_map.Overlays.Clear();
+            initMaps();
+            tabControl.SelectedIndex = 0;
+
 
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,6 +214,8 @@ namespace DroneServer
             BLManagger.getInstance().MoveForTest(move_amount, Direction.up);
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        //functions section
         public void initMaps()
         {
             double lat = 31.2646168738942;
@@ -214,5 +245,6 @@ namespace DroneServer
             
         }
 
+        
     }
 }

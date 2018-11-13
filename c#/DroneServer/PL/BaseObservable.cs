@@ -25,7 +25,7 @@ namespace DroneServer
         {
             foreach (BaseObserver obs in l)
             {
-                //obs.update();
+                obs.update();
             }
         }
         public virtual object getData()
