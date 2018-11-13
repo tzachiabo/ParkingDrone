@@ -105,6 +105,7 @@
     <Compile Include="BL\Comm\ResponseConsumer.cs" />
     <Compile Include="BL\Missions\LeafMission\ConfirmLanding.cs" />
     <Compile Include="BL\Missions\ComplexMission\Landing.cs" />
+    <Compile Include="BL\Missions\LeafMission\GetLocation.cs" />
     <Compile Include="BL\Missions\LeafMission\MoveGimbal.cs" />
     <Compile Include="BL\Missions\LeafMission\stopMission.cs" />
     <Compile Include="DL\DB.cs" />

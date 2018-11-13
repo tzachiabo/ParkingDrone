@@ -53,7 +53,7 @@ namespace DroneServer.BL.Comm
                 {
                     client = m_server.AcceptTcpClient();
                 }
-                catch (System.Net.Sockets.SocketException e)
+                catch (System.Net.Sockets.SocketException)
                 {
                     Assertions.verify(running == false, "socket got unexpected exception");
                     return;
@@ -101,7 +101,7 @@ namespace DroneServer.BL.Comm
             {
                 client = m_server.AcceptTcpClient();
             }
-            catch (System.Net.Sockets.SocketException e)
+            catch (System.Net.Sockets.SocketException)
             {
                 Assertions.verify(running == false, "socket got unexpected exception");
                 return;

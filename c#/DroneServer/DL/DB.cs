@@ -61,7 +61,7 @@ namespace DroneServer
                 {
                     cmd2.ExecuteNonQuery();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("err");
                     cmd.Dispose();
@@ -139,7 +139,7 @@ namespace DroneServer
                     }
                     s[i].border = l;
                 }
-                catch (Exception e) {
+                catch (Exception) {
                     Console.WriteLine("err2");
                     cmd.Dispose();
                     con.Close();

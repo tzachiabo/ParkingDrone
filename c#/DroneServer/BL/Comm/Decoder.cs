@@ -48,14 +48,29 @@ namespace DroneServer.BL.Comm
 
                     break;
                 case "getLocation":
+                    return parseLocation(words);
 
-                    break;
                 case "":
                     return new Response(0, Status.Ok, MissionType.EndOfSocket, null);
             }
             Assertions.verify(false, "decoder faild to decode the recived message : " + data);
             return null;
         }
+
+        private static Response parseLocation(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+            double lat = Double.Parse(sentance[4]);
+            double lng = Double.Parse(sentance[5]);
+            double alt = Double.Parse(sentance[3]);
+
+            Logger.getInstance().debug("decode location update lat: " + lat + " lng: " + lng + " alt: " + alt);
+
+            Point p = new Point(lng, lat, alt);
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, p);
+            return res;
+        }
+
 
         private static Response parseStop(string[] sentance)
         {
