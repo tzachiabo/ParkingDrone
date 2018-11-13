@@ -116,9 +116,16 @@ namespace DroneServer.BL.Comm
 
         public void shutDown()
         {
-            comm_reader.shutDown();
-            m_main_mission_consumer.shutDown();
-            m_status_mission_consumer.shutDown();
+            Logger.getInstance().info("Shutting down Comm layer");
+
+            if (comm_reader != null)
+                comm_reader.shutDown();
+
+            if (m_main_mission_consumer != null)
+                m_main_mission_consumer.shutDown();
+
+            if (m_status_mission_consumer != null)
+                m_status_mission_consumer.shutDown();
         }
 
     }

@@ -43,5 +43,11 @@ namespace DroneServer.BL.Comm
 
             thread.Start();
         }
+
+        public void shutDown()
+        {
+            running = false;
+        }
+
     }
 }

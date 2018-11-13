@@ -122,7 +122,7 @@ namespace DroneServer.BL
 
         public void shutdown()
         {
-
+            CommManager.getInstance().shutDown();
         }
 
 
