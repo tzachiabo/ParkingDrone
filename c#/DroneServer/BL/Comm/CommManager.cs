@@ -24,13 +24,14 @@ namespace DroneServer.BL.Comm
         internal ConcurrentQueue<Response> m_main_responses;
         internal ConcurrentQueue<Response> m_status_responses;
         private TcpListener m_server;
-
+        private Boolean running;
         private CommReader comm_reader;
         private ResponseConsumer m_main_mission_consumer;
         private ResponseConsumer m_status_mission_consumer;
 
         private CommManager()
         {
+            running = true;
             isSocketInitiated = false;
             Logger.getInstance().debug("Initiate Comm manager");
 
@@ -47,7 +48,16 @@ namespace DroneServer.BL.Comm
             Thread Initiator = new Thread(() => 
             {
                 Logger.getInstance().debug("start listening at port : " + port);
-                TcpClient client = m_server.AcceptTcpClient();
+                TcpClient client;
+                try
+                {
+                    client = m_server.AcceptTcpClient();
+                }
+                catch (System.Net.Sockets.SocketException e)
+                {
+                    Assertions.verify(running == false, "socket got unexpected exception");
+                    return;
+                }
                 Logger.getInstance().debug("recevied a connction from the drown");
 
                 m_ns = client.GetStream();
@@ -117,6 +127,9 @@ namespace DroneServer.BL.Comm
         public void shutDown()
         {
             Logger.getInstance().info("Shutting down Comm layer");
+
+            running = false;
+            m_server.Stop();
 
             if (comm_reader != null)
                 comm_reader.shutDown();
