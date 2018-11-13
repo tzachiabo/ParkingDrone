@@ -1,5 +1,6 @@
 package BL.missions;
 
+import BL.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;
@@ -29,7 +30,14 @@ public class StartLandingMission extends Mission {
                     Logger.error("after start landing djierror is " + djiError.toString());
                     Assertions.verify(false, "failed to move drone");
                 }
-                while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded());
+
+                long startTime = System.currentTimeMillis();
+
+                while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded()){
+                    Assertions.verify( System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_LANDING,
+                            "Start Landing timeout: wait too much time for landing confirmation");
+                }
+
                 onResult.onResult(djiError);
             }
         });
