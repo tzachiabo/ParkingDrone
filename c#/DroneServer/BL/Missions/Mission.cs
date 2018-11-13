@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.SharedClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace DroneServer.BL.Missions
 
         public abstract void execute();
 
-        public abstract void done();
+        public abstract void done(Response response);
         
         public abstract void stop();
 

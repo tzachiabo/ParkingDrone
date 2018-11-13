@@ -16,11 +16,11 @@ namespace DroneServer.BL.Missions
             m_SubMission = new Queue<Mission>();
         }
 
-        public void notify()
+        public void notify(Response response)
         {
             if (m_SubMission.Count == 0)
             {
-                done();
+                done(new Response(m_index, Status.Ok, MissionType.MainMission, null));
             }
             else
             {

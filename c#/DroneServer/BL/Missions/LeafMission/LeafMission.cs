@@ -17,11 +17,11 @@ namespace DroneServer.BL.Missions
             m_version = BLManagger.getInstance().get_version();
         }
 
-        public override void done()
+        public override void done(Response response)
         {
             if(m_ParentMission != null)
             {
-                m_ParentMission.notify();
+                m_ParentMission.notify(response);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.SharedClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace DroneServer.BL.Missions
         {
 
         }
-        public override void done()
+        public override void done(Response respone)
         {
 
         }
