@@ -9,4 +9,5 @@ public interface Config {
     String DJI_PHOTO_DIR = "DJI_Photo";
     int TIME_OF_GIMBAL_MOVE = 2;//seconds
     int MAX_TIME_WAIT_FOR_LANDING = 10000;//ms
+    int MAX_TIME_WAIT_FOR_TAKEOFF = 5000;//ms
 }
