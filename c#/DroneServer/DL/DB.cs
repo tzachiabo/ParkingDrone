@@ -9,58 +9,15 @@ using System.IO;
 
 using DroneServer.SharedClasses;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
+
 namespace DroneServer
 {
     class DB
     {
         static string cs = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName + @"\DL\DroneDB.mdf;";
 
-        public static void addParking(string name,double MinZoom,double MaxZoom, double Zoom,double LocationLat, double LocationLng,List<Point> border)
-        {
-            SqlConnection con;
-            SqlCommand cmd;
-            con = new SqlConnection(cs);
-
-
-            string qry = "INSERT INTO Parking (Name, MinZoom,MaxZoom,Zoom,LocationLat,LocationLng)" +
-                         "VALUES(N'"+name+"', "+ MinZoom + ", "+ MaxZoom + ", "+Zoom+", "+ LocationLat + ", "+LocationLng+");";
-
-            con.Open();
-            cmd = new SqlCommand(qry, con);
-            
-            try
-            {
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception) { Console.WriteLine("err");return; }
-            cmd.Dispose();
-            con.Close();
-
-
-            MessageBox.Show(border.Count+"");
-            for (int i = 0; i < border.Count; i++)
-            {
-                SqlConnection con2;
-                SqlCommand cmd2;
-                con2 = new SqlConnection(cs);
-                con2.Open();
-                qry = "INSERT INTO BorderPoint (ParkingName,PointID,Lat,Lng)" +
-                         "VALUES(N'" + name + "', " + i + ", "+ border[i].x + ", " + border[i].y + ");";
-                cmd2 = new SqlCommand(qry, con2);
-                try
-                {
-                    cmd2.ExecuteNonQuery();
-                }
-                catch (Exception e) { MessageBox.Show(e.Message); return; }
-                cmd2.Dispose();
-                con2.Close();
-            }
-
-
-
-            cmd.Dispose();
-            con.Close();
-        }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static void addParking(Parking parking)
         {
             SqlConnection con;
@@ -78,7 +35,13 @@ namespace DroneServer
             {
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception) { Console.WriteLine("err"); return; }
+            catch (Exception)
+            {
+                Console.WriteLine("err");
+                cmd.Dispose();
+                con.Close();
+                return;
+            }
             cmd.Dispose();
             con.Close();
 
@@ -98,7 +61,13 @@ namespace DroneServer
                 {
                     cmd2.ExecuteNonQuery();
                 }
-                catch (Exception e) { MessageBox.Show(e.Message); return; }
+                catch (Exception e)
+                {
+                    Console.WriteLine("err");
+                    cmd.Dispose();
+                    con.Close();
+                    return;
+                }
                 cmd2.Dispose();
                 con2.Close();
             }
@@ -109,6 +78,7 @@ namespace DroneServer
             con.Close();
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static List<Parking> selectAllParkings()
         {
             SqlConnection con;
@@ -138,7 +108,13 @@ namespace DroneServer
                     s.Add(p);
                 }
             }
-            catch (Exception /*e*/) { Console.WriteLine("err1"); }
+            catch (Exception)
+            {
+                Console.WriteLine("err");
+                cmd.Dispose();
+                con.Close();
+                return null;
+            }
             cmd.Dispose();
             con.Close();
 
@@ -171,6 +147,7 @@ namespace DroneServer
             return s;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static void deleteParking(string name)
         {
             SqlConnection con;
@@ -188,7 +165,13 @@ namespace DroneServer
             {
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception) { Console.WriteLine("err"); return; }
+            catch (Exception)
+            {
+                Console.WriteLine("err");
+                cmd.Dispose();
+                con.Close();
+                return;
+            }
             cmd.Dispose();
             con.Close();
         }
