@@ -12,25 +12,25 @@ namespace DroneServer
 {
     class BaseObservable
     {
-        List<BaseObserver> l;
+        List<BaseObserver> observers;
 
         public BaseObservable()
         {
-            l = new List<BaseObserver>();
+            observers = new List<BaseObserver>();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void register(BaseObserver obs)
         {
-            l.Add(obs);
+            observers.Add(obs);
             obs.setObserable(this);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void notifyAll()
         {
-            Assertions.verify(l != null, "tried to notify a null list of objects");
-            foreach (BaseObserver obs in l)
+            Assertions.verify(observers != null, "tried to notify a null list of objects");
+            foreach (BaseObserver obs in observers)
             {
                 obs.update();
             }
