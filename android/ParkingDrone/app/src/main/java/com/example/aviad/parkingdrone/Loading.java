@@ -115,6 +115,7 @@ public class Loading extends AppCompatActivity {
 
     private void startSDKRegistration()
     {
+        BLManager.getInstance().initFs();
         if (isRegistrationInProgress.compareAndSet(false, true)) {
             AsyncTask.execute(new Runnable() {
                 @Override

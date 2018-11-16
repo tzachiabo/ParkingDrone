@@ -3,7 +3,24 @@ package BL;
 import SharedClasses.Config;
 import SharedClasses.Logger;
 import android.os.Environment;
+import android.util.Log;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import BL.missions.TakePictureMission;
@@ -18,6 +35,8 @@ import dji.common.util.CommonCallbacks;
 import dji.sdk.camera.Camera;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
+
+import static dji.thirdparty.v3.eventbus.EventBus.TAG;
 
 public class BLManager {
     private static BLManager instance = null;
@@ -82,12 +101,15 @@ public class BLManager {
         return DroneStatus.get() == 3;
     }
 
-    private void initFs(){
+    public void initFs(){
           file = new File(Environment.getExternalStorageDirectory(),
                           Config.DJI_PHOTO_DIR);
           file.mkdirs();
           Logger.info("main dir" + file.getAbsolutePath());
           DroneStatus.getAndIncrement();
+        //readForTest();
+        //sendPic("saa");
+
     }
 
     private void initCamera() {
@@ -121,4 +143,38 @@ public class BLManager {
         Assertions.verify(false, "camera "+ Config.MAIN_CAMERA_NAME +"could not be found");
         return null;
     }
+
+
+    private void readForTest(){
+        File pic = new File(file,"a.JPG");
+
+        StringBuilder text = new StringBuilder();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(pic));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+            String data = text.toString();
+            sendPic(data);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static void sendPic(final String pic) throws IOException {
+        String uri = "http://" + Config.DST_ADDRESS + ":" +Config.DST_PIC_PORT;
+        Request request = Request.Get(uri);
+        HttpResponse response = request.execute().returnResponse();
+
+    }
 }
+
+
+//
