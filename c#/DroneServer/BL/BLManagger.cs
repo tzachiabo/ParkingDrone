@@ -100,7 +100,6 @@ namespace DroneServer.BL
         {
             map.register(new MapObserver(Gmap));
             logger.debug("The Gmap " + Gmap.Name + " has registered");
-            //LocationManager.init();
         }
 
         public void setLocation(double lat,double lng)
@@ -111,6 +110,8 @@ namespace DroneServer.BL
 
         public void startMission(Parking parking)
         {
+            LocationManager.init();
+
             ParkingMission start_mission = new ParkingMission(parking);
             start_mission.execute();
         }

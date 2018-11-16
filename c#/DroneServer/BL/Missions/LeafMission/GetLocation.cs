@@ -26,6 +26,7 @@ namespace DroneServer.BL.Missions
         public override void done(Response response)
         {
             Point p = (Point)response.Data;
+            Logger.getInstance().debug("update map location with this params :" + p.y + " " + p.x);
             BLManagger.getInstance().setLocation(p.y, p.x);   
             base.done(response);
         }

@@ -22,14 +22,14 @@ public class TakeoffMission extends Mission {
             public void onResult(DJIError djiError) {
                 if(djiError != null) {
                     Logger.error("after takeoff djierror is " + djiError.toString());
-                    Assertions.verify(false, "failed to move drone");
+                    Assertions.verify(false, "failed to take off drone");
                 }
 
                 float height;
                 long startTime = System.currentTimeMillis();
                 do {
                     height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
-                    Assertions.verify( System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_TAKEOFF,
+                    Assertions.verify( System.currentTimeMillis() - startTime < Config.MAX_TIME_WAIT_FOR_TAKEOFF,
                             "Takeoff timeout: wait too much time for takeoff");
                 }
                 while(height < 1.1);

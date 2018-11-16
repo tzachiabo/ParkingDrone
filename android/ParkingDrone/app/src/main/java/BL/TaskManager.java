@@ -7,10 +7,10 @@ import SharedClasses.Assertions;
 
 public class TaskManager {
     private static TaskManager instance = null;
-    private ConcurrentHashMap<Integer,Mission> running_missions = null;
+    private final ConcurrentHashMap<Integer,Mission> running_missions = new ConcurrentHashMap<>();
 
     private TaskManager(){
-        running_missions = new ConcurrentHashMap<>();
+
     }
     public static TaskManager getInstance(){
         if(instance == null){
@@ -45,10 +45,15 @@ public class TaskManager {
             removeTask(mission);
         }
     }
-    public void start(Integer mission_id) {
+    public void start(final Integer mission_id) {
         Assertions.verify(this.running_missions.containsKey(mission_id),
                 "TaskManager:start mission is not exist in queue");
-
-        this.running_missions.get(mission_id).start();
+        Thread t= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                running_missions.get(mission_id).start();
+            }
+        });
+        t.start();
     }
 }

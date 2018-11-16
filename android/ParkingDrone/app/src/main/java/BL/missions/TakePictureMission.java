@@ -139,6 +139,7 @@ public class TakePictureMission extends Mission {
                     outputStream.flush();
                     socket.close();
                     Logger.debug("finish send pic to server");
+                    onResult.onResult(null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

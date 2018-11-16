@@ -160,6 +160,7 @@
             this.end_mission_btn.TabIndex = 5;
             this.end_mission_btn.Text = "End Mission";
             this.end_mission_btn.UseVisualStyleBackColor = true;
+            this.end_mission_btn.Click += new System.EventHandler(this.end_mission_btn_Click_1);
             // 
             // logger_mission_lst
             // 

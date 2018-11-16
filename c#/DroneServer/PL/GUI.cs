@@ -29,6 +29,7 @@ namespace DroneServer
             InitializeComponent();
         }
 
+
         /// <summary>
         /// big screen done
         /// back button done
@@ -370,6 +371,11 @@ namespace DroneServer
         }
 
         private void Yaw_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void end_mission_btn_Click_1(object sender, EventArgs e)
         {
 
         }

@@ -77,7 +77,6 @@ public class MoveMission extends Mission {
                 break;
             case up:
                 fcd = new FlightControlData(0,0,0,Config.BASE_SPEED);
-                Logger.debug("UP mission");
                 break;
             case down:
                 fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED);

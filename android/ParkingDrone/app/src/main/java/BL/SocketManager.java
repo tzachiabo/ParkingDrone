@@ -80,7 +80,7 @@ public class SocketManager {
 
     }
 
-    public void send(String data){
+    public synchronized void send(String data){
         Logger.debug("sending to server "+data);
         try {
             outputStream.write(data.getBytes("UTF-8"));

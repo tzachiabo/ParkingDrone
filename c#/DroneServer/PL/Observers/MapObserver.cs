@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DroneServer.SharedClasses;
 
@@ -25,7 +21,12 @@ namespace DroneServer.PL.Observers
             try
             {
                 Point p = (Point)observable.getData();
-                map.Position = new PointLatLng(p.y, p.x);
+                map.BeginInvoke((Action)(() =>
+                {
+                    map.Position = new PointLatLng(p.y, p.x);
+                }));
+                
+               
             }
             catch (Exception e) { MessageBox.Show(e.Message); return; }
         }

@@ -1,6 +1,7 @@
 package BL.missions;
 
 import SharedClasses.Assertions;
+import SharedClasses.Logger;
 import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
@@ -16,6 +17,7 @@ public class GetGPSLocationMission extends Mission {
 
     @Override
     public void start() {
+        Logger.debug("start getGPSLocation mission");
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "when get Location mission aircraft is null");
 
@@ -24,6 +26,8 @@ public class GetGPSLocationMission extends Mission {
         Altitude = lc3d.getAltitude();
         Latitude = lc3d.getLatitude();
         Longitude = lc3d.getLongitude();
+
+        onResult.onResult(null);
     }
 
     @Override
@@ -31,6 +35,6 @@ public class GetGPSLocationMission extends Mission {
 
     @Override
     public String encode() {
-        return getName() +" "+ getIndex()+ " " + Altitude + " " + Latitude + " " + Longitude;
+        return getName() +" "+ getIndex()+ " Done " + Altitude + " " + Latitude + " " + Longitude;
     }
 }
