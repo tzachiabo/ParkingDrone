@@ -369,6 +369,9 @@ namespace DroneServer
 
         }
 
-        
+        private void Yaw_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

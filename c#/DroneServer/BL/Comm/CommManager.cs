@@ -28,6 +28,7 @@ namespace DroneServer.BL.Comm
         private CommReader comm_reader;
         private ResponseConsumer m_main_mission_consumer;
         private ResponseConsumer m_status_mission_consumer;
+        private PicTransferServer m_pic_transfer_server;
 
         private CommManager()
         {
@@ -70,6 +71,8 @@ namespace DroneServer.BL.Comm
                 m_main_mission_consumer = new ResponseConsumer(m_missions, m_main_responses);
 
                 m_status_mission_consumer = new ResponseConsumer(m_missions, m_status_responses);
+
+                m_pic_transfer_server = new PicTransferServer();
             });
 
             Initiator.Start();
@@ -147,6 +150,9 @@ namespace DroneServer.BL.Comm
 
             if (m_status_mission_consumer != null)
                 m_status_mission_consumer.shutDown();
+
+            if (m_pic_transfer_server != null)
+                m_pic_transfer_server.shutDown();
         }
 
     }

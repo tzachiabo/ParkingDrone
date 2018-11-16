@@ -102,6 +102,7 @@
     <Compile Include="BL\Comm\CommManager.cs" />
     <Compile Include="BL\Comm\CommReader.cs" />
     <Compile Include="BL\Comm\Decoder.cs" />
+    <Compile Include="BL\Comm\PicTransferServer.cs" />
     <Compile Include="BL\Comm\ResponseConsumer.cs" />
     <Compile Include="BL\LocationManager.cs" />
     <Compile Include="BL\Missions\LeafMission\ConfirmLanding.cs" />

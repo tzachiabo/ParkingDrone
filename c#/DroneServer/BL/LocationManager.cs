@@ -37,7 +37,8 @@ namespace DroneServer.BL
 
         public static void shutDown()
         {
-            instance.stop();
+            if (instance != null)
+                instance.stop();
         }
 
         private void stop()

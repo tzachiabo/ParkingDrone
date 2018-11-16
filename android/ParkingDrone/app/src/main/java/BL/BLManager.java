@@ -3,7 +3,15 @@ package BL;
 import SharedClasses.Config;
 import SharedClasses.Logger;
 import android.os.Environment;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import BL.missions.TakePictureMission;
@@ -121,4 +129,5 @@ public class BLManager {
         Assertions.verify(false, "camera "+ Config.MAIN_CAMERA_NAME +"could not be found");
         return null;
     }
+
 }

@@ -7,7 +7,7 @@ import dji.common.util.CommonCallbacks;
 
 public abstract class Mission {
     private String name;
-    private int index;
+    protected int index;
     MissionReport onResult;
 
     public Mission(String name, int index){
