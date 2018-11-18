@@ -19,22 +19,26 @@ public class Assertions {
             try {
                 SocketManager.getInstance().close_socket();
             }
-            catch (IOException e){
+            catch (Exception e){
                 Logger.fatal("Failed to close socket");
             }
 
             final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-            aircraft.getFlightController().setVirtualStickModeEnabled(false, new CommonCallbacks.CompletionCallback() {
-                @Override
-                public void onResult(DJIError djiError) {
-                    if(djiError == null){
-                        Logger.info("set virtual stick off2");
+            if(aircraft !=null) {
+                aircraft.getFlightController().setVirtualStickModeEnabled(false, new CommonCallbacks.CompletionCallback() {
+                    @Override
+                    public void onResult(DJIError djiError) {
+                        if (djiError == null) {
+                            Logger.info("set virtual stick off2");
+                        } else {
+                            Logger.fatal("Failed to set virtual stick off");
+                        }
                     }
-                    else {
-                        Logger.fatal("Failed to set virtual stick off");
-                    }
-                }
-            });
+                });
+            }
+            else{
+                Logger.fatal("No DJI product connected on Assertions.verify ");
+            }
 
             TaskManager.getInstance().stopAllTasks();
         }
