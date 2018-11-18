@@ -19,10 +19,12 @@ import BL.missions.TakePictureMission;
 import SharedClasses.Assertions;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
 import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
 import dji.common.flightcontroller.virtualstick.VerticalControlMode;
 import dji.common.flightcontroller.virtualstick.YawControlMode;
+import dji.common.model.LocationCoordinate2D;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.camera.Camera;
 import dji.sdk.products.Aircraft;
@@ -34,7 +36,6 @@ public class BLManager {
     public File file;
     private AtomicInteger DroneStatus;
     private boolean isConnected;
-
     private BLManager() {
         Logger.debug("initiate BL");
         isConnected = false;
@@ -53,6 +54,7 @@ public class BLManager {
         initFs();
         initCamera();
         initFlightController();
+        //initHomeLocation();
         isConnected = true;
     }
 
@@ -93,7 +95,7 @@ public class BLManager {
     }
 
     public boolean isDroneReady(){
-        return DroneStatus.get() == 3;
+        return DroneStatus.get() == 4;
     }
 
     private void initFs(){
@@ -134,6 +136,25 @@ public class BLManager {
 
         Assertions.verify(false, "camera "+ Config.MAIN_CAMERA_NAME +"could not be found");
         return null;
+    }
+    private void initHomeLocation(){
+        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        Assertions.verify(aircraft != null,"aircraft is null on BL.initHomeLocation");
+        aircraft.getFlightController().setHomeLocationUsingAircraftCurrentLocation(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError != null) {
+                    Logger.error("initHomeLocation resulted in dji error " + djiError.toString());
+                    Assertions.verify(
+                            false,
+                            "failed to set Home location on BL.initHomeLocation");
+                } else {
+                    Logger.info("Home location was set to be :" +
+                            aircraft.getFlightController().getState().getHomeLocation().toString());
+                    DroneStatus.getAndIncrement();
+                }
+            }
+        });
     }
 
 }
