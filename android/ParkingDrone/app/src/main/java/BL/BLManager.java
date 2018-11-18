@@ -1,6 +1,7 @@
 package BL;
 
 import SharedClasses.Config;
+import SharedClasses.DroneStatus;
 import SharedClasses.Logger;
 import android.os.Environment;
 
@@ -59,8 +60,13 @@ public class BLManager {
         isConnected = false;
     }
 
-    public synchronized boolean isDroneConnected(){
-        return isDroneReady() && isConnected;
+    public synchronized SharedClasses.DroneStatus getDroneStatus(){
+        if (isDroneReady() && isConnected)
+            return SharedClasses.DroneStatus.Ready;
+        else if (isConnected)
+            return SharedClasses.DroneStatus.NotReady;
+        else
+            return SharedClasses.DroneStatus.Disconnected;
     }
 
     private void initFlightController(){
