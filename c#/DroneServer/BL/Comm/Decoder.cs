@@ -36,17 +36,14 @@ namespace DroneServer.BL.Comm
                     return parseGoToGPS(words);
                     
                 case "takePhoto":
+                    return parseTakePhoto(words);
 
-                    break;
                 case "stop":
                     return parseStop(words);
                     
                 case "getStatus":
+                    return parseGetStatus(words);
 
-                    break;
-                case "isAlive":
-
-                    break;
                 case "getLocation":
                     return parseLocation(words);
 
@@ -55,6 +52,24 @@ namespace DroneServer.BL.Comm
             }
             Assertions.verify(false, "decoder faild to decode the recived message : " + data);
             return null;
+        }
+
+        private static Response parseTakePhoto(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+
+            double lat = Double.Parse(sentance[4]);
+
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, sentance[3]);
+            return res;
+        }
+
+        private static Response parseGetStatus(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, sentance[3]);
+            return res;
         }
 
         private static Response parseLocation(string[] sentance)

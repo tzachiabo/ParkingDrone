@@ -23,6 +23,7 @@ public class TakePictureMission extends Mission {
     private Handler handler;
     int size;
     byte[] picture;
+    String pic_name;
     public static Camera camera;
 
     public TakePictureMission(int index) {
@@ -58,7 +59,7 @@ public class TakePictureMission extends Mission {
                                         Logger.debug("number of files in fs :" + sdCardFileListSnapshot.size());
 
                                         MediaFile file = sdCardFileListSnapshot.get(sdCardFileListSnapshot.size()-1);
-                                        final String pic_name ="basePhoto" + index;
+                                        pic_name ="basePhoto" + index;
 
                                         file.fetchFileData(BLManager.getInstance().file,pic_name, new DownloadListener<String>() {
                                             @Override
@@ -150,6 +151,6 @@ public class TakePictureMission extends Mission {
 
     @Override
     public String encode() {
-        return getName() + " " + getIndex() + " " + "Done" + " " + size + " " + picture;
+        return getName() + " " + getIndex() + " " + "Done" + " " + pic_name+".JPG";
     }
 }

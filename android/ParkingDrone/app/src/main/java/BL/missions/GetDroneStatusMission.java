@@ -1,15 +1,19 @@
 package BL.missions;
 
+import BL.BLManager;
 import SharedClasses.Assertions;
+import SharedClasses.DroneStatus;
 
 public class GetDroneStatusMission extends Mission {
-    int status;
+    DroneStatus status;
     public GetDroneStatusMission(int index){
       super("getStatus", index);
     }
     @Override
     public void start() {
-        Assertions.verify(false, "get status is not implemented yet");
+        status = BLManager.getInstance().getDroneStatus();
+
+        onResult.onResult(null);
     }
 
     @Override
@@ -19,6 +23,6 @@ public class GetDroneStatusMission extends Mission {
 
     @Override
     public String encode() {
-        return getName() +" "+ getIndex() + " " + status;
+        return getName() +" "+ getIndex() + " Done " + status;
     }
 }
