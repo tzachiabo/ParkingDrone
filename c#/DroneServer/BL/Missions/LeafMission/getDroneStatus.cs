@@ -1,4 +1,5 @@
-﻿using DroneServer.SharedClasses;
+﻿using DroneServer.BL.Comm;
+using DroneServer.SharedClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,21 @@ namespace DroneServer.BL.Missions
         public override void done(Response response)
         {
             Assertions.verify(false, "get status -done not implemented yet");
+        }
+
+        public override void execute()
+        {
+            Logger.getInstance().debug("start executing a getStatus");
+            CommManager comm_manager = CommManager.getInstance();
+
+            if (comm_manager.isSocketInitiated)
+            {
+                comm_manager.execMission(this);
+            }
+            else
+            {
+                done(new Response(m_index, Status.Failed, MissionType.StateMission, DroneStatus.Disconnected));
+            }
         }
     }
 }

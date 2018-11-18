@@ -89,6 +89,7 @@ namespace DroneServer.BL.Comm
 
         internal void ClientDisconnect()
         {
+            isSocketInitiated = false;
             Logger.getInstance().error("client has disconnect");
             Response res;
 
@@ -111,6 +112,7 @@ namespace DroneServer.BL.Comm
             }
             Logger.getInstance().info("client has reconnected");
             m_ns = client.GetStream();
+            isSocketInitiated = true;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -132,7 +134,18 @@ namespace DroneServer.BL.Comm
             Logger.getInstance().info("send this message to Android : " + message_to_android);
 
             byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
-            m_ns.Write(to_send, 0, to_send.Length);
+
+            Assertions.verify(m_ns != null, "tried to send message to android but network stream is null");
+
+            try
+            {
+                m_ns.Write(to_send, 0, to_send.Length);
+            }
+            catch(Exception e)
+            {
+                Assertions.verify(false, "failed to write to network stream with error " + e.ToString());
+            }
+
         }
 
         public void shutDown()

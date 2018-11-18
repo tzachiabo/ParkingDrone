@@ -4,5 +4,6 @@
 <debugMode>true</debugMode>
 <interval>3000</interval>
 <getLocationInterval>3000</getLocationInterval>
+<getStatusInterval>3000</getStatusInterval>
 
 </xml>

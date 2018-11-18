@@ -68,7 +68,24 @@ namespace DroneServer.BL.Comm
         {
             Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
 
-            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, sentance[3]);
+            DroneStatus drone_status = DroneStatus.Disconnected;
+            switch (sentance[3])
+            {
+                case "Disconnected":
+                    drone_status = DroneStatus.Disconnected;
+                    break;
+                case "NotReady":
+                    drone_status = DroneStatus.NotReady;
+                    break;
+                case "Ready":
+                    drone_status = DroneStatus.Ready;
+                    break;
+                default:
+                    Assertions.verify(false, "decoder: unknown drone status");
+                    break;
+            }
+
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.StateMission, drone_status);
             return res;
         }
 
@@ -82,7 +99,7 @@ namespace DroneServer.BL.Comm
             Logger.getInstance().debug("decode location update lat: " + lat + " lng: " + lng + " alt: " + alt);
 
             Point p = new Point(lng, lat, alt);
-            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, p);
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.StateMission, p);
             return res;
         }
 
