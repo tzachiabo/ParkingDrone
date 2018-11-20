@@ -77,8 +77,10 @@ public class SocketManager {
     }
 
     public synchronized void send(String data){
+
         Logger.debug("sending to server "+data);
         try {
+            data +="%";
             outputStream.write(data.getBytes("UTF-8"));
             outputStream.flush();
         } catch (UnsupportedEncodingException e) {
