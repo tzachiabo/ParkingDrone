@@ -36,15 +36,19 @@ public class BLManager {
     private static BLManager instance = null;
     private SocketManager socket_manager;
     public File file;
-    private AtomicInteger DroneStatus;
+    private boolean isFsInitiated;
     private boolean isConnected;
 
     private BLManager() {
         Logger.debug("initiate BL");
         isConnected = false;
         socket_manager = SocketManager.getInstance();
+<<<<<<< HEAD
         DroneStatus = new AtomicInteger();
 
+=======
+        isFsInitiated = false;
+>>>>>>> 9ff17cd... add Drone Initiator to android
     }
 
     public static BLManager getInstance() {
@@ -62,10 +66,15 @@ public class BLManager {
         initHomeLocation();
 =======
     public synchronized void init(){
+<<<<<<< HEAD
         if(!isDroneReady()) {
             initFs();
         }
 >>>>>>> c5ee8fd... tmp
+=======
+        DroneInitiator.init();
+        initFs();
+>>>>>>> 9ff17cd... add Drone Initiator to android
         isConnected = true;
     }
 
@@ -73,8 +82,13 @@ public class BLManager {
         isConnected = false;
     }
 
+<<<<<<< HEAD
     public synchronized SharedClasses.DroneStatus getDroneStatus() {
         if (isDroneReady() && isConnected)
+=======
+    public synchronized SharedClasses.DroneStatus getDroneStatus(){
+        if (DroneInitiator.isInitiated() && isFsInitiated && isConnected)
+>>>>>>> 9ff17cd... add Drone Initiator to android
             return SharedClasses.DroneStatus.Connected;
         else if (isConnected)
             return SharedClasses.DroneStatus.NotReady;
@@ -82,6 +96,7 @@ public class BLManager {
             return SharedClasses.DroneStatus.Disconnected;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     private void initFlightController() {
         Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
@@ -135,6 +150,16 @@ public class BLManager {
                 }
             }
         });
+=======
+    private void initFs(){
+        if (isFsInitiated){
+            file = new File(Environment.getExternalStorageDirectory(),
+                    Config.DJI_PHOTO_DIR);
+            file.mkdirs();
+            Logger.info("main dir" + file.getAbsolutePath());
+            isFsInitiated= true;
+        }
+>>>>>>> 9ff17cd... add Drone Initiator to android
     }
 
     private Camera getCamera() {

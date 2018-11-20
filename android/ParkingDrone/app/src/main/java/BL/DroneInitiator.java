@@ -22,9 +22,10 @@ public class DroneInitiator {
 
     private boolean isCameraInitiated;
     private boolean isFlightControllerInitiated;
+    private static DroneInitiator instance;
 
     public static void init(){
-        DroneInitiator drone = new DroneInitiator();
+        DroneInitiator drone = getInstance();
         if (!drone.isFlightControllerInitiated)
         {
             drone.initFlightController();
@@ -33,6 +34,17 @@ public class DroneInitiator {
         {
             drone.initCamera();
         }
+    }
+
+    public static boolean isInitiated(){
+        DroneInitiator drone = getInstance();
+        return drone.isFlightControllerInitiated && drone.isCameraInitiated;
+    }
+
+    private static DroneInitiator getInstance(){
+        if (instance == null)
+            instance = new DroneInitiator();
+        return instance;
     }
 
     private DroneInitiator(){
