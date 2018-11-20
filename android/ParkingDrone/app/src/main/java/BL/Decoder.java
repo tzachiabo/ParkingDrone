@@ -54,6 +54,7 @@ public class Decoder {
                 to_return = new StopMission(index);
                 break;
             case "getStatus":
+                Logger.debug("get status is being decoded");
                 to_return = new GetDroneStatusMission(index);
                 break;
             case "getLocation":

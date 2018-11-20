@@ -107,12 +107,12 @@ namespace DroneServer
         //home section
         private void start_home_btn_Click(object sender, EventArgs e)
         {
-            if (connected_home_lbl.Text != "Connected")
+            if (false)//(connected_home_lbl.Text != "Connected")
             {
                 MessageBox.Show("Can not run missions while status is not 'Connected'");
                 return;
             }
-            if (parkings_home_lst.SelectedIndex == -1)
+            else if (parkings_home_lst.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select parking");
                 return;
