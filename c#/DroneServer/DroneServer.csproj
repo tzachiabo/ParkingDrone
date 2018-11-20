@@ -109,6 +109,7 @@
     <Compile Include="BL\Missions\ComplexMission\Landing.cs" />
     <Compile Include="BL\Missions\LeafMission\getDroneStatus.cs" />
     <Compile Include="BL\Missions\LeafMission\GetLocation.cs" />
+    <Compile Include="BL\Missions\LeafMission\GoHome.cs" />
     <Compile Include="BL\Missions\LeafMission\MoveGimbal.cs" />
     <Compile Include="BL\Missions\LeafMission\stopMission.cs" />
     <Compile Include="BL\statusManager.cs" />

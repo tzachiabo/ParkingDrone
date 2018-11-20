@@ -3,6 +3,7 @@ package BL;
 import SharedClasses.Config;
 import SharedClasses.DroneStatus;
 import SharedClasses.Logger;
+
 import android.os.Environment;
 
 import java.io.BufferedInputStream;
@@ -15,6 +16,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import BL.missions.TakePictureMission;
 import SharedClasses.Assertions;
 import dji.common.camera.SettingsDefinitions;
@@ -36,11 +38,13 @@ public class BLManager {
     public File file;
     private AtomicInteger DroneStatus;
     private boolean isConnected;
+
     private BLManager() {
         Logger.debug("initiate BL");
         isConnected = false;
         socket_manager = SocketManager.getInstance();
         DroneStatus = new AtomicInteger();
+
     }
 
     public static BLManager getInstance() {
@@ -50,19 +54,19 @@ public class BLManager {
         return instance;
     }
 
-    public synchronized void init(){
+    public synchronized void init() {
         initFs();
         initCamera();
         initFlightController();
-        //initHomeLocation();
+        initHomeLocation();
         isConnected = true;
     }
 
-    public synchronized void DisconnectDrone(){
+    public synchronized void DisconnectDrone() {
         isConnected = false;
     }
 
-    public synchronized SharedClasses.DroneStatus getDroneStatus(){
+    public synchronized SharedClasses.DroneStatus getDroneStatus() {
         if (isDroneReady() && isConnected)
             return SharedClasses.DroneStatus.Ready;
         else if (isConnected)
@@ -71,10 +75,9 @@ public class BLManager {
             return SharedClasses.DroneStatus.Disconnected;
     }
 
-    private void initFlightController(){
+    private void initFlightController() {
         Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "while init flight controller aircraft was null");
-
         aircraft.getFlightController().setRollPitchControlMode(RollPitchControlMode.VELOCITY);
         aircraft.getFlightController().setYawControlMode(YawControlMode.ANGULAR_VELOCITY);
         aircraft.getFlightController().setVerticalControlMode(VerticalControlMode.VELOCITY);
@@ -94,16 +97,16 @@ public class BLManager {
         });
     }
 
-    public boolean isDroneReady(){
+    public boolean isDroneReady() {
         return DroneStatus.get() == 4;
     }
 
-    private void initFs(){
-          file = new File(Environment.getExternalStorageDirectory(),
-                          Config.DJI_PHOTO_DIR);
-          file.mkdirs();
-          Logger.info("main dir" + file.getAbsolutePath());
-          DroneStatus.getAndIncrement();
+    private void initFs() {
+        file = new File(Environment.getExternalStorageDirectory(),
+                Config.DJI_PHOTO_DIR);
+        file.mkdirs();
+        Logger.info("main dir" + file.getAbsolutePath());
+        DroneStatus.getAndIncrement();
     }
 
     private void initCamera() {
@@ -123,7 +126,7 @@ public class BLManager {
         });
     }
 
-    private Camera getCamera(){
+    private Camera getCamera() {
         Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "while init camera aircraft was null");
         List<Camera> cameras = DJISDKManager.getInstance().getProduct().getCameras();
@@ -134,20 +137,25 @@ public class BLManager {
             }
         }
 
-        Assertions.verify(false, "camera "+ Config.MAIN_CAMERA_NAME +"could not be found");
+        Assertions.verify(false, "camera " + Config.MAIN_CAMERA_NAME + "could not be found");
         return null;
     }
-    private void initHomeLocation(){
+
+    private void initHomeLocation() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(aircraft != null,"aircraft is null on BL.initHomeLocation");
+        Assertions.verify(aircraft != null, "aircraft is null on BL.initHomeLocation");
         aircraft.getFlightController().setHomeLocationUsingAircraftCurrentLocation(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError djiError) {
                 if (djiError != null) {
                     Logger.error("initHomeLocation resulted in dji error " + djiError.toString());
-                    Assertions.verify(
-                            false,
-                            "failed to set Home location on BL.initHomeLocation");
+                    if (Config.DEBUG_MODE) {
+                        Logger.error("Unable to define home location DO NOT use the feature");
+                    } else {
+                        Assertions.verify(
+                                false,
+                                "failed to set Home location on BL.initHomeLocation");
+                    }
                 } else {
                     Logger.info("Home location was set to be :" +
                             aircraft.getFlightController().getState().getHomeLocation().toString());

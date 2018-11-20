@@ -167,6 +167,11 @@ namespace DroneServer.BL
             mtgp.execute();
         }
 
+        public void goHomeForTest()
+        {
+            new GoHome().execute();
+        }
+
         public void MoveGimbalTest(Gimbal gimbal, double roll, double pitch, double yaw)
         {
             MoveGimbal mg = new MoveGimbal(gimbal, GimbalMovementType.relative, roll, pitch, yaw);

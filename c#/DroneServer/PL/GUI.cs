@@ -233,7 +233,7 @@ namespace DroneServer
 
         private void goHome_dummy_btn_Click(object sender, EventArgs e)
         {
-
+            BLManagger.getInstance().goHomeForTest();
         }
 
         private void moveGimbal_dummy_btn_Click(object sender, EventArgs e)
