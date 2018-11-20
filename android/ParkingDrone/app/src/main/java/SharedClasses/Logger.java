@@ -27,7 +27,7 @@ public class Logger {
                     con.getResponseCode();
                     con.disconnect();
                 } catch (Exception e) {
-                    throw new NullPointerException();
+                    Logger.error("failed to write log : " + toLog);
 
                 }
 
