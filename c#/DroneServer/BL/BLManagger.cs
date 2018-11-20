@@ -15,6 +15,7 @@ using GMap.NET.WindowsForms;
 using DroneServer.PL;
 using DroneServer.PL.Observers;
 using System.Collections.Generic;
+using System.Net;
 
 namespace DroneServer.BL 
 {
@@ -94,7 +95,8 @@ namespace DroneServer.BL
 
         public void registerToConnection(Control text)
         {
-            status.register(new TextObserver(text));
+            status.register(new TextObserver(text));    
+            logger.debug("The Control " + text.Name + " has registered");
         }
 
         public void registerToMap(GMapControl Gmap)
@@ -128,6 +130,26 @@ namespace DroneServer.BL
             CommManager.getInstance().shutDown();
             LocationManager.shutDown();
         }
+
+        public void clearLogs()
+        {
+            logger.clearData();
+
+            try
+            {
+                string Url = "https://floating-fjord-95063.herokuapp.com/empty";
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                myRequest.Method = "GET";
+                WebResponse myResponse = myRequest.GetResponse();
+                myResponse.Close();
+            }
+            catch (Exception)
+            {
+            }
+
+
+        }
+
 
 
         //----------------------------------tests-------------------------------//

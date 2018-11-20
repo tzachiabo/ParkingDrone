@@ -34,6 +34,14 @@ namespace DroneServer
 
         private void GUI_Load(object sender, EventArgs e)
         {
+            try
+            {
+                File.WriteAllLines("./MyTestAppender.log", new string[0]);
+            }
+            catch (Exception)
+            {
+            }
+
             homePanel.Location = new System.Drawing.Point(0, 0);
             missionPanel.Location = new System.Drawing.Point(0, 0);
             missionPanel.Visible = false;
@@ -55,6 +63,15 @@ namespace DroneServer
         {
             bl.shutdown();
             timer.Stop();
+
+
+            try
+            {
+                File.Copy("./MyTestAppender.log", "./logs/"+ DateTime.Today.ToString().Replace(' ','_').Replace('/', '_').Replace(':', '_') + ".txt");
+            }
+            catch (Exception s)
+            {
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -124,6 +141,12 @@ namespace DroneServer
             parkings_home_lst.Items.RemoveAt(index);
             parkingList.RemoveAt(index);
             
+        }
+
+        private void clear_home_btn_Click(object sender, EventArgs e)
+        {
+            bl.clearLogs();
+
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,5 +399,7 @@ namespace DroneServer
         {
 
         }
+
+        
     }
 }

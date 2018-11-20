@@ -32,6 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
+            this.homePanel = new System.Windows.Forms.Panel();
+            this.connected_home_lbl = new System.Windows.Forms.Label();
+            this.androidLogger_home_lst = new System.Windows.Forms.ListBox();
+            this.start_home_btn = new System.Windows.Forms.Button();
+            this.parkings_home_lst = new System.Windows.Forms.ListBox();
+            this.logger_home_lst = new System.Windows.Forms.ListBox();
+            this.delete_home_btn = new System.Windows.Forms.Button();
             this.missionPanel = new System.Windows.Forms.Panel();
             this.androidLogger_mission_lst = new System.Windows.Forms.ListBox();
             this.back_mission_btn = new System.Windows.Forms.Button();
@@ -41,12 +48,6 @@
             this.connected_mission_lbl = new System.Windows.Forms.Label();
             this.abort_mission_btn = new System.Windows.Forms.Button();
             this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
-            this.homePanel = new System.Windows.Forms.Panel();
-            this.androidLogger_home_lst = new System.Windows.Forms.ListBox();
-            this.start_home_btn = new System.Windows.Forms.Button();
-            this.parkings_home_lst = new System.Windows.Forms.ListBox();
-            this.logger_home_lst = new System.Windows.Forms.ListBox();
-            this.delete_home_btn = new System.Windows.Forms.Button();
             this.createTab = new System.Windows.Forms.TabPage();
             this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.finish_create_btn = new System.Windows.Forms.Button();
@@ -75,11 +76,11 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.connected_home_lbl = new System.Windows.Forms.Label();
+            this.clear_home_btn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
-            this.missionPanel.SuspendLayout();
             this.homePanel.SuspendLayout();
+            this.missionPanel.SuspendLayout();
             this.createTab.SuspendLayout();
             this.dummyTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).BeginInit();
@@ -105,11 +106,85 @@
             this.homeTab.Controls.Add(this.missionPanel);
             this.homeTab.Location = new System.Drawing.Point(4, 25);
             this.homeTab.Name = "homeTab";
-            this.homeTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.homeTab.Padding = new System.Windows.Forms.Padding(3);
             this.homeTab.Size = new System.Drawing.Size(1392, 771);
             this.homeTab.TabIndex = 0;
             this.homeTab.Text = "Home";
             this.homeTab.UseVisualStyleBackColor = true;
+            // 
+            // homePanel
+            // 
+            this.homePanel.Controls.Add(this.clear_home_btn);
+            this.homePanel.Controls.Add(this.connected_home_lbl);
+            this.homePanel.Controls.Add(this.androidLogger_home_lst);
+            this.homePanel.Controls.Add(this.start_home_btn);
+            this.homePanel.Controls.Add(this.parkings_home_lst);
+            this.homePanel.Controls.Add(this.logger_home_lst);
+            this.homePanel.Controls.Add(this.delete_home_btn);
+            this.homePanel.Location = new System.Drawing.Point(37, 114);
+            this.homePanel.Name = "homePanel";
+            this.homePanel.Size = new System.Drawing.Size(1386, 726);
+            this.homePanel.TabIndex = 4;
+            // 
+            // connected_home_lbl
+            // 
+            this.connected_home_lbl.AutoSize = true;
+            this.connected_home_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.connected_home_lbl.ForeColor = System.Drawing.Color.LimeGreen;
+            this.connected_home_lbl.Location = new System.Drawing.Point(796, 27);
+            this.connected_home_lbl.Name = "connected_home_lbl";
+            this.connected_home_lbl.Size = new System.Drawing.Size(228, 39);
+            this.connected_home_lbl.TabIndex = 9;
+            this.connected_home_lbl.Text = "Disconnected";
+            // 
+            // androidLogger_home_lst
+            // 
+            this.androidLogger_home_lst.FormattingEnabled = true;
+            this.androidLogger_home_lst.ItemHeight = 16;
+            this.androidLogger_home_lst.Location = new System.Drawing.Point(534, 102);
+            this.androidLogger_home_lst.Name = "androidLogger_home_lst";
+            this.androidLogger_home_lst.Size = new System.Drawing.Size(536, 612);
+            this.androidLogger_home_lst.TabIndex = 4;
+            // 
+            // start_home_btn
+            // 
+            this.start_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.start_home_btn.Location = new System.Drawing.Point(22, 17);
+            this.start_home_btn.Name = "start_home_btn";
+            this.start_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.start_home_btn.TabIndex = 2;
+            this.start_home_btn.Text = "Start";
+            this.start_home_btn.UseVisualStyleBackColor = true;
+            this.start_home_btn.Click += new System.EventHandler(this.start_home_btn_Click);
+            // 
+            // parkings_home_lst
+            // 
+            this.parkings_home_lst.FormattingEnabled = true;
+            this.parkings_home_lst.ItemHeight = 16;
+            this.parkings_home_lst.Location = new System.Drawing.Point(1069, 6);
+            this.parkings_home_lst.Name = "parkings_home_lst";
+            this.parkings_home_lst.Size = new System.Drawing.Size(301, 708);
+            this.parkings_home_lst.TabIndex = 0;
+            // 
+            // logger_home_lst
+            // 
+            this.logger_home_lst.FormattingEnabled = true;
+            this.logger_home_lst.ItemHeight = 16;
+            this.logger_home_lst.Location = new System.Drawing.Point(2, 102);
+            this.logger_home_lst.Name = "logger_home_lst";
+            this.logger_home_lst.Size = new System.Drawing.Size(526, 612);
+            this.logger_home_lst.TabIndex = 1;
+            // 
+            // delete_home_btn
+            // 
+            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_home_btn.Location = new System.Drawing.Point(262, 17);
+            this.delete_home_btn.Name = "delete_home_btn";
+            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.delete_home_btn.TabIndex = 3;
+            this.delete_home_btn.Text = "Delete";
+            this.delete_home_btn.UseVisualStyleBackColor = true;
+            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
             // 
             // missionPanel
             // 
@@ -224,68 +299,6 @@
             this.map_mission_map.Size = new System.Drawing.Size(1357, 442);
             this.map_mission_map.TabIndex = 11;
             this.map_mission_map.Zoom = 0D;
-            // 
-            // homePanel
-            // 
-            this.homePanel.Controls.Add(this.connected_home_lbl);
-            this.homePanel.Controls.Add(this.androidLogger_home_lst);
-            this.homePanel.Controls.Add(this.start_home_btn);
-            this.homePanel.Controls.Add(this.parkings_home_lst);
-            this.homePanel.Controls.Add(this.logger_home_lst);
-            this.homePanel.Controls.Add(this.delete_home_btn);
-            this.homePanel.Location = new System.Drawing.Point(37, 114);
-            this.homePanel.Name = "homePanel";
-            this.homePanel.Size = new System.Drawing.Size(1386, 726);
-            this.homePanel.TabIndex = 4;
-            // 
-            // androidLogger_home_lst
-            // 
-            this.androidLogger_home_lst.FormattingEnabled = true;
-            this.androidLogger_home_lst.ItemHeight = 16;
-            this.androidLogger_home_lst.Location = new System.Drawing.Point(534, 102);
-            this.androidLogger_home_lst.Name = "androidLogger_home_lst";
-            this.androidLogger_home_lst.Size = new System.Drawing.Size(536, 612);
-            this.androidLogger_home_lst.TabIndex = 4;
-            // 
-            // start_home_btn
-            // 
-            this.start_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_home_btn.Location = new System.Drawing.Point(22, 17);
-            this.start_home_btn.Name = "start_home_btn";
-            this.start_home_btn.Size = new System.Drawing.Size(222, 63);
-            this.start_home_btn.TabIndex = 2;
-            this.start_home_btn.Text = "Start";
-            this.start_home_btn.UseVisualStyleBackColor = true;
-            this.start_home_btn.Click += new System.EventHandler(this.start_home_btn_Click);
-            // 
-            // parkings_home_lst
-            // 
-            this.parkings_home_lst.FormattingEnabled = true;
-            this.parkings_home_lst.ItemHeight = 16;
-            this.parkings_home_lst.Location = new System.Drawing.Point(1069, 6);
-            this.parkings_home_lst.Name = "parkings_home_lst";
-            this.parkings_home_lst.Size = new System.Drawing.Size(301, 708);
-            this.parkings_home_lst.TabIndex = 0;
-            // 
-            // logger_home_lst
-            // 
-            this.logger_home_lst.FormattingEnabled = true;
-            this.logger_home_lst.ItemHeight = 16;
-            this.logger_home_lst.Location = new System.Drawing.Point(2, 102);
-            this.logger_home_lst.Name = "logger_home_lst";
-            this.logger_home_lst.Size = new System.Drawing.Size(526, 612);
-            this.logger_home_lst.TabIndex = 1;
-            // 
-            // delete_home_btn
-            // 
-            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.delete_home_btn.Location = new System.Drawing.Point(262, 17);
-            this.delete_home_btn.Name = "delete_home_btn";
-            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
-            this.delete_home_btn.TabIndex = 3;
-            this.delete_home_btn.Text = "Delete";
-            this.delete_home_btn.UseVisualStyleBackColor = true;
-            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
             // 
             // createTab
             // 
@@ -648,16 +661,16 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // connected_home_lbl
+            // clear_home_btn
             // 
-            this.connected_home_lbl.AutoSize = true;
-            this.connected_home_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.connected_home_lbl.ForeColor = System.Drawing.Color.LimeGreen;
-            this.connected_home_lbl.Location = new System.Drawing.Point(796, 27);
-            this.connected_home_lbl.Name = "connected_home_lbl";
-            this.connected_home_lbl.Size = new System.Drawing.Size(228, 39);
-            this.connected_home_lbl.TabIndex = 9;
-            this.connected_home_lbl.Text = "Disconnected";
+            this.clear_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clear_home_btn.Location = new System.Drawing.Point(501, 17);
+            this.clear_home_btn.Name = "clear_home_btn";
+            this.clear_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.clear_home_btn.TabIndex = 10;
+            this.clear_home_btn.Text = "Clear";
+            this.clear_home_btn.UseVisualStyleBackColor = true;
+            this.clear_home_btn.Click += new System.EventHandler(this.clear_home_btn_Click);
             // 
             // GUI
             // 
@@ -675,10 +688,10 @@
             this.Load += new System.EventHandler(this.GUI_Load);
             this.tabControl.ResumeLayout(false);
             this.homeTab.ResumeLayout(false);
-            this.missionPanel.ResumeLayout(false);
-            this.missionPanel.PerformLayout();
             this.homePanel.ResumeLayout(false);
             this.homePanel.PerformLayout();
+            this.missionPanel.ResumeLayout(false);
+            this.missionPanel.PerformLayout();
             this.createTab.ResumeLayout(false);
             this.createTab.PerformLayout();
             this.dummyTab.ResumeLayout(false);
@@ -738,6 +751,7 @@
         private System.Windows.Forms.ListBox androidLogger_home_lst;
         private System.Windows.Forms.ListBox androidLogger_mission_lst;
         private System.Windows.Forms.Label connected_home_lbl;
+        private System.Windows.Forms.Button clear_home_btn;
     }
 }
 
