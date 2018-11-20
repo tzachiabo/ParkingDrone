@@ -31,7 +31,6 @@ public abstract class Mission {
 
         @Override
         public void onResult(DJIError djiError) {
-            TaskManager.getInstance().removeTask(index);
             SocketManager.getInstance().send(Mission.this.encode());
         }
     }
