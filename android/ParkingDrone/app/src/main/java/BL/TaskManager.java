@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import BL.missions.Mission;
 import SharedClasses.Assertions;
+import dji.thirdparty.afinal.core.AsyncTask;
 
 public class TaskManager {
     private static TaskManager instance = null;
@@ -48,12 +49,26 @@ public class TaskManager {
     public void start(final Integer mission_id) {
         Assertions.verify(this.running_missions.containsKey(mission_id),
                 "TaskManager:start mission is not exist in queue");
-        Thread t= new Thread(new Runnable() {
+        //inner_exec();
+
+
+                    Thread t= new Thread(new Runnable() {
             @Override
             public void run() {
                 running_missions.get(mission_id).start();
             }
         });
         t.start();
+    }
+
+    private static void inner_exec(final ConcurrentHashMap<Integer,Mission> running_missions, final int mission_id){
+        new android.os.AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                running_missions.get(mission_id).start();
+                return "";
+            }
+        }.execute();
     }
 }

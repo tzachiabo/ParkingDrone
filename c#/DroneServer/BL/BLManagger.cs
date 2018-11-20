@@ -31,7 +31,7 @@ namespace DroneServer.BL
         {
             logger.debug("Initiate BL");
             CommManager.getInstance();
-
+            
         }
 
         public static BLManagger getInstance()
@@ -95,8 +95,13 @@ namespace DroneServer.BL
 
         public void registerToConnection(Control text)
         {
+<<<<<<< HEAD
             status.register(new TextObserver(text));    
             logger.debug("The Control " + text.Name + " has registered");
+=======
+            status.register(new TextObserver(text));
+            //statusManager.init();
+>>>>>>> 2635032... tmp
         }
 
         public void registerToMap(GMapControl Gmap)

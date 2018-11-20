@@ -16,7 +16,7 @@ namespace DroneServer.BL.Missions
         
         public override string encode()
         {
-            return "getStatus" + m_index;
+            return "getStatus " + m_index;
         }
 
         public override void stop()
@@ -26,7 +26,13 @@ namespace DroneServer.BL.Missions
 
         public override void done(Response response)
         {
-            Assertions.verify(false, "get status -done not implemented yet");
+            DroneStatus drone_status = DroneStatus.Disconnected;
+            if(response.Status == Status.Ok)
+            {
+                drone_status = (DroneStatus)response.Data;
+            }
+
+            BLManagger.getInstance().setStatus(drone_status);
         }
 
         public override void execute()

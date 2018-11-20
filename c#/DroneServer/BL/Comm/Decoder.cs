@@ -77,11 +77,11 @@ namespace DroneServer.BL.Comm
                 case "NotReady":
                     drone_status = DroneStatus.NotReady;
                     break;
-                case "Ready":
+                case "Connected":
                     drone_status = DroneStatus.Connected;
                     break;
                 default:
-                    Assertions.verify(false, "decoder: unknown drone status");
+                    Assertions.verify(false, "decoder: unknown drone status " + sentance[3]);
                     break;
             }
 

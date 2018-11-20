@@ -37,7 +37,6 @@ public class SocketManager {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String response = "";
                 try {
                     ByteArrayOutputStream byteArrayOutputStream;
                     socket = new Socket(Config.DST_ADDRESS, Config.DST_PORT);
@@ -60,10 +59,8 @@ public class SocketManager {
 
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
-                    response = "UnknownHostException: " + e.toString();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    response = "IOException: " + e.toString();
 
                 } finally {
                     if (socket != null) {

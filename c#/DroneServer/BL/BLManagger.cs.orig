@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 
-using System.IO;
 using log4net;
 using DroneServer.BL.Missions;
-<<<<<<< HEAD
 using DroneServer.SharedClasses;
 using System.Windows.Forms;
-=======
 using DroneServer.BL.Comm;
->>>>>>> a422d24... Comm layer is now using Server socket
+using System.IO;
+using System;
+using System.Threading;
+using System.Runtime.CompilerServices;
+
+using GMap.NET.WindowsForms;
+using DroneServer.PL;
+using DroneServer.PL.Observers;
+using System.Collections.Generic;
+using System.Net;
 
 namespace DroneServer.BL 
 {
@@ -20,16 +23,15 @@ namespace DroneServer.BL
     {
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
+        private static Map map= new Map();
+        private static ConnectionStatus status = new ConnectionStatus();
+        private static int Version;
 
         private BLManagger()
         {
-            Console.WriteLine("start BL Manager");
+            logger.debug("Initiate BL");
             CommManager.getInstance();
-
-            if (File.Exists("./MyTestAppender.log"))
-            {
-                File.WriteAllLines("./MyTestAppender.log", new string[0]);
-            }
+            
         }
 
         public static BLManagger getInstance()
@@ -39,21 +41,35 @@ namespace DroneServer.BL
             return instance;
         }
 
-        //public bool createParkingSpot(ParkingSpot p)
-        //{
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void increment_version()
+        {
+            Version++;
+        }
 
-            //return false;
-        //}
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int get_version()
+        {
+            return Version;
+        }
 
-        //public void startMission(ParkingSpot p)
-        //{
+        public List<Parking> DBGetAllParkings()
+        {
+            return DB.selectAllParkings();
+        }
 
-        //}
+        public void DBAddParking(Parking p)
+        {
+            DB.addParking(p);
+            logger.debug("The Parking " +p.name + " has added to DB");
+        }
 
-        //public List<ParkingSpot> getAllParkingSpots()
-        //{
+        public void DBDeleteParking(string name)
+        {        
+            DB.deleteParking(name);
+            logger.debug("The Parking " + name + " has deleted from DB");
+        }
 
-        //}
 
         public void endMission()
         {
@@ -62,7 +78,8 @@ namespace DroneServer.BL
 
         public void stop()
         {
-            throw new NotImplementedException();
+            stopMission stop_mission = new stopMission();
+            stop_mission.execute();
         }
 
         public void abort()
@@ -73,19 +90,74 @@ namespace DroneServer.BL
         public void registerToLogs(ListBox list)
         {
             logger.register(new ListObserver(list));
+            logger.debug("The ListBox "+list.Name+" has registered");
         }
 
-        public void registerToConnection(object o)
+        public void registerToConnection(Control text)
         {
-            throw new NotImplementedException();
+<<<<<<< HEAD
+            status.register(new TextObserver(text));    
+            logger.debug("The Control " + text.Name + " has registered");
+=======
+            status.register(new TextObserver(text));
+            //statusManager.init();
+>>>>>>> 2635032... tmp
         }
 
-        public void registerToDroneLocation(object o)
+        public void registerToMap(GMapControl Gmap)
         {
-            throw new NotImplementedException();
+            map.register(new MapObserver(Gmap));
+            logger.debug("The Gmap " + Gmap.Name + " has registered");
+        }
+
+        public void setLocation(double lat,double lng)
+        {
+            if (map!=null)
+                map.setLocation(new Point(lng, lat));
+        }
+
+        public void setStatus(DroneStatus ds)
+        {
+            if (status != null)
+                status.setStatus(ds);
+        }
+
+        public void startMission(Parking parking)
+        {
+            LocationManager.init();
+
+            ParkingMission start_mission = new ParkingMission(parking);
+            start_mission.execute();
+        }
+
+        public void shutdown()
+        {
+            CommManager.getInstance().shutDown();
+            LocationManager.shutDown();
+        }
+
+        public void clearLogs()
+        {
+            logger.clearData();
+
+            try
+            {
+                string Url = "https://floating-fjord-95063.herokuapp.com/empty";
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                myRequest.Method = "GET";
+                WebResponse myResponse = myRequest.GetResponse();
+                myResponse.Close();
+            }
+            catch (Exception)
+            {
+            }
+
+
         }
 
 
+
+        //----------------------------------tests-------------------------------//
 
         public void TakeOffForTest()
         {
@@ -93,10 +165,53 @@ namespace DroneServer.BL
             take_off.execute();
         }
 
+        public void StartLandingForTest()
+        {
+            StartLanding startLanding = new StartLanding();
+            startLanding.execute();
+        }
+
+        public void ConfirmLandingForTest()
+        {
+            ConfirmLanding confirmLanding = new ConfirmLanding();
+            confirmLanding.execute();
+        }
+
         public void LandingForTest()
         {
-            Landing landing = new Landing();
-            landing.execute();
+            Landing landingMission = new Landing();
+            landingMission.execute();
         }
+
+        public void ParkingForTest()
+        {
+            //ParkingMission parkingMission = new ParkingMission();
+            //parkingMission.execute();
+        }
+
+        public void MoveForTest(int amount_to_move, Direction d)
+        {
+            Move parkingMission = new Move(d, amount_to_move);
+            parkingMission.execute();
+        }
+
+        public void GoToGpsTest()
+        {
+            MoveToGPSPoint mtgp = new MoveToGPSPoint(22.54281,113.95890,5);
+            mtgp.execute();
+        }
+
+        public void MoveGimbalTest(Gimbal gimbal, double roll, double pitch, double yaw)
+        {
+            MoveGimbal mg = new MoveGimbal(gimbal, GimbalMovementType.relative, roll, pitch, yaw);
+            mg.execute();
+        }
+
+        public void TakePhoto()
+        {
+            TakePhoto tp = new TakePhoto();
+            tp.execute();
+        }
+
     }
 }
