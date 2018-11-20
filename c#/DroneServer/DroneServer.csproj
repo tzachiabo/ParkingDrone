@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{732459F9-E326-44AB-9EB3-75C09627F554}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DroneServer</RootNamespace>
     <AssemblyName>DroneServer</AssemblyName>
@@ -115,6 +115,7 @@
     <Compile Include="BL\statusManager.cs" />
     <Compile Include="DL\DB.cs" />
     <Compile Include="PL\Observers\MapObserver.cs" />
+    <Compile Include="SharedClasses\ConnectionStatus.cs" />
     <Compile Include="SharedClasses\DroneStatus.cs" />
     <Compile Include="SharedClasses\Map.cs" />
     <Compile Include="SharedClasses\Assertions.cs" />

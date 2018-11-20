@@ -15,6 +15,7 @@ using GMap.NET.WindowsForms;
 using DroneServer.PL;
 using DroneServer.PL.Observers;
 using System.Collections.Generic;
+using System.Net;
 
 namespace DroneServer.BL 
 {
@@ -23,6 +24,7 @@ namespace DroneServer.BL
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
         private static Map map= new Map();
+        private static ConnectionStatus status = new ConnectionStatus();
         private static int Version;
 
         private BLManagger()
@@ -91,9 +93,10 @@ namespace DroneServer.BL
             logger.debug("The ListBox "+list.Name+" has registered");
         }
 
-        public void registerToConnection(object o)
+        public void registerToConnection(Control text)
         {
-            throw new NotImplementedException();
+            status.register(new TextObserver(text));    
+            logger.debug("The Control " + text.Name + " has registered");
         }
 
         public void registerToMap(GMapControl Gmap)
@@ -106,6 +109,12 @@ namespace DroneServer.BL
         {
             if (map!=null)
                 map.setLocation(new Point(lng, lat));
+        }
+
+        public void setStatus(DroneStatus ds)
+        {
+            if (status != null)
+                status.setStatus(ds);
         }
 
         public void startMission(Parking parking)
@@ -121,6 +130,26 @@ namespace DroneServer.BL
             CommManager.getInstance().shutDown();
             LocationManager.shutDown();
         }
+
+        public void clearLogs()
+        {
+            logger.clearData();
+
+            try
+            {
+                string Url = "https://floating-fjord-95063.herokuapp.com/empty";
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                myRequest.Method = "GET";
+                WebResponse myResponse = myRequest.GetResponse();
+                myResponse.Close();
+            }
+            catch (Exception)
+            {
+            }
+
+
+        }
+
 
 
         //----------------------------------tests-------------------------------//

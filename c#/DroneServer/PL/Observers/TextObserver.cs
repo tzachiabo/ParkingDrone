@@ -10,10 +10,10 @@ namespace DroneServer
 {
     class TextObserver : BaseObserver
     {
-        protected Control listbox;
+        protected Control control;
         public TextObserver(Control c) : base()
         {
-            listbox = c;    
+            control = c;    
         }
 
         public override void update()
@@ -22,10 +22,13 @@ namespace DroneServer
             try
             {
                 s = (string)observable.getData();
+                control.BeginInvoke((Action)(() =>
+                {
+                    control.Text = s;
+                }));
             }
             catch (Exception) { return; }
 
-            listbox.Text = s;
         }
     }
 }

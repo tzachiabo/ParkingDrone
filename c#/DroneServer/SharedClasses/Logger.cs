@@ -31,6 +31,12 @@ namespace DroneServer.SharedClasses
             return llogs;
         }
 
+        public void clearData()
+        {
+            llogs.Clear();
+            notifyAll();
+        }
+
         public void debug(string message)
         {
             Log.Debug(message);
