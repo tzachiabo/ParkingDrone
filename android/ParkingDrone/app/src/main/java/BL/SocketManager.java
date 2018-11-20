@@ -52,7 +52,6 @@ public class SocketManager {
                         Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
                         Logger.debug("Mission Recived - "+ byteArrayOutputStream.toString());
                         taskManager.addTask(current_task);
-                        taskManager.start(current_task.getIndex());
                         byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                         buffer = new byte[BUFFER_SIZE];
                     }
