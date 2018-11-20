@@ -78,7 +78,7 @@ namespace DroneServer.BL.Comm
                     drone_status = DroneStatus.NotReady;
                     break;
                 case "Ready":
-                    drone_status = DroneStatus.Ready;
+                    drone_status = DroneStatus.Connected;
                     break;
                 default:
                     Assertions.verify(false, "decoder: unknown drone status");

@@ -114,6 +114,7 @@
     <Compile Include="BL\statusManager.cs" />
     <Compile Include="DL\DB.cs" />
     <Compile Include="PL\Observers\MapObserver.cs" />
+    <Compile Include="SharedClasses\ConnectionStatus.cs" />
     <Compile Include="SharedClasses\DroneStatus.cs" />
     <Compile Include="SharedClasses\Map.cs" />
     <Compile Include="SharedClasses\Assertions.cs" />

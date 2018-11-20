@@ -23,6 +23,7 @@ namespace DroneServer.BL
         private static BLManagger instance = null;
         private static Logger logger = Logger.getInstance();
         private static Map map= new Map();
+        private static ConnectionStatus status = new ConnectionStatus();
         private static int Version;
 
         private BLManagger()
@@ -91,9 +92,9 @@ namespace DroneServer.BL
             logger.debug("The ListBox "+list.Name+" has registered");
         }
 
-        public void registerToConnection(object o)
+        public void registerToConnection(Control text)
         {
-            throw new NotImplementedException();
+            status.register(new TextObserver(text));
         }
 
         public void registerToMap(GMapControl Gmap)
@@ -106,6 +107,12 @@ namespace DroneServer.BL
         {
             if (map!=null)
                 map.setLocation(new Point(lng, lat));
+        }
+
+        public void setStatus(DroneStatus ds)
+        {
+            if (status != null)
+                status.setStatus(ds);
         }
 
         public void startMission(Parking parking)
