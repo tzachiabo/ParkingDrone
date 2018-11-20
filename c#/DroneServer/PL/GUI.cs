@@ -81,24 +81,31 @@ namespace DroneServer
             string Url = "https://floating-fjord-95063.herokuapp.com/log";
             HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
             myRequest.Method = "GET";
-            WebResponse myResponse = myRequest.GetResponse();
-            StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
-            string result = sr.ReadToEnd();
-            sr.Close();
-            myResponse.Close();
-
-            result = result.Replace("<br/>", "#");
-            string[] s = result.Split('#');
-            androidLogger_home_lst.Items.Clear();
-            androidLogger_mission_lst.Items.Clear();
-            foreach (string item in s)
+            try
             {
-                if (item != "")
+                WebResponse myResponse = myRequest.GetResponse();
+                StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
+                string result = sr.ReadToEnd();
+                sr.Close();
+                myResponse.Close();
+
+                result = result.Replace("<br/>", "#");
+                string[] s = result.Split('#');
+                androidLogger_home_lst.Items.Clear();
+                androidLogger_mission_lst.Items.Clear();
+                foreach (string item in s)
                 {
-                    androidLogger_home_lst.Items.Add(item);
-                    androidLogger_mission_lst.Items.Add(item);
+                    if (item != "")
+                    {
+                        androidLogger_home_lst.Items.Add(item);
+                        androidLogger_mission_lst.Items.Add(item);
+                    }
+
                 }
-                    
+            }
+            catch(Exception)
+            {
+
             }
         }
 
