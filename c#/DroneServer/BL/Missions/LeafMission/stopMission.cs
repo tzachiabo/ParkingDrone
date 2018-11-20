@@ -8,6 +8,11 @@ namespace DroneServer.BL.Missions
 {
     class stopMission : LeafMission
     {
+        public stopMission(ComplexMission ParentMission=null) : base(ParentMission)
+        {
+
+        }
+
         public override string encode()
         {
             return "stop " + m_index;

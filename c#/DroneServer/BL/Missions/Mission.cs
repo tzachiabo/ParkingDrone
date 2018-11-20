@@ -8,18 +8,25 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    abstract class Mission
+    public abstract class Mission
     {
         static int NextIndex = 1;
 
-        public Mission()
-        {
-            m_index = getNextIndex();
-        }
+        protected int m_version;
 
         public int m_index;
 
         protected ComplexMission m_ParentMission;
+
+        public Mission(ComplexMission ParentMission)
+        {
+            m_index = getNextIndex();
+            m_ParentMission = ParentMission;
+            if (m_ParentMission==null)
+                m_version = BLManagger.getInstance().get_version();
+            else
+                m_version = m_ParentMission.m_version;
+        }
 
         public abstract void execute();
 

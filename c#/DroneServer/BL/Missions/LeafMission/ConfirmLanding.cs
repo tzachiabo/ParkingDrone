@@ -8,9 +8,11 @@ namespace DroneServer.BL.Missions
 {
     class ConfirmLanding : LeafMission
     {
-        public ConfirmLanding() { }
 
-        public ConfirmLanding(ComplexMission mission) { m_ParentMission = mission; }
+        public ConfirmLanding(ComplexMission ParentMission = null) :base(ParentMission)
+        {
+
+        }
 
         public override void stop()
         {

@@ -9,15 +9,9 @@ namespace DroneServer.BL.Missions
 {
     class Landing : ComplexMission
     {
-
-        public Landing() : this(null)
+        public Landing(ComplexMission ParentMission = null) : base(ParentMission)
         {
-
-        }
-
-        public Landing(ComplexMission parent_mission) : base()
-        {
-            m_ParentMission = parent_mission;
+            m_ParentMission = ParentMission;
             m_SubMission.Enqueue(new StartLanding(this));
             m_SubMission.Enqueue(new ConfirmLanding(this));
         }

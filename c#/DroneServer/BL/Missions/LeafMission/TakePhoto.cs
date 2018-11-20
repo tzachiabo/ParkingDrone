@@ -8,7 +8,7 @@ namespace DroneServer.BL.Missions
 {
     class TakePhoto : LeafMission
     {
-        public TakePhoto() : base()
+        public TakePhoto(ComplexMission ParentMission=null) : base(ParentMission)
         {
 
         }

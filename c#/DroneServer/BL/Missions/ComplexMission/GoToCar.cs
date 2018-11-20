@@ -9,6 +9,9 @@ namespace DroneServer.BL.Missions
 {
     class GoToCar : ComplexMission
     {
+        public GoToCar(ComplexMission ParentMission = null) : base(ParentMission)
+        {
+        }
 
         public override void done(Response respone)
         {

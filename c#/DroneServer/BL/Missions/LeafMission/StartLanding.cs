@@ -8,10 +8,11 @@ namespace DroneServer.BL.Missions
 {
     class StartLanding : LeafMission
     {
-        public StartLanding() { }
 
-        public StartLanding(ComplexMission mission) { m_ParentMission = mission; }
+        public StartLanding(ComplexMission ParentMission=null) : base(ParentMission)
+        {
 
+        }
         public override void stop()
         {
 

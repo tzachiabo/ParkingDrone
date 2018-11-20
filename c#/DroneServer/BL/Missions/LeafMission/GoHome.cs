@@ -9,7 +9,7 @@ namespace DroneServer.BL.Missions
     class GoHome : LeafMission
     {
 
-        public GoHome() : base()
+        public GoHome(ComplexMission ParentMission = null) : base(ParentMission)
         {
 
         }

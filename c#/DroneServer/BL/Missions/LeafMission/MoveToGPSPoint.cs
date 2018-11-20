@@ -13,7 +13,11 @@ namespace DroneServer.BL.Missions
         private double m_y;
         private double m_z;
 
-        public MoveToGPSPoint(double x, double y, double z) : base()
+        public MoveToGPSPoint(double x, double y, double z) : this(null,x,y,z)
+        {
+        }
+
+        public MoveToGPSPoint(ComplexMission ParentMission,double x, double y, double z) : base(ParentMission)
         {
             m_x = x;
             m_y = y;

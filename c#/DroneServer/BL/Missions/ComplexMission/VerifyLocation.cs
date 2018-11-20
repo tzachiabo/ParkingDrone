@@ -9,6 +9,9 @@ namespace DroneServer.BL.Missions
 {
     class VerifyLocation : ComplexMission 
     {
+        public VerifyLocation(ComplexMission ParentMission = null) : base(ParentMission)
+        {
+        }
 
         public override void done(Response respone)
         {

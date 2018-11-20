@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    abstract class LeafMission : Mission
+    public abstract class LeafMission : Mission
     {
-        int m_version;
+        
 
-        public LeafMission() : base()
+        public LeafMission(ComplexMission ParentMission = null) : base(ParentMission)
         {
-            m_version = BLManagger.getInstance().get_version();
+
         }
 
         public override void done(Response response)

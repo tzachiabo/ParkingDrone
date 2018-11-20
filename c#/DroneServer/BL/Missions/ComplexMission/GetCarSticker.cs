@@ -9,7 +9,9 @@ namespace DroneServer.BL.Missions
 {
     class GetCarSticker :ComplexMission
     {
-        
+        public GetCarSticker(ComplexMission ParentMission = null) : base(ParentMission)
+        {
+        }
 
         public override void done(Response respone)
         {

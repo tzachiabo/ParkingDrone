@@ -11,7 +11,12 @@ namespace DroneServer.BL.Missions
     {
         protected Parking m_parking;
 
-        public ParkingMission(Parking parking) : base()
+        public ParkingMission(Parking parking):this(null,parking)
+        {
+
+        }
+
+        public ParkingMission(ComplexMission ParentMission, Parking parking) : base(ParentMission)
         {
             m_SubMission.Enqueue(new TakeOff(this));
             m_SubMission.Enqueue(new InitParkingMission(this));

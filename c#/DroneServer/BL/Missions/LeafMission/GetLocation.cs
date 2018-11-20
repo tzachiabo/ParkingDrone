@@ -9,9 +9,11 @@ namespace DroneServer.BL.Missions
 {
     class GetLocation : LeafMission
     {
-        public GetLocation() { }
 
-        public GetLocation(ComplexMission mission) { m_ParentMission = mission; }
+
+        public GetLocation(ComplexMission ParentMission = null) :base(ParentMission)
+        {
+        }
 
         public override void stop()
         {

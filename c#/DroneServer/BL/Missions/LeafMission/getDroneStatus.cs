@@ -10,9 +10,9 @@ namespace DroneServer.BL.Missions
 {
     class getDroneStatus : LeafMission
     {
-        public getDroneStatus() { }
-
-        public getDroneStatus(ComplexMission mission) { m_ParentMission = mission; }
+        public getDroneStatus(ComplexMission ParentMission=null) :base(ParentMission)
+        {
+        }
         
         public override string encode()
         {

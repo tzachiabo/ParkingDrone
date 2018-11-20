@@ -8,9 +8,10 @@ namespace DroneServer.BL.Missions
 {
     class TakeOff:LeafMission
     {
-        public TakeOff() { }
+        public TakeOff(ComplexMission ParentMission=null) : base(ParentMission)
+        {
 
-        public TakeOff(ComplexMission mission) { m_ParentMission = mission; }
+        }
 
         public override void stop()
         {

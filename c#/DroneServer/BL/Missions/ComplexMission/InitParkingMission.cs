@@ -9,11 +9,9 @@ namespace DroneServer.BL.Missions
 {
     class InitParkingMission : ComplexMission
     {
-        public InitParkingMission() : this(null) { }
-
-        public InitParkingMission(ComplexMission parent_mission) : base()
+        public InitParkingMission(ComplexMission ParentMission = null) : base(ParentMission)
         {
-            m_ParentMission = parent_mission;
+            m_ParentMission = ParentMission;
             m_SubMission.Enqueue(new Move(this, Direction.up, 10));
             m_SubMission.Enqueue(new Move(this, Direction.forward, 10));
             m_SubMission.Enqueue(new Move(this, Direction.left, 10));

@@ -55,8 +55,10 @@ namespace DroneServer
             bl.registerToMap(map_mission_map);
             bl.registerToConnection(connected_home_lbl);
             bl.registerToConnection(connected_mission_lbl);
+
             initParkingList();
             initMaps();
+
         }
 
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)

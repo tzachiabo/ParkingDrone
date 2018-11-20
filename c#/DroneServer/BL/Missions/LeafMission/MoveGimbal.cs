@@ -15,7 +15,11 @@ namespace DroneServer.BL.Missions
         private double m_pitch;
         private double m_yaw;
 
-        public MoveGimbal(Gimbal gimbal, GimbalMovementType gimbal_movement_type, double roll, double pitch, double yaw) : base()
+        public MoveGimbal(Gimbal gimbal, GimbalMovementType gimbal_movement_type, double roll, double pitch, double yaw) : this(null, gimbal, gimbal_movement_type,roll,pitch,yaw)
+        {
+        }
+
+        public MoveGimbal(ComplexMission ParentMission,Gimbal gimbal, GimbalMovementType gimbal_movement_type, double roll, double pitch, double yaw) : base(ParentMission)
         {
             m_gimbal = gimbal;
             m_gimbal_movement_type = gimbal_movement_type;
