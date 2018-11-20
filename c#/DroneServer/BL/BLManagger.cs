@@ -97,7 +97,7 @@ namespace DroneServer.BL
         {
             status.register(new TextObserver(text));    
             logger.debug("The Control " + text.Name + " has registered");
-            //statusManager.init();
+            statusManager.init();
         }
 
         public void registerToMap(GMapControl Gmap)

@@ -2,7 +2,7 @@
 <port>3000</port>
 <pic_server_port>3001</pic_server_port>
 <debugMode>true</debugMode>
-<interval>3000</interval>
-<getLocationInterval>3000</getLocationInterval>
+<log_interval>5000</log_interval>
+<getLocationInterval>1000</getLocationInterval>
 <getStatusInterval>3000</getStatusInterval>
 </xml>
