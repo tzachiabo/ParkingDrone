@@ -112,7 +112,7 @@ namespace DroneServer
         //home section
         private void start_home_btn_Click(object sender, EventArgs e)
         {
-            if (false)//(connected_home_lbl.Text != "Connected")
+            if (connected_home_lbl.Text != "Connected")
             {
                 MessageBox.Show("Can not run missions while status is not 'Connected'");
                 return;

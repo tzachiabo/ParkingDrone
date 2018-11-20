@@ -91,7 +91,7 @@ namespace DroneServer.BL.Comm
 
         private static Response parseLocation(string[] sentance)
         {
-            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+            Assertions.verify(sentance.Length == 6 && sentance[2] == "Done", "message recive is not according to protocol");
             double lat = Double.Parse(sentance[4]);
             double lng = Double.Parse(sentance[5]);
             double alt = Double.Parse(sentance[3]);

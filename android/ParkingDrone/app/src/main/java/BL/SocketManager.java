@@ -77,6 +77,7 @@ public class SocketManager {
     }
 
     public synchronized void send(String data){
+        data +="%";
         Logger.debug("sending to server "+data);
         try {
             outputStream.write(data.getBytes("UTF-8"));

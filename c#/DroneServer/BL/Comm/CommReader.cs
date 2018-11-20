@@ -31,36 +31,48 @@ namespace DroneServer.BL.Comm
                 while (running)
                 {
                     NetworkStream ns = CommManager.getInstance().m_ns;
-                    byte[] bytes = new byte[1024];
+                    byte[] bytes = new byte[124];
                     int bytesRec = ns.Read(bytes, 0, bytes.Length);
-                    data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    Logger.getInstance().info("receive this message from Android : " + data);
-
-                    Response res = Decoder.decode(data);
-                    switch (res.Type)
+                    data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    while (data.Contains('%'))
                     {
-                        case MissionType.MainMission:
-                            m_main_responses.Enqueue(res);
-                            break;
+                        Logger.getInstance().info("receive this message from Android : " + data);
+                        string[] messages = data.Split('%');
 
-                        case MissionType.StateMission:
-                            m_status_responses.Enqueue(res);
-                            break;
+                        for (int i = 0; i < messages.Length - 1; i++)
+                        {
+                            EncodeMission(messages[i]);
+                        }
 
-                        case MissionType.EndOfSocket:
-                            CommManager.getInstance().ClientDisconnect();
-                            break;
+                        data = messages[messages.Length - 1];
+
                     }
-
-                    data = "";
-
+    
                 }
                 Logger.getInstance().warn("Comm reader has been shut down");
 
             });
 
             thread.Start();
+        }
+
+        private void EncodeMission(String data)
+        {
+            Response res = Decoder.decode(data);
+            switch (res.Type)
+            {
+                case MissionType.MainMission:
+                    m_main_responses.Enqueue(res);
+                    break;
+
+                case MissionType.StateMission:
+                    m_status_responses.Enqueue(res);
+                    break;
+
+                case MissionType.EndOfSocket:
+                    CommManager.getInstance().ClientDisconnect();
+                    break;
+            }
         }
 
         public void shutDown()
