@@ -10,6 +10,6 @@ namespace DroneServer.SharedClasses
     {
         Disconnected,
         NotReady,
-        Connected//change this enum in the android
+        Connected
     }
 }

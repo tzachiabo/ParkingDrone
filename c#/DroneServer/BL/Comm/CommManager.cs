@@ -133,7 +133,7 @@ namespace DroneServer.BL.Comm
 
             Logger.getInstance().info("send this message to Android : " + message_to_android);
 
-            byte[] to_send = Encoding.UTF8.GetBytes(message_to_android);
+            byte[] to_send = Encoding.UTF8.GetBytes(message_to_android + '%');
 
             Assertions.verify(m_ns != null, "tried to send message to android but network stream is null");
 

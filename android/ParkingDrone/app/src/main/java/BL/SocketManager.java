@@ -47,11 +47,26 @@ public class SocketManager {
                     inputStream = socket.getInputStream();
                     outputStream = socket.getOutputStream();
                     Logger.info("Connected to server");
+                    String msg = "";
                     while ((bytesRead = inputStream.read(buffer)) != -1) {
                         byteArrayOutputStream.write(buffer, 0, bytesRead);
-                        Mission current_task = Decoder.decode(byteArrayOutputStream.toString("UTF-8"));
-                        Logger.debug("Mission Recived - "+ byteArrayOutputStream.toString());
-                        taskManager.addTask(current_task);
+                        String curr_msg = byteArrayOutputStream.toString("UTF-8");
+                        msg += curr_msg;
+
+                        Logger.debug("msg Received - "+ curr_msg);
+
+                        if (msg.contains("%"))
+                        {
+                            String[] mission_str = msg.split("%");
+                            for (int i=0 ; i < mission_str.length - 1; i++) {
+                                Logger.debug("msg mission Received - "+ mission_str[i]);
+                                Mission current_task = Decoder.decode(mission_str[i]);
+                                taskManager.addTask(current_task);
+                            }
+
+                            msg = mission_str[mission_str.length - 1];
+                        }
+
                         byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                         buffer = new byte[BUFFER_SIZE];
                     }
