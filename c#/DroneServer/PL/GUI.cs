@@ -71,8 +71,9 @@ namespace DroneServer
             {
                 File.Copy("./MyTestAppender.log", "./logs/"+ DateTime.Today.ToString().Replace(' ','_').Replace('/', '_').Replace(':', '_') + ".txt");
             }
-            catch (Exception s)
+            catch (Exception)
             {
+
             }
         }
 
@@ -116,7 +117,7 @@ namespace DroneServer
         {
             if (connected_home_lbl.Text != "Connected")
             {
-                MessageBox.Show("Can not run missions while status is not 'Connected'");
+                MessageBox.Show("Can not run missions while drone is not 'Connected'");
                 return;
             }
             else if (parkings_home_lst.SelectedIndex == -1)
