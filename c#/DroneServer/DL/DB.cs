@@ -79,6 +79,37 @@ namespace DroneServer
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        public static bool existParkingName(string name)
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+            con = new SqlConnection(cs);
+
+            string qry = "select name from Parking where Name='"+ name + "';";
+
+            con.Open();
+            cmd = new SqlCommand(qry, con);
+
+            bool ans = false;
+            try
+            {
+                SqlDataReader r= cmd.ExecuteReader();
+                if (r.HasRows)
+                    ans =true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("err");
+                cmd.Dispose();
+                con.Close();
+                return true;
+            }
+            cmd.Dispose();
+            con.Close();
+            return ans;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static List<Parking> selectAllParkings()
         {
             SqlConnection con;

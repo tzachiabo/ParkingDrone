@@ -164,6 +164,8 @@ namespace DroneServer
             map_create_map.Position = new PointLatLng(map_create_map.Position.Lat, map_create_map.Position.Lng);
 
             points_create_lst.Items.Add(lat + " " + lng);
+
+            clear_create_btn.Visible = true;
         }
 
         private void finish_create_btn_Click(object sender, EventArgs e)
@@ -178,7 +180,11 @@ namespace DroneServer
                 MessageBox.Show("Please mark at least 3 points");
                 return;
             }
-
+            if (bl.DBExistParkingName(parkName_create_txt.Text))
+            {
+                MessageBox.Show("Parking name is already exist");
+                return;
+            }
           
             List<Point> lp = new List<Point>();
             foreach (string item in points_create_lst.Items)
@@ -196,24 +202,28 @@ namespace DroneServer
             map_create_map.Overlays.Clear();
             initMaps();
             tabControl.SelectedIndex = 0;
-
-
         }
+
+        private void parkName_create_txt_Enter(object sender, EventArgs e)
+        {
+            parkName_create_txt.Text = "";
+        }
+
+        private void clear_create_btn_Click(object sender, EventArgs e)
+        {
+            map_create_map.Overlays.Clear();
+            map_create_map.Position = new PointLatLng(map_create_map.Position.Lat, map_create_map.Position.Lng);
+
+            points_create_lst.Items.Clear();
+            clear_create_btn.Visible = false;
+        }
+
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //mission section
         private void back_mission_btn_Click(object sender, EventArgs e)
         {
             missionPanel.Visible = false;
             homePanel.Visible = true;
-        }
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////
-        //create section
-        private void end_mission_btn_Click(object sender, EventArgs e)
-        {
-            double lat = 31.2656169738942;
-            double lng = 34.8071413572861;
-            bl.setLocation(lat, lng);
         }
 
         private void stop_mission_btn_Click(object sender, EventArgs e)
@@ -226,10 +236,12 @@ namespace DroneServer
 
         }
 
-        private void parkName_create_txt_Enter(object sender, EventArgs e)
+        private void end_mission_btn_Click(object sender, EventArgs e)
         {
-            parkName_create_txt.Text = "";
-        }
+            double lat = 31.2656169738942;
+            double lng = 34.8071413572861;
+            bl.setLocation(lat, lng);
+        }        
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //dummy section
@@ -240,7 +252,6 @@ namespace DroneServer
             Logger.getInstance().debug("gui action to move forward distance : " + move_amount);
 
             BLManagger.getInstance().MoveForTest(move_amount, Direction.forward);
-            
         }
 
         private void takeOff_dummy_btn_Click(object sender, EventArgs e)
@@ -343,6 +354,7 @@ namespace DroneServer
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //functions section
+
         public void initMaps()
         {
             double lat = 31.2646168738942;
@@ -380,7 +392,6 @@ namespace DroneServer
                 parkings_home_lst.Items.Add(item.name);
             }
         }
-
         public void confige()
         {
             if (Configuration.getInstance().get("debugMode")=="false")

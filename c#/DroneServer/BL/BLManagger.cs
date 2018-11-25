@@ -64,6 +64,11 @@ namespace DroneServer.BL
             logger.debug("The Parking " +p.name + " has added to DB");
         }
 
+        public bool DBExistParkingName(string name)
+        {
+            return DB.existParkingName(name);
+        }
+
         public void DBDeleteParking(string name)
         {        
             DB.deleteParking(name);

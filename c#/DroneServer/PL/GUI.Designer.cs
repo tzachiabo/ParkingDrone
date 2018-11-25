@@ -33,6 +33,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
             this.homePanel = new System.Windows.Forms.Panel();
+            this.clear_home_btn = new System.Windows.Forms.Button();
             this.connected_home_lbl = new System.Windows.Forms.Label();
             this.androidLogger_home_lst = new System.Windows.Forms.ListBox();
             this.start_home_btn = new System.Windows.Forms.Button();
@@ -76,7 +77,7 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.clear_home_btn = new System.Windows.Forms.Button();
+            this.clear_create_btn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.homePanel.SuspendLayout();
@@ -121,10 +122,21 @@
             this.homePanel.Controls.Add(this.parkings_home_lst);
             this.homePanel.Controls.Add(this.logger_home_lst);
             this.homePanel.Controls.Add(this.delete_home_btn);
-            this.homePanel.Location = new System.Drawing.Point(37, 114);
+            this.homePanel.Location = new System.Drawing.Point(-311, 114);
             this.homePanel.Name = "homePanel";
             this.homePanel.Size = new System.Drawing.Size(1386, 726);
             this.homePanel.TabIndex = 4;
+            // 
+            // clear_home_btn
+            // 
+            this.clear_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clear_home_btn.Location = new System.Drawing.Point(501, 17);
+            this.clear_home_btn.Name = "clear_home_btn";
+            this.clear_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.clear_home_btn.TabIndex = 10;
+            this.clear_home_btn.Text = "Clear";
+            this.clear_home_btn.UseVisualStyleBackColor = true;
+            this.clear_home_btn.Click += new System.EventHandler(this.clear_home_btn_Click);
             // 
             // connected_home_lbl
             // 
@@ -281,7 +293,7 @@
             this.map_mission_map.GrayScaleMode = false;
             this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map_mission_map.LevelsKeepInMemmory = 5;
-            this.map_mission_map.Location = new System.Drawing.Point(11, 79);
+            this.map_mission_map.Location = new System.Drawing.Point(14, 79);
             this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.map_mission_map.MarkersEnabled = true;
             this.map_mission_map.MaxZoom = 2;
@@ -302,6 +314,7 @@
             // 
             // createTab
             // 
+            this.createTab.Controls.Add(this.clear_create_btn);
             this.createTab.Controls.Add(this.map_create_map);
             this.createTab.Controls.Add(this.finish_create_btn);
             this.createTab.Controls.Add(this.parkName_create_txt);
@@ -345,7 +358,7 @@
             // finish_create_btn
             // 
             this.finish_create_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.finish_create_btn.Location = new System.Drawing.Point(809, 638);
+            this.finish_create_btn.Location = new System.Drawing.Point(806, 635);
             this.finish_create_btn.Name = "finish_create_btn";
             this.finish_create_btn.Size = new System.Drawing.Size(222, 63);
             this.finish_create_btn.TabIndex = 3;
@@ -661,16 +674,17 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // clear_home_btn
+            // clear_create_btn
             // 
-            this.clear_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clear_home_btn.Location = new System.Drawing.Point(501, 17);
-            this.clear_home_btn.Name = "clear_home_btn";
-            this.clear_home_btn.Size = new System.Drawing.Size(222, 63);
-            this.clear_home_btn.TabIndex = 10;
-            this.clear_home_btn.Text = "Clear";
-            this.clear_home_btn.UseVisualStyleBackColor = true;
-            this.clear_home_btn.Click += new System.EventHandler(this.clear_home_btn_Click);
+            this.clear_create_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clear_create_btn.Location = new System.Drawing.Point(1120, 635);
+            this.clear_create_btn.Name = "clear_create_btn";
+            this.clear_create_btn.Size = new System.Drawing.Size(222, 63);
+            this.clear_create_btn.TabIndex = 7;
+            this.clear_create_btn.Text = "clear";
+            this.clear_create_btn.UseVisualStyleBackColor = true;
+            this.clear_create_btn.Visible = false;
+            this.clear_create_btn.Click += new System.EventHandler(this.clear_create_btn_Click);
             // 
             // GUI
             // 
@@ -752,6 +766,7 @@
         private System.Windows.Forms.ListBox androidLogger_mission_lst;
         private System.Windows.Forms.Label connected_home_lbl;
         private System.Windows.Forms.Button clear_home_btn;
+        private System.Windows.Forms.Button clear_create_btn;
     }
 }
 
