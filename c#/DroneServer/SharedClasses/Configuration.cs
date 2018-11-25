@@ -11,6 +11,7 @@ namespace DroneServer.BL
     {
         private static Configuration m_instance;
         private XmlDocument m_doc;
+        public static double highetfix = 2.144;
 
         private Configuration()
         {
@@ -33,6 +34,10 @@ namespace DroneServer.BL
         {
             XmlNode node = m_doc.DocumentElement.SelectSingleNode(name);
             return node.InnerText;
+        }
+        public double getHighetfix()
+        {
+            return highetfix;
         }
     }
 }
