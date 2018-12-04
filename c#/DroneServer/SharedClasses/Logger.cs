@@ -8,6 +8,12 @@ using log4net;
 
 namespace DroneServer.SharedClasses
 {
+    enum module
+    {
+        StatusMission,
+        MainMission
+    }
+
     class Logger : BaseObservable
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

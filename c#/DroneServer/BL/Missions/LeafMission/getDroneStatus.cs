@@ -37,7 +37,9 @@ namespace DroneServer.BL.Missions
 
         public override void execute()
         {
-            Logger.getInstance().debug("start executing a getStatus");
+            if (Configuration.getInstance().get("print_get_status") == "True")
+                Logger.getInstance().debug("start executing a getStatus");
+
             CommManager comm_manager = CommManager.getInstance();
 
             if (comm_manager.isSocketInitiated)

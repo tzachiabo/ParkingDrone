@@ -50,7 +50,8 @@ namespace DroneServer.BL
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             getDroneStatus mission = new getDroneStatus();
-            Logger.getInstance().debug("send get status to drone");
+            if (Configuration.getInstance().get("print_get_status") == "True")
+                Logger.getInstance().debug("send get status to drone");
             mission.execute();
         }
     }

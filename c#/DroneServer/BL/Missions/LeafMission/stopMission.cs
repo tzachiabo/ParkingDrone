@@ -13,6 +13,13 @@ namespace DroneServer.BL.Missions
 
         }
 
+        public override void execute()
+        {
+            BLManagger.getInstance().increment_version();
+            m_version = BLManagger.getInstance().get_version();
+            base.execute();
+        }
+
         public override string encode()
         {
             return "stop " + m_index;
@@ -20,7 +27,7 @@ namespace DroneServer.BL.Missions
 
         public override void stop()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

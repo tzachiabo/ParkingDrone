@@ -1,8 +1,10 @@
 <xml>
 <port>3000</port>
 <pic_server_port>3001</pic_server_port>
-<debugMode>false</debugMode>
+<debugMode>true</debugMode>
 <log_interval>5000</log_interval>
-<getLocationInterval>500</getLocationInterval>
-<getStatusInterval>500</getStatusInterval>
+<getLocationInterval>15500</getLocationInterval>
+<getStatusInterval>10000</getStatusInterval>
+<print_get_status>false</print_get_status>
+<print_get_location>false</print_get_location>
 </xml>

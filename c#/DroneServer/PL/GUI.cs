@@ -421,6 +421,9 @@ namespace DroneServer
 
         }
 
-        
+        private void stop_mission_btn_Click_1(object sender, EventArgs e)
+        {
+            BLManagger.getInstance().stop();
+        }
     }
 }

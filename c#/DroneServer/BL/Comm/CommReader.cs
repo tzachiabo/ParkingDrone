@@ -40,6 +40,7 @@ namespace DroneServer.BL.Comm
                         {
                             int index = data.IndexOf('%');
                             String curr_message = data.Substring(0, index);
+                            Logger.getInstance().debug("new message arrived: " + curr_message);
                             EncodeMission(curr_message);
                             data = data.Substring(index + 1);
                         }
@@ -47,7 +48,7 @@ namespace DroneServer.BL.Comm
                     }
                     catch (System.IO.IOException)
                     {
-                        Assertions.verify(false, "android has crashed");
+                        CommManager.getInstance().ClientDisconnect();
                     }
                     
                 }

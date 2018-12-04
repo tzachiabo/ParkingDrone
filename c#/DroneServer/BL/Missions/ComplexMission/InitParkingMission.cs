@@ -13,10 +13,11 @@ namespace DroneServer.BL.Missions
         {
             m_ParentMission = ParentMission;
             m_SubMission.Enqueue(new Move(this, Direction.up, 10));
-            m_SubMission.Enqueue(new Move(this, Direction.forward, 100));
-            m_SubMission.Enqueue(new Move(this, Direction.left, 100));
-            m_SubMission.Enqueue(new Move(this, Direction.backward, 100));
-            m_SubMission.Enqueue(new Move(this, Direction.right, 100));
+            m_SubMission.Enqueue(new MoveToGPSPoint(this, 22.54281, 113.95890, 5));
+            m_SubMission.Enqueue(new Move(this, Direction.forward, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.left, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.backward, 10));
+            m_SubMission.Enqueue(new Move(this, Direction.right, 10));
         }
 
         public override void done(Response response)
