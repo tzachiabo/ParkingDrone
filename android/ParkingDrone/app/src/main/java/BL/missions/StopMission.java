@@ -14,8 +14,10 @@ public class StopMission extends Mission {
     }
     @Override
     public void start() {
+        Logger.debug("Stop1");
         TaskManager.getInstance().stopAllTasks();
 
+        Logger.debug("Stop2");
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "when stop mission aircraft is null");
 
@@ -27,9 +29,12 @@ public class StopMission extends Mission {
                 }
                 else {
                     Logger.fatal("Failed to set virtual stick off");
+
                 }
             }
         });
+
+        onResult.onResult(null);
     }
 
     @Override

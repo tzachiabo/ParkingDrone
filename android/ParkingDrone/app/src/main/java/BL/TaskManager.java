@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import BL.missions.GetDroneStatusMission;
 import BL.missions.GetGPSLocationMission;
 import BL.missions.Mission;
+import BL.missions.StopMission;
 import SharedClasses.Assertions;
 import dji.thirdparty.afinal.core.AsyncTask;
 
@@ -15,10 +16,12 @@ public class TaskManager {
     private static TaskManager instance = null;
     ExecutorService MainExecutor;
     ExecutorService StatusExecutor;
-
+    ExecutorService StopExecutor;
+    Mission currentMission;
     private TaskManager(){
         MainExecutor = Executors.newSingleThreadExecutor();
         StatusExecutor = Executors.newSingleThreadExecutor();
+        StopExecutor = Executors.newSingleThreadExecutor();
     }
     public static TaskManager getInstance(){
         if(instance == null){
@@ -28,24 +31,26 @@ public class TaskManager {
     }
 
     private void addMission(ExecutorService executor, final Mission mission){
-        executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                mission.start();
-            }
-        });
+        executor.submit(mission);
     }
 
     private void addMainMission(Mission mission){
+        //todo:assertion empty executor
+        currentMission = mission;
         addMission(MainExecutor, mission);
     }
-
+    private void addStopMission(Mission mission){
+        addMission(StopExecutor, mission);
+    }
     private void addStatusMission(Mission mission){
         addMission(StatusExecutor, mission);
     }
 
     public void addTask(Mission mission){
-        if (mission instanceof GetDroneStatusMission || mission instanceof GetGPSLocationMission){
+        if(mission instanceof StopMission){
+
+        }
+        else if (mission instanceof GetDroneStatusMission || mission instanceof GetGPSLocationMission){
             addStatusMission(mission);
         }
         else
@@ -55,6 +60,9 @@ public class TaskManager {
     }
 
     public void stopAllTasks(){
+        currentMission.stop();
+
         MainExecutor.shutdownNow();
+
     }
 }

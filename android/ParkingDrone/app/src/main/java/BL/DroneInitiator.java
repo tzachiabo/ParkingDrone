@@ -40,7 +40,8 @@ public class DroneInitiator {
 
     public static boolean isInitiated() {
         DroneInitiator drone = getInstance();
-        return drone.isFlightControllerInitiated && drone.isCameraInitiated && drone.isHomeLocationSet;
+        boolean isHomeLocationSet = drone.isHomeLocationSet || Config.DEBUG_MODE;
+        return drone.isFlightControllerInitiated && drone.isCameraInitiated && isHomeLocationSet;
     }
 
     private static DroneInitiator getInstance() {
