@@ -32,23 +32,24 @@ namespace DroneServer.BL.Comm
                 {
                     NetworkStream ns = CommManager.getInstance().m_ns;
                     byte[] bytes = new byte[124];
-                    int bytesRec = ns.Read(bytes, 0, bytes.Length);
-                    data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-                    while (data.Contains('%'))
+                    try
                     {
-                        string[] messages = data.Split('%');
-
-                        for (int i = 0; i < messages.Length - 1; i++)
+                        int bytesRec = ns.Read(bytes, 0, bytes.Length);
+                        data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                        while (data.Contains('%'))
                         {
-                            string mission = messages[i];
-                            Logger.getInstance().info("receive this message from Android : " + mission);
-                            EncodeMission(mission);
+                            int index = data.IndexOf('%');
+                            String curr_message = data.Substring(0, index);
+                            EncodeMission(curr_message);
+                            data = data.Substring(index + 1);
                         }
 
-                        data = messages[messages.Length - 1];
-
                     }
-    
+                    catch (System.IO.IOException)
+                    {
+                        Assertions.verify(false, "android has crashed");
+                    }
+                    
                 }
                 Logger.getInstance().warn("Comm reader has been shut down");
 

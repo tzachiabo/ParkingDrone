@@ -40,8 +40,7 @@ public class SocketManager {
                 try {
                     ByteArrayOutputStream byteArrayOutputStream;
                     socket = new Socket(Config.DST_ADDRESS, Config.DST_PORT);
-                    byteArrayOutputStream = new ByteArrayOutputStream(
-                            BUFFER_SIZE);
+                    byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                     byte[] buffer = new byte[BUFFER_SIZE];
                     int bytesRead;
                     inputStream = socket.getInputStream();
@@ -53,18 +52,13 @@ public class SocketManager {
                         String curr_msg = byteArrayOutputStream.toString("UTF-8");
                         msg += curr_msg;
 
-                        Logger.debug("msg Received - "+ curr_msg);
-
-                        if (msg.contains("%"))
+                        while (msg.contains("%"))
                         {
-                            String[] mission_str = msg.split("%");
-                            for (int i=0 ; i < mission_str.length - 1; i++) {
-                                Logger.debug("msg mission Received - "+ mission_str[i]);
-                                Mission current_task = Decoder.decode(mission_str[i]);
-                                taskManager.addTask(current_task);
-                            }
-
-                            msg = mission_str[mission_str.length - 1];
+                            int index = msg.indexOf('%');
+                            String curr_message = msg.substring(0, index);
+                            Mission current_task = Decoder.decode(curr_message);
+                            taskManager.addTask(current_task);
+                            msg = msg.substring(index + 1);
                         }
 
                         byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);

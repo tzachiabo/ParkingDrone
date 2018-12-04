@@ -59,7 +59,7 @@ namespace DroneServer.BL.Comm
                     Assertions.verify(running == false, "socket got unexpected exception");
                     return;
                 }
-                Logger.getInstance().debug("recevied a connction from the drown");
+                Logger.getInstance().debug("recevied a connection from the drone");
 
                 m_ns = client.GetStream();
 
@@ -133,13 +133,14 @@ namespace DroneServer.BL.Comm
 
             Logger.getInstance().info("send this message to Android : " + message_to_android);
 
-            byte[] to_send = Encoding.UTF8.GetBytes(message_to_android + '%');
+            byte[] to_send = Encoding.UTF8.GetBytes(message_to_android + "%");
 
             Assertions.verify(m_ns != null, "tried to send message to android but network stream is null");
 
             try
             {
                 m_ns.Write(to_send, 0, to_send.Length);
+                m_ns.Flush();
             }
             catch(Exception e)
             {

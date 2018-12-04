@@ -123,6 +123,7 @@ public class Loading extends AppCompatActivity {
                     DJISDKManager.getInstance().registerApp(Loading.this.getApplicationContext(), new DJISDKManager.SDKManagerCallback() {
                         @Override
                         public void onRegister(DJIError djiError) {
+                            BLManager.getInstance();
                             if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
                                 showToast("Register Success");
                                 startActivity(new Intent(Loading.this, MainActivity.class));

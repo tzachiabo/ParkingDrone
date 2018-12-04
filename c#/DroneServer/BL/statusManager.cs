@@ -18,7 +18,7 @@ namespace DroneServer.BL
         {
             double timer_interval = Double.Parse(Configuration.getInstance().get("getStatusInterval"));
 
-            Logger.getInstance().debug("start get location timer with interval " + timer_interval);
+            Logger.getInstance().debug("start get status timer with interval " + timer_interval);
 
             aTimer = new System.Timers.Timer(timer_interval);
             // Hook up the Elapsed event for the timer. 
