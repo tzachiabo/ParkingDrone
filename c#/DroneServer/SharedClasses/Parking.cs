@@ -83,7 +83,8 @@ namespace DroneServer.SharedClasses
             double middleX = (minX + maxX) / 2;
             double middleY = (minY + maxY) / 2;
             
-            double hight = Math.Sqrt(Math.Pow((maxX - minX), 2) + Math.Pow((maxY - minY), 2))/double.Parse(conf.get("hightFix")) +maxZ;
+
+            double hight =maxZ + (Math.Sqrt(Math.Pow((maxX - minX), 2) + Math.Pow((maxY - minY), 2)) * Math.Tan(double.Parse(conf.get("cameraOpeningDegree")) / 2) / 2);
 
             return new Point(middleX,middleY,hight);
         }

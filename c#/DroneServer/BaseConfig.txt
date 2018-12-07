@@ -7,5 +7,5 @@
 <getStatusInterval>10000</getStatusInterval>
 <print_get_status>false</print_get_status>
 <print_get_location>false</print_get_location>
-<hightFix>2.144</hightFix>
+<cameraOpeningDegree>72</cameraOpeningDegree>
 </xml>
