@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DroneServer.BL;
 using GMap.NET.WindowsForms;
-
+using System.Device;
+using System.Device.Location;
 
 namespace DroneServer.SharedClasses
 {
@@ -82,9 +83,10 @@ namespace DroneServer.SharedClasses
             Configuration conf= Configuration.getInstance();
             double middleX = (minX + maxX) / 2;
             double middleY = (minY + maxY) / 2;
-            
+            var sCoord = new GeoCoordinate(minX, minY);
+            var eCoord = new GeoCoordinate(maxX, maxY);
 
-            double hight =maxZ + (Math.Sqrt(Math.Pow((maxX - minX), 2) + Math.Pow((maxY - minY), 2)) * Math.Tan(double.Parse(conf.get("cameraOpeningDegree")) / 2) / 2);
+            double hight =maxZ + (eCoord.GetDistanceTo(sCoord) * Math.Tan(double.Parse(conf.get("cameraOpeningDegree")) / 2) / 2);
 
             return new Point(middleX,middleY,hight);
         }
