@@ -86,7 +86,7 @@ namespace DroneServer.SharedClasses
             var sCoord = new GeoCoordinate(minX, minY);
             var eCoord = new GeoCoordinate(maxX, maxY);
 
-            double hight =maxZ + (eCoord.GetDistanceTo(sCoord) * Math.Tan(double.Parse(conf.get("cameraOpeningDegree")) / 2) / 2);
+            double hight =maxZ + ((eCoord.GetDistanceTo(sCoord) / 2) / Math.Tan(double.Parse(conf.get("cameraOpeningDegree"))));
 
             return new Point(middleX,middleY,hight);
         }
