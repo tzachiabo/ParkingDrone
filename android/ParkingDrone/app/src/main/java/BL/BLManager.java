@@ -1,36 +1,12 @@
 package BL;
 
+import BL.Drone.DroneInitiator;
 import SharedClasses.Config;
-import SharedClasses.DroneStatus;
 import SharedClasses.Logger;
 
 import android.os.Environment;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import BL.missions.TakePictureMission;
-import SharedClasses.Assertions;
-import dji.common.camera.SettingsDefinitions;
-import dji.common.error.DJIError;
-import dji.common.flightcontroller.LocationCoordinate3D;
-import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
-import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
-import dji.common.flightcontroller.virtualstick.VerticalControlMode;
-import dji.common.flightcontroller.virtualstick.YawControlMode;
-import dji.common.model.LocationCoordinate2D;
-import dji.common.util.CommonCallbacks;
-import dji.sdk.camera.Camera;
-import dji.sdk.products.Aircraft;
-import dji.sdk.sdkmanager.DJISDKManager;
 
 public class BLManager {
     private static BLManager instance = null;

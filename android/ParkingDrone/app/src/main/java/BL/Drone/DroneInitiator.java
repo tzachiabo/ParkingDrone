@@ -1,11 +1,10 @@
-package BL;
+package BL.Drone;
 
 import java.util.List;
 
 import BL.missions.TakePictureMission;
 import SharedClasses.Assertions;
 import SharedClasses.Config;
-import SharedClasses.DroneStatus;
 import SharedClasses.Logger;
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;

@@ -1,8 +1,11 @@
 package BL.missions;
 
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import SharedClasses.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
+import SharedClasses.Promise;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.products.Aircraft;
@@ -14,30 +17,19 @@ public class TakeoffMission extends Mission {
     }
     @Override
     public void start() {
-        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(aircraft != null, "when take off mission aircraft is null");
+        IDrone drone = DroneFactory.getDroneManager();
+        drone.takeOff(new Promise() {
 
-        aircraft.getFlightController().startTakeoff(new CommonCallbacks.CompletionCallback() {
             @Override
-            public void onResult(DJIError djiError) {
-                if(djiError != null) {
-                    Logger.error("after takeoff djierror is " + djiError.toString());
-                    Assertions.verify(false, "failed to take off drone");
-                }
+            public void onSuccess() {
+                onResult.onResult(null);
+            }
 
-                float height;
-                long startTime = System.currentTimeMillis();
-                do {
-                    height = aircraft.getFlightController().getState().getAircraftLocation().getAltitude();
-                    Assertions.verify( System.currentTimeMillis() - startTime < Config.MAX_TIME_WAIT_FOR_TAKEOFF,
-                            "Takeoff timeout: wait too much time for takeoff");
-                }
-                while(height < 1.1);
-
-                onResult.onResult(djiError);
+            @Override
+            public void onFailed() {
+                Logger.fatal("failed to take off");
             }
         });
-
     }
 
     @Override

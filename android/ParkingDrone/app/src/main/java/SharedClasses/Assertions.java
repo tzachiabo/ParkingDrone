@@ -41,6 +41,7 @@ public class Assertions {
             }
 
             TaskManager.getInstance().stopAllTasks();
+            throw new AssertionViolation(message);
         }
 
     }
