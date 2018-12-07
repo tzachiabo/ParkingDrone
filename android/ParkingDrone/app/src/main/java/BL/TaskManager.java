@@ -42,13 +42,14 @@ public class TaskManager {
     private void addStopMission(Mission mission){
         addMission(StopExecutor, mission);
     }
+
     private void addStatusMission(Mission mission){
         addMission(StatusExecutor, mission);
     }
 
     public void addTask(Mission mission){
         if(mission instanceof StopMission){
-
+            addStopMission(mission);
         }
         else if (mission instanceof GetDroneStatusMission || mission instanceof GetGPSLocationMission){
             addStatusMission(mission);
@@ -61,8 +62,5 @@ public class TaskManager {
 
     public void stopAllTasks(){
         currentMission.stop();
-
-        MainExecutor.shutdownNow();
-
     }
 }

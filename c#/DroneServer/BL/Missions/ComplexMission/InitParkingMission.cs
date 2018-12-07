@@ -12,7 +12,7 @@ namespace DroneServer.BL.Missions
         public InitParkingMission(Parking parking, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_ParentMission = ParentMission;
-            m_SubMission.Enqueue(new Move(this, Direction.up, 10));
+            //m_SubMission.Enqueue(new Move(this, Direction.up, 10));
             Point base_point = parking.getBasePoint();
             m_SubMission.Enqueue(new MoveToGPSPoint(this, base_point.x, base_point.y, base_point.z));
             m_SubMission.Enqueue(new MoveGimbal(this, Gimbal.left, GimbalMovementType.relative, 0, -90, 0));

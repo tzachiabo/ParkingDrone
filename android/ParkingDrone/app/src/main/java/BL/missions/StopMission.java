@@ -14,10 +14,9 @@ public class StopMission extends Mission {
     }
     @Override
     public void start() {
-        Logger.debug("Stop1");
+        Logger.info("Stop mission started");
         TaskManager.getInstance().stopAllTasks();
 
-        Logger.debug("Stop2");
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "when stop mission aircraft is null");
 
@@ -44,6 +43,6 @@ public class StopMission extends Mission {
 
     @Override
     public String encode() {
-        return getName() +" "+ getIndex() + "Done";
+        return getName() +" "+ getIndex() + " Done";
     }
 }
