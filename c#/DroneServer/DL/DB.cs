@@ -13,13 +13,16 @@ using System.Runtime.CompilerServices;
 
 namespace DroneServer
 {
-    class DB
+    public class DB
     {
-        static string cs = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName + @"\DL\DroneDB.mdf;";
+        static string cs = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName + @"\DroneServer\DL\DroneDB.mdf;";
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static void addParking(Parking parking)
         {
+            if (parking.border == null || parking.name.Equals(""))
+                return;
+
             SqlConnection con;
             SqlCommand cmd;
             con = new SqlConnection(cs);
@@ -46,8 +49,6 @@ namespace DroneServer
             con.Close();
 
 
-            if (parking.border == null)
-                return;
             for (int i = 0; i < parking.border.Count; i++)
             {
                 SqlConnection con2;

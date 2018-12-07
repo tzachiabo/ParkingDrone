@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace UnitTestProject
 {
     [TestClass]
-    public class initParkingMissionTest
+    public class ParkingTest
     {
         [TestMethod]
         public void getBaseLocationWith4GPSPoints()
