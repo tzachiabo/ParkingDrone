@@ -18,7 +18,8 @@ namespace UnitTestProject
             Point point3 = new Point(4, 0, 0);
             Point point4 = new Point(4, 3, 0);
             List<Point> points = new List<Point> { point1, point2, point3, point4 };
-            Point basePoint = InitParkingMission.GetBaseLocation(points);
+            Parking park = new Parking("name", points);
+            Point basePoint = park.getBasePoint();
             Assert.IsTrue(basePoint.x == 2);
             Assert.IsTrue(basePoint.y == 1.5);
             Assert.IsTrue(basePoint.z == 5/2.144);

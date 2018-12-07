@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Windows.Forms;
+using DroneServer.BL;
 using GMap.NET.WindowsForms;
 
 
@@ -19,6 +20,7 @@ namespace DroneServer.SharedClasses
         public double maxZoom;
         public double minZoom;
         public List<Point> border;
+        public Point basePossition;
 
         public Parking()
         {
@@ -40,6 +42,11 @@ namespace DroneServer.SharedClasses
             this.minZoom = minZoom;
             this.border = border;
         }
+        public Parking(string name, List<Point> border)
+        {
+            this.name = name;
+            this.border = border;
+        }
 
         public Parking(TextBox parkingName ,GMapControl map,ListBox points)
         {
@@ -52,6 +59,33 @@ namespace DroneServer.SharedClasses
             border = new List<Point>();
             foreach (string item in points.Items)
                 border.Add(new SharedClasses.Point(Convert.ToDouble(item.Split(' ')[1]), Convert.ToDouble(item.Split(' ')[0])));
+        }
+        public Point getBasePoint()
+        {
+            var XList = new List<double>();
+            var YList = new List<double>();
+            var ZList = new List<double>();
+
+            foreach (Point point in border)
+            {
+                XList.Add(point.x);
+                YList.Add(point.y);
+                ZList.Add(point.z);
+            }
+
+            double minX = XList.Min();
+            double maxX = XList.Max();
+            double minY = YList.Min();
+            double maxY = YList.Max();
+            double maxZ = ZList.Max();
+
+            Configuration conf= Configuration.getInstance();
+            double middleX = (minX + maxX) / 2;
+            double middleY = (minY + maxY) / 2;
+            
+            double hight = Math.Sqrt(Math.Pow((maxX - minX), 2) + Math.Pow((maxY - minY), 2))/double.Parse(conf.get("hightFix")) +maxZ;
+
+            return new Point(middleX,middleY,hight);
         }
     }
 }
