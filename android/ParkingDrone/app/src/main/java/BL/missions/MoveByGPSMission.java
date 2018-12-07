@@ -1,9 +1,12 @@
 package BL.missions;
 
 
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import SharedClasses.Assertions;
 import SharedClasses.Config;
 import SharedClasses.Logger;
+import SharedClasses.Promise;
 import dji.common.error.DJIError;
 import dji.common.mission.waypoint.Waypoint;
 import dji.common.mission.waypoint.WaypointMission;
@@ -35,37 +38,19 @@ public class MoveByGPSMission extends Mission {
 
     @Override
     public void start() {
-        Builder mission_builder = new WaypointMission.Builder();
-        mission_builder
-                .headingMode(headingMode)
-                .finishedAction(on_finish)
-                .autoFlightSpeed(2.0f)
-                .maxFlightSpeed(3.0f)
-                .flightPathMode(WaypointMissionFlightPathMode.NORMAL)
-                .addWaypoint(new Waypoint(xLoc,yLoc+0.00005,zLOC))
-                .addWaypoint(new Waypoint(xLoc,yLoc,zLOC))
-                .repeatTimes(0)
-                .waypointCount(mission_builder.getWaypointList().size());
+        IDrone drone = DroneFactory.getDroneManager();
+        drone.moveByGPS(xLoc, yLoc, zLOC, new Promise(){
+            @Override
+            public void onSuccess() {
+                Logger.info("Move to gps finished");
+                onResult.onResult(null);
+            }
 
-        WaypointMission waypointMission = mission_builder.build();
-        MissionControl missionControl = DJISDKManager.getInstance().getMissionControl();
-        WaypointMissionOperator waypointMissionOperator = missionControl.getWaypointMissionOperator();
-        waypointMissionOperator.loadMission(waypointMission);
-        long startTime = System.currentTimeMillis();
-        while(waypointMissionOperator.getCurrentState()!=WaypointMissionState.READY_TO_UPLOAD){
-            Assertions.verify( System.currentTimeMillis() - startTime < Config.MAX_TIME_FOR_SETP_IN_GO_TO_GPS,
-                    "waypoint mission operator wasn't ready to upload"); }
-        waypointMissionOperator.uploadMission(null);
-        startTime = System.currentTimeMillis();
-        while(waypointMissionOperator.getCurrentState()!=WaypointMissionState.READY_TO_EXECUTE){
-            Assertions.verify( System.currentTimeMillis() - startTime < Config.MAX_TIME_FOR_SETP_IN_GO_TO_GPS,
-                    "waypoint mission operator wasn't ready to execute");
-        }
-        waypointMissionOperator.startMission(null);
-        while (waypointMissionOperator.getCurrentState()!=WaypointMissionState.READY_TO_UPLOAD){
-        }
-        Logger.debug("Finished waypoint missions, sending result");
-        onResult.onResult(null);
+            @Override
+            public void onFailed() {
+                Logger.error("Move to gps failed");
+            }
+        });
 
     }
 
@@ -89,6 +74,7 @@ public class MoveByGPSMission extends Mission {
 
     @Override
     public String encode() {
+        Logger.info("encoding mission move by gps");
         return getName() +" "+ getIndex() + " Done";
     }
 }

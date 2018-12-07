@@ -11,6 +11,7 @@ import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
+import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ControllerManager {
     FlightController m_flight_controller;
@@ -41,12 +42,56 @@ public class ControllerManager {
                     }
                     while (height < 1.1);
 
-                    cb.onSuccess();
+                    m_flight_controller.setHomeLocationUsingAircraftCurrentLocation(null);
+
+                    cb.success();
                 }
                 catch (AssertionViolation e){
-                    cb.onFailed();
+                    cb.failed();
                 }
             }
         });
     }
+
+    public void confirmLanding(final Promise cb){
+        m_flight_controller.confirmLanding(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError == null){
+                    cb.success();
+                }
+                else{
+                    Logger.error("confirm landing failed with err : " + djiError.toString());
+                    cb.failed();
+                }
+            }
+        });
+    }
+
+    public void goHome(final Promise cb){
+        try{
+            m_flight_controller.startGoHome(new CommonCallbacks.CompletionCallback() {
+                @Override
+                public void onResult(DJIError djiError) {
+                    if (djiError != null) {
+                        Logger.error("start go home resulted in dji error " + djiError.toString());
+                        Assertions.verify(
+                                false,
+                                "failed to set GOHome on GoHomeMission.start");
+                    } else {
+                        Logger.info("Drone is Going Home!");
+
+                        while (m_flight_controller.getState().isGoingHome());
+
+                        cb.success();
+                    }
+                }
+            });
+        }
+        catch(AssertionViolation e){
+            cb.failed();
+        }
+
+    }
+
 }

@@ -2,9 +2,13 @@ package BL.missions;
 
 
 
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
+import SharedClasses.Promise;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.GoHomeExecutionState;
 import dji.common.model.LocationCoordinate2D;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.products.Aircraft;
@@ -19,19 +23,16 @@ public class GoHomeMission extends Mission {
 
     @Override
     public void start() {
-        Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(aircraft != null, "aircraft is null on GoHomeMission.start");
-        aircraft.getFlightController().startGoHome(new CommonCallbacks.CompletionCallback() {
+        IDrone drone = DroneFactory.getDroneManager();
+        drone.goHome(new Promise() {
             @Override
-            public void onResult(DJIError djiError) {
-                if (djiError != null) {
-                    Logger.error("start go home resulted in dji error " + djiError.toString());
-                    Assertions.verify(
-                            false,
-                            "failed to set GOHome on GoHomeMission.start");
-                } else {
-                    Logger.info("Drone is Going Home!");
-                }
+            public void onSuccess() {
+                onResult.onResult(null);
+            }
+
+            @Override
+            public void onFailed() {
+                Logger.fatal("mission go home failed");
             }
         });
     }

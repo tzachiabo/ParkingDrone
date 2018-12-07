@@ -1,7 +1,10 @@
 package BL.missions;
 
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
+import SharedClasses.Promise;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
@@ -14,13 +17,20 @@ public class ConfirmLandingMission extends Mission{
 
     @Override
     public void start() {
-        Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(aircraft != null, "when try to confirm landing got null aircraft");
+        IDrone drone = DroneFactory.getDroneManager();
+        drone.confirmLanding(new Promise() {
 
-        FlightController controller = aircraft.getFlightController();
-        Assertions.verify(controller != null, "when try to confirm landing got null controller");
+            @Override
+            public void onSuccess() {
+                onResult.onResult(null);
+            }
 
-        controller.confirmLanding(this.onResult);
+            @Override
+            public void onFailed() {
+                Logger.fatal("mission confirm landing : failed to land");
+            }
+        });
+
     }
 
     @Override

@@ -19,7 +19,8 @@ namespace DroneServer.BL.Missions
         public ParkingMission(ComplexMission ParentMission, Parking parking) : base(ParentMission)
         {
             m_SubMission.Enqueue(new TakeOff(this));
-            m_SubMission.Enqueue(new InitParkingMission(this));
+            m_SubMission.Enqueue(new InitParkingMission(parking, this));
+            m_SubMission.Enqueue(new GoHome(this));
             m_SubMission.Enqueue(new Landing(this));
             m_parking = parking;
         }

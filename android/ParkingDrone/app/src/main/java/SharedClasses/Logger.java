@@ -1,18 +1,34 @@
 package SharedClasses;
 
 import android.os.AsyncTask;
+import android.os.Looper;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Logger {
 
+    private static Logger instance;
+    private ExecutorService LoggerExecutor;
+
     private Logger() {
+        LoggerExecutor = Executors.newSingleThreadExecutor();
     }
 
-    private static synchronized void innerLog(final String toLog) {
-        new AsyncTask<Void, Void, String>() {
+    private static Logger getInstance(){
+        if(instance==null){
+            instance = new Logger();
+        }
+        return instance;
+    }
+
+    private static void innerLog(final String toLog) {
+
+        Logger.getInstance().LoggerExecutor.submit(new Runnable() {
             @Override
-            protected String doInBackground(Void... voids) {
+            public void run() {
                 String url = "https://floating-fjord-95063.herokuapp.com/log/" + toLog;
                 url = url.replaceAll(" ", "%20");
                 try {
@@ -30,10 +46,8 @@ public class Logger {
                     Logger.error("failed to write log : " + toLog);
 
                 }
-
-                return "";
             }
-        }.execute();
+        });
     }
 
     public static void debug(String message) {

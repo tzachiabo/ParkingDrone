@@ -21,7 +21,6 @@ public class DroneInitiator {
 
     private boolean isCameraInitiated;
     private boolean isFlightControllerInitiated;
-    private boolean isHomeLocationSet;
     private static DroneInitiator instance;
 
     public static void init() {
@@ -32,15 +31,11 @@ public class DroneInitiator {
         if (!drone.isCameraInitiated) {
             drone.initCamera();
         }
-        if (!drone.isHomeLocationSet) {
-            drone.initHomeLocation();
-        }
     }
 
     public static boolean isInitiated() {
         DroneInitiator drone = getInstance();
-        boolean isHomeLocationSet = drone.isHomeLocationSet || Config.DEBUG_MODE;
-        return drone.isFlightControllerInitiated && drone.isCameraInitiated && isHomeLocationSet;
+        return drone.isFlightControllerInitiated && drone.isCameraInitiated;
     }
 
     private static DroneInitiator getInstance() {
@@ -52,7 +47,6 @@ public class DroneInitiator {
     private DroneInitiator() {
         isCameraInitiated = false;
         isFlightControllerInitiated = false;
-        isHomeLocationSet = false;
     }
 
     private void initFlightController() {
@@ -108,30 +102,6 @@ public class DroneInitiator {
 
         Assertions.verify(false, "camera " + Config.MAIN_CAMERA_NAME + "could not be found");
         return null;
-    }
-
-    private void initHomeLocation() {
-        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(aircraft != null, "aircraft is null on BL.initHomeLocation");
-        aircraft.getFlightController().setHomeLocationUsingAircraftCurrentLocation(new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError djiError) {
-                if (djiError != null) {
-                    Logger.error("initHomeLocation resulted in dji error " + djiError.toString());
-                    if (Config.DEBUG_MODE) {
-                        Logger.error("Unable to define home location DO NOT use the feature");
-                    } else {
-                        Assertions.verify(
-                                false,
-                                "failed to set Home location on BL.initHomeLocation");
-                    }
-                } else {
-                    Logger.info("Home location was set to be :" +
-                            aircraft.getFlightController().getState().getHomeLocation().toString());
-                    isHomeLocationSet = true;
-                }
-            }
-        });
     }
 
 }

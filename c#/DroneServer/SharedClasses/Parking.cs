@@ -86,9 +86,18 @@ namespace DroneServer.SharedClasses
             var sCoord = new GeoCoordinate(minX, minY);
             var eCoord = new GeoCoordinate(maxX, maxY);
 
-            double hight =maxZ + ((eCoord.GetDistanceTo(sCoord) / 2) / Math.Tan(double.Parse(conf.get("cameraOpeningDegree"))));
+            double radius = eCoord.GetDistanceTo(sCoord) / 2;
+            double degree = double.Parse(conf.get("cameraOpeningDegree"));
+            double rad = ConvertToRadians(degree);
+
+            double hight =maxZ + (radius / Math.Tan(rad));
 
             return new Point(middleX,middleY,hight);
+        }
+
+        private double ConvertToRadians(double angle)
+        {
+            return (Math.PI / 180) * angle;
         }
     }
 }

@@ -11,11 +11,11 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class Assertions {
 
-    public static void verify(Boolean predicat, String message)
+    public synchronized static void verify(Boolean predicat, String message)
     {
         if (!predicat)
         {
-            Logger.error("assertion failure with message : " + message);
+            Logger.fatal("assertion failure with message : " + message);
             try {
                 SocketManager.getInstance().close_socket();
             }

@@ -2,12 +2,7 @@ package BL.Drone.DJIM210;
 
 import BL.Drone.IDrone;
 import SharedClasses.Assertions;
-import SharedClasses.Config;
-import SharedClasses.Logger;
 import SharedClasses.Promise;
-import dji.common.error.DJIError;
-import dji.common.util.CommonCallbacks;
-import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
@@ -15,6 +10,7 @@ public class M210Manager implements IDrone{
 
     Aircraft m_aircraft;
     ControllerManager m_controller;
+    MissionControlManager m_mission_control;
 
     private static M210Manager instance;
 
@@ -24,6 +20,7 @@ public class M210Manager implements IDrone{
                           "Aircraft is null when constracting M210Manager");
 
         m_controller = new ControllerManager(m_aircraft);
+        m_mission_control = new MissionControlManager();
     }
 
     public static M210Manager getInstance(){
@@ -37,4 +34,18 @@ public class M210Manager implements IDrone{
     public void takeOff(final Promise p) {
         m_controller.takeOff(p);
     }
+
+    @Override
+    public void moveByGPS(double x, double y, float z, Promise p) {
+        m_mission_control.moveByGPS(x, y, z, p);
+    }
+
+    public void confirmLanding(final Promise p){
+        m_controller.confirmLanding(p);
+    }
+
+    public void goHome(final Promise p){
+        m_controller.goHome(p);
+    }
+
 }

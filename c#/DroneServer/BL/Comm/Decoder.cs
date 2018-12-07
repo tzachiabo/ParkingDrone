@@ -27,8 +27,8 @@ namespace DroneServer.BL.Comm
                     return parseConfirmLanding(words);
 
                 case "goHome":
+                    return parseGoHome(words);
 
-                    break;
                 case "moveGimbal":
                     return parseMoveGimbal(words);
                     
@@ -57,8 +57,6 @@ namespace DroneServer.BL.Comm
         private static Response parseTakePhoto(string[] sentance)
         {
             Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
-
-            double lat = Double.Parse(sentance[4]);
 
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, sentance[3]);
             return res;
@@ -112,6 +110,13 @@ namespace DroneServer.BL.Comm
         }
 
         private static Response parseMoveGimbal(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);
+            return res;
+        }
+
+        private static Response parseGoHome(string[] sentance)
         {
             Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, null);

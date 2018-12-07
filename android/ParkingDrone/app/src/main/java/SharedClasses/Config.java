@@ -10,7 +10,6 @@ public interface Config {
     int TIME_OF_GIMBAL_MOVE = 2;//seconds
     int MAX_TIME_WAIT_FOR_LANDING = 60000;//ms
     int MAX_TIME_WAIT_FOR_TAKEOFF = 60000;//ms
-    int MAX_TIME_FOR_SETP_IN_GO_TO_GPS = 10000;//ms
+    int MAX_TIME_FOR_SETP_IN_GO_TO_GPS = 60000;//ms
     boolean DEBUG_MODE = true;
-
 }
