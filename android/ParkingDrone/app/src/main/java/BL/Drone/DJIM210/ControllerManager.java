@@ -8,6 +8,7 @@ import SharedClasses.Config;
 import SharedClasses.Logger;
 import SharedClasses.Promise;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
@@ -93,5 +94,12 @@ public class ControllerManager {
         }
 
     }
+
+    public LocationCoordinate3D  getDroneStatus(){
+        Logger.debug("start getGPSLocation mission");
+        LocationCoordinate3D lc3d = m_flight_controller.getState().getAircraftLocation();
+        return lc3d;
+    }
+
 
 }

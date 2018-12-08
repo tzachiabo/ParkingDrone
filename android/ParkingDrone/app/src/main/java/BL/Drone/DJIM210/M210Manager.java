@@ -3,6 +3,7 @@ package BL.Drone.DJIM210;
 import BL.Drone.IDrone;
 import SharedClasses.Assertions;
 import SharedClasses.Promise;
+import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
@@ -46,6 +47,11 @@ public class M210Manager implements IDrone{
 
     public void goHome(final Promise p){
         m_controller.goHome(p);
+    }
+
+    @Override
+    public LocationCoordinate3D getDroneStatus() {
+        return m_controller.getDroneStatus();
     }
 
 }
