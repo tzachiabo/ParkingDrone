@@ -12,6 +12,7 @@ import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
 import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
 import dji.common.flightcontroller.virtualstick.VerticalControlMode;
 import dji.common.flightcontroller.virtualstick.YawControlMode;
+import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
@@ -130,6 +131,11 @@ public class ControllerManager {
         return isInitiated;
     }
 
+    public LocationCoordinate3D  getDroneStatus(){
+        Logger.debug("start getGPSLocation mission");
+        LocationCoordinate3D lc3d = m_flight_controller.getState().getAircraftLocation();
+        return lc3d;
+    }
 
 
 }

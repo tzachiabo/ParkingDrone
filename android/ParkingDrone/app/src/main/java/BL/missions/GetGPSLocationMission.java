@@ -1,5 +1,6 @@
 package BL.missions;
 
+import BL.Drone.DJIM210.M210Manager;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
 import dji.common.flightcontroller.LocationCoordinate3D;
@@ -18,11 +19,7 @@ public class GetGPSLocationMission extends Mission {
     @Override
     public void start() {
         Logger.debug("start getGPSLocation mission");
-        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(aircraft != null, "when get Location mission aircraft is null");
-
-        LocationCoordinate3D lc3d = aircraft.getFlightController().getState().getAircraftLocation();
-
+        LocationCoordinate3D lc3d = M210Manager.getInstance().getDroneStatus();
         Altitude = lc3d.getAltitude();
         Latitude = lc3d.getLatitude();
         Longitude = lc3d.getLongitude();
