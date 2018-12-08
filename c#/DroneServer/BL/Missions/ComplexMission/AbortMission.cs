@@ -15,7 +15,6 @@ namespace DroneServer.BL.Missions
         {
             m_stop_mission = new stopMission(this);
             m_SubMission.Enqueue(m_stop_mission);
-            
         }
 
         public AbortMission() : this(null) { }

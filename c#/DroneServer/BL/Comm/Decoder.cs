@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Comm
 {
-    class Decoder
+    public class Decoder
     {
         public static Response decode(String data)
         {

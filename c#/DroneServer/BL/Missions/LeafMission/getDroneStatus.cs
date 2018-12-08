@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class getDroneStatus : LeafMission
+    public class getDroneStatus : LeafMission
     {
         public getDroneStatus(ComplexMission ParentMission=null) :base(ParentMission)
         {

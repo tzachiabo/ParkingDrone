@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class StartLanding : LeafMission
+    public class StartLanding : LeafMission
     {
 
         public StartLanding(ComplexMission ParentMission=null) : base(ParentMission)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class ConfirmLanding : LeafMission
+    public class ConfirmLanding : LeafMission
     {
 
         public ConfirmLanding(ComplexMission ParentMission = null) :base(ParentMission)
