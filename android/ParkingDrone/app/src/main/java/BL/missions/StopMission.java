@@ -33,6 +33,7 @@ public class StopMission extends Mission {
             }
         });
 
+        Logger.info("Stop mission finished");
         onResult.onResult(null);
     }
 

@@ -78,7 +78,8 @@ namespace DroneServer.BL
 
         public void endMission()
         {
-            throw new NotImplementedException();
+            EndMission end_mission = new EndMission();
+            end_mission.execute();
         }
 
         public void stop()
@@ -89,7 +90,8 @@ namespace DroneServer.BL
 
         public void abort()
         {
-            throw new NotImplementedException();
+            AbortMission abort_mission = new AbortMission();
+            abort_mission.execute();
         }
 
         public void registerToLogs(ListBox list)

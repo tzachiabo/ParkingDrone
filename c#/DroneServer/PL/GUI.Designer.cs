@@ -300,6 +300,7 @@
             this.abort_mission_btn.TabIndex = 7;
             this.abort_mission_btn.Text = "Abort";
             this.abort_mission_btn.UseVisualStyleBackColor = true;
+            this.abort_mission_btn.Click += new System.EventHandler(this.abort_mission_btn_Click_1);
             // 
             // map_mission_map
             // 
