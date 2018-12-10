@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class GetLocation : LeafMission
+    public class GetLocation : LeafMission
     {
 
 
         public GetLocation(ComplexMission ParentMission = null) :base(ParentMission)
+        {
+        }
+
+        public GetLocation()
         {
         }
 
@@ -23,14 +27,6 @@ namespace DroneServer.BL.Missions
         public override string encode()
         {
             return "getLocation " + m_index;
-        }
-
-        public override void done(Response response)
-        {
-            Point p = (Point)response.Data;
-            Logger.getInstance().debug("update map location with this params :" + p.y + " " + p.x);
-            BLManagger.getInstance().setLocation(p.y, p.x);   
-            base.done(response);
         }
     }
 }

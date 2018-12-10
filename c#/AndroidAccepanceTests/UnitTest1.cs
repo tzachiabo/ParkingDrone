@@ -15,15 +15,13 @@ namespace AndroidAccepanceTests
 
             TakeOff take_off = new TakeOff();
             CompletionHanlder take_off_mission = comm.sendMission(take_off);
-            take_off_mission.wait();
 
-            StartLanding start_landing = new StartLanding();
-            CompletionHanlder start_landing_mission = comm.sendMission(start_landing);
+            DroneServer.BL.Missions.StartLanding start_landing = new DroneServer.BL.Missions.StartLanding();
+            CompletionHanlder start_landing_mission = comm.sendMission(start_landing, true);
             start_landing_mission.wait();
 
             ConfirmLanding conf_landing = new ConfirmLanding();
             CompletionHanlder conf_landing_mission = comm.sendMission(conf_landing);
-            conf_landing_mission.wait();
         }
     }
 }

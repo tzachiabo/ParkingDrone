@@ -58,7 +58,7 @@ namespace AndroidAccepanceTests
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public CompletionHanlder sendMission(LeafMission mission)
+        public CompletionHanlder sendMission(LeafMission mission, bool isAsync=false)
         {
             CompletionHanlder comp_handler = new CompletionHanlder(mission.m_index);
             m_reader.addMission(mission.m_index, comp_handler);
@@ -76,6 +76,11 @@ namespace AndroidAccepanceTests
                 Assert.Fail();
             }
 
+            if (!isAsync)
+            {
+                comp_handler.wait();
+            }
+ 
             return comp_handler;
         }
 

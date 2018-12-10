@@ -20,6 +20,8 @@ namespace DroneServer.BL.Missions
         {
             if (m_ParentMission != null)
                 m_ParentMission.notify(response);
+
+            base.done(response);
         }
         public override void stop()
         {

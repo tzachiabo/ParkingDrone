@@ -23,6 +23,7 @@ namespace DroneServer.BL.Missions
             {
                 m_ParentMission.notify(response);
             }
+            base.done(response);
         }
 
         public override void execute()

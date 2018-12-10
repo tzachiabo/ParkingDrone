@@ -13,10 +13,6 @@ namespace DroneServer.BL.Missions
         {
         }
 
-        public override void done(Response respone)
-        {
-
-        }
         public override void stop()
         {
 

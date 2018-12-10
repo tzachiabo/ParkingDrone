@@ -29,11 +29,10 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
-            logger.debug("Initiate BL");
-            CommManager.getInstance();
-            
+            logger.debug("Initiate BL");            
         }
 
+        
         public static BLManagger getInstance()
         {
             if (instance == null)
@@ -52,6 +51,12 @@ namespace DroneServer.BL
         {
             return Version;
         }
+
+        public void initComm()
+        {
+            CommManager.getInstance();
+        }
+
 
         public List<Parking> DBGetAllParkings()
         {

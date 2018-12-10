@@ -24,17 +24,6 @@ namespace DroneServer.BL.Missions
             Assertions.verify(false, "get status -stop not implemented yet");
         }
 
-        public override void done(Response response)
-        {
-            DroneStatus drone_status = DroneStatus.Disconnected;
-            if(response.Status == Status.Ok)
-            {
-                drone_status = (DroneStatus)response.Data;
-            }
-
-            BLManagger.getInstance().setStatus(drone_status);
-        }
-
         public override void execute()
         {
             if (Configuration.getInstance().get("print_get_status") == "True")

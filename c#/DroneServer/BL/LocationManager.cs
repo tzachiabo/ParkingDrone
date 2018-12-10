@@ -50,11 +50,19 @@ namespace DroneServer.BL
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             GetLocation mission = new GetLocation();
+            mission.register_to_notification(update_location);
             Logger.getInstance().debug("send get location to drone");
             if (Comm.CommManager.getInstance().isSocketInitiated)
                 mission.execute();
             else
                 Logger.getInstance().error("Location manager want to get location however the drone is not connected yet");
+        }
+
+        private static void update_location(Response response)
+        {
+            Point p = (Point)response.Data;
+            Logger.getInstance().debug("update map location with this params :" + p.y + " " + p.x);
+            BLManagger.getInstance().setLocation(p.y, p.x);
         }
 
 

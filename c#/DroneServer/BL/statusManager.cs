@@ -50,9 +50,21 @@ namespace DroneServer.BL
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             getDroneStatus mission = new getDroneStatus();
+            mission.register_to_notification(update_status);
             if (Configuration.getInstance().get("print_get_status") == "True")
                 Logger.getInstance().debug("send get status to drone");
             mission.execute();
+        }
+
+        private static void update_status(Response response)
+        {
+            DroneStatus drone_status = DroneStatus.Disconnected;
+            if (response.Status == Status.Ok)
+            {
+                drone_status = (DroneStatus)response.Data;
+            }
+
+            BLManagger.getInstance().setStatus(drone_status);
         }
     }
 }
