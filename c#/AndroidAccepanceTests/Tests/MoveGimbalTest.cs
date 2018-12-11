@@ -28,29 +28,29 @@ namespace AndroidAccepanceTests
             MoveGimbal(GimbalMovementType.relative, 0, 0, - 90);
         }
 
-        [TestMethod]
-        public void moveGimbalRollAbsolute()
-        {
-            MoveGimbal(GimbalMovementType.absolute, 90, 0, 0);
-            MoveGimbal(GimbalMovementType.absolute, -90, 0, 0);
-            MoveGimbal(GimbalMovementType.absolute, 0, 0, 0);
+        //[TestMethod]
+        //public void moveGimbalRollAbsolute()
+        //{
+        //    MoveGimbal(GimbalMovementType.absolute, 90, 0, 0);
+        //    MoveGimbal(GimbalMovementType.absolute, -90, 0, 0);
+        //    MoveGimbal(GimbalMovementType.absolute, 0, 0, 0);
 
-        }
+        //}
 
-        [TestMethod]
-        public void moveGimbalPitchAbsolute()
-        {
-            MoveGimbal(GimbalMovementType.absolute, 0, 90, 0);
-            MoveGimbal(GimbalMovementType.absolute, 0, -90, 0);
-            MoveGimbal(GimbalMovementType.absolute, 0, 0, 0);
-        }
+        //[TestMethod]
+        //public void moveGimbalPitchAbsolute()
+        //{
+        //    MoveGimbal(GimbalMovementType.absolute, 0, 90, 0);
+        //    MoveGimbal(GimbalMovementType.absolute, 0, -90, 0);
+        //    MoveGimbal(GimbalMovementType.absolute, 0, 0, 0);
+        //}
 
-        [TestMethod]
-        public void moveGimbalYawAbsolute()
-        {
-            MoveGimbal(GimbalMovementType.absolute, 0, 0, 90);
-            MoveGimbal(GimbalMovementType.absolute, 0, 0, -90);
-            MoveGimbal(GimbalMovementType.absolute, 0, 0, 0);
-        }
+        //[TestMethod]
+        //public void moveGimbalYawAbsolute()
+        //{
+        //    MoveGimbal(GimbalMovementType.absolute, 0, 0, 90);
+        //    MoveGimbal(GimbalMovementType.absolute, 0, 0, -90);
+        //    MoveGimbal(GimbalMovementType.absolute, 0, 0, 0);
+        //}
     }
 }

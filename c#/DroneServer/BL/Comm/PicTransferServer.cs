@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Comm
 {
-    class PicTransferServer
+    public class PicTransferServer
     {
         private Boolean running;
 

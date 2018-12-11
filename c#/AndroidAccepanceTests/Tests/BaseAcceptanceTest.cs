@@ -54,6 +54,12 @@ namespace AndroidAccepanceTests
             CompletionHanlder move_mission = comm.sendMission(move);
         }
 
+        protected void takePicture()
+        {
+            TakePhoto photo = new TakePhoto();
+            CompletionHanlder photo_mission = comm.sendMission(photo);
+        }
+
         protected Point getLocation()
         {
             GetLocation get_loation = new GetLocation();

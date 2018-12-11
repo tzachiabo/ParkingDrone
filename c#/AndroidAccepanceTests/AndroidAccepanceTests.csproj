@@ -54,7 +54,6 @@
     <Compile Include="Loader.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Tests\BaseAcceptanceTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\TakeOffTest.cs" />
     <Compile Include="Tests\MoveTest.cs" />

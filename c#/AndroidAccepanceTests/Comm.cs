@@ -1,4 +1,5 @@
 ﻿using DroneServer.BL;
+using DroneServer.BL.Comm;
 using DroneServer.BL.Missions;
 using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,10 +19,12 @@ namespace AndroidAccepanceTests
         private static Comm instance;
         NetworkStream m_ns;
         Reader m_reader;
+        PicTransferServer pic_server;
 
         private Comm()
         {
             init();
+            pic_server = new PicTransferServer();
         }
 
         public static Comm getInstance()
