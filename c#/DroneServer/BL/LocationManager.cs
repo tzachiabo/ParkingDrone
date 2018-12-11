@@ -61,8 +61,8 @@ namespace DroneServer.BL
         private static void update_location(Response response)
         {
             Point p = (Point)response.Data;
-            Logger.getInstance().debug("update map location with this params :" + p.y + " " + p.x);
-            BLManagger.getInstance().setLocation(p.y, p.x);
+            Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
+            BLManagger.getInstance().setLocation(p.lat, p.lng);
         }
 
 

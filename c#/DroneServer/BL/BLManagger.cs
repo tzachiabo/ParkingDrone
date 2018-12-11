@@ -165,7 +165,7 @@ namespace DroneServer.BL
 
         public bool validateParkingHeight(Parking p)
         {
-            if (p.getBasePoint().z > Convert.ToInt32(Configuration.getInstance().get("max_parking_height")))
+            if (p.getBasePoint().alt > Convert.ToInt32(Configuration.getInstance().get("max_parking_height")))
                 return false;
             return true;
         }

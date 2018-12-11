@@ -20,8 +20,8 @@ namespace UnitTestProject
             List<Point> points = new List<Point> { point1, point2, point3, point4 };
             Parking park = new Parking("name", points);
             Point basePoint = park.getBasePoint();
-            Assert.IsTrue(basePoint.x == 2);
-            Assert.IsTrue(basePoint.y == 1.5);
+            Assert.IsTrue(basePoint.lng == 2);
+            Assert.IsTrue(basePoint.lat == 1.5);
             //Assert.IsTrue(basePoint.z == 555.79*1000 * Math.Tan(36)/2);
 
         }

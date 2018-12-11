@@ -14,7 +14,7 @@ namespace AndroidAccepanceTests
             landing();
             Point point = getLocation();
 
-            Assert.AreEqual(point.z, 0);
+            Assert.AreEqual(point.alt, 0);
         }
     }
 }

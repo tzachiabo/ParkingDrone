@@ -12,9 +12,9 @@ namespace AndroidAccepanceTests
         {
             take_off();
             Point loc = getLocation();
-            move(DroneServer.SharedClasses.Direction.left, 100);
-            move(DroneServer.SharedClasses.Direction.up, 60);
-            MoveByGPS(loc.x, loc.y, loc.z);
+            move(DroneServer.SharedClasses.Direction.left, 30);
+            move(DroneServer.SharedClasses.Direction.up, 20);
+            MoveByGPS(loc.lat, loc.lng, 10);
             loc = getLocation();
 
             landing();

@@ -23,7 +23,7 @@ namespace DroneServer.SharedClasses
         public void setLocation(Point location)
         {
             this.location = location;
-            Console.WriteLine(location.x+" "+ location.y);
+            Console.WriteLine(location.lng+" "+ location.lat);
             notifyAll();
         }
         

@@ -34,7 +34,7 @@ namespace AndroidAccepanceTests
             GetLocation get_loation = new GetLocation();
             CompletionHanlder get_loation_mission = comm.sendMission(get_loation);
             Point loc = (Point)get_loation_mission.response.Data;
-            Assert.IsTrue(loc.z > 0.5);
+            Assert.IsTrue(loc.alt > 0.5);
 
             landing();
         }
@@ -49,7 +49,7 @@ namespace AndroidAccepanceTests
             GetLocation get_loation = new GetLocation();
             CompletionHanlder get_loation_mission = comm.sendMission(get_loation);
             Point loc = (Point)get_loation_mission.response.Data;
-            Assert.IsTrue(loc.z > 0.5);
+            Assert.IsTrue(loc.alt > 0.5);
             landing();
         }
 

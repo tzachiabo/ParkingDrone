@@ -9,9 +9,9 @@ namespace DroneServer.BL.Missions
 {
     public class MoveToGPSPoint : LeafMission
     {
-        private double m_x;
-        private double m_y;
-        private double m_z;
+        private double m_lat;
+        private double m_lng;
+        private double m_alt;
 
         public MoveToGPSPoint(double x, double y, double z) : this(null,x,y,z)
         {
@@ -19,9 +19,9 @@ namespace DroneServer.BL.Missions
 
         public MoveToGPSPoint(ComplexMission ParentMission,double x, double y, double z) : base(ParentMission)
         {
-            m_x = x;
-            m_y = y;
-            m_z = z;
+            m_lat = x;
+            m_lng = y;
+            m_alt = z;
         }
 
         public override void stop()
@@ -31,7 +31,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "goToGPS "+ m_index + " " + m_x + " " + m_y + " " + m_z;
+            return "goToGPS "+ m_index + " " + m_lat + " " + m_lng + " " + m_alt;
         }
     }
 }

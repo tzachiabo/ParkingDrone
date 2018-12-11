@@ -69,9 +69,9 @@ namespace DroneServer.SharedClasses
 
             foreach (Point point in border)
             {
-                XList.Add(point.x);
-                YList.Add(point.y);
-                ZList.Add(point.z);
+                XList.Add(point.lng);
+                YList.Add(point.lat);
+                ZList.Add(point.alt);
             }
 
             double minX = XList.Min();

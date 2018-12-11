@@ -56,7 +56,7 @@ namespace DroneServer
                 con2 = new SqlConnection(cs);
                 con2.Open();
                 qry = "INSERT INTO BorderPoint (ParkingName,PointID,Lat,Lng)" +
-                         "VALUES(N'" + parking.name + "', " + i + ", " + parking.border[i].y + ", " + parking.border[i].x + ");";
+                         "VALUES(N'" + parking.name + "', " + i + ", " + parking.border[i].lat + ", " + parking.border[i].lng + ");";
                 cmd2 = new SqlCommand(qry, con2);
                 try
                 {

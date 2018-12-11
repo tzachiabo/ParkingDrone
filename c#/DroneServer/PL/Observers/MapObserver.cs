@@ -23,7 +23,7 @@ namespace DroneServer.PL.Observers
                 Point p = (Point)observable.getData();
                 map.BeginInvoke((Action)(() =>
                 {
-                    map.Position = new PointLatLng(p.y, p.x);
+                    map.Position = new PointLatLng(p.lat, p.lng);
                 }));
                 
                

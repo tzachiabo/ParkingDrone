@@ -49,9 +49,9 @@ public class MoveCameraGimbalMission extends Mission {
                 Logger.debug("start rotate Gimbal");
                 List<Gimbal> gimbals= aircraft.getGimbals();
                 Rotation.Builder builder = new Rotation.Builder();
-                builder.yaw((float)yaw);
-                builder.pitch((float)pitch);
-                builder.roll((float)roll);
+                builder.yaw((float)yaw).pitch((float)pitch).roll((float)roll);
+
+                Logger.info("gimbal movement type : " + gimbal_movement_type);
                 if(gimbal_movement_type.equals("absolute")) {
                     Logger.info("Move gimbal absolute");
                     builder.mode(RotationMode.ABSOLUTE_ANGLE);
@@ -61,6 +61,7 @@ public class MoveCameraGimbalMission extends Mission {
                     Logger.info("Move gimbal relative");
                     builder.mode(RotationMode.RELATIVE_ANGLE);
                 }
+
                 builder.time(Config.TIME_OF_GIMBAL_MOVE);
 
                 final Rotation rotation = builder.build();
@@ -75,6 +76,10 @@ public class MoveCameraGimbalMission extends Mission {
                         }
                         else{
                             Logger.debug("move gimbal has finished");
+                            try {
+                                Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000);
+                            } catch (InterruptedException e) {
+                            }
                             onResult.onResult(djiError);
                         }
                     }

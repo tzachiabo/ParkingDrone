@@ -42,9 +42,15 @@ namespace AndroidAccepanceTests
             CompletionHanlder move_mission = comm.sendMission(move);
         }
 
-        protected void MoveByGPS(double x, double y, double z)
+        protected void MoveByGPS(double lat, double lng, double alt)
         {
-            MoveToGPSPoint move = new MoveToGPSPoint(x, y, z);
+            MoveToGPSPoint move = new MoveToGPSPoint(lat, lng, alt);
+            CompletionHanlder move_mission = comm.sendMission(move);
+        }
+
+        protected void MoveGimbal(GimbalMovementType movment_type, double roll, double pitch, double yaw)
+        {
+            MoveGimbal move = new MoveGimbal(Gimbal.left, movment_type, roll, pitch, yaw);
             CompletionHanlder move_mission = comm.sendMission(move);
         }
 
