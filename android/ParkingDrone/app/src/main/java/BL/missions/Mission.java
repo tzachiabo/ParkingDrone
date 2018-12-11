@@ -9,6 +9,7 @@ public abstract class Mission implements Runnable {
     private String name;
     protected int index;
     MissionReport onResult;
+    boolean hasStoped;
     boolean isMissionCompleted;
 
     public Mission(String name, int index){
@@ -16,6 +17,7 @@ public abstract class Mission implements Runnable {
         this.index=index;
         this.onResult = new MissionReport();
         isMissionCompleted = false;
+        hasStoped = false;
     }
 
     public MissionReport getOnResult(){

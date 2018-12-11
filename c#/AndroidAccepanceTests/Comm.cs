@@ -54,6 +54,7 @@ namespace AndroidAccepanceTests
             drone_status.wait();
             while((DroneStatus)drone_status.response.Data != DroneStatus.Connected)
             {
+                System.Threading.Thread.Sleep(1000);
                 drone_status_mission = new getDroneStatus();
                 drone_status = sendMission(drone_status_mission);
                 drone_status.wait();

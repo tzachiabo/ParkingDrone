@@ -34,12 +34,12 @@ public class StartLandingMission extends Mission {
                 long startTime = System.currentTimeMillis();
                 Logger.debug("start time "+ startTime);
 
-                while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded()){
+                while(!aircraft.getFlightController().getState().isLandingConfirmationNeeded() && !hasStoped){
                     Assertions.verify( System.currentTimeMillis() - startTime < Config.MAX_TIME_WAIT_FOR_LANDING,
                             "Start Landing timeout: wait too much time for landing confirmation");
                 }
-
-                onResult.onResult(djiError);
+                if (!hasStoped)
+                    onResult.onResult(djiError);
             }
         });
     }
@@ -47,7 +47,15 @@ public class StartLandingMission extends Mission {
     @Override
     public void stop() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        aircraft.getFlightController().cancelLanding(null);
+        Logger.debug("Cancel start landing");
+        aircraft.getFlightController().cancelLanding(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError != null)
+                    Logger.error("err while cancel landing "+ djiError.toString());
+            }
+        });
+        hasStoped = true;
     }
 
     @Override

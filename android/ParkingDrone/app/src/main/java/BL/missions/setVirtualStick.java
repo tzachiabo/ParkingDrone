@@ -16,8 +16,8 @@ public class setVirtualStick extends Mission {
 
     @Override
     public void start() {
-        Logger.info("setVirtualStick mission started");
 
+        Logger.info("setVirtualStick mission started");
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "when setVirtualStick aircraft is null");
 
@@ -26,10 +26,10 @@ public class setVirtualStick extends Mission {
             public void onResult(DJIError djiError) {
                 if(djiError == null){
                     Logger.info("set virtual stick on");
+                    onResult.onResult(null);
                 }
                 else {
-                    Logger.fatal("Failed to set virtual stick on");
-                    onResult.onResult(null);
+                    Logger.fatal("Failed to set virtual stick on " + djiError.toString());
                 }
             }
         });

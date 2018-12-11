@@ -47,11 +47,22 @@ namespace DroneServer.BL.Comm
                 case "getLocation":
                     return parseLocation(words);
 
+                case "setVirtualStick":
+                    return parseSetVirtualStick(words);
+
                 case "":
                     return new Response(0, Status.Ok, MissionType.EndOfSocket, null);
             }
             Assertions.verify(false, "decoder faild to decode the recived message : " + data);
             return null;
+        }
+
+        private static Response parseSetVirtualStick(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, sentance[3]);
+            return res;
         }
 
         private static Response parseTakePhoto(string[] sentance)

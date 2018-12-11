@@ -2,7 +2,7 @@
 using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AndroidAccepanceTests.Tests
+namespace AndroidAccepanceTests
 {
     [TestClass]
     public class StopTest : BaseAcceptanceTest
@@ -14,7 +14,7 @@ namespace AndroidAccepanceTests.Tests
             move(DroneServer.SharedClasses.Direction.up, 30);
             CompletionHanlder isLanded = startLanding(true);
             stop();
-            System.Threading.Thread.Sleep(30);
+            System.Threading.Thread.Sleep(30000);
             Assert.IsNull(isLanded.response);
             restore();
             move(Direction.right, 5);
@@ -26,11 +26,13 @@ namespace AndroidAccepanceTests.Tests
         public void stopGoToGps()
         {
             take_off();
-            move(DroneServer.SharedClasses.Direction.up, 30);
+            move(DroneServer.SharedClasses.Direction.up, 10);
+            move(DroneServer.SharedClasses.Direction.left, 30);
             Point loc = getLocation();
-            CompletionHanlder ch = MoveByGPS(loc.lat, loc.lng, loc.alt,true);
+            CompletionHanlder ch = MoveByGPS(loc.lat, loc.lng, 10,true);
+            System.Threading.Thread.Sleep(3000);
             stop();
-            System.Threading.Thread.Sleep(30);
+            System.Threading.Thread.Sleep(30000);
             Assert.IsNull(ch.response);
             restore();
             move(Direction.backward, 10);
