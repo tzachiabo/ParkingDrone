@@ -60,6 +60,9 @@ public class Decoder {
             case "getLocation":
                 to_return = new GetGPSLocationMission(index);
                 break;
+            case "setVirtualStick":
+                to_return = new setVirtualStick(index);
+                break;
         }
 
         return to_return;
