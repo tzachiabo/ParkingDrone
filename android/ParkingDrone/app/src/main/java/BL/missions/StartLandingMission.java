@@ -46,7 +46,8 @@ public class StartLandingMission extends Mission {
 
     @Override
     public void stop() {
-
+        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        aircraft.getFlightController().cancelLanding(null);
     }
 
     @Override

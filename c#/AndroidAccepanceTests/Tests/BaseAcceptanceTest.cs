@@ -24,10 +24,10 @@ namespace AndroidAccepanceTests
             confirmLanding();
         }
 
-        protected void startLanding()
+        protected CompletionHanlder startLanding(bool isAsync=false)
         {
             DroneServer.BL.Missions.StartLanding start_landing = new DroneServer.BL.Missions.StartLanding();
-            CompletionHanlder start_landing_mission = comm.sendMission(start_landing);
+            return comm.sendMission(start_landing, isAsync);
         }
 
         protected void confirmLanding()
@@ -42,10 +42,10 @@ namespace AndroidAccepanceTests
             CompletionHanlder move_mission = comm.sendMission(move);
         }
 
-        protected void MoveByGPS(double lat, double lng, double alt)
+        protected CompletionHanlder MoveByGPS(double lat, double lng, double alt, bool isAsync = false)
         {
             MoveToGPSPoint move = new MoveToGPSPoint(lat, lng, alt);
-            CompletionHanlder move_mission = comm.sendMission(move);
+            return comm.sendMission(move, isAsync);
         }
 
         protected void MoveGimbal(GimbalMovementType movment_type, double roll, double pitch, double yaw)
@@ -59,6 +59,17 @@ namespace AndroidAccepanceTests
             GetLocation get_loation = new GetLocation();
             CompletionHanlder get_loation_mission = comm.sendMission(get_loation);
             return (Point)get_loation_mission.response.Data;
+        }
+        
+        protected CompletionHanlder stop()
+        {
+            stopMission stop = new stopMission();
+            return comm.sendMission(stop);
+        }
+
+        protected void restore()
+        {
+            comm.sendString(1,"setVirtualStick 1");
         }
     }
 }

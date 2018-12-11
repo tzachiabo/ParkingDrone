@@ -60,10 +60,17 @@ namespace AndroidAccepanceTests
         [MethodImpl(MethodImplOptions.Synchronized)]
         public CompletionHanlder sendMission(LeafMission mission, bool isAsync=false)
         {
-            CompletionHanlder comp_handler = new CompletionHanlder(mission.m_index);
-            m_reader.addMission(mission.m_index, comp_handler);
-
             String message_to_android = mission.encode();
+            return sendString(mission.m_index, message_to_android, isAsync);
+        }
+
+        public CompletionHanlder sendString(int index, String message_to_android, bool isAsync = false)
+        {
+            CompletionHanlder comp_handler = new CompletionHanlder(index);
+
+            m_reader.addMission(index, comp_handler);
+
+
             byte[] to_send = Encoding.UTF8.GetBytes(message_to_android + "%");
 
             try
@@ -80,7 +87,7 @@ namespace AndroidAccepanceTests
             {
                 comp_handler.wait();
             }
- 
+
             return comp_handler;
         }
 

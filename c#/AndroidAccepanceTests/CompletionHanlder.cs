@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AndroidAccepanceTests
 {
-    class CompletionHanlder
+    public class CompletionHanlder
     {
         private static long MAX_WAIT_TIME = 60000;
 
