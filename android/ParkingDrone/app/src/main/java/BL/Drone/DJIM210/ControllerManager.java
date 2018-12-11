@@ -19,7 +19,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ControllerManager {
     FlightController m_flight_controller;
-    private boolean isInitiated;
+    private Boolean isInitiated;
 
     public ControllerManager(Aircraft aircraft){
         m_flight_controller = aircraft.getFlightController();

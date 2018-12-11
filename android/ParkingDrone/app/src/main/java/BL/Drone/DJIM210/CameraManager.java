@@ -14,7 +14,7 @@ import dji.sdk.camera.Camera;
 public class CameraManager {
     List<Camera> cameras;
     Camera mainCamera;
-    boolean isInitiated;
+    Boolean isInitiated;
 
     public CameraManager(List<Camera> cameras){
         this.cameras = cameras;

@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AndroidAccepanceTests
 {
     [TestClass]
-    public class TakeOffTest
+    public class TakeOffTest : BaseAcceptanceTest
     {
         private Comm comm = Comm.getInstance();
 

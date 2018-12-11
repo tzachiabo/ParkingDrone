@@ -6,31 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AndroidAccepanceTests
 {
     [TestClass]
-    public class MoveTest
+    public class MoveTest : BaseAcceptanceTest
     {
-        private Comm comm = Comm.getInstance();
-
-        private void take_off()
-        {
-            TakeOff take_off = new TakeOff();
-            CompletionHanlder take_off_mission = comm.sendMission(take_off);
-        }
-
-        private void landing()
-        {
-            DroneServer.BL.Missions.StartLanding start_landing = new DroneServer.BL.Missions.StartLanding();
-            CompletionHanlder start_landing_mission = comm.sendMission(start_landing);
-
-            ConfirmLanding conf_landing = new ConfirmLanding();
-            CompletionHanlder conf_landing_mission = comm.sendMission(conf_landing);
-        }
-
-        private void move(Direction direction, double distance)
-        {
-            MoveMission move = new MoveMission(direction, distance);
-            CompletionHanlder move_mission = comm.sendMission(move);
-        }
-
         [TestMethod]
         public void moveLeft()
         {

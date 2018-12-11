@@ -23,7 +23,7 @@ public class M210Manager implements IDrone{
         m_camera_manager = new CameraManager(m_aircraft.getCameras());
     }
 
-    public static M210Manager getInstance(){
+    public static synchronized M210Manager getInstance(){
         if (instance == null){
             instance = new M210Manager();
         }

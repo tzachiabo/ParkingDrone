@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AndroidAccepanceTests
 {
     [TestClass]
-    public class TakePhotoTest
+    public class TakePhotoTest : BaseAcceptanceTest
     {
         [TestMethod]
         public void TestMethod1()
