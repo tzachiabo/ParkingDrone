@@ -55,6 +55,7 @@ namespace DroneServer.BL
         public void initComm()
         {
             CommManager.getInstance();
+            statusManager.init();
         }
 
 
@@ -109,7 +110,6 @@ namespace DroneServer.BL
         {
             status.register(new TextObserver(text));    
             logger.debug("The Control " + text.Name + " has registered");
-            statusManager.init();
         }
 
         public void registerToMap(GMapControl Gmap)

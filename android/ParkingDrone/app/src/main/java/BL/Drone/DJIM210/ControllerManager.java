@@ -8,6 +8,10 @@ import SharedClasses.Config;
 import SharedClasses.Logger;
 import SharedClasses.Promise;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
+import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
+import dji.common.flightcontroller.virtualstick.VerticalControlMode;
+import dji.common.flightcontroller.virtualstick.YawControlMode;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
@@ -15,11 +19,15 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ControllerManager {
     FlightController m_flight_controller;
+    private boolean isInitiated;
 
     public ControllerManager(Aircraft aircraft){
         m_flight_controller = aircraft.getFlightController();
         Assertions.verify(m_flight_controller != null,
                 "FlightController is null when constracting ControllerManager");
+
+        isInitiated = false;
+        initFlightController();
     }
 
     public void takeOff(final Promise cb) {
@@ -58,6 +66,7 @@ public class ControllerManager {
             @Override
             public void onResult(DJIError djiError) {
                 if (djiError == null){
+                    while (m_flight_controller.getState().areMotorsOn());
                     cb.success();
                 }
                 else{
@@ -91,7 +100,36 @@ public class ControllerManager {
         catch(AssertionViolation e){
             cb.failed();
         }
-
     }
+
+    private void initFlightController() {
+        m_flight_controller.setRollPitchControlMode(RollPitchControlMode.VELOCITY);
+        m_flight_controller.setYawControlMode(YawControlMode.ANGULAR_VELOCITY);
+        m_flight_controller.setVerticalControlMode(VerticalControlMode.VELOCITY);
+        m_flight_controller.setRollPitchCoordinateSystem(FlightCoordinateSystem.BODY);
+
+        m_flight_controller.setVirtualStickModeEnabled(true, new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError != null) {
+                    Logger.error("Setting virtual stick mode resulted " + djiError.toString());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                    }
+                    initFlightController();
+                } else {
+                    Logger.info("init FlightController has been done");
+                    isInitiated = true;
+                }
+            }
+        });
+    }
+
+    public boolean isInitiated() {
+        return isInitiated;
+    }
+
+
 
 }

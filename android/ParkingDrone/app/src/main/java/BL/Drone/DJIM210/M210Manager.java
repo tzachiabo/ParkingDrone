@@ -8,9 +8,10 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class M210Manager implements IDrone{
 
-    Aircraft m_aircraft;
-    ControllerManager m_controller;
-    MissionControlManager m_mission_control;
+    private Aircraft m_aircraft;
+    private ControllerManager m_controller;
+    private MissionControlManager m_mission_control;
+    private CameraManager m_camera_manager;
 
     private static M210Manager instance;
 
@@ -21,6 +22,7 @@ public class M210Manager implements IDrone{
 
         m_controller = new ControllerManager(m_aircraft);
         m_mission_control = new MissionControlManager();
+        m_camera_manager = new CameraManager(m_aircraft.getCameras());
     }
 
     public static M210Manager getInstance(){
@@ -28,6 +30,11 @@ public class M210Manager implements IDrone{
             instance = new M210Manager();
         }
         return instance;
+    }
+
+    @Override
+    public boolean isInitiated() {
+        return m_controller.isInitiated() && m_camera_manager.isInitiated();
     }
 
     @Override
@@ -47,5 +54,7 @@ public class M210Manager implements IDrone{
     public void goHome(final Promise p){
         m_controller.goHome(p);
     }
+
+
 
 }

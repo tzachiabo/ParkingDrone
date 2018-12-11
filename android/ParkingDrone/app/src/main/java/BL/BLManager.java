@@ -1,10 +1,12 @@
 package BL;
 
-import BL.Drone.DroneInitiator;
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import SharedClasses.Config;
 import SharedClasses.Logger;
 
 import android.os.Environment;
+import android.provider.Telephony;
 
 import java.io.File;
 
@@ -30,7 +32,7 @@ public class BLManager {
     }
 
     public synchronized void init() {
-        DroneInitiator.init();
+        DroneFactory.getDroneManager();
         initFs();
         isConnected = true;
     }
@@ -40,7 +42,8 @@ public class BLManager {
     }
 
     public synchronized SharedClasses.DroneStatus getDroneStatus(){
-        if (DroneInitiator.isInitiated() && isFsInitiated && isConnected)
+        IDrone drone = DroneFactory.getDroneManager();
+        if (drone.isInitiated() && isFsInitiated && isConnected)
             return SharedClasses.DroneStatus.Connected;
         else if (isConnected)
             return SharedClasses.DroneStatus.NotReady;
