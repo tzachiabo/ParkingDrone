@@ -11,5 +11,8 @@ public interface Config {
     int MAX_TIME_WAIT_FOR_LANDING = 120000;//ms
     int MAX_TIME_WAIT_FOR_TAKEOFF = 60000;//ms
     int MAX_TIME_FOR_SETP_IN_GO_TO_GPS = 60000;//ms
+    double MAX_WAYPOINT_GAP_XY = 0.00050;
+    double MAX_WAYPOINT_GAP_Z = 20;
+
     boolean DEBUG_MODE = true;
 }

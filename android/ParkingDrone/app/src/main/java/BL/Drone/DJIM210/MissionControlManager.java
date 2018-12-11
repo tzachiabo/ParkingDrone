@@ -143,68 +143,87 @@ public class MissionControlManager {
 
 
     private List<LocationCoordinate3D> genPoints(List<LocationCoordinate3D> points) {
+        Logger.debug("===============XYPOINTS=================");
         List<LocationCoordinate3D> newpoints = new ArrayList<>();
         List<LocationCoordinate3D> mixedpoints = new ArrayList<>();
-        if (Math.abs(points.get(0).getLatitude() - points.get(1).getLatitude()) < 10
-                && Math.abs(points.get(0).getLongitude() - points.get(1).getLongitude()) < 10) {
+        if (Math.abs(points.get(0).getLatitude() - points.get(1).getLatitude()) < Config.MAX_WAYPOINT_GAP_XY
+                && Math.abs(points.get(0).getLongitude() - points.get(1).getLongitude()) < Config.MAX_WAYPOINT_GAP_XY) {
+            Logger.debug("XYAXIS LAT OR LONG is lower then 10");
             return points;
         }
         for (int i = 0; i < points.size() - 1; i++) {
             double newx =
                     Math.abs(points.get(i).getLatitude() -
-                            points.get(i + 1).getLatitude()) > 10 ?
+                            points.get(i + 1).getLatitude()) > Config.MAX_WAYPOINT_GAP_XY ?
                             (points.get(i).getLatitude() + points.get(i + 1).getLatitude()) / 2 :
                             points.get(i).getLatitude();
             double newy =
                     Math.abs(points.get(i).getLongitude() -
-                            points.get(i + 1).getLongitude()) > 10 ?
+                            points.get(i + 1).getLongitude()) > Config.MAX_WAYPOINT_GAP_XY ?
                             (points.get(i).getLongitude() + points.get(i + 1).getLongitude()) / 2 :
                             points.get(i).getLongitude();
-            newpoints.add(new LocationCoordinate3D(newx, newy, points.get(i).getAltitude()));
+            newpoints.add(new LocationCoordinate3D(newx, newy, points.get(0).getAltitude()));
         }
         int times_to_run = newpoints.size() + points.size();
         for (int i = 0; i < times_to_run ; i++) {
             if (i % 2 == 0) {
                 mixedpoints.add(points.get(0));
+                Logger.debug("XY AXIS point added : "+points.get(0).toString());
                 points.remove(0);
             } else {
                 mixedpoints.add(newpoints.get(0));
+                Logger.debug("XY AXIS point added : "+newpoints.get(0).toString());
                 newpoints.remove(0);
             }
         }
+        Logger.debug("======================================");
         return genPoints(mixedpoints);
     }
 
     private List<LocationCoordinate3D> genZPoints(List<LocationCoordinate3D> points) {
+        Logger.debug("===============ZPOINTS=================");
         List<LocationCoordinate3D> newpoints = new ArrayList<>();
         List<LocationCoordinate3D> mixedpoints = new ArrayList<>();
-        if (Math.abs(points.get(0).getAltitude() - points.get(1).getAltitude()) < 10) {
+        if (Math.abs(points.get(0).getAltitude() - points.get(1).getAltitude()) < Config.MAX_WAYPOINT_GAP_Z) {
+            Logger.debug("Z AXIS Distance is lower then 10 returning points");
             return points;
         }
         for (int i = 0; i < points.size() - 1; i++) {
             float newz = (points.get(0).getAltitude() + points.get(1).getAltitude()) / 2;
-            newpoints.add(new LocationCoordinate3D(points.get(0).getLatitude(),points.get(0).getLongitude()
-                    , newz));
+            LocationCoordinate3D tempCordinate = new LocationCoordinate3D(points.get(0).getLatitude(), points.get(0).getLongitude()
+                    , newz);
+            newpoints.add(tempCordinate);
+            Logger.debug("Z AXIS point added :" + tempCordinate.toString());
         }
         int times_to_run = newpoints.size() + points.size();
         for (int i = 0; i < times_to_run ; i++) {
             if (i % 2 == 0) {
+                Logger.debug("Z AXIS adding point : " +points.get(0).toString());
                 mixedpoints.add(points.get(0));
                 points.remove(0);
             } else {
+                Logger.debug("Z AXIS adding point : " +newpoints.get(0).toString());
                 mixedpoints.add(newpoints.get(0));
                 newpoints.remove(0);
             }
         }
+        Logger.debug("length of points is : "+ mixedpoints.size());
+        Logger.debug("============================================");
         return genPoints(mixedpoints);
     }
 
     private WaypointMission.Builder buildWithSubWaypoints(double x, double y, float z, WaypointMission.Builder wpm) {
         LocationCoordinate3D currentloc = M210Manager.getInstance().getDroneStatus();
-        List<LocationCoordinate3D> points = new ArrayList<>();
-        points.add(currentloc);
-        points.add(new LocationCoordinate3D(x, y, z));
-        List<LocationCoordinate3D> locationCoordinate3DS = genPoints(genZPoints(points));
+        List<LocationCoordinate3D> zpoints = new ArrayList<>();
+        List<LocationCoordinate3D> xypoints = new ArrayList<>();
+        xypoints.add(currentloc);
+        xypoints.add(new LocationCoordinate3D(x, y, z));
+        List<LocationCoordinate3D> xy = genPoints(xypoints);
+        zpoints.add(xypoints.get(xypoints.size()-1));
+        zpoints.add(new LocationCoordinate3D(x, y, z));
+        List<LocationCoordinate3D> locationCoordinate3DS = genZPoints(zpoints);
+        xypoints.addAll(zpoints);
+
         if (locationCoordinate3DS.size() == 2) {
             wpm.addWaypoint(new Waypoint(x, y + 0.00005, z));
             wpm.addWaypoint(new Waypoint(x, y, z));
