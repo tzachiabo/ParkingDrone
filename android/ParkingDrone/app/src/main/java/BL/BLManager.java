@@ -32,7 +32,7 @@ public class BLManager {
     }
 
     public synchronized void init() {
-        DroneFactory.getDroneManager();
+        DroneFactory.getDroneManager().initAircraft();
         initFs();
         isConnected = true;
     }

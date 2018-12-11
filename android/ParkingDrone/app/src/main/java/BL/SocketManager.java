@@ -39,6 +39,7 @@ public class SocketManager {
             public void run() {
                 try {
                     ByteArrayOutputStream byteArrayOutputStream;
+                    Logger.info("Tring to connect to " + Config.DST_ADDRESS + ":" + Config.DST_PORT);
                     socket = new Socket(Config.DST_ADDRESS, Config.DST_PORT);
                     byteArrayOutputStream = new ByteArrayOutputStream(BUFFER_SIZE);
                     byte[] buffer = new byte[BUFFER_SIZE];

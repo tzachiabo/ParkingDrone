@@ -14,7 +14,7 @@ import dji.sdk.camera.Camera;
 public class CameraManager {
     List<Camera> cameras;
     Camera mainCamera;
-    Boolean isInitiated;
+    boolean isInitiated;
 
     public CameraManager(List<Camera> cameras){
         this.cameras = cameras;
@@ -41,7 +41,7 @@ public class CameraManager {
             public void onResult(DJIError djiError) {
                 if (djiError != null) {
                     Logger.error("Setting Photo mode resulted " + djiError.toString());
-                    Assertions.verify(false, "failed to set camera mode to single");
+                    initCamera();
                 } else {
                     Logger.info("Photo mode is Single");
                     isInitiated = true;
@@ -51,6 +51,9 @@ public class CameraManager {
     }
 
     public boolean isInitiated() {
+        if (!isInitiated){
+            Logger.info("camera is not initiated yet");
+        }
         return isInitiated;
     }
 }

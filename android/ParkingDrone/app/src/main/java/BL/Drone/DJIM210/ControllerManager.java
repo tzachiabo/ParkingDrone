@@ -20,7 +20,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ControllerManager {
     FlightController m_flight_controller;
-    private Boolean isInitiated;
+    private boolean isInitiated;
 
     public ControllerManager(Aircraft aircraft){
         m_flight_controller = aircraft.getFlightController();
@@ -128,6 +128,9 @@ public class ControllerManager {
     }
 
     public boolean isInitiated() {
+        if (!isInitiated){
+            Logger.info("flight controller is not initiated yet");
+        }
         return isInitiated;
     }
 

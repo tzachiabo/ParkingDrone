@@ -42,7 +42,7 @@ namespace DroneServer.BL.Comm
 
             Configuration conf = Configuration.getInstance();
             int port = Int32.Parse(conf.get("port"));
-
+            Logger.getInstance().info("Start listening at port " + port);
             m_server = new TcpListener(IPAddress.Any, port);
 
             m_server.Start();

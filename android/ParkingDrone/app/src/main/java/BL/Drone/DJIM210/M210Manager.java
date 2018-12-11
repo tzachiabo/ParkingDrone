@@ -16,13 +16,7 @@ public class M210Manager implements IDrone{
 
     private static M210Manager instance;
 
-    private M210Manager(){
-        Assertions.verify(initAircraft(),"Aircraft is null when constracting M210Manager");
-
-        m_controller = new ControllerManager(m_aircraft);
-        m_mission_control = new MissionControlManager();
-        m_camera_manager = new CameraManager(m_aircraft.getCameras());
-    }
+    private M210Manager(){ }
 
     public static synchronized M210Manager getInstance(){
         if (instance == null){
@@ -31,26 +25,20 @@ public class M210Manager implements IDrone{
         return instance;
     }
 
-    private boolean initAircraft(){
-        int counter = 1;
-        while (m_aircraft == null){
-            m_aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-            }
-            counter ++;
-            if(counter > 10)
-            {
-                return false;
-            }
-        }
-        return true;
+    public void initAircraft(){
+        m_aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        Assertions.verify(m_aircraft != null,"Aircraft is null when constracting M210Manager");
+
+        m_controller = new ControllerManager(m_aircraft);
+        m_mission_control = new MissionControlManager();
+        m_camera_manager = new CameraManager(m_aircraft.getCameras());
     }
 
     @Override
     public boolean isInitiated() {
-        return m_controller.isInitiated() && m_camera_manager.isInitiated();
+        return m_aircraft != null &&
+                m_controller != null && m_controller.isInitiated() &&
+                m_camera_manager != null && m_camera_manager.isInitiated();
     }
 
     @Override

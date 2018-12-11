@@ -5,7 +5,7 @@ import dji.common.flightcontroller.LocationCoordinate3D;
 
 public interface IDrone {
     boolean isInitiated();
-
+    void initAircraft();
     void takeOff(final Promise p);
     void moveByGPS(double x, double y, float z, final Promise p);
     void confirmLanding(final Promise cb);

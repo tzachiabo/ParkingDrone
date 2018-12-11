@@ -6,6 +6,7 @@ import android.view.View;
 
 
 import BL.BLManager;
+import dji.ux.widget.FPVWidget;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
          bl_manager = BLManager.getInstance();
+
 
     }
     public void stopProgram(View v){
