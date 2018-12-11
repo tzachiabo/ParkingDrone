@@ -206,7 +206,7 @@ namespace DroneServer.BL
 
         public void MoveForTest(int amount_to_move, Direction d)
         {
-            Move parkingMission = new Move(d, amount_to_move);
+            MoveMission parkingMission = new MoveMission(d, amount_to_move);
             parkingMission.execute();
         }
 

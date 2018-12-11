@@ -16,9 +16,7 @@ public class M210Manager implements IDrone{
     private static M210Manager instance;
 
     private M210Manager(){
-        m_aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        Assertions.verify(m_aircraft != null,
-                          "Aircraft is null when constracting M210Manager");
+        Assertions.verify(initAircraft(),"Aircraft is null when constracting M210Manager");
 
         m_controller = new ControllerManager(m_aircraft);
         m_mission_control = new MissionControlManager();
@@ -30,6 +28,23 @@ public class M210Manager implements IDrone{
             instance = new M210Manager();
         }
         return instance;
+    }
+
+    private boolean initAircraft(){
+        int counter = 1;
+        while (m_aircraft == null){
+            m_aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+            }
+            counter ++;
+            if(counter > 10)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

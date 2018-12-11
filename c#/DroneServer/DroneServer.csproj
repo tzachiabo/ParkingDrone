@@ -131,7 +131,7 @@
     <Compile Include="BL\Missions\LeafMission\StartLanding.cs" />
     <Compile Include="BL\Missions\LeafMission\LeafMission.cs" />
     <Compile Include="BL\Missions\Mission.cs" />
-    <Compile Include="BL\Missions\LeafMission\Move.cs" />
+    <Compile Include="BL\Missions\LeafMission\MoveMission.cs" />
     <Compile Include="BL\Missions\LeafMission\MoveToGPSPoint.cs" />
     <Compile Include="BL\Missions\ComplexMission\ParkingMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\ScanCars.cs" />
