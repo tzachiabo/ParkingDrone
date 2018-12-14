@@ -55,22 +55,5 @@ namespace AndroidAccepanceTests
             move(Direction.backward, 10);
             landing();
         }
-
-
-        //[TestMethod]
-        //public void stopGoHome()
-        //{
-        //    take_off();
-        //    move(Direction.up, 5);
-        //    move(Direction.forward, 20);
-        //    CompletionHanlder ch = goHome(true);
-        //    System.Threading.Thread.Sleep(3000);
-        //    stop();
-        //    System.Threading.Thread.Sleep(30000);
-        //    Assert.IsNull(ch.response);
-        //    restore();
-        //    move(Direction.backward, 10);
-        //    landing();
-        //}
     }
 }

@@ -60,7 +60,6 @@
     <Compile Include="Tests\MoveTest.cs" />
     <Compile Include="Tests\ConfirmLandingTest.cs" />
     <Compile Include="Tests\StartLandingTest.cs" />
-    <Compile Include="Tests\GoGomeTest.cs" />
     <Compile Include="Tests\TakePhotoTest.cs" />
     <Compile Include="Tests\MoveGimbalTest.cs" />
     <Compile Include="Tests\MoveToGPSTest.cs" />

@@ -41,6 +41,11 @@ public class CameraManager {
             public void onResult(DJIError djiError) {
                 if (djiError != null) {
                     Logger.error("Setting Photo mode resulted " + djiError.toString());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     initCamera();
                 } else {
                     Logger.info("Photo mode is Single");

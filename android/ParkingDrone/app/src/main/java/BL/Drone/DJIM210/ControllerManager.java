@@ -182,7 +182,7 @@ public class ControllerManager {
                 if (djiError != null) {
                     Logger.error("Setting virtual stick mode resulted " + djiError.toString());
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                     }
                     initFlightController();

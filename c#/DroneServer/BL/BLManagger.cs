@@ -226,7 +226,7 @@ namespace DroneServer.BL
 
         public void goHomeForTest()
         {
-            new GoHomeMission().execute();
+            new ComplexGoHome().execute();
         }
 
         public void MoveGimbalTest(Gimbal gimbal, double roll, double pitch, double yaw)

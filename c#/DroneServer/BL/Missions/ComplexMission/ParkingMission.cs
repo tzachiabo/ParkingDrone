@@ -20,7 +20,7 @@ namespace DroneServer.BL.Missions
         {
             m_SubMission.Enqueue(new TakeOff(this));
             m_SubMission.Enqueue(new InitParkingMission(parking, this));
-            m_SubMission.Enqueue(new GoHomeMission(this));
+            m_SubMission.Enqueue(new ComplexGoHome(this));
             m_SubMission.Enqueue(new Landing(this));
             m_parking = parking;
         }

@@ -26,8 +26,6 @@ public class MoveMission extends Mission {
 
     @Override
     public void start() {
-
-
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
 
         long totalTime = ((long)distance/(long)Config.BASE_SPEED) * 1000;

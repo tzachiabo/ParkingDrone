@@ -14,7 +14,7 @@ namespace DroneServer.BL.Missions
             m_ParentMission = ParentMission;
             //m_SubMission.Enqueue(new Move(this, Direction.up, 10));
             Point base_point = parking.getBasePoint();
-            m_SubMission.Enqueue(new MoveToGPSPoint(this, base_point.lng, base_point.lat, base_point.alt));
+            m_SubMission.Enqueue(new MoveToGPSPoint(this, base_point.lat, base_point.lng, base_point.alt));
             m_SubMission.Enqueue(new MoveGimbal(this, Gimbal.left, GimbalMovementType.relative, 0, -90, 0));
             m_SubMission.Enqueue(new TakePhoto(this));
         }
@@ -23,7 +23,6 @@ namespace DroneServer.BL.Missions
         {
             if (m_ParentMission != null)
                 m_ParentMission.notify(response);
-
             base.done(response);
         }
         public override void stop()

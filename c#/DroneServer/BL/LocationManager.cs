@@ -15,6 +15,7 @@ namespace DroneServer.BL
         private static Timer aTimer = null;
         private static Parking parking;
         private static Boolean is_location_verification_enabled;
+        public static Point HomeLocation;
 
         private LocationManager(Parking p)
         {
@@ -68,7 +69,11 @@ namespace DroneServer.BL
             Point p = (Point)response.Data;
             Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
             BLManagger.getInstance().setLocation(p.lat, p.lng);
-            
+            if (HomeLocation == null)
+            {
+                HomeLocation = p;
+            }
+
             if (BLManagger.getInstance().getSafeZone() && is_location_verification_enabled)
                 Assertions.verify(validateLocation(p), "The drone is running away!");
         }
