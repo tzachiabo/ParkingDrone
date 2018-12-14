@@ -26,6 +26,7 @@ namespace DroneServer.BL
         private static Map map= new Map();
         private static ConnectionStatus status = new ConnectionStatus();
         private static int Version;
+        private static bool stayInSafeZone = false;
 
         private BLManagger()
         {
@@ -132,7 +133,7 @@ namespace DroneServer.BL
 
         public void startMission(Parking parking)
         {
-            LocationManager.init();
+            LocationManager.init(parking);
 
             ParkingMission start_mission = new ParkingMission(parking);
             start_mission.execute();
@@ -169,8 +170,15 @@ namespace DroneServer.BL
                 return false;
             return true;
         }
-
-
+        
+        public void setSafeZone(bool safeZone)
+        {
+            stayInSafeZone = safeZone;
+        }
+        public bool getSafeZone()
+        {
+            return stayInSafeZone;
+        }
 
         //----------------------------------tests-------------------------------//
 

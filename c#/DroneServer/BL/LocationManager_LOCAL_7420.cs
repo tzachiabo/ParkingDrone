@@ -11,30 +11,27 @@ namespace DroneServer.BL
 {
     class LocationManager
     {
-        private static LocationManager instance = null;
-        private static Timer aTimer = null;
-        private static Parking parking;
+        private static LocationManager instance;
+        private static System.Timers.Timer aTimer;
 
-        private LocationManager(Parking p)
+        private LocationManager()
         {
             double timer_interval = Double.Parse(Configuration.getInstance().get("getLocationInterval"));
 
             Logger.getInstance().debug("start get location timer with interval " + timer_interval);
 
-            aTimer = new Timer(timer_interval);
+            aTimer = new System.Timers.Timer(timer_interval);
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
-
-            parking = p;
         }
 
-        public static void init(Parking p)
+        public static void init()
         {
             if (instance == null)
             {
-                instance = new LocationManager(p);
+                instance = new LocationManager();
             }
         }
 
@@ -66,37 +63,6 @@ namespace DroneServer.BL
             Point p = (Point)response.Data;
             Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
             BLManagger.getInstance().setLocation(p.lat, p.lng);
-            
-            if (BLManagger.getInstance().getSafeZone())
-                Assertions.verify(validateLocation(p), "The drone is running away!");
-
-            
-
-        }
-        private static bool validateLocation(Point position)
-        {
-            Point tl = new Point(parking.border[0].x, parking.border[0].y);
-            Point br = new Point(parking.border[0].x, parking.border[0].y);
-
-            for (int i = 1; i < parking.border.Count; i++)//axis grows right and down
-            {
-                if (parking.border[i].lng > br.lng)
-                    br.lng = parking.border[i].lng;
-                else if (parking.border[i].lng < tl.lng)
-                    tl.lng = parking.border[i].lng;
-                if (parking.border[i].lat > br.lat)
-                    br.lat = parking.border[i].lat;
-                else if (parking.border[i].lat < tl.lat)
-                    tl.lat = parking.border[i].lat;
-            }
-
-            if (tl.lng<=position.lng && br.lng >= position.lng && tl.lat <= position.lat && br.lat >= position.lat)
-                return true;
-
-            Logger.getInstance().error("drone cross the border and got to mexico");
-            BLManagger.getInstance().stop();
-
-            return false;
         }
 
 

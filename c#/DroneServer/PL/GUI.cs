@@ -201,7 +201,7 @@ namespace DroneServer
 
             if (bl.validateParkingHeight(tmp)==false)
             {
-                MessageBox.Show("Parking height is too high");
+                MessageBox.Show("Parking area is too big");
                 return;
             }
 

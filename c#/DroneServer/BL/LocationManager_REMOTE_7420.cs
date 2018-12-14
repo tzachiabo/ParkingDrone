@@ -64,9 +64,9 @@ namespace DroneServer.BL
         private static void update_location(Response response)
         {
             Point p = (Point)response.Data;
-            Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
-            BLManagger.getInstance().setLocation(p.lat, p.lng);
-            
+            Logger.getInstance().debug("update map location with this params :" + p.y + " " + p.x);
+            BLManagger.getInstance().setLocation(p.y, p.x);
+
             if (BLManagger.getInstance().getSafeZone())
                 Assertions.verify(validateLocation(p), "The drone is running away!");
 
@@ -80,17 +80,17 @@ namespace DroneServer.BL
 
             for (int i = 1; i < parking.border.Count; i++)//axis grows right and down
             {
-                if (parking.border[i].lng > br.lng)
-                    br.lng = parking.border[i].lng;
-                else if (parking.border[i].lng < tl.lng)
-                    tl.lng = parking.border[i].lng;
-                if (parking.border[i].lat > br.lat)
-                    br.lat = parking.border[i].lat;
-                else if (parking.border[i].lat < tl.lat)
-                    tl.lat = parking.border[i].lat;
+                if (parking.border[i].x > br.x)
+                    br.x = parking.border[i].x;
+                else if (parking.border[i].x < tl.x)
+                    tl.x = parking.border[i].x;
+                if (parking.border[i].y > br.y)
+                    br.y = parking.border[i].y;
+                else if (parking.border[i].y < tl.y)
+                    tl.y = parking.border[i].y;
             }
 
-            if (tl.lng<=position.lng && br.lng >= position.lng && tl.lat <= position.lat && br.lat >= position.lat)
+            if (tl.x<=position.x && br.x>=position.x && tl.y <= position.y && br.y >= position.y)
                 return true;
 
             Logger.getInstance().error("drone cross the border and got to mexico");

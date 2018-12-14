@@ -29,6 +29,18 @@ namespace DroneServer.BL.Missions
 
         }
 
+        public override void done(Response response)
+        {
+            BLManagger.getInstance().setSafeZone(true);
+            base.done(response);
+        }
+
+        public override void execute()
+        {
+            BLManagger.getInstance().setSafeZone(false);
+            base.execute();
+        }
+
         public override string encode()
         {
             return "goToGPS "+ m_index + " " + m_lat + " " + m_lng + " " + m_alt;
