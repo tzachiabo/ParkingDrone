@@ -59,7 +59,7 @@ namespace DroneServer.SharedClasses
             minZoom = map.MinZoom;
             border = new List<Point>();
             foreach (string item in points.Items)
-                border.Add(new SharedClasses.Point(Convert.ToDouble(item.Split(' ')[1]), Convert.ToDouble(item.Split(' ')[0])));
+                border.Add(new SharedClasses.Point(Convert.ToDouble(item.Split(' ')[0]), Convert.ToDouble(item.Split(' ')[1])));
         }
         public Point getBasePoint()
         {

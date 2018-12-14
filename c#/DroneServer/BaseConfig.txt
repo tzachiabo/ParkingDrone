@@ -9,4 +9,5 @@
 <print_get_location>false</print_get_location>
 <cameraOpeningDegree>36</cameraOpeningDegree>
 <max_parking_height>95</max_parking_height>
+<enable_location_manager_verification>false</enable_location_manager_verification>
 </xml>

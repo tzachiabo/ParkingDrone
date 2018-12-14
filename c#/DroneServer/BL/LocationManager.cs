@@ -14,9 +14,11 @@ namespace DroneServer.BL
         private static LocationManager instance = null;
         private static Timer aTimer = null;
         private static Parking parking;
+        private static Boolean is_location_verification_enabled;
 
         private LocationManager(Parking p)
         {
+            is_location_verification_enabled = Boolean.Parse(Configuration.getInstance().get("enable_location_manager_verification"));
             double timer_interval = Double.Parse(Configuration.getInstance().get("getLocationInterval"));
 
             Logger.getInstance().debug("start get location timer with interval " + timer_interval);
@@ -67,16 +69,15 @@ namespace DroneServer.BL
             Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
             BLManagger.getInstance().setLocation(p.lat, p.lng);
             
-            if (BLManagger.getInstance().getSafeZone())
+            if (BLManagger.getInstance().getSafeZone() && is_location_verification_enabled)
                 Assertions.verify(validateLocation(p), "The drone is running away!");
-
-            
-
         }
+
         private static bool validateLocation(Point position)
         {
-            Point tl = new Point(parking.border[0].x, parking.border[0].y);
-            Point br = new Point(parking.border[0].x, parking.border[0].y);
+            Logger.getInstance().debug("start validating location");
+            Point tl = new Point(parking.border[0].lng, parking.border[0].lat);
+            Point br = new Point(parking.border[0].lng, parking.border[0].lat);
 
             for (int i = 1; i < parking.border.Count; i++)//axis grows right and down
             {
@@ -96,6 +97,7 @@ namespace DroneServer.BL
             Logger.getInstance().error("drone cross the border and got to mexico");
             BLManagger.getInstance().stop();
 
+            Logger.getInstance().debug("validating location return false");
             return false;
         }
 

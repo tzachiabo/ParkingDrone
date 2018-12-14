@@ -165,7 +165,7 @@ namespace DroneServer
                     {
                         while (reader.Read())
                         {
-                            Point p = new Point((double)reader.GetValue(0), (double)reader.GetValue(1));
+                            Point p = new Point((double)reader.GetValue(1), (double)reader.GetValue(0));
                             l.Add(p);
                         }
                     }
