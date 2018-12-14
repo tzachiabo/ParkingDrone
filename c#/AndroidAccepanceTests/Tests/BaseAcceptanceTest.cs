@@ -36,10 +36,16 @@ namespace AndroidAccepanceTests
             CompletionHanlder conf_landing_mission = comm.sendMission(conf_landing);
         }
 
-        protected void move(Direction direction, double distance)
+        protected CompletionHanlder move(Direction direction, double distance, bool isAsync = false)
         {
             MoveMission move = new MoveMission(direction, distance);
-            CompletionHanlder move_mission = comm.sendMission(move);
+            return comm.sendMission(move, isAsync);
+        }
+
+        protected CompletionHanlder goHome(bool isAsync = false)
+        {
+            GoHomeMission go_home = new GoHomeMission();
+            return comm.sendMission(go_home, isAsync);
         }
 
         protected CompletionHanlder MoveByGPS(double lat, double lng, double alt, bool isAsync = false)

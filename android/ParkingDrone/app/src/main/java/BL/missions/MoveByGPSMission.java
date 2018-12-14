@@ -57,19 +57,8 @@ public class MoveByGPSMission extends Mission {
     @Override
     public void stop() {
         Logger.debug("trying to stop go to gps");
-        MissionControl missionControl = DJISDKManager.getInstance().getMissionControl();
-        WaypointMissionOperator waypointMissionOperator = missionControl.getWaypointMissionOperator();
-        waypointMissionOperator.stopMission(new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError djiError) {
-                if(djiError !=null){
-                    Logger.error("when stopping GoToGps mission dji error :"+djiError.toString());
-                }
-                else{
-                    Logger.info("go to gps has stopped");
-                }
-            }
-        });
+        IDrone drone = DroneFactory.getDroneManager();
+        drone.stopMoveByGPS();
     }
 
     @Override

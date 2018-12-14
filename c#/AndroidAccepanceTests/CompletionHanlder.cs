@@ -10,7 +10,7 @@ namespace AndroidAccepanceTests
 {
     public class CompletionHanlder
     {
-        private static long MAX_WAIT_TIME = 60000;
+        private static long MAX_WAIT_TIME = 120;
 
         public Response response;
         private int mission_index;

@@ -10,7 +10,7 @@ namespace DroneServer.BL.Missions
     class EndMission : ComplexMission
     {
         stopMission m_stop_mission;
-        GoHome m_go_home_mission;
+        GoHomeMission m_go_home_mission;
 
         public EndMission(ComplexMission parent_mission) : base(parent_mission)
         {
@@ -25,7 +25,7 @@ namespace DroneServer.BL.Missions
         {
             if (response.Key == m_stop_mission.m_index)
             {
-                m_go_home_mission = new GoHome(this);
+                m_go_home_mission = new GoHomeMission(this);
                 m_go_home_mission.execute();
             }
             else if (response.Key == m_go_home_mission.m_index)

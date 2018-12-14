@@ -1,4 +1,5 @@
 ﻿using System;
+using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AndroidAccepanceTests
@@ -7,8 +8,13 @@ namespace AndroidAccepanceTests
     public class GoGomeTest : BaseAcceptanceTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void simpleGoHome()
         {
+            take_off();
+            move(Direction.up, 5);
+            move(Direction.forward, 20);
+            goHome();
+            landing();
         }
     }
 }

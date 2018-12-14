@@ -1,5 +1,7 @@
 package BL.Drone.DJIM210;
 
+import android.util.FloatMath;
+
 import java.util.concurrent.CompletableFuture;
 
 import SharedClasses.AssertionViolation;
@@ -13,6 +15,7 @@ import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
 import dji.common.flightcontroller.virtualstick.VerticalControlMode;
 import dji.common.flightcontroller.virtualstick.YawControlMode;
 import dji.common.flightcontroller.LocationCoordinate3D;
+import dji.common.model.LocationCoordinate2D;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
@@ -21,6 +24,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 public class ControllerManager {
     FlightController m_flight_controller;
     private boolean isInitiated;
+    private boolean hasStoped;
 
     public ControllerManager(Aircraft aircraft){
         m_flight_controller = aircraft.getFlightController();
@@ -79,6 +83,9 @@ public class ControllerManager {
     }
 
     public void goHome(final Promise cb){
+        hasStoped = false;
+        Logger.debug("hasStoped=false");
+
         try{
             m_flight_controller.startGoHome(new CommonCallbacks.CompletionCallback() {
                 @Override
@@ -89,11 +96,37 @@ public class ControllerManager {
                                 false,
                                 "failed to set GOHome on GoHomeMission.start");
                     } else {
-                        Logger.info("Drone is Going Home!");
+                        try {
+                            Logger.info("Drone is Going Home!");
 
-                        while (m_flight_controller.getState().isGoingHome());
+                            Thread.sleep(500);
 
-                        cb.success();
+                            m_flight_controller.getHomeLocation(new CommonCallbacks.CompletionCallbackWith<LocationCoordinate2D>() {
+                                @Override
+                                public void onSuccess(LocationCoordinate2D locationCoordinate2D) {
+                                    double distance;
+                                    do {
+                                        LocationCoordinate3D curr_loc = m_flight_controller.getState().getAircraftLocation();
+                                        distance = gps2m(locationCoordinate2D.getLatitude(),
+                                                locationCoordinate2D.getLongitude(),
+                                                curr_loc.getLatitude(),
+                                                curr_loc.getLongitude());
+                                    }
+                                    while (distance > 3 && !hasStoped);
+
+                                    if (!hasStoped)
+                                        cb.success();
+                                }
+
+                                @Override
+                                public void onFailure(DJIError djiError) {
+                                    cb.failed();
+                                }
+                            });
+                        }
+                        catch (InterruptedException e) {
+                            Logger.fatal("got interupted exception when go home");
+                        }
                     }
                 }
             });
@@ -101,6 +134,40 @@ public class ControllerManager {
         catch(AssertionViolation e){
             cb.failed();
         }
+    }
+
+    private double gps2m(double lat_a, double lng_a, double lat_b, double lng_b) {
+        double pk = 180/3.14169;
+
+        double a1 = lat_a / pk;
+        double a2 = lng_a / pk;
+        double b1 = lat_b / pk;
+        double b2 = lng_b / pk;
+
+        double t1 = Math.cos(a1)*Math.cos(a2)*Math.cos(b1)*Math.cos(b2);
+        double t2 = Math.cos(a1)*Math.sin(a2)*Math.cos(b1)*Math.sin(b2);
+        double t3 = Math.sin(a1)*Math.sin(b1);
+        double tt = Math.acos(t1 + t2 + t3);
+
+        return 6366000*tt;
+    }
+
+    public void stopGoHome(){
+        hasStoped = true;
+        Logger.debug("hasStoped=true");
+        m_flight_controller.cancelGoHome(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+
+                if (djiError!= null){
+                    Logger.error("stop go home resulted in dji error " + djiError.toString());
+                }
+                else{
+                    Logger.info("stop go home finished");
+
+                }
+            }
+        });
     }
 
     private void initFlightController() {
@@ -139,6 +206,5 @@ public class ControllerManager {
         LocationCoordinate3D lc3d = m_flight_controller.getState().getAircraftLocation();
         return lc3d;
     }
-
 
 }

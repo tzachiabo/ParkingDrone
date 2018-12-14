@@ -27,6 +27,7 @@ public class GoHomeMission extends Mission {
         drone.goHome(new Promise() {
             @Override
             public void onSuccess() {
+                Logger.info("mission go home finished successfuly");
                 onResult.onResult(null);
             }
 
@@ -39,7 +40,8 @@ public class GoHomeMission extends Mission {
 
     @Override
     public void stop() {
-        //todo: there is a built in method for this function
+        IDrone drone = DroneFactory.getDroneManager();
+        drone.stopGoHome();
     }
 
     @Override

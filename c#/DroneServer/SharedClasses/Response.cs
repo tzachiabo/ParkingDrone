@@ -18,7 +18,7 @@ namespace DroneServer.SharedClasses
         public object Data { get => m_data; set => m_data = value; }
         public MissionType Type { get => m_type; set => m_type = value; }
 
-        public Response(int key, Status status,MissionType type, Object data)
+        public Response(int key, Status status,MissionType type, Object data=null)
         {
             Key = key;
             m_status = status;

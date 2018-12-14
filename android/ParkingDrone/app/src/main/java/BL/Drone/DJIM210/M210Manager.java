@@ -51,6 +51,8 @@ public class M210Manager implements IDrone{
         m_mission_control.moveByGPS(x, y, z, p);
     }
 
+    public void stopMoveByGPS(){m_mission_control.stopMoveByGPS();}
+
     public void confirmLanding(final Promise p){
         m_controller.confirmLanding(p);
     }
@@ -59,9 +61,14 @@ public class M210Manager implements IDrone{
         m_controller.goHome(p);
     }
 
+    public void stopGoHome(){ m_controller.stopGoHome(); }
+
     @Override
     public LocationCoordinate3D getDroneStatus() {
         return m_controller.getDroneStatus();
     }
+
+
+
 
 }

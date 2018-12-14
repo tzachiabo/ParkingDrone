@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class GoHome : LeafMission
+    public class GoHomeMission : LeafMission
     {
 
-        public GoHome(ComplexMission ParentMission = null) : base(ParentMission)
+        public GoHomeMission(ComplexMission ParentMission = null) : base(ParentMission)
         {
 
         }

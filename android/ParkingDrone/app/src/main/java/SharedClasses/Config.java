@@ -13,6 +13,6 @@ public interface Config {
     int MAX_TIME_FOR_SETP_IN_GO_TO_GPS = 60000;//ms
     double MAX_WAYPOINT_GAP_XY = 0.00050;
     double MAX_WAYPOINT_GAP_Z = 20;
-
+    int HOME_LOCATION_HIGHT = 10;
     boolean DEBUG_MODE = true;
 }

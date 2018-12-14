@@ -37,6 +37,8 @@ public class MissionControlManager {
     private WaypointMissionFinishedAction on_finish = WaypointMissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode headingMode = WaypointMissionHeadingMode.AUTO;
 
+    boolean isStoped;
+
     public MissionControlManager() {
         m_mission_control = DJISDKManager.getInstance().getMissionControl();
         Assertions.verify(m_mission_control != null,
@@ -44,6 +46,7 @@ public class MissionControlManager {
     }
 
     public void moveByGPS(double x, double y, float z, final Promise p) {
+        isStoped = false;
         Logger.info("start move by GPS mission " + x + " " + y + " " + z);
 
         try {
@@ -89,8 +92,9 @@ public class MissionControlManager {
 
                 @Override
                 public void onExecutionFinish(@Nullable DJIError djiError) {
-                    Logger.info("onExecutionFinish");
-                    p.success();
+                    Logger.info("onExecutionFinish isStopped = " + isStoped);
+                    if (!isStoped)
+                        p.success();
                 }
             });
 
@@ -218,7 +222,6 @@ public class MissionControlManager {
         List<LocationCoordinate3D> xypoints = new ArrayList<>();
         xypoints.add(currentloc);
         xypoints.add(new LocationCoordinate3D(x, y, z));
-        List<LocationCoordinate3D> xy = genPoints(xypoints);
         zpoints.add(xypoints.get(xypoints.size()-1));
         zpoints.add(new LocationCoordinate3D(x, y, z));
         List<LocationCoordinate3D> locationCoordinate3DS = genZPoints(zpoints);
@@ -235,4 +238,22 @@ public class MissionControlManager {
 
         return wpm;
     }
+
+    public void stopMoveByGPS(){
+        isStoped = true;
+        WaypointMissionOperator waypointMissionOperator = m_mission_control.getWaypointMissionOperator();
+        waypointMissionOperator.stopMission(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if(djiError !=null){
+                    Logger.error("when stopping GoToGps mission dji error :"+djiError.toString());
+
+                }
+                else{
+                    Logger.info("go to gps has stopped");
+                }
+            }
+        });
+    }
+
 }
