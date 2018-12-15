@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ParkingDrone</string>
+    <string name="app_name">Parking Drone</string>
     <string name="matrice200">Matrice200</string>
     <string name="connected">Connected</string>
     <string name="title_activity_loading">Loading</string>

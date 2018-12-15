@@ -17,8 +17,9 @@ public class Logger {
     private ExecutorService LoggerExecutor;
 
     private Logger() {
-        LoggerExecutor = new ThreadPoolExecutor(10, 10, 0L,
+        LoggerExecutor = new ThreadPoolExecutor(3, 3, 0L,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+//        LoggerExecutor =  Executors.newSingleThreadExecutor();
     }
 
     private static Logger getInstance(){

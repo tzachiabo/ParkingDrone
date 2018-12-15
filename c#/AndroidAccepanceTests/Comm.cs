@@ -20,6 +20,8 @@ namespace AndroidAccepanceTests
         NetworkStream m_ns;
         Reader m_reader;
         PicTransferServer pic_server;
+        Loader m_load;
+
 
         private Comm()
         {
@@ -38,6 +40,7 @@ namespace AndroidAccepanceTests
 
         private void init()
         {
+            emptyHerukuLogs();
             int port = Int32.Parse(Configuration.getInstance().get("port"));
 
             TcpListener server = new TcpListener(IPAddress.Any, 3000);
@@ -59,16 +62,25 @@ namespace AndroidAccepanceTests
                 drone_status = sendMission(drone_status_mission);
                 drone_status.wait();
             }
+
+            //m_load = new Loader(500);
+
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public CompletionHanlder sendMission(LeafMission mission, bool isAsync=false)
         {
             String message_to_android = mission.encode();
-            return sendString(mission.m_index, message_to_android, isAsync);
+            CompletionHanlder comp_handler = sendString(mission.m_index, message_to_android);
+            if (!isAsync)
+            {
+                comp_handler.wait();
+            }
+
+            return comp_handler;
         }
 
-        public CompletionHanlder sendString(int index, String message_to_android, bool isAsync = false)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public CompletionHanlder sendString(int index, String message_to_android)
         {
             CompletionHanlder comp_handler = new CompletionHanlder(index);
 
@@ -87,12 +99,22 @@ namespace AndroidAccepanceTests
                 Assert.Fail();
             }
 
-            if (!isAsync)
-            {
-                comp_handler.wait();
-            }
-
             return comp_handler;
+        }
+
+        private void emptyHerukuLogs()
+        {
+            try
+            {
+                string Url = "https://floating-fjord-95063.herokuapp.com/empty";
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                myRequest.Method = "GET";
+                WebResponse myResponse = myRequest.GetResponse();
+                myResponse.Close();
+            }
+            catch (Exception)
+            {
+            }
         }
 
     }
