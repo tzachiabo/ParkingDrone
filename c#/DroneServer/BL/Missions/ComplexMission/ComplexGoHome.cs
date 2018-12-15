@@ -26,14 +26,6 @@ namespace DroneServer.BL.Missions
         {
             throw new NotImplementedException();
         }
-
-        public override void done(Response response)
-        {
-            if (m_ParentMission != null)
-                m_ParentMission.notify(response);
-
-            base.done(response);
-        }
     }
 
 

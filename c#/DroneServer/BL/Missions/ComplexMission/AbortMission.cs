@@ -19,17 +19,11 @@ namespace DroneServer.BL.Missions
 
         public AbortMission() : this(null) { }
 
-        public new void notify(Response response)
+        public override void notify(Response response)
         {
-            if (response.Key == m_stop_mission.m_index)
-            {
-                Landing land = new Landing(this);
-                land.execute();
-            }
-            else
-            {
-                done(response);
-            }
+            Landing land = new Landing();
+            land.register_to_notification(done);
+            land.execute();
         }
 
         public override void stop()

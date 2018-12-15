@@ -25,12 +25,6 @@ namespace DroneServer.BL.Missions
             m_parking = parking;
         }
 
-        public override void done(Response response)
-        {
-            if (m_ParentMission != null)
-                m_ParentMission.notify(response);
-            base.done(response);
-        }
         public override void stop()
         {
 

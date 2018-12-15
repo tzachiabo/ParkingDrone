@@ -23,7 +23,7 @@ namespace DroneServer.BL.Missions
             mission.execute();
         }
 
-        public void notify(Response response)
+        public virtual void notify(Response response)
         {
             if (m_SubMission.Count == 0)
             {

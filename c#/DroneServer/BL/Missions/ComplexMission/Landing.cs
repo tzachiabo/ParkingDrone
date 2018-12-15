@@ -16,13 +16,6 @@ namespace DroneServer.BL.Missions
             m_SubMission.Enqueue(new ConfirmLanding(this));
         }
 
-        public override void done(Response response)
-        {
-            if (m_ParentMission != null)
-                m_ParentMission.notify(response);
-
-            base.done(response);
-        }
         public override void stop()
         {
         }

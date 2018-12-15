@@ -43,6 +43,16 @@ namespace DroneServer.BL.Missions
             {
                 n_f(response);
             }
+
+            if (m_ParentMission != null)
+            {
+                m_ParentMission.notify(response);
+            }
+        }
+
+        public void setVersion(int version)
+        {
+            m_version = version;
         }
         
         public abstract void stop();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.SharedClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,19 @@ namespace DroneServer.BL.Missions
         public override void stop()
         {
 
+        }
+
+        public override void done(Response response)
+        {
+            foreach (notify_finished n_f in want_to_be_notified)
+            {
+                n_f(response);
+            }
+
+            if (m_ParentMission != null)
+            {
+                m_ParentMission.notify(response);
+            }
         }
     }
 }

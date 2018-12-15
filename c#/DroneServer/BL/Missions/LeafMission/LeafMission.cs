@@ -17,15 +17,6 @@ namespace DroneServer.BL.Missions
 
         }
 
-        public override void done(Response response)
-        {
-            if(m_ParentMission != null)
-            {
-                m_ParentMission.notify(response);
-            }
-            base.done(response);
-        }
-
         public override void execute()
         {
             Logger.getInstance().debug("start executing a leaf mission");
