@@ -1,16 +1,25 @@
 ﻿using DroneServer.BL.Missions;
 using DroneServer.SharedClasses;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AndroidAccepanceTests
 {
+    [TestClass]
     public class BaseAcceptanceTest
     {
         private Comm comm = Comm.getInstance();
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            emptyHerukuLogs();
+        }
 
         protected void take_off()
         {
@@ -76,6 +85,21 @@ namespace AndroidAccepanceTests
         protected void restore()
         {
             comm.sendString(1,"setVirtualStick 1");
+        }
+
+        private void emptyHerukuLogs()
+        {
+            try
+            {
+                string Url = "https://floating-fjord-95063.herokuapp.com/empty";
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                myRequest.Method = "GET";
+                WebResponse myResponse = myRequest.GetResponse();
+                myResponse.Close();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

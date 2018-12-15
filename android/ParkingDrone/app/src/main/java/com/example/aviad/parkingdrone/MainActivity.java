@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         bl_manager = BLManager.getInstance();
-
+        getSupportActionBar().hide();
+        bl_manager = BLManager.getInstance();
 
     }
     public void stopProgram(View v){

@@ -40,7 +40,6 @@ namespace AndroidAccepanceTests
 
         private void init()
         {
-            emptyHerukuLogs();
             int port = Int32.Parse(Configuration.getInstance().get("port"));
 
             TcpListener server = new TcpListener(IPAddress.Any, 3000);
@@ -63,7 +62,7 @@ namespace AndroidAccepanceTests
                 drone_status.wait();
             }
 
-            //m_load = new Loader(500);
+            m_load = new Loader(500);
 
         }
 
@@ -100,21 +99,6 @@ namespace AndroidAccepanceTests
             }
 
             return comp_handler;
-        }
-
-        private void emptyHerukuLogs()
-        {
-            try
-            {
-                string Url = "https://floating-fjord-95063.herokuapp.com/empty";
-                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
-                myRequest.Method = "GET";
-                WebResponse myResponse = myRequest.GetResponse();
-                myResponse.Close();
-            }
-            catch (Exception)
-            {
-            }
         }
 
     }
