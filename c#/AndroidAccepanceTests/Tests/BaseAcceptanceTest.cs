@@ -42,12 +42,6 @@ namespace AndroidAccepanceTests
             return comm.sendMission(move, isAsync);
         }
 
-        protected CompletionHanlder goHome(bool isAsync = false)
-        {
-            GoHomeMission go_home = new GoHomeMission();
-            return comm.sendMission(go_home, isAsync);
-        }
-
         protected CompletionHanlder MoveByGPS(double lat, double lng, double alt, bool isAsync = false)
         {
             MoveToGPSPoint move = new MoveToGPSPoint(lat, lng, alt);

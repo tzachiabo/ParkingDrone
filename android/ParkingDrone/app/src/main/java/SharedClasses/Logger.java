@@ -7,6 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Logger {
 
@@ -14,7 +17,8 @@ public class Logger {
     private ExecutorService LoggerExecutor;
 
     private Logger() {
-        LoggerExecutor = Executors.newSingleThreadExecutor();
+        LoggerExecutor = new ThreadPoolExecutor(10, 10, 0L,
+                TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
     }
 
     private static Logger getInstance(){
