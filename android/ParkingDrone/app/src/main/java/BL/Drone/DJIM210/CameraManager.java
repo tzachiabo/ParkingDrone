@@ -24,6 +24,8 @@ public class CameraManager {
     }
 
     private Camera getCamera() {
+        Assertions.verify(cameras != null, "camera " + Config.MAIN_CAMERA_NAME + " could not be found");
+
         for (Camera c : cameras) {
             if (c.getDisplayName().equals(Config.MAIN_CAMERA_NAME)) {
                 return c;
