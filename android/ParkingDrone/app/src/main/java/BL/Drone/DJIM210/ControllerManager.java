@@ -1,5 +1,7 @@
 package BL.Drone.DJIM210;
 
+import android.support.annotation.NonNull;
+
 import BL.Drone.DroneFactory;
 import BL.Drone.IDrone;
 import SharedClasses.AssertionViolation;
@@ -22,6 +24,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ControllerManager {
     FlightController m_flight_controller;
+    FlightControllerState flight_controller_state;
     private boolean isInitiated;
     private boolean hasStoped;
 
@@ -31,6 +34,13 @@ public class ControllerManager {
                 "FlightController is null when constracting ControllerManager");
 
         isInitiated = false;
+        flight_controller_state = m_flight_controller.getState();
+        m_flight_controller.setStateCallback(new FlightControllerState.Callback() {
+            @Override
+            public void onUpdate(@NonNull FlightControllerState flightControllerState) {
+                flight_controller_state = flightControllerState;
+            }
+        });
         initFlightController();
     }
 
@@ -201,8 +211,7 @@ public class ControllerManager {
     }
 
     public FlightControllerState  getDroneState(){
-        Logger.debug("start getGPSLocation mission");
-        return m_flight_controller.getState();
+        return flight_controller_state;
     }
 
     public void startLanding(final Promise p){

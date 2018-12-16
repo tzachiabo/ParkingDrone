@@ -43,30 +43,30 @@ public class M210Manager implements IDrone{
     }
 
     @Override
-    public void takeOff(final Promise p) {
+    public synchronized void takeOff(final Promise p) {
         m_controller.takeOff(p);
     }
 
     @Override
-    public void startLanding(Promise p) { m_controller.startLanding(p); }
+    public synchronized void startLanding(Promise p) { m_controller.startLanding(p); }
 
     @Override
-    public void stopLanding() { m_controller.stopLanding(); }
+    public synchronized void stopLanding() { m_controller.stopLanding(); }
 
     @Override
-    public void moveByGPS(double x, double y, float z, Promise p) { m_mission_control.moveByGPS(x, y, z, p); }
+    public synchronized void moveByGPS(double x, double y, float z, Promise p) { m_mission_control.moveByGPS(x, y, z, p); }
 
-    public void stopMoveByGPS(){m_mission_control.stopMoveByGPS();}
+    public synchronized void stopMoveByGPS(){m_mission_control.stopMoveByGPS();}
 
-    public void confirmLanding(final Promise p){
+    public synchronized void confirmLanding(final Promise p){
         m_controller.confirmLanding(p);
     }
 
-    public void goHome(final Promise p){
+    public synchronized void goHome(final Promise p){
         m_controller.goHome(p);
     }
 
-    public void stopGoHome(){ m_controller.stopGoHome(); }
+    public synchronized void stopGoHome(){ m_controller.stopGoHome(); }
 
-    public FlightControllerState getDroneState(){ return m_controller.getDroneState(); }
+    public synchronized FlightControllerState getDroneState(){ return m_controller.getDroneState(); }
 }

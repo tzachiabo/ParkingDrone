@@ -1,6 +1,8 @@
 package BL.missions;
 
 import java.util.List;
+
+import SharedClasses.AssertionViolation;
 import SharedClasses.Config;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
@@ -70,17 +72,22 @@ public class MoveCameraGimbalMission extends Mission {
                 gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
-                        if(djiError != null){
-                            Logger.error("Move gimbal result in djiError : "+ djiError.toString());
-                            Assertions.verify(false, "failed to move gimbal");
-                        }
-                        else{
-                            Logger.debug("move gimbal has finished");
-                            try {
-                                Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000);
-                            } catch (InterruptedException e) {
+                        try{
+                            if(djiError != null){
+                                Logger.error("Move gimbal result in djiError : "+ djiError.toString());
+                                Assertions.verify(false, "failed to move gimbal");
                             }
-                            onResult.onResult(djiError);
+                            else{
+                                Logger.debug("move gimbal has finished");
+                                try {
+                                    Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000);
+                                } catch (InterruptedException e) {
+                                }
+                                onResult.onResult(djiError);
+                            }
+                        }
+                        catch (AssertionViolation e){
+
                         }
                     }
                 });
