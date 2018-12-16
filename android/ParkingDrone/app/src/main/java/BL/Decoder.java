@@ -1,5 +1,7 @@
 package BL;
 
+import android.util.Log;
+
 import BL.missions.*;
 import SharedClasses.Direction;
 import SharedClasses.Logger;
@@ -8,7 +10,7 @@ public class Decoder {
 
     public static Mission decode(String mission_string){
         Mission to_return = null;
-        Logger.debug("decoder : decoding message : " + mission_string);
+        Logger.warn("decoder : decoding message : " + mission_string);
         String[] dispatched = mission_string.split(" ");
         int index =Integer.parseInt(dispatched[1]);
         String missionName=dispatched[0];
@@ -63,6 +65,9 @@ public class Decoder {
             case "setVirtualStick":
                 to_return = new setVirtualStick(index);
                 break;
+        }
+        if (to_return == null){
+            Logger.fatal("failed to decode " + mission_string);
         }
 
         return to_return;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer
 {
-    class BaseObservable
+    public class BaseObservable
     {
         List<BaseObserver> observers;
 

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace DroneServer
 {
-    abstract class BaseObserver
+    public abstract class BaseObserver
     {
         protected BaseObservable observable;
 

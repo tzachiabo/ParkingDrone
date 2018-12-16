@@ -19,7 +19,17 @@ namespace AndroidAccepanceTests
         public void StartLandingFromMaxHight()
         {
             take_off();
-            move(Direction.up, 100);
+            for (int i = 0; i< 50; i++) {
+                move(Direction.up, 2);
+                System.Threading.Thread.Sleep(200);
+            }
+
+            for(int i = 0; i < 300; i++) {
+                move(Direction.forward, 1);
+                System.Threading.Thread.Sleep(200);
+
+            }
+            //move(Direction.forward, 300);
             landing();
         }
     }

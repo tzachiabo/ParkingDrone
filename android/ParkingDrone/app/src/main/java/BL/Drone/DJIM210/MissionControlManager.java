@@ -217,7 +217,7 @@ public class MissionControlManager {
     }
 
     private WaypointMission.Builder buildWithSubWaypoints(double x, double y, float z, WaypointMission.Builder wpm) {
-        LocationCoordinate3D currentloc = M210Manager.getInstance().getDroneStatus();
+        LocationCoordinate3D currentloc = M210Manager.getInstance().getDroneState().getAircraftLocation();
         List<LocationCoordinate3D> zpoints = new ArrayList<>();
         List<LocationCoordinate3D> xypoints = new ArrayList<>();
         xypoints.add(currentloc);

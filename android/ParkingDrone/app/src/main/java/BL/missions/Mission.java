@@ -2,6 +2,7 @@ package BL.missions;
 
 import BL.SocketManager;
 import BL.TaskManager;
+import SharedClasses.Logger;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 

@@ -66,37 +66,32 @@ public class SocketManager {
                         buffer = new byte[BUFFER_SIZE];
                     }
 
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-
-                } finally {
+                } catch (Exception e) {
+                    Logger.fatal("comm layer got exception");
+                }  finally {
                     if (socket != null) {
                         try {
                             socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            Logger.fatal("failed to close socket ");
+
                         }
                     }
                 }
 
             }
         }).start();
-
     }
 
     public synchronized void send(String data){
 
         Logger.debug("sending to server "+data);
         try {
-            data +="%";
+            data += "%";
             outputStream.write(data.getBytes("UTF-8"));
             outputStream.flush();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Logger.fatal("failed to send message to server (got exception) for data " + data);
         }
     }
 

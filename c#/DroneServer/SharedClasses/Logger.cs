@@ -14,7 +14,7 @@ namespace DroneServer.SharedClasses
         MainMission
     }
 
-    class Logger : BaseObservable
+    public class Logger : BaseObservable
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Logger instance = null;

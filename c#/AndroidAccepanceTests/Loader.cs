@@ -25,24 +25,28 @@ namespace AndroidAccepanceTests
 
             m_get_location_timer = new System.Timers.Timer(location_interval);
             // Hook up the Elapsed event for the timer. 
-            m_get_status_timer.Elapsed += on_get_location_Event;
-            m_get_status_timer.AutoReset = true;
-            m_get_status_timer.Enabled = true;
+            m_get_location_timer.Elapsed += on_get_location_Event;
+            m_get_location_timer.AutoReset = true;
+            m_get_location_timer.Enabled = true;
         }
 
 
         private static void on_get_status_Event(Object source, ElapsedEventArgs e)
         {
             LeafMission mission = new getDroneStatus();
-            Comm.getInstance().sendMission(mission);
+            Comm.getInstance().sendMission(mission, false);
         }
 
         private static void on_get_location_Event(Object source, ElapsedEventArgs e)
         {
             LeafMission mission = new GetLocation();
-            Comm.getInstance().sendMission(mission);
+            Comm.getInstance().sendMission(mission, false);
         }
 
-
+        public void shut_down()
+        {
+            m_get_status_timer.Stop();
+            m_get_location_timer.Stop();
+        }
     }
 }

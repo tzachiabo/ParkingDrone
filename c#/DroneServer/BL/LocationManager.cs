@@ -90,6 +90,7 @@ namespace DroneServer.BL
                     br.lng = parking.border[i].lng;
                 else if (parking.border[i].lng < tl.lng)
                     tl.lng = parking.border[i].lng;
+
                 if (parking.border[i].lat > br.lat)
                     br.lat = parking.border[i].lat;
                 else if (parking.border[i].lat < tl.lat)

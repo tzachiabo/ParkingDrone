@@ -1,15 +1,14 @@
 package BL.Drone.DJIM210;
 
-import android.util.FloatMath;
-
-import java.util.concurrent.CompletableFuture;
-
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import SharedClasses.AssertionViolation;
 import SharedClasses.Assertions;
 import SharedClasses.Config;
 import SharedClasses.Logger;
 import SharedClasses.Promise;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.virtualstick.FlightCoordinateSystem;
 import dji.common.flightcontroller.virtualstick.RollPitchControlMode;
 import dji.common.flightcontroller.virtualstick.VerticalControlMode;
@@ -201,10 +200,60 @@ public class ControllerManager {
         return isInitiated;
     }
 
-    public LocationCoordinate3D  getDroneStatus(){
+    public FlightControllerState  getDroneState(){
         Logger.debug("start getGPSLocation mission");
-        LocationCoordinate3D lc3d = m_flight_controller.getState().getAircraftLocation();
-        return lc3d;
+        return m_flight_controller.getState();
+    }
+
+    public void startLanding(final Promise p){
+        hasStoped = false;
+        m_flight_controller.startLanding(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if(djiError != null) {
+                    Logger.error("after start landing djierror is " + djiError.toString());
+                    p.failed();
+                    return;
+                }
+
+                Logger.info("start start landing");
+                long startTime = System.currentTimeMillis();
+                while (!isFinishedLanding() && !hasStoped) {
+                    if (System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_LANDING)
+                    {
+                        p.failed();
+                        return;
+                    }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Logger.info("finish start landing hasStop="+ hasStoped);
+                if (!hasStoped)
+                    p.success();
+                else
+                    p.failed();
+            }
+        });
+
+    }
+
+    private boolean isFinishedLanding(){
+        return getDroneState().isLandingConfirmationNeeded();
+    }
+
+    public void stopLanding() {
+        hasStoped = true;
+        m_flight_controller.cancelLanding(new CommonCallbacks.CompletionCallback() {
+            @Override
+            public void onResult(DJIError djiError) {
+                if (djiError != null)
+                    Logger.error("err while cancel landing "+ djiError.toString());
+            }
+        });
     }
 
 }

@@ -3,6 +3,7 @@ package BL.Drone.DJIM210;
 import BL.Drone.IDrone;
 import SharedClasses.Assertions;
 import SharedClasses.Promise;
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
@@ -25,7 +26,7 @@ public class M210Manager implements IDrone{
         return instance;
     }
 
-    public void initAircraft(){
+    public synchronized void initAircraft(){
         m_aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(m_aircraft != null,"Aircraft is null when constracting M210Manager");
 
@@ -35,7 +36,7 @@ public class M210Manager implements IDrone{
     }
 
     @Override
-    public boolean isInitiated() {
+    public synchronized boolean isInitiated() {
         return m_aircraft != null &&
                 m_controller != null && m_controller.isInitiated() &&
                 m_camera_manager != null && m_camera_manager.isInitiated();
@@ -47,9 +48,13 @@ public class M210Manager implements IDrone{
     }
 
     @Override
-    public void moveByGPS(double x, double y, float z, Promise p) {
-        m_mission_control.moveByGPS(x, y, z, p);
-    }
+    public void startLanding(Promise p) { m_controller.startLanding(p); }
+
+    @Override
+    public void stopLanding() { m_controller.stopLanding(); }
+
+    @Override
+    public void moveByGPS(double x, double y, float z, Promise p) { m_mission_control.moveByGPS(x, y, z, p); }
 
     public void stopMoveByGPS(){m_mission_control.stopMoveByGPS();}
 
@@ -63,12 +68,5 @@ public class M210Manager implements IDrone{
 
     public void stopGoHome(){ m_controller.stopGoHome(); }
 
-    @Override
-    public LocationCoordinate3D getDroneStatus() {
-        return m_controller.getDroneStatus();
-    }
-
-
-
-
+    public FlightControllerState getDroneState(){ return m_controller.getDroneState(); }
 }

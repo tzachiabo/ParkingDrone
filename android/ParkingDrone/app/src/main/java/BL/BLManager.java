@@ -24,24 +24,24 @@ public class BLManager {
         isFsInitiated = false;
     }
 
-    public static BLManager getInstance() {
+    public synchronized static BLManager getInstance() {
         if (instance == null) {
             instance = new BLManager();
         }
         return instance;
     }
 
-    public synchronized void init() {
+    public void init() {
         DroneFactory.getDroneManager().initAircraft();
         initFs();
         isConnected = true;
     }
 
-    public synchronized void DisconnectDrone() {
+    public void DisconnectDrone() {
         isConnected = false;
     }
 
-    public synchronized SharedClasses.DroneStatus getDroneStatus(){
+    public SharedClasses.DroneStatus getDroneStatus(){
         IDrone drone = DroneFactory.getDroneManager();
         if (drone.isInitiated() && isFsInitiated && isConnected)
             return SharedClasses.DroneStatus.Connected;

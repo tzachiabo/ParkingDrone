@@ -3,16 +3,17 @@ package BL.missions;
 import BL.BLManager;
 import SharedClasses.Assertions;
 import SharedClasses.DroneStatus;
+import SharedClasses.Logger;
 
 public class GetDroneStatusMission extends Mission {
     DroneStatus status;
     public GetDroneStatusMission(int index){
-      super("getStatus", index);
+        super("getStatus", index);
     }
     @Override
     public void start() {
+        Logger.info("start get status num " + index);
         status = BLManager.getInstance().getDroneStatus();
-
         onResult.onResult(null);
     }
 

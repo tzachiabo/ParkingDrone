@@ -20,7 +20,7 @@ namespace AndroidAccepanceTests
         NetworkStream m_ns;
         Reader m_reader;
         PicTransferServer pic_server;
-        Loader m_load;
+        public Loader m_load;
 
 
         private Comm()
@@ -56,13 +56,13 @@ namespace AndroidAccepanceTests
             drone_status.wait();
             while((DroneStatus)drone_status.response.Data != DroneStatus.Connected)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(10000);
                 drone_status_mission = new getDroneStatus();
                 drone_status = sendMission(drone_status_mission);
                 drone_status.wait();
             }
 
-            m_load = new Loader(500);
+            m_load = new Loader(100);
 
         }
 
@@ -90,6 +90,8 @@ namespace AndroidAccepanceTests
 
             try
             {
+                if (!message_to_android.Contains("getStatus"))
+                    Logger.getInstance().info("send to android : " + message_to_android);
                 m_ns.Write(to_send, 0, to_send.Length);
                 m_ns.Flush();
             }

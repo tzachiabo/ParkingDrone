@@ -37,7 +37,8 @@ namespace AndroidAccepanceTests
                         {
                             int index = data.IndexOf('%');
                             String curr_message = data.Substring(0, index);
-                            
+                            if (!curr_message.Contains("getStatus"))
+                                Logger.getInstance().info("recevied from android : " + curr_message);
                             Response r = DroneServer.BL.Comm.Decoder.decode(curr_message);
 
                             CompletionHanlder comp_out;

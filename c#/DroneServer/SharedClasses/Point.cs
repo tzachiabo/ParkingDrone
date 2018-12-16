@@ -12,17 +12,17 @@
             this.lat = 0;
             this.alt = 0;
         }
-        public Point(double x, double y)
+        public Point(double lng, double lat)
         {
-            this.lng = x;
-            this.lat = y;
+            this.lng = lng;
+            this.lat = lat;
             this.alt = 0;
         }
-        public Point(double x, double y, double z)
+        public Point(double lng, double lat, double alt)
         {
-            this.lng = x;
-            this.lat = y;
-            this.alt = z;
+            this.lng = lng;
+            this.lat = lat;
+            this.alt = alt;
         }
     }
 }
