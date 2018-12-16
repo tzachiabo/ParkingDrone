@@ -18,7 +18,7 @@ namespace AndroidAccepanceTests
         [TestInitialize]
         public void TestInitialize()
         {
-            emptyHerukuLogs();
+            //emptyHerukuLogs();
         }
 
         protected void take_off()

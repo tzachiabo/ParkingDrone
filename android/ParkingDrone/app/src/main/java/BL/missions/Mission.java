@@ -41,6 +41,7 @@ public abstract class Mission implements Runnable {
         public void onResult(DJIError djiError) {
             isMissionCompleted = true;
             SocketManager.getInstance().send(Mission.this.encode());
+            Logger.info("NUM OF DONE TASKS " + TaskManager.getInstance().NUM_OF_DONE_TASKS.incrementAndGet());
         }
     }
 }

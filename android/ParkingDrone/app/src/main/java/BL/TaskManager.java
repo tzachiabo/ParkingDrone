@@ -26,6 +26,8 @@ public class TaskManager {
     ThreadPoolExecutor LocationExecutor;
     ThreadPoolExecutor StopExecutor;
     Mission currentMission;
+    public AtomicInteger TOTAL_NUM_OF_TASKS;
+    public AtomicInteger NUM_OF_DONE_TASKS;
 
     private TaskManager(){
         MainExecutor = new ThreadPoolExecutor(1, 1, 0L,
@@ -36,6 +38,8 @@ public class TaskManager {
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
         LocationExecutor = new ThreadPoolExecutor(1, 1, 0L,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        TOTAL_NUM_OF_TASKS = new AtomicInteger();
+        NUM_OF_DONE_TASKS = new AtomicInteger();
     }
     public static TaskManager getInstance(){
         if(instance == null){
@@ -46,6 +50,7 @@ public class TaskManager {
 
     private void addMission(ThreadPoolExecutor executor, final Mission mission){
         try {
+            Logger.info("TOTAL NUM OF TASKS " + TOTAL_NUM_OF_TASKS.incrementAndGet());
             synchronized(executor) {
                 Logger.info("num of job of executor is " + executor.getQueue().size());
                 executor.submit(new Runnable() {

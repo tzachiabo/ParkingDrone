@@ -24,10 +24,9 @@ namespace AndroidAccepanceTests
                 System.Threading.Thread.Sleep(200);
             }
 
-            for(int i = 0; i < 300; i++) {
+            for(int i = 0; i < 600; i++) {
                 move(Direction.forward, 1);
                 System.Threading.Thread.Sleep(200);
-
             }
             //move(Direction.forward, 300);
             landing();

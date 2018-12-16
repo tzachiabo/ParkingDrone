@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.Telephony;
 
 import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BLManager {
     private static BLManager instance = null;
@@ -31,17 +32,17 @@ public class BLManager {
         return instance;
     }
 
-    public void init() {
+    public synchronized void init() {
         DroneFactory.getDroneManager().initAircraft();
         initFs();
         isConnected = true;
     }
 
-    public void DisconnectDrone() {
+    public synchronized  void DisconnectDrone() {
         isConnected = false;
     }
 
-    public SharedClasses.DroneStatus getDroneStatus(){
+    public synchronized SharedClasses.DroneStatus getDroneStatus(){
         IDrone drone = DroneFactory.getDroneManager();
         if (drone.isInitiated() && isFsInitiated && isConnected)
             return SharedClasses.DroneStatus.Connected;
