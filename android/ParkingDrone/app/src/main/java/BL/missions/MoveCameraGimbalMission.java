@@ -37,63 +37,47 @@ public class MoveCameraGimbalMission extends Mission {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(aircraft != null, "when tring to move gimbal got null aircraft");
 
+        Logger.debug("start rotate Gimbal");
+        Rotation.Builder builder = new Rotation.Builder();
+        builder.yaw((float)yaw).pitch((float)pitch).roll((float)roll);
+
+        if(gimbal_movement_type.equals("absolute")) {
+            Logger.info("Move gimbal absolute");
+            builder.mode(RotationMode.ABSOLUTE_ANGLE);
+        }
+        else if(gimbal_movement_type.equals("relative"))
+        {
+            Logger.info("Move gimbal relative");
+            builder.mode(RotationMode.RELATIVE_ANGLE);
+        }
+
+        builder.time(Config.TIME_OF_GIMBAL_MOVE);
+
+        final Rotation rotation = builder.build();
         Gimbal gimbal_to_move = getGimbal(aircraft);
 
-        Logger.debug("send gimbal mode free");
-        gimbal_to_move.setMode(GimbalMode.FREE, new CommonCallbacks.CompletionCallback() {
+        gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError djiError) {
-                if(djiError != null){
-                    Logger.debug("allow rotate gimbal result : " + djiError.toString());
-                    Assertions.verify(false, "failed to set gimbal mode to free");
-                }
-
-                Logger.debug("start rotate Gimbal");
-                List<Gimbal> gimbals= aircraft.getGimbals();
-                Rotation.Builder builder = new Rotation.Builder();
-                builder.yaw((float)yaw).pitch((float)pitch).roll((float)roll);
-
-                Logger.info("gimbal movement type : " + gimbal_movement_type);
-                if(gimbal_movement_type.equals("absolute")) {
-                    Logger.info("Move gimbal absolute");
-                    builder.mode(RotationMode.ABSOLUTE_ANGLE);
-                }
-                else if(gimbal_movement_type.equals("relative"))
-                {
-                    Logger.info("Move gimbal relative");
-                    builder.mode(RotationMode.RELATIVE_ANGLE);
-                }
-
-                builder.time(Config.TIME_OF_GIMBAL_MOVE);
-
-                final Rotation rotation = builder.build();
-                Gimbal gimbal_to_move = getGimbal(aircraft);
-
-                gimbal_to_move.rotate(rotation, new CommonCallbacks.CompletionCallback() {
-                    @Override
-                    public void onResult(DJIError djiError) {
-                        try{
-                            if(djiError != null){
-                                Logger.error("Move gimbal result in djiError : "+ djiError.toString());
-                                Assertions.verify(false, "failed to move gimbal");
-                            }
-                            else{
-                                Logger.debug("move gimbal has finished");
-                                try {
-                                    Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000);
-                                } catch (InterruptedException e) {
-                                }
-                                onResult.onResult(djiError);
-                            }
-                        }
-                        catch (AssertionViolation e){
-
-                        }
+                try{
+                    if(djiError != null){
+                        Logger.error("Move gimbal result in djiError : "+ djiError.toString());
+                        Assertions.verify(false, "failed to move gimbal");
                     }
-                });
+                    else{
+                        Logger.debug("move gimbal has finished");
+                        try {
+                            Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000);
+                        } catch (InterruptedException e) {
+                        }
+                        onResult.onResult(djiError);
+                    }
+                }
+                catch (AssertionViolation e){
+
+                }
             }
         });
-
 
     }
 

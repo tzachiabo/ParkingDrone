@@ -11,13 +11,11 @@ namespace DroneServer.BL.Missions
     {
         stopMission m_stop_mission;
 
-        public AbortMission(ComplexMission parent_mission): base(parent_mission)
+        public AbortMission(ComplexMission parent_mission = null) : base(parent_mission)
         {
             m_stop_mission = new stopMission(this);
             m_SubMission.Enqueue(m_stop_mission);
         }
-
-        public AbortMission() : this(null) { }
 
         public override void notify(Response response)
         {

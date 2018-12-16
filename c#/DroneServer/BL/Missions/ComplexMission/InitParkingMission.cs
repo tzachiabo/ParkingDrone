@@ -14,7 +14,7 @@ namespace DroneServer.BL.Missions
             m_ParentMission = ParentMission;
             Point base_point = parking.getBasePoint();
             m_SubMission.Enqueue(new MoveToGPSPoint(this, base_point.lat, base_point.lng, base_point.alt));
-            m_SubMission.Enqueue(new MoveGimbal(this, Gimbal.left, GimbalMovementType.relative, 0, -90, 0));
+            m_SubMission.Enqueue(new AbsoluteMoveGimbalMission(this, Gimbal.left, 0, -90, 0));
             m_SubMission.Enqueue(new TakePhoto(this));
         }
         
