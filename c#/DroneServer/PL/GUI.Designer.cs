@@ -522,6 +522,11 @@
             // 
             this.MoveAmount.Location = new System.Drawing.Point(503, 179);
             this.MoveAmount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MoveAmount.Maximum = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
             this.MoveAmount.Minimum = new decimal(new int[] {
             1,
             0,

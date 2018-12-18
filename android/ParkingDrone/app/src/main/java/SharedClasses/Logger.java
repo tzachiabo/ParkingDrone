@@ -35,7 +35,7 @@ public class Logger {
                     while (true) {
                         String message_to_send;
                         synchronized (this) {
-                            message_to_send = "INFO : num of logs in QUEUE " + logsToSend.size();
+                            message_to_send = "";
                             for (int i = 0; i < Config.NUM_OF_LOG_IN_BUCKET && !logsToSend.isEmpty(); i++) {
                                 if (!message_to_send.equals("")) {
                                     message_to_send += ",";
