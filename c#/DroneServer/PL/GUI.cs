@@ -436,5 +436,11 @@ namespace DroneServer
         {
             BLManagger.getInstance().abort();
         }
+
+        private void RotateDroneBtn_Click(object sender, EventArgs e)
+        {
+            int move_amount = Convert.ToInt32(MoveAmount.Value);
+            BLManagger.getInstance().MoveForTest(move_amount, Direction.rotate);
+        }
     }
 }

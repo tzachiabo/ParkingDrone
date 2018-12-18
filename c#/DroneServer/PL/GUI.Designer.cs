@@ -78,6 +78,7 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.RotateDroneBtn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.homePanel.SuspendLayout();
@@ -421,6 +422,7 @@
             // 
             // dummyTab
             // 
+            this.dummyTab.Controls.Add(this.RotateDroneBtn);
             this.dummyTab.Controls.Add(this.stop_dummy_btn);
             this.dummyTab.Controls.Add(this.Yaw);
             this.dummyTab.Controls.Add(this.Pitch);
@@ -725,6 +727,18 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // RotateDroneBtn
+            // 
+            this.RotateDroneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RotateDroneBtn.Location = new System.Drawing.Point(614, 169);
+            this.RotateDroneBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RotateDroneBtn.Name = "RotateDroneBtn";
+            this.RotateDroneBtn.Size = new System.Drawing.Size(417, 60);
+            this.RotateDroneBtn.TabIndex = 37;
+            this.RotateDroneBtn.Text = "Move rotate";
+            this.RotateDroneBtn.UseVisualStyleBackColor = true;
+            this.RotateDroneBtn.Click += new System.EventHandler(this.RotateDroneBtn_Click);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -807,6 +821,7 @@
         private System.Windows.Forms.Label connected_home_lbl;
         private System.Windows.Forms.Button clear_home_btn;
         private System.Windows.Forms.Button clear_create_btn;
+        private System.Windows.Forms.Button RotateDroneBtn;
     }
 }
 
