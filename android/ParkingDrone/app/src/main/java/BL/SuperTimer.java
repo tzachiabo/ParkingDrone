@@ -40,6 +40,11 @@ public class SuperTimer extends Timer {
             {
                 superTimer.cancel();
                 Logger.info("a mission "+ mission.getName()+" was ended");
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 mission.getOnResult().onResult(null);
             }
             else

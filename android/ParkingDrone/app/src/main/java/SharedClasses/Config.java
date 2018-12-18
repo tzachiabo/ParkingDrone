@@ -14,6 +14,7 @@ public interface Config {
     double MAX_WAYPOINT_GAP_XY = 0.00050;
     double MAX_WAYPOINT_GAP_Z = 20;
     int NUM_OF_LOG_IN_BUCKET = 200;
+    float BASE_ANGULAR_SPEED = 30;
 
     int HOME_LOCATION_HIGHT = 10;
     boolean DEBUG_MODE = true;

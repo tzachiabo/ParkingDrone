@@ -27,8 +27,15 @@ public class MoveMission extends Mission {
     @Override
     public void start() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-
-        long totalTime = ((long)distance/(long)Config.BASE_SPEED) * 1000;
+        long totalTime;
+        if(direction == Direction.rotate) {
+            totalTime = ((long)distance/(long)Config.BASE_ANGULAR_SPEED) * 1000;
+        }
+        else
+        {
+            totalTime = ((long)distance/(long)Config.BASE_SPEED) * 1000;
+        }
+        totalTime -= 200;
         Logger.debug("start-move-mission "+"distance is "+distance+" totalTime is "+totalTime);
         st = new SuperTimer(new TimerTask() {
             @Override
@@ -82,6 +89,9 @@ public class MoveMission extends Mission {
                 break;
             case down:
                 fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED);
+                break;
+            case rotate:
+                fcd = new FlightControlData(0,0,Config.BASE_ANGULAR_SPEED, 0);
                 break;
             default:
                 Logger.error("Couldnt parse move direction");
