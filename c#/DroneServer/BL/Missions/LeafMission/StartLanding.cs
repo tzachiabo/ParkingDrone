@@ -13,6 +13,11 @@ namespace DroneServer.BL.Missions
         {
 
         }
+        public override void execute()
+        {
+            BLManagger.getInstance().setSafeZone(false);
+            base.execute();
+        }
         public override void stop()
         {
 

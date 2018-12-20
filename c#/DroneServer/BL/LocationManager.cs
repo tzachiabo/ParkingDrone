@@ -78,8 +78,8 @@ namespace DroneServer.BL
             }
 
             if (BLManagger.getInstance().getSafeZone() && is_location_verification_enabled)
-                //Assertions.verify(validateLocation(p), "The drone is running away!");
-                validateLocation(p);
+                Assertions.verify(validateLocation(p), "The drone is running away!");
+
         }
 
         private static void calculateBorder()

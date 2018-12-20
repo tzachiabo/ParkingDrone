@@ -24,6 +24,12 @@ namespace DroneServer
                 s = (string)observable.getData();
                 control.BeginInvoke((Action)(() =>
                 {
+                    if (s == "Connected")
+                        control.ForeColor = System.Drawing.Color.LimeGreen;
+                    else if (s.ToLower() == "not ready")
+                        control.ForeColor = System.Drawing.Color.Yellow;
+                    else if (s == "Disconnected")
+                        control.ForeColor = System.Drawing.Color.Red;
                     control.Text = s;
                 }));
             }

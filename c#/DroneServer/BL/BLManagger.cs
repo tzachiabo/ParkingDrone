@@ -145,6 +145,48 @@ namespace DroneServer.BL
             LocationManager.shutDown();
         }
 
+
+      
+        public async void updateAndroidLog(ListBox androidLogger_home_lst, ListBox androidLogger_mission_lst)
+        {
+            Task<string[]> t = new Task<string[]>(()=> {
+                string Url = "https://floating-fjord-95063.herokuapp.com/log";
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+                myRequest.Method = "GET";
+                try
+                {
+                    WebResponse myResponse = myRequest.GetResponse();
+                    StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
+                    string result = sr.ReadToEnd();
+                    sr.Close();
+                    myResponse.Close();
+
+                    result = result.Replace("<br/>", "#");
+                    string[] s = result.Split('#');
+                    androidLogger_home_lst.Items.Clear();
+                    androidLogger_mission_lst.Items.Clear();
+                    for (int i = 0; i <= 500; i++)
+                    {
+                        if (s[i] != "")
+                        {
+                            androidLogger_home_lst.Items.Add(s[i]);
+                            androidLogger_mission_lst.Items.Add(s[i]);
+                        }
+                    }   
+
+                }
+                catch (Exception)
+                {
+
+                }
+                return null;
+            });
+            t.Start();
+            await t;
+
+            
+        }
+
         public void clearLogs()
         {
             logger.clearData();
@@ -160,7 +202,6 @@ namespace DroneServer.BL
             catch (Exception)
             {
             }
-
 
         }
 
