@@ -46,6 +46,8 @@ namespace DroneServer.BL.Comm
 
                 case "getLocation":
                     return parseLocation(words);
+                case "takeQuickPhoto":
+                    return parseTakeQuickPhoto(words);
 
                 case "setVirtualStick":
                     return parseSetVirtualStick(words);
@@ -57,11 +59,19 @@ namespace DroneServer.BL.Comm
             return null;
         }
 
+<<<<<<< HEAD
         private static Response parseSetVirtualStick(string[] sentance)
         {
             Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
 
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission);
+=======
+        private static Response parseTakeQuickPhoto(string[] sentance)
+        {
+            Assertions.verify(sentance[2] == "Done", "message recive is not according to protocol");
+
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.MainMission, sentance[3]);
+>>>>>>> 9da29b8... android dont work save changing
             return res;
         }
 

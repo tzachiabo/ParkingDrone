@@ -63,7 +63,6 @@ public class Decoder {
                 to_return = new GetGPSLocationMission(index);
                 break;
 <<<<<<< HEAD
-<<<<<<< HEAD
             case "setVirtualStick":
                 to_return = new setVirtualStick(index);
                 break;
@@ -75,11 +74,6 @@ public class Decoder {
                 to_return = new TakeQuickPhotoMission(index);
                 break;
 >>>>>>> 7474844... start android imp
-=======
-            case "takeQuickPhoto":
-                to_return = new TakeQuickPhotoMission(index);
-                break;
->>>>>>> 7ea7cea... start android imp
         }
 
         return to_return;

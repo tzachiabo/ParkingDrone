@@ -365,6 +365,13 @@ namespace DroneServer
         {
             BLManagger.getInstance().stop();
         }
+        private void takequickPhoto_dummy_btn(object sender, EventArgs e)
+        {
+            Logger.getInstance().debug("gui action to take quick photo");
+
+            BLManagger.getInstance().TakeQuickPhoto();
+
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
         //functions section

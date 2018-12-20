@@ -5,8 +5,13 @@ import BL.Drone.IDrone;
 import SharedClasses.Config;
 import SharedClasses.Logger;
 
+import android.app.Activity;
 import android.os.Environment;
+<<<<<<< HEAD
 import android.provider.Telephony;
+=======
+import android.view.Window;
+>>>>>>> 9da29b8... android dont work save changing
 
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,6 +22,7 @@ public class BLManager {
     public File file;
     private boolean isFsInitiated;
     private boolean isConnected;
+    private Activity activity ;
 
     private BLManager() {
         Logger.debug("initiate BL");
@@ -61,5 +67,11 @@ public class BLManager {
             Logger.info("main dir" + file.getAbsolutePath());
             isFsInitiated= true;
         }
+    }
+    public void setActivity(Activity activity){
+        this.activity=activity;
+    }
+    public Activity getActivity(){
+        return activity;
     }
 }

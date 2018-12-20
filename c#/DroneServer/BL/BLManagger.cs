@@ -240,6 +240,11 @@ namespace DroneServer.BL
             TakePhoto tp = new TakePhoto();
             tp.execute();
         }
+        public void TakeQuickPhoto()
+        {
+            QuickPhoto qp = new QuickPhoto();
+            qp.execute();
+        }
 
     }
 }

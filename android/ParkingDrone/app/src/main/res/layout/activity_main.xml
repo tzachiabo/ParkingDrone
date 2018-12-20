@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
     <!-- Widget to see first person view (FPV) -->
     <dji.ux.widget.FPVWidget
+        android:id="@+id/fpv_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <dji.ux.widget.FPVOverlayWidget

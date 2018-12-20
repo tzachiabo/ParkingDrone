@@ -28,23 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
+            this.homePanel = new System.Windows.Forms.Panel();
+            this.clear_home_btn = new System.Windows.Forms.Button();
+            this.connected_home_lbl = new System.Windows.Forms.Label();
+            this.androidLogger_home_lst = new System.Windows.Forms.ListBox();
             this.start_home_btn = new System.Windows.Forms.Button();
+            this.parkings_home_lst = new System.Windows.Forms.ListBox();
             this.logger_home_lst = new System.Windows.Forms.ListBox();
-            this.parkings_home_btn = new System.Windows.Forms.ListBox();
+            this.delete_home_btn = new System.Windows.Forms.Button();
+            this.missionPanel = new System.Windows.Forms.Panel();
+            this.androidLogger_mission_lst = new System.Windows.Forms.ListBox();
+            this.back_mission_btn = new System.Windows.Forms.Button();
+            this.end_mission_btn = new System.Windows.Forms.Button();
+            this.logger_mission_lst = new System.Windows.Forms.ListBox();
+            this.stop_mission_btn = new System.Windows.Forms.Button();
+            this.connected_mission_lbl = new System.Windows.Forms.Label();
+            this.abort_mission_btn = new System.Windows.Forms.Button();
+            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
             this.createTab = new System.Windows.Forms.TabPage();
+            this.clear_create_btn = new System.Windows.Forms.Button();
+            this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.finish_create_btn = new System.Windows.Forms.Button();
             this.parkName_create_txt = new System.Windows.Forms.TextBox();
             this.points_create_lst = new System.Windows.Forms.ListBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.logger_mission_lst = new System.Windows.Forms.ListBox();
-            this.connected_mission_lbl = new System.Windows.Forms.Label();
-            this.abort_mission_btn = new System.Windows.Forms.Button();
-            this.stop_mission_btn = new System.Windows.Forms.Button();
-            this.end_mission_btn = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dummyTab = new System.Windows.Forms.TabPage();
+            this.stop_dummy_btn = new System.Windows.Forms.Button();
+            this.Yaw = new System.Windows.Forms.NumericUpDown();
+            this.Pitch = new System.Windows.Forms.NumericUpDown();
+            this.Roll = new System.Windows.Forms.NumericUpDown();
             this.MoveAmount = new System.Windows.Forms.NumericUpDown();
             this.moveDown_dummy_btn = new System.Windows.Forms.Button();
             this.moveUp_dummy_btn = new System.Windows.Forms.Button();
@@ -60,516 +75,233 @@
             this.goHome_dummy_btn = new System.Windows.Forms.Button();
             this.StartLanding_dummy_btn = new System.Windows.Forms.Button();
             this.takeOff_dummy_btn = new System.Windows.Forms.Button();
-<<<<<<< HEAD
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
-            this.Roll = new System.Windows.Forms.NumericUpDown();
-            this.Pitch = new System.Windows.Forms.NumericUpDown();
-            this.Yaw = new System.Windows.Forms.NumericUpDown();
-=======
             this.move_dummy_btn = new System.Windows.Forms.Button();
-            this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
-            this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
->>>>>>> 1bdffa1... add map to gui
+            this.timer = new System.Windows.Forms.Timer(this.components);
+<<<<<<< HEAD
+            this.RotateDroneBtn = new System.Windows.Forms.Button();
+=======
+            this.takeQuickPhoto_dummy_btn = new System.Windows.Forms.Button();
+>>>>>>> 3f3bbeb... add QuickPhoto to C# side
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
+            this.homePanel.SuspendLayout();
+            this.missionPanel.SuspendLayout();
             this.createTab.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
+            this.dummyTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Roll)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.homeTab);
             this.tabControl.Controls.Add(this.createTab);
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.dummyTab);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1575, 1000);
+            this.tabControl.Size = new System.Drawing.Size(1400, 800);
             this.tabControl.TabIndex = 0;
             // 
             // homeTab
             // 
-            this.homeTab.Controls.Add(this.start_home_btn);
-            this.homeTab.Controls.Add(this.logger_home_lst);
-            this.homeTab.Controls.Add(this.parkings_home_btn);
-            this.homeTab.Location = new System.Drawing.Point(4, 29);
-            this.homeTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.homeTab.Controls.Add(this.homePanel);
+            this.homeTab.Controls.Add(this.missionPanel);
+            this.homeTab.Location = new System.Drawing.Point(4, 25);
             this.homeTab.Name = "homeTab";
-            this.homeTab.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.homeTab.Size = new System.Drawing.Size(1567, 967);
+            this.homeTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.homeTab.Size = new System.Drawing.Size(1392, 771);
             this.homeTab.TabIndex = 0;
             this.homeTab.Text = "Home";
             this.homeTab.UseVisualStyleBackColor = true;
             // 
+            // homePanel
+            // 
+            this.homePanel.Controls.Add(this.clear_home_btn);
+            this.homePanel.Controls.Add(this.connected_home_lbl);
+            this.homePanel.Controls.Add(this.androidLogger_home_lst);
+            this.homePanel.Controls.Add(this.start_home_btn);
+            this.homePanel.Controls.Add(this.parkings_home_lst);
+            this.homePanel.Controls.Add(this.logger_home_lst);
+            this.homePanel.Controls.Add(this.delete_home_btn);
+            this.homePanel.Location = new System.Drawing.Point(-311, 114);
+            this.homePanel.Name = "homePanel";
+            this.homePanel.Size = new System.Drawing.Size(1386, 726);
+            this.homePanel.TabIndex = 4;
+            // 
+            // clear_home_btn
+            // 
+            this.clear_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clear_home_btn.Location = new System.Drawing.Point(501, 17);
+            this.clear_home_btn.Name = "clear_home_btn";
+            this.clear_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.clear_home_btn.TabIndex = 10;
+            this.clear_home_btn.Text = "Clear";
+            this.clear_home_btn.UseVisualStyleBackColor = true;
+            this.clear_home_btn.Click += new System.EventHandler(this.clear_home_btn_Click);
+            // 
+            // connected_home_lbl
+            // 
+            this.connected_home_lbl.AutoSize = true;
+            this.connected_home_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.connected_home_lbl.ForeColor = System.Drawing.Color.LimeGreen;
+            this.connected_home_lbl.Location = new System.Drawing.Point(796, 27);
+            this.connected_home_lbl.Name = "connected_home_lbl";
+            this.connected_home_lbl.Size = new System.Drawing.Size(228, 39);
+            this.connected_home_lbl.TabIndex = 9;
+            this.connected_home_lbl.Text = "Disconnected";
+            // 
+            // androidLogger_home_lst
+            // 
+            this.androidLogger_home_lst.FormattingEnabled = true;
+            this.androidLogger_home_lst.ItemHeight = 16;
+            this.androidLogger_home_lst.Location = new System.Drawing.Point(534, 102);
+            this.androidLogger_home_lst.Name = "androidLogger_home_lst";
+            this.androidLogger_home_lst.Size = new System.Drawing.Size(536, 612);
+            this.androidLogger_home_lst.TabIndex = 4;
+            // 
             // start_home_btn
             // 
             this.start_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_home_btn.Location = new System.Drawing.Point(450, 21);
-            this.start_home_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.start_home_btn.Location = new System.Drawing.Point(22, 17);
             this.start_home_btn.Name = "start_home_btn";
-            this.start_home_btn.Size = new System.Drawing.Size(250, 79);
+            this.start_home_btn.Size = new System.Drawing.Size(222, 63);
             this.start_home_btn.TabIndex = 2;
             this.start_home_btn.Text = "Start";
             this.start_home_btn.UseVisualStyleBackColor = true;
             this.start_home_btn.Click += new System.EventHandler(this.start_home_btn_Click);
             // 
+            // parkings_home_lst
+            // 
+            this.parkings_home_lst.FormattingEnabled = true;
+            this.parkings_home_lst.ItemHeight = 16;
+            this.parkings_home_lst.Location = new System.Drawing.Point(1069, 6);
+            this.parkings_home_lst.Name = "parkings_home_lst";
+            this.parkings_home_lst.Size = new System.Drawing.Size(301, 708);
+            this.parkings_home_lst.TabIndex = 0;
+            // 
             // logger_home_lst
             // 
             this.logger_home_lst.FormattingEnabled = true;
-            this.logger_home_lst.ItemHeight = 20;
-            this.logger_home_lst.Location = new System.Drawing.Point(2, 128);
-            this.logger_home_lst.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.logger_home_lst.ItemHeight = 16;
+            this.logger_home_lst.Location = new System.Drawing.Point(2, 102);
             this.logger_home_lst.Name = "logger_home_lst";
-            this.logger_home_lst.Size = new System.Drawing.Size(1200, 764);
+            this.logger_home_lst.Size = new System.Drawing.Size(526, 612);
             this.logger_home_lst.TabIndex = 1;
             // 
-            // parkings_home_btn
+            // delete_home_btn
             // 
-            this.parkings_home_btn.FormattingEnabled = true;
-            this.parkings_home_btn.ItemHeight = 20;
-            this.parkings_home_btn.Location = new System.Drawing.Point(1203, 8);
-            this.parkings_home_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.parkings_home_btn.Name = "parkings_home_btn";
-            this.parkings_home_btn.Size = new System.Drawing.Size(338, 884);
-            this.parkings_home_btn.TabIndex = 0;
+            this.delete_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_home_btn.Location = new System.Drawing.Point(262, 17);
+            this.delete_home_btn.Name = "delete_home_btn";
+            this.delete_home_btn.Size = new System.Drawing.Size(222, 63);
+            this.delete_home_btn.TabIndex = 3;
+            this.delete_home_btn.Text = "Delete";
+            this.delete_home_btn.UseVisualStyleBackColor = true;
+            this.delete_home_btn.Click += new System.EventHandler(this.delete_home_btn_Click);
             // 
-            // createTab
+            // missionPanel
             // 
-            this.createTab.Controls.Add(this.map_create_map);
-            this.createTab.Controls.Add(this.finish_create_btn);
-            this.createTab.Controls.Add(this.parkName_create_txt);
-            this.createTab.Controls.Add(this.points_create_lst);
-            this.createTab.Location = new System.Drawing.Point(4, 29);
-            this.createTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.createTab.Name = "createTab";
-            this.createTab.Size = new System.Drawing.Size(1567, 967);
-            this.createTab.TabIndex = 1;
-            this.createTab.Text = "Create";
-            this.createTab.UseVisualStyleBackColor = true;
+            this.missionPanel.Controls.Add(this.androidLogger_mission_lst);
+            this.missionPanel.Controls.Add(this.back_mission_btn);
+            this.missionPanel.Controls.Add(this.end_mission_btn);
+            this.missionPanel.Controls.Add(this.logger_mission_lst);
+            this.missionPanel.Controls.Add(this.stop_mission_btn);
+            this.missionPanel.Controls.Add(this.connected_mission_lbl);
+            this.missionPanel.Controls.Add(this.abort_mission_btn);
+            this.missionPanel.Controls.Add(this.map_mission_map);
+            this.missionPanel.Location = new System.Drawing.Point(3, 16);
+            this.missionPanel.Name = "missionPanel";
+            this.missionPanel.Size = new System.Drawing.Size(1371, 727);
+            this.missionPanel.TabIndex = 13;
             // 
-            // finish_create_btn
+            // androidLogger_mission_lst
             // 
-            this.finish_create_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.finish_create_btn.Location = new System.Drawing.Point(910, 798);
-            this.finish_create_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.finish_create_btn.Name = "finish_create_btn";
-            this.finish_create_btn.Size = new System.Drawing.Size(250, 79);
-            this.finish_create_btn.TabIndex = 3;
-            this.finish_create_btn.Text = "Finish";
-            this.finish_create_btn.UseVisualStyleBackColor = true;
-            this.finish_create_btn.Click += new System.EventHandler(this.finish_create_btn_Click);
+            this.androidLogger_mission_lst.FormattingEnabled = true;
+            this.androidLogger_mission_lst.ItemHeight = 16;
+            this.androidLogger_mission_lst.Location = new System.Drawing.Point(702, 524);
+            this.androidLogger_mission_lst.Name = "androidLogger_mission_lst";
+            this.androidLogger_mission_lst.Size = new System.Drawing.Size(667, 180);
+            this.androidLogger_mission_lst.TabIndex = 13;
             // 
-            // parkName_create_txt
+            // back_mission_btn
             // 
-            this.parkName_create_txt.Location = new System.Drawing.Point(9, 65);
-            this.parkName_create_txt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.parkName_create_txt.Name = "parkName_create_txt";
-            this.parkName_create_txt.Size = new System.Drawing.Size(183, 26);
-            this.parkName_create_txt.TabIndex = 2;
-            this.parkName_create_txt.Text = "Parking name";
+            this.back_mission_btn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("back_mission_btn.BackgroundImage")));
+            this.back_mission_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.back_mission_btn.Location = new System.Drawing.Point(1078, 24);
+            this.back_mission_btn.Name = "back_mission_btn";
+            this.back_mission_btn.Size = new System.Drawing.Size(49, 48);
+            this.back_mission_btn.TabIndex = 12;
+            this.back_mission_btn.UseVisualStyleBackColor = true;
+            this.back_mission_btn.Click += new System.EventHandler(this.back_mission_btn_Click);
             // 
-<<<<<<< HEAD
-            // map_create_map
+            // end_mission_btn
             // 
-            this.map_create_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_create_map.Location = new System.Drawing.Point(6, 138);
-            this.map_create_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.map_create_map.Name = "map_create_map";
-            this.map_create_map.Size = new System.Drawing.Size(1194, 632);
-            this.map_create_map.TabIndex = 1;
-            // 
-=======
->>>>>>> 1bdffa1... add map to gui
-            // points_create_lst
-            // 
-            this.points_create_lst.FormattingEnabled = true;
-            this.points_create_lst.ItemHeight = 20;
-            this.points_create_lst.Location = new System.Drawing.Point(1203, 8);
-            this.points_create_lst.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.points_create_lst.Name = "points_create_lst";
-            this.points_create_lst.Size = new System.Drawing.Size(338, 884);
-            this.points_create_lst.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.map_mission_map);
-            this.tabPage1.Controls.Add(this.logger_mission_lst);
-            this.tabPage1.Controls.Add(this.connected_mission_lbl);
-            this.tabPage1.Controls.Add(this.abort_mission_btn);
-            this.tabPage1.Controls.Add(this.stop_mission_btn);
-            this.tabPage1.Controls.Add(this.end_mission_btn);
-<<<<<<< HEAD
-            this.tabPage1.Controls.Add(this.map_mission_map);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-=======
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
->>>>>>> 1bdffa1... add map to gui
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1567, 967);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Mission";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.end_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.end_mission_btn.Location = new System.Drawing.Point(11, 24);
+            this.end_mission_btn.Name = "end_mission_btn";
+            this.end_mission_btn.Size = new System.Drawing.Size(108, 48);
+            this.end_mission_btn.TabIndex = 5;
+            this.end_mission_btn.Text = "End Mission";
+            this.end_mission_btn.UseVisualStyleBackColor = true;
+            this.end_mission_btn.Click += new System.EventHandler(this.end_mission_btn_Click_1);
             // 
             // logger_mission_lst
             // 
             this.logger_mission_lst.FormattingEnabled = true;
-            this.logger_mission_lst.ItemHeight = 20;
-            this.logger_mission_lst.Location = new System.Drawing.Point(9, 796);
-            this.logger_mission_lst.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.logger_mission_lst.ItemHeight = 16;
+            this.logger_mission_lst.Location = new System.Drawing.Point(11, 524);
             this.logger_mission_lst.Name = "logger_mission_lst";
-            this.logger_mission_lst.Size = new System.Drawing.Size(1536, 104);
+            this.logger_mission_lst.Size = new System.Drawing.Size(685, 180);
             this.logger_mission_lst.TabIndex = 9;
+            // 
+            // stop_mission_btn
+            // 
+            this.stop_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_mission_btn.Location = new System.Drawing.Point(125, 24);
+            this.stop_mission_btn.Name = "stop_mission_btn";
+            this.stop_mission_btn.Size = new System.Drawing.Size(108, 48);
+            this.stop_mission_btn.TabIndex = 6;
+            this.stop_mission_btn.Text = "Stop";
+            this.stop_mission_btn.UseVisualStyleBackColor = true;
+            this.stop_mission_btn.Click += new System.EventHandler(this.stop_mission_btn_Click_1);
             // 
             // connected_mission_lbl
             // 
             this.connected_mission_lbl.AutoSize = true;
             this.connected_mission_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.connected_mission_lbl.ForeColor = System.Drawing.Color.LimeGreen;
-            this.connected_mission_lbl.Location = new System.Drawing.Point(1297, 34);
+            this.connected_mission_lbl.Location = new System.Drawing.Point(1133, 27);
             this.connected_mission_lbl.Name = "connected_mission_lbl";
-            this.connected_mission_lbl.Size = new System.Drawing.Size(221, 48);
+            this.connected_mission_lbl.Size = new System.Drawing.Size(228, 39);
             this.connected_mission_lbl.TabIndex = 8;
-            this.connected_mission_lbl.Text = "Connected";
+            this.connected_mission_lbl.Text = "Disconnected";
             // 
             // abort_mission_btn
             // 
             this.abort_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.abort_mission_btn.Location = new System.Drawing.Point(348, 30);
-            this.abort_mission_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.abort_mission_btn.Location = new System.Drawing.Point(239, 24);
             this.abort_mission_btn.Name = "abort_mission_btn";
-            this.abort_mission_btn.Size = new System.Drawing.Size(122, 60);
+            this.abort_mission_btn.Size = new System.Drawing.Size(108, 48);
             this.abort_mission_btn.TabIndex = 7;
             this.abort_mission_btn.Text = "Abort";
             this.abort_mission_btn.UseVisualStyleBackColor = true;
+            this.abort_mission_btn.Click += new System.EventHandler(this.abort_mission_btn_Click_1);
             // 
-            // stop_mission_btn
-            // 
-            this.stop_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_mission_btn.Location = new System.Drawing.Point(226, 30);
-            this.stop_mission_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.stop_mission_btn.Name = "stop_mission_btn";
-            this.stop_mission_btn.Size = new System.Drawing.Size(115, 60);
-            this.stop_mission_btn.TabIndex = 6;
-            this.stop_mission_btn.Text = "Stop";
-            this.stop_mission_btn.UseVisualStyleBackColor = true;
-            // 
-            // end_mission_btn
-            // 
-            this.end_mission_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.end_mission_btn.Location = new System.Drawing.Point(12, 30);
-            this.end_mission_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.end_mission_btn.Name = "end_mission_btn";
-            this.end_mission_btn.Size = new System.Drawing.Size(207, 60);
-            this.end_mission_btn.TabIndex = 5;
-            this.end_mission_btn.Text = "End Mission";
-            this.end_mission_btn.UseVisualStyleBackColor = true;
-            // 
-<<<<<<< HEAD
             // map_mission_map
             // 
             this.map_mission_map.BackColor = System.Drawing.Color.DarkRed;
-            this.map_mission_map.Location = new System.Drawing.Point(9, 98);
-            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.map_mission_map.Name = "map_mission_map";
-            this.map_mission_map.Size = new System.Drawing.Size(1537, 691);
-            this.map_mission_map.TabIndex = 2;
-            // 
-=======
->>>>>>> 1bdffa1... add map to gui
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.Yaw);
-            this.tabPage2.Controls.Add(this.Pitch);
-            this.tabPage2.Controls.Add(this.Roll);
-            this.tabPage2.Controls.Add(this.MoveAmount);
-            this.tabPage2.Controls.Add(this.moveDown_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveUp_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveRight_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveLeft_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveBackward_dummy_btn);
-            this.tabPage2.Controls.Add(this.Landing_dummy_btn);
-            this.tabPage2.Controls.Add(this.parking_mission_dummy_btn);
-            this.tabPage2.Controls.Add(this.ConfirmLanding_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveGimbal_dummy_btn);
-            this.tabPage2.Controls.Add(this.goToGPS_dummy_btn);
-            this.tabPage2.Controls.Add(this.takePhoto_dummy_btn);
-            this.tabPage2.Controls.Add(this.goHome_dummy_btn);
-            this.tabPage2.Controls.Add(this.StartLanding_dummy_btn);
-            this.tabPage2.Controls.Add(this.takeOff_dummy_btn);
-            this.tabPage2.Controls.Add(this.moveForward_dummy_btn);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1567, 967);
-            this.tabPage2.TabIndex = 3;
-            this.tabPage2.Text = "Dummy";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // MoveAmount
-            // 
-            this.MoveAmount.Location = new System.Drawing.Point(503, 179);
-            this.MoveAmount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.MoveAmount.Name = "MoveAmount";
-            this.MoveAmount.Size = new System.Drawing.Size(82, 26);
-            this.MoveAmount.TabIndex = 31;
-            this.MoveAmount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // moveDown_dummy_btn
-            // 
-            this.moveDown_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveDown_dummy_btn.Location = new System.Drawing.Point(168, 260);
-            this.moveDown_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveDown_dummy_btn.Name = "moveDown_dummy_btn";
-            this.moveDown_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveDown_dummy_btn.TabIndex = 30;
-            this.moveDown_dummy_btn.Text = "Move down";
-            this.moveDown_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveDown_dummy_btn.Click += new System.EventHandler(this.moveDown_dummy_btn_Click);
-            // 
-            // moveUp_dummy_btn
-            // 
-            this.moveUp_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveUp_dummy_btn.Location = new System.Drawing.Point(1055, 260);
-            this.moveUp_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveUp_dummy_btn.Name = "moveUp_dummy_btn";
-            this.moveUp_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveUp_dummy_btn.TabIndex = 29;
-            this.moveUp_dummy_btn.Text = "Move up";
-            this.moveUp_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveUp_dummy_btn.Click += new System.EventHandler(this.moveUp_dummy_btn_Click);
-            // 
-            // moveRight_dummy_btn
-            // 
-            this.moveRight_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveRight_dummy_btn.Location = new System.Drawing.Point(1055, 348);
-            this.moveRight_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveRight_dummy_btn.Name = "moveRight_dummy_btn";
-            this.moveRight_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveRight_dummy_btn.TabIndex = 28;
-            this.moveRight_dummy_btn.Text = "Move right";
-            this.moveRight_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveRight_dummy_btn.Click += new System.EventHandler(this.moveRight_dummy_btn_Click);
-            // 
-            // moveLeft_dummy_btn
-            // 
-            this.moveLeft_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveLeft_dummy_btn.Location = new System.Drawing.Point(168, 348);
-            this.moveLeft_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveLeft_dummy_btn.Name = "moveLeft_dummy_btn";
-            this.moveLeft_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveLeft_dummy_btn.TabIndex = 27;
-            this.moveLeft_dummy_btn.Text = "Move left";
-            this.moveLeft_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveLeft_dummy_btn.Click += new System.EventHandler(this.moveLeft_dummy_btn_Click);
-            // 
-            // moveBackward_dummy_btn
-            // 
-            this.moveBackward_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveBackward_dummy_btn.Location = new System.Drawing.Point(614, 348);
-            this.moveBackward_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveBackward_dummy_btn.Name = "moveBackward_dummy_btn";
-            this.moveBackward_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveBackward_dummy_btn.TabIndex = 26;
-            this.moveBackward_dummy_btn.Text = "Move backward";
-            this.moveBackward_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveBackward_dummy_btn.Click += new System.EventHandler(this.moveBackward_dummy_btn_Click);
-            // 
-            // Landing_dummy_btn
-            // 
-            this.Landing_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Landing_dummy_btn.Location = new System.Drawing.Point(1055, 536);
-            this.Landing_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Landing_dummy_btn.Name = "Landing_dummy_btn";
-            this.Landing_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.Landing_dummy_btn.TabIndex = 25;
-            this.Landing_dummy_btn.Text = "Landing";
-            this.Landing_dummy_btn.UseVisualStyleBackColor = true;
-            this.Landing_dummy_btn.Click += new System.EventHandler(this.Landing_dummy_btn_Click_1);
-            // 
-            // parking_mission_dummy_btn
-            // 
-            this.parking_mission_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.parking_mission_dummy_btn.Location = new System.Drawing.Point(614, 21);
-            this.parking_mission_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.parking_mission_dummy_btn.Name = "parking_mission_dummy_btn";
-            this.parking_mission_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.parking_mission_dummy_btn.TabIndex = 24;
-            this.parking_mission_dummy_btn.Text = "ParkingMission";
-            this.parking_mission_dummy_btn.UseVisualStyleBackColor = true;
-            this.parking_mission_dummy_btn.Click += new System.EventHandler(this.parking_mission_dummy_btn_Click);
-            // 
-            // ConfirmLanding_dummy_btn
-            // 
-            this.ConfirmLanding_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfirmLanding_dummy_btn.Location = new System.Drawing.Point(614, 536);
-            this.ConfirmLanding_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ConfirmLanding_dummy_btn.Name = "ConfirmLanding_dummy_btn";
-            this.ConfirmLanding_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.ConfirmLanding_dummy_btn.TabIndex = 23;
-            this.ConfirmLanding_dummy_btn.Text = "Confirm Landing";
-            this.ConfirmLanding_dummy_btn.UseVisualStyleBackColor = true;
-            this.ConfirmLanding_dummy_btn.Click += new System.EventHandler(this.ConfirmLanding_dummy_btn_Click);
-            // 
-            // moveGimbal_dummy_btn
-            // 
-            this.moveGimbal_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveGimbal_dummy_btn.Location = new System.Drawing.Point(1055, 734);
-            this.moveGimbal_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveGimbal_dummy_btn.Name = "moveGimbal_dummy_btn";
-            this.moveGimbal_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveGimbal_dummy_btn.TabIndex = 22;
-            this.moveGimbal_dummy_btn.Text = "Move Gimbal";
-            this.moveGimbal_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveGimbal_dummy_btn.Click += new System.EventHandler(this.moveGimbal_dummy_btn_Click);
-            // 
-            // goToGPS_dummy_btn
-            // 
-            this.goToGPS_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goToGPS_dummy_btn.Location = new System.Drawing.Point(614, 725);
-            this.goToGPS_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.goToGPS_dummy_btn.Name = "goToGPS_dummy_btn";
-            this.goToGPS_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.goToGPS_dummy_btn.TabIndex = 21;
-            this.goToGPS_dummy_btn.Text = "Go To GPS";
-            this.goToGPS_dummy_btn.UseVisualStyleBackColor = true;
-            this.goToGPS_dummy_btn.Click += new System.EventHandler(this.goToGPS_dummy_btn_Click);
-            // 
-            // takePhoto_dummy_btn
-            // 
-            this.takePhoto_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.takePhoto_dummy_btn.Location = new System.Drawing.Point(168, 725);
-            this.takePhoto_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.takePhoto_dummy_btn.Name = "takePhoto_dummy_btn";
-            this.takePhoto_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.takePhoto_dummy_btn.TabIndex = 20;
-            this.takePhoto_dummy_btn.Text = "Take Photo";
-            this.takePhoto_dummy_btn.UseVisualStyleBackColor = true;
-            this.takePhoto_dummy_btn.Click += new System.EventHandler(this.takePhoto_dummy_btn_Click);
-            // 
-            // goHome_dummy_btn
-            // 
-            this.goHome_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goHome_dummy_btn.Location = new System.Drawing.Point(614, 623);
-            this.goHome_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.goHome_dummy_btn.Name = "goHome_dummy_btn";
-            this.goHome_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.goHome_dummy_btn.TabIndex = 18;
-            this.goHome_dummy_btn.Text = "Go Home";
-            this.goHome_dummy_btn.UseVisualStyleBackColor = true;
-            this.goHome_dummy_btn.Click += new System.EventHandler(this.goHome_dummy_btn_Click);
-            // 
-            // StartLanding_dummy_btn
-            // 
-            this.StartLanding_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartLanding_dummy_btn.Location = new System.Drawing.Point(168, 536);
-            this.StartLanding_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.StartLanding_dummy_btn.Name = "StartLanding_dummy_btn";
-            this.StartLanding_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.StartLanding_dummy_btn.TabIndex = 16;
-            this.StartLanding_dummy_btn.Text = "Start Landing ";
-            this.StartLanding_dummy_btn.UseVisualStyleBackColor = true;
-            this.StartLanding_dummy_btn.Click += new System.EventHandler(this.Landing_dummy_btn_Click);
-            // 
-            // takeOff_dummy_btn
-            // 
-            this.takeOff_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.takeOff_dummy_btn.Location = new System.Drawing.Point(614, 453);
-            this.takeOff_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.takeOff_dummy_btn.Name = "takeOff_dummy_btn";
-            this.takeOff_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.takeOff_dummy_btn.TabIndex = 15;
-            this.takeOff_dummy_btn.Text = "Take Off ";
-            this.takeOff_dummy_btn.UseVisualStyleBackColor = true;
-            this.takeOff_dummy_btn.Click += new System.EventHandler(this.takeOff_dummy_btn_Click);
-            // 
-            // moveForward_dummy_btn
-            // 
-            this.moveForward_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moveForward_dummy_btn.Location = new System.Drawing.Point(614, 260);
-            this.moveForward_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.moveForward_dummy_btn.Name = "moveForward_dummy_btn";
-            this.moveForward_dummy_btn.Size = new System.Drawing.Size(417, 60);
-            this.moveForward_dummy_btn.TabIndex = 14;
-            this.moveForward_dummy_btn.Text = "Move forward";
-            this.moveForward_dummy_btn.UseVisualStyleBackColor = true;
-            this.moveForward_dummy_btn.Click += new System.EventHandler(this.move_dummy_btn_Click);
-            // 
-            // Roll
-            // 
-            this.Roll.Location = new System.Drawing.Point(1101, 685);
-            this.Roll.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.Roll.Name = "Roll";
-            this.Roll.Size = new System.Drawing.Size(82, 26);
-            this.Roll.TabIndex = 32;
-            this.Roll.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // Pitch
-            // 
-            this.Pitch.Location = new System.Drawing.Point(1211, 685);
-            this.Pitch.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.Pitch.Name = "Pitch";
-            this.Pitch.Size = new System.Drawing.Size(82, 26);
-            this.Pitch.TabIndex = 33;
-            this.Pitch.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // Yaw
-            // 
-            this.Yaw.Location = new System.Drawing.Point(1312, 685);
-            this.Yaw.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.Yaw.Name = "Yaw";
-            this.Yaw.Size = new System.Drawing.Size(82, 26);
-            this.Yaw.TabIndex = 34;
-            this.Yaw.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // map_mission_map
-            // 
             this.map_mission_map.Bearing = 0F;
             this.map_mission_map.CanDragMap = true;
             this.map_mission_map.EmptyTileColor = System.Drawing.Color.Navy;
             this.map_mission_map.GrayScaleMode = false;
             this.map_mission_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map_mission_map.LevelsKeepInMemmory = 5;
-            this.map_mission_map.Location = new System.Drawing.Point(8, 78);
+            this.map_mission_map.Location = new System.Drawing.Point(14, 79);
+            this.map_mission_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.map_mission_map.MarkersEnabled = true;
             this.map_mission_map.MaxZoom = 2;
             this.map_mission_map.MinZoom = 2;
@@ -583,19 +315,47 @@
             this.map_mission_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map_mission_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map_mission_map.ShowTileGridLines = false;
-            this.map_mission_map.Size = new System.Drawing.Size(1366, 553);
+            this.map_mission_map.Size = new System.Drawing.Size(1357, 442);
             this.map_mission_map.TabIndex = 11;
             this.map_mission_map.Zoom = 0D;
             // 
+            // createTab
+            // 
+            this.createTab.Controls.Add(this.clear_create_btn);
+            this.createTab.Controls.Add(this.map_create_map);
+            this.createTab.Controls.Add(this.finish_create_btn);
+            this.createTab.Controls.Add(this.parkName_create_txt);
+            this.createTab.Controls.Add(this.points_create_lst);
+            this.createTab.Location = new System.Drawing.Point(4, 25);
+            this.createTab.Name = "createTab";
+            this.createTab.Size = new System.Drawing.Size(1392, 771);
+            this.createTab.TabIndex = 1;
+            this.createTab.Text = "Create";
+            this.createTab.UseVisualStyleBackColor = true;
+            // 
+            // clear_create_btn
+            // 
+            this.clear_create_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clear_create_btn.Location = new System.Drawing.Point(1120, 635);
+            this.clear_create_btn.Name = "clear_create_btn";
+            this.clear_create_btn.Size = new System.Drawing.Size(222, 63);
+            this.clear_create_btn.TabIndex = 7;
+            this.clear_create_btn.Text = "clear";
+            this.clear_create_btn.UseVisualStyleBackColor = true;
+            this.clear_create_btn.Visible = false;
+            this.clear_create_btn.Click += new System.EventHandler(this.clear_create_btn_Click);
+            // 
             // map_create_map
             // 
+            this.map_create_map.BackColor = System.Drawing.Color.DarkRed;
             this.map_create_map.Bearing = 0F;
             this.map_create_map.CanDragMap = true;
             this.map_create_map.EmptyTileColor = System.Drawing.Color.Navy;
             this.map_create_map.GrayScaleMode = false;
             this.map_create_map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map_create_map.LevelsKeepInMemmory = 5;
-            this.map_create_map.Location = new System.Drawing.Point(5, 110);
+            this.map_create_map.Location = new System.Drawing.Point(4, 88);
+            this.map_create_map.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.map_create_map.MarkersEnabled = true;
             this.map_create_map.MaxZoom = 2;
             this.map_create_map.MinZoom = 2;
@@ -609,35 +369,392 @@
             this.map_create_map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map_create_map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map_create_map.ShowTileGridLines = false;
-            this.map_create_map.Size = new System.Drawing.Size(1061, 506);
+            this.map_create_map.Size = new System.Drawing.Size(1059, 507);
             this.map_create_map.TabIndex = 5;
             this.map_create_map.Zoom = 0D;
             this.map_create_map.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.map_create_map_MouseDoubleClick);
             // 
+            // finish_create_btn
+            // 
+            this.finish_create_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.finish_create_btn.Location = new System.Drawing.Point(806, 635);
+            this.finish_create_btn.Name = "finish_create_btn";
+            this.finish_create_btn.Size = new System.Drawing.Size(222, 63);
+            this.finish_create_btn.TabIndex = 3;
+            this.finish_create_btn.Text = "Finish";
+            this.finish_create_btn.UseVisualStyleBackColor = true;
+            this.finish_create_btn.Click += new System.EventHandler(this.finish_create_btn_Click);
+            // 
+            // parkName_create_txt
+            // 
+            this.parkName_create_txt.Location = new System.Drawing.Point(8, 52);
+            this.parkName_create_txt.Name = "parkName_create_txt";
+            this.parkName_create_txt.Size = new System.Drawing.Size(163, 22);
+            this.parkName_create_txt.TabIndex = 2;
+            this.parkName_create_txt.Text = "Parking name";
+            this.parkName_create_txt.Enter += new System.EventHandler(this.parkName_create_txt_Enter);
+            // 
+            // points_create_lst
+            // 
+            this.points_create_lst.FormattingEnabled = true;
+            this.points_create_lst.ItemHeight = 16;
+            this.points_create_lst.Location = new System.Drawing.Point(1069, 6);
+            this.points_create_lst.Name = "points_create_lst";
+            this.points_create_lst.Size = new System.Drawing.Size(301, 708);
+            this.points_create_lst.TabIndex = 0;
+            // 
+            // dummyTab
+            // 
+<<<<<<< HEAD
+            this.dummyTab.Controls.Add(this.RotateDroneBtn);
+=======
+            this.dummyTab.Controls.Add(this.takeQuickPhoto_dummy_btn);
+>>>>>>> 3f3bbeb... add QuickPhoto to C# side
+            this.dummyTab.Controls.Add(this.stop_dummy_btn);
+            this.dummyTab.Controls.Add(this.Yaw);
+            this.dummyTab.Controls.Add(this.Pitch);
+            this.dummyTab.Controls.Add(this.Roll);
+            this.dummyTab.Controls.Add(this.MoveAmount);
+            this.dummyTab.Controls.Add(this.moveDown_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveUp_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveRight_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveLeft_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveBackward_dummy_btn);
+            this.dummyTab.Controls.Add(this.Landing_dummy_btn);
+            this.dummyTab.Controls.Add(this.parking_mission_dummy_btn);
+            this.dummyTab.Controls.Add(this.ConfirmLanding_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveGimbal_dummy_btn);
+            this.dummyTab.Controls.Add(this.goToGPS_dummy_btn);
+            this.dummyTab.Controls.Add(this.takePhoto_dummy_btn);
+            this.dummyTab.Controls.Add(this.goHome_dummy_btn);
+            this.dummyTab.Controls.Add(this.StartLanding_dummy_btn);
+            this.dummyTab.Controls.Add(this.takeOff_dummy_btn);
+            this.dummyTab.Controls.Add(this.moveForward_dummy_btn);
+            this.dummyTab.Location = new System.Drawing.Point(4, 25);
+            this.dummyTab.Name = "dummyTab";
+            this.dummyTab.Size = new System.Drawing.Size(1392, 771);
+            this.dummyTab.TabIndex = 3;
+            this.dummyTab.Text = "Dummy";
+            this.dummyTab.UseVisualStyleBackColor = true;
+            // 
+            // stop_dummy_btn
+            // 
+            this.stop_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_dummy_btn.Location = new System.Drawing.Point(1036, 154);
+            this.stop_dummy_btn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.stop_dummy_btn.Name = "stop_dummy_btn";
+            this.stop_dummy_btn.Size = new System.Drawing.Size(257, 60);
+            this.stop_dummy_btn.TabIndex = 36;
+            this.stop_dummy_btn.Text = "stop";
+            this.stop_dummy_btn.UseVisualStyleBackColor = true;
+            this.stop_dummy_btn.Click += new System.EventHandler(this.stop_dummy_btn_Click);
+            // 
+            // Yaw
+            // 
+            this.Yaw.Location = new System.Drawing.Point(1166, 548);
+            this.Yaw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Yaw.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.Yaw.Name = "Yaw";
+            this.Yaw.Size = new System.Drawing.Size(73, 22);
+            this.Yaw.TabIndex = 34;
+            this.Yaw.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.Yaw.ValueChanged += new System.EventHandler(this.Yaw_ValueChanged);
+            // 
+            // Pitch
+            // 
+            this.Pitch.Location = new System.Drawing.Point(1076, 548);
+            this.Pitch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Pitch.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.Pitch.Name = "Pitch";
+            this.Pitch.Size = new System.Drawing.Size(73, 22);
+            this.Pitch.TabIndex = 33;
+            this.Pitch.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // Roll
+            // 
+            this.Roll.Location = new System.Drawing.Point(979, 548);
+            this.Roll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Roll.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.Roll.Name = "Roll";
+            this.Roll.Size = new System.Drawing.Size(73, 22);
+            this.Roll.TabIndex = 32;
+            this.Roll.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // MoveAmount
+            // 
+            this.MoveAmount.Location = new System.Drawing.Point(447, 143);
+            this.MoveAmount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MoveAmount.Maximum = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
+            this.MoveAmount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MoveAmount.Name = "MoveAmount";
+            this.MoveAmount.Size = new System.Drawing.Size(73, 22);
+            this.MoveAmount.TabIndex = 31;
+            this.MoveAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // moveDown_dummy_btn
+            // 
+            this.moveDown_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveDown_dummy_btn.Location = new System.Drawing.Point(149, 208);
+            this.moveDown_dummy_btn.Name = "moveDown_dummy_btn";
+            this.moveDown_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveDown_dummy_btn.TabIndex = 30;
+            this.moveDown_dummy_btn.Text = "Move down";
+            this.moveDown_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveDown_dummy_btn.Click += new System.EventHandler(this.moveDown_dummy_btn_Click);
+            // 
+            // moveUp_dummy_btn
+            // 
+            this.moveUp_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveUp_dummy_btn.Location = new System.Drawing.Point(938, 208);
+            this.moveUp_dummy_btn.Name = "moveUp_dummy_btn";
+            this.moveUp_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveUp_dummy_btn.TabIndex = 29;
+            this.moveUp_dummy_btn.Text = "Move up";
+            this.moveUp_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveUp_dummy_btn.Click += new System.EventHandler(this.moveUp_dummy_btn_Click);
+            // 
+            // moveRight_dummy_btn
+            // 
+            this.moveRight_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveRight_dummy_btn.Location = new System.Drawing.Point(938, 278);
+            this.moveRight_dummy_btn.Name = "moveRight_dummy_btn";
+            this.moveRight_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveRight_dummy_btn.TabIndex = 28;
+            this.moveRight_dummy_btn.Text = "Move right";
+            this.moveRight_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveRight_dummy_btn.Click += new System.EventHandler(this.moveRight_dummy_btn_Click);
+            // 
+            // moveLeft_dummy_btn
+            // 
+            this.moveLeft_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveLeft_dummy_btn.Location = new System.Drawing.Point(149, 278);
+            this.moveLeft_dummy_btn.Name = "moveLeft_dummy_btn";
+            this.moveLeft_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveLeft_dummy_btn.TabIndex = 27;
+            this.moveLeft_dummy_btn.Text = "Move left";
+            this.moveLeft_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveLeft_dummy_btn.Click += new System.EventHandler(this.moveLeft_dummy_btn_Click);
+            // 
+            // moveBackward_dummy_btn
+            // 
+            this.moveBackward_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveBackward_dummy_btn.Location = new System.Drawing.Point(546, 278);
+            this.moveBackward_dummy_btn.Name = "moveBackward_dummy_btn";
+            this.moveBackward_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveBackward_dummy_btn.TabIndex = 26;
+            this.moveBackward_dummy_btn.Text = "Move backward";
+            this.moveBackward_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveBackward_dummy_btn.Click += new System.EventHandler(this.moveBackward_dummy_btn_Click);
+            // 
+            // Landing_dummy_btn
+            // 
+            this.Landing_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Landing_dummy_btn.Location = new System.Drawing.Point(938, 429);
+            this.Landing_dummy_btn.Name = "Landing_dummy_btn";
+            this.Landing_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.Landing_dummy_btn.TabIndex = 25;
+            this.Landing_dummy_btn.Text = "Landing";
+            this.Landing_dummy_btn.UseVisualStyleBackColor = true;
+            this.Landing_dummy_btn.Click += new System.EventHandler(this.Landing_dummy_btn_Click_1);
+            // 
+            // parking_mission_dummy_btn
+            // 
+            this.parking_mission_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.parking_mission_dummy_btn.Location = new System.Drawing.Point(546, 17);
+            this.parking_mission_dummy_btn.Name = "parking_mission_dummy_btn";
+            this.parking_mission_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.parking_mission_dummy_btn.TabIndex = 24;
+            this.parking_mission_dummy_btn.Text = "ParkingMission";
+            this.parking_mission_dummy_btn.UseVisualStyleBackColor = true;
+            this.parking_mission_dummy_btn.Click += new System.EventHandler(this.parking_mission_dummy_btn_Click);
+            // 
+            // ConfirmLanding_dummy_btn
+            // 
+            this.ConfirmLanding_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfirmLanding_dummy_btn.Location = new System.Drawing.Point(546, 429);
+            this.ConfirmLanding_dummy_btn.Name = "ConfirmLanding_dummy_btn";
+            this.ConfirmLanding_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.ConfirmLanding_dummy_btn.TabIndex = 23;
+            this.ConfirmLanding_dummy_btn.Text = "Confirm Landing";
+            this.ConfirmLanding_dummy_btn.UseVisualStyleBackColor = true;
+            this.ConfirmLanding_dummy_btn.Click += new System.EventHandler(this.ConfirmLanding_dummy_btn_Click);
+            // 
+            // moveGimbal_dummy_btn
+            // 
+            this.moveGimbal_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveGimbal_dummy_btn.Location = new System.Drawing.Point(938, 587);
+            this.moveGimbal_dummy_btn.Name = "moveGimbal_dummy_btn";
+            this.moveGimbal_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveGimbal_dummy_btn.TabIndex = 22;
+            this.moveGimbal_dummy_btn.Text = "Move Gimbal";
+            this.moveGimbal_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveGimbal_dummy_btn.Click += new System.EventHandler(this.moveGimbal_dummy_btn_Click);
+            // 
+            // goToGPS_dummy_btn
+            // 
+            this.goToGPS_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goToGPS_dummy_btn.Location = new System.Drawing.Point(546, 580);
+            this.goToGPS_dummy_btn.Name = "goToGPS_dummy_btn";
+            this.goToGPS_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.goToGPS_dummy_btn.TabIndex = 21;
+            this.goToGPS_dummy_btn.Text = "Go To GPS";
+            this.goToGPS_dummy_btn.UseVisualStyleBackColor = true;
+            this.goToGPS_dummy_btn.Click += new System.EventHandler(this.goToGPS_dummy_btn_Click);
+            // 
+            // takePhoto_dummy_btn
+            // 
+            this.takePhoto_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.takePhoto_dummy_btn.Location = new System.Drawing.Point(149, 580);
+            this.takePhoto_dummy_btn.Name = "takePhoto_dummy_btn";
+            this.takePhoto_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.takePhoto_dummy_btn.TabIndex = 20;
+            this.takePhoto_dummy_btn.Text = "Take Photo";
+            this.takePhoto_dummy_btn.UseVisualStyleBackColor = true;
+            this.takePhoto_dummy_btn.Click += new System.EventHandler(this.takePhoto_dummy_btn_Click);
+            // 
+            // goHome_dummy_btn
+            // 
+            this.goHome_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goHome_dummy_btn.Location = new System.Drawing.Point(546, 498);
+            this.goHome_dummy_btn.Name = "goHome_dummy_btn";
+            this.goHome_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.goHome_dummy_btn.TabIndex = 18;
+            this.goHome_dummy_btn.Text = "Go Home";
+            this.goHome_dummy_btn.UseVisualStyleBackColor = true;
+            this.goHome_dummy_btn.Click += new System.EventHandler(this.goHome_dummy_btn_Click);
+            // 
+            // StartLanding_dummy_btn
+            // 
+            this.StartLanding_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StartLanding_dummy_btn.Location = new System.Drawing.Point(149, 429);
+            this.StartLanding_dummy_btn.Name = "StartLanding_dummy_btn";
+            this.StartLanding_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.StartLanding_dummy_btn.TabIndex = 16;
+            this.StartLanding_dummy_btn.Text = "Start Landing ";
+            this.StartLanding_dummy_btn.UseVisualStyleBackColor = true;
+            this.StartLanding_dummy_btn.Click += new System.EventHandler(this.Landing_dummy_btn_Click);
+            // 
+            // takeOff_dummy_btn
+            // 
+            this.takeOff_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.takeOff_dummy_btn.Location = new System.Drawing.Point(546, 362);
+            this.takeOff_dummy_btn.Name = "takeOff_dummy_btn";
+            this.takeOff_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.takeOff_dummy_btn.TabIndex = 15;
+            this.takeOff_dummy_btn.Text = "Take Off ";
+            this.takeOff_dummy_btn.UseVisualStyleBackColor = true;
+            this.takeOff_dummy_btn.Click += new System.EventHandler(this.takeOff_dummy_btn_Click);
+            // 
+            // moveForward_dummy_btn
+            // 
+            this.moveForward_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveForward_dummy_btn.Location = new System.Drawing.Point(546, 208);
+            this.moveForward_dummy_btn.Name = "moveForward_dummy_btn";
+            this.moveForward_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.moveForward_dummy_btn.TabIndex = 14;
+            this.moveForward_dummy_btn.Text = "Move forward";
+            this.moveForward_dummy_btn.UseVisualStyleBackColor = true;
+            this.moveForward_dummy_btn.Click += new System.EventHandler(this.move_dummy_btn_Click);
+            // 
+            // move_dummy_btn
+            // 
+            this.move_dummy_btn.Location = new System.Drawing.Point(0, 0);
+            this.move_dummy_btn.Name = "move_dummy_btn";
+            this.move_dummy_btn.Size = new System.Drawing.Size(75, 23);
+            this.move_dummy_btn.TabIndex = 0;
+            // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+<<<<<<< HEAD
+            // RotateDroneBtn
+            // 
+            this.RotateDroneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RotateDroneBtn.Location = new System.Drawing.Point(614, 169);
+            this.RotateDroneBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RotateDroneBtn.Name = "RotateDroneBtn";
+            this.RotateDroneBtn.Size = new System.Drawing.Size(417, 60);
+            this.RotateDroneBtn.TabIndex = 37;
+            this.RotateDroneBtn.Text = "Move rotate";
+            this.RotateDroneBtn.UseVisualStyleBackColor = true;
+            this.RotateDroneBtn.Click += new System.EventHandler(this.RotateDroneBtn_Click);
+=======
+            // takeQuickPhoto_dummy_btn
+            // 
+            this.takeQuickPhoto_dummy_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.takeQuickPhoto_dummy_btn.Location = new System.Drawing.Point(149, 498);
+            this.takeQuickPhoto_dummy_btn.Name = "takeQuickPhoto_dummy_btn";
+            this.takeQuickPhoto_dummy_btn.Size = new System.Drawing.Size(371, 48);
+            this.takeQuickPhoto_dummy_btn.TabIndex = 37;
+            this.takeQuickPhoto_dummy_btn.Text = "Take Quick Photo";
+            this.takeQuickPhoto_dummy_btn.UseVisualStyleBackColor = true;
+            this.takeQuickPhoto_dummy_btn.Click += new System.EventHandler(this.takequickPhoto_dummy_btn);
+>>>>>>> 3f3bbeb... add QuickPhoto to C# side
+            // 
             // GUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1550, 930);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1380, 748);
             this.Controls.Add(this.tabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximumSize = new System.Drawing.Size(1572, 986);
-            this.MinimumSize = new System.Drawing.Size(1572, 986);
+            this.MaximumSize = new System.Drawing.Size(1398, 795);
+            this.MinimumSize = new System.Drawing.Size(1398, 795);
             this.Name = "GUI";
             this.Text = "Drone Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GUI_FormClosing);
             this.Load += new System.EventHandler(this.GUI_Load);
             this.tabControl.ResumeLayout(false);
             this.homeTab.ResumeLayout(false);
+            this.homePanel.ResumeLayout(false);
+            this.homePanel.PerformLayout();
+            this.missionPanel.ResumeLayout(false);
+            this.missionPanel.PerformLayout();
             this.createTab.ResumeLayout(false);
             this.createTab.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
+            this.dummyTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Yaw)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pitch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Roll)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MoveAmount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -646,27 +763,20 @@
 
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage homeTab;
-        private System.Windows.Forms.ListBox parkings_home_btn;
+        private System.Windows.Forms.ListBox parkings_home_lst;
         private System.Windows.Forms.TabPage createTab;
         private System.Windows.Forms.Button start_home_btn;
         private System.Windows.Forms.ListBox logger_home_lst;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage dummyTab;
         private System.Windows.Forms.TextBox parkName_create_txt;
         private System.Windows.Forms.ListBox points_create_lst;
         private System.Windows.Forms.Button finish_create_btn;
-        private System.Windows.Forms.ListBox logger_mission_lst;
-        private System.Windows.Forms.Label connected_mission_lbl;
-        private System.Windows.Forms.Button abort_mission_btn;
-        private System.Windows.Forms.Button stop_mission_btn;
-        private System.Windows.Forms.Button end_mission_btn;
         private System.Windows.Forms.Button moveGimbal_dummy_btn;
         private System.Windows.Forms.Button goToGPS_dummy_btn;
         private System.Windows.Forms.Button takePhoto_dummy_btn;
         private System.Windows.Forms.Button goHome_dummy_btn;
         private System.Windows.Forms.Button StartLanding_dummy_btn;
         private System.Windows.Forms.Button takeOff_dummy_btn;
-<<<<<<< HEAD
         private System.Windows.Forms.Button moveForward_dummy_btn;
         private System.Windows.Forms.Button ConfirmLanding_dummy_btn;
         private System.Windows.Forms.Button parking_mission_dummy_btn;
@@ -680,11 +790,30 @@
         private System.Windows.Forms.NumericUpDown Yaw;
         private System.Windows.Forms.NumericUpDown Pitch;
         private System.Windows.Forms.NumericUpDown Roll;
-=======
         private System.Windows.Forms.Button move_dummy_btn;
         private GMap.NET.WindowsForms.GMapControl map_create_map;
+        private System.Windows.Forms.Button stop_dummy_btn;
+        private System.Windows.Forms.Button delete_home_btn;
+        private System.Windows.Forms.Panel homePanel;
+        private System.Windows.Forms.Panel missionPanel;
+        private System.Windows.Forms.Button end_mission_btn;
+        private System.Windows.Forms.ListBox logger_mission_lst;
+        private System.Windows.Forms.Button stop_mission_btn;
+        private System.Windows.Forms.Label connected_mission_lbl;
+        private System.Windows.Forms.Button abort_mission_btn;
         private GMap.NET.WindowsForms.GMapControl map_mission_map;
->>>>>>> 1bdffa1... add map to gui
+        private System.Windows.Forms.Button back_mission_btn;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ListBox androidLogger_home_lst;
+        private System.Windows.Forms.ListBox androidLogger_mission_lst;
+        private System.Windows.Forms.Label connected_home_lbl;
+        private System.Windows.Forms.Button clear_home_btn;
+        private System.Windows.Forms.Button clear_create_btn;
+<<<<<<< HEAD
+        private System.Windows.Forms.Button RotateDroneBtn;
+=======
+        private System.Windows.Forms.Button takeQuickPhoto_dummy_btn;
+>>>>>>> 3f3bbeb... add QuickPhoto to C# side
     }
 }
 
