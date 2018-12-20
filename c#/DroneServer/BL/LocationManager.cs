@@ -16,6 +16,8 @@ namespace DroneServer.BL
         private static Parking parking;
         private static Boolean is_location_verification_enabled;
         public static Point HomeLocation;
+        private static Point bl = null;
+        private static Point tr = null;
 
         private LocationManager(Parking p)
         {
@@ -31,6 +33,7 @@ namespace DroneServer.BL
             aTimer.Enabled = true;
 
             parking = p;
+            calculateBorder();
         }
 
         public static void init(Parking p)
@@ -75,29 +78,33 @@ namespace DroneServer.BL
             }
 
             if (BLManagger.getInstance().getSafeZone() && is_location_verification_enabled)
-                Assertions.verify(validateLocation(p), "The drone is running away!");
+                //Assertions.verify(validateLocation(p), "The drone is running away!");
+                validateLocation(p);
+        }
+
+        private static void calculateBorder()
+        {
+            bl = new Point(parking.border[0].lng, parking.border[0].lat);
+            tr = new Point(parking.border[0].lng, parking.border[0].lat);
+
+            for (int i = 1; i < parking.border.Count; i++)//axis grows right and up
+            {
+                if (parking.border[i].lng < bl.lng)
+                    bl.lng = parking.border[i].lng;
+                else if (parking.border[i].lng > tr.lng)
+                    tr.lng = parking.border[i].lng;
+                if (parking.border[i].lat < bl.lat)
+                    bl.lat = parking.border[i].lat;
+                else if (parking.border[i].lat > tr.lat)
+                    tr.lat = parking.border[i].lat;
+            }
         }
 
         private static bool validateLocation(Point position)
         {
             Logger.getInstance().debug("start validating location");
-            Point tl = new Point(parking.border[0].lng, parking.border[0].lat);
-            Point br = new Point(parking.border[0].lng, parking.border[0].lat);
-
-            for (int i = 1; i < parking.border.Count; i++)//axis grows right and down
-            {
-                if (parking.border[i].lng > br.lng)
-                    br.lng = parking.border[i].lng;
-                else if (parking.border[i].lng < tl.lng)
-                    tl.lng = parking.border[i].lng;
-
-                if (parking.border[i].lat > br.lat)
-                    br.lat = parking.border[i].lat;
-                else if (parking.border[i].lat < tl.lat)
-                    tl.lat = parking.border[i].lat;
-            }
-
-            if (tl.lng<=position.lng && br.lng >= position.lng && tl.lat <= position.lat && br.lat >= position.lat)
+            
+            if (bl.lng<=position.lng && tr.lng >= position.lng && bl.lat <= position.lat && tr.lat >= position.lat)
                 return true;
 
             Logger.getInstance().error("drone cross the border and got to mexico");

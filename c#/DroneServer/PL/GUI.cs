@@ -104,7 +104,7 @@ namespace DroneServer
 
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }

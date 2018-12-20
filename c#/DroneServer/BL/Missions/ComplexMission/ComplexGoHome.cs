@@ -15,6 +15,8 @@ namespace DroneServer.BL.Missions
 
         public override void execute()
         {
+            BLManagger.getInstance().setSafeZone(false);
+
             int hight = Convert.ToInt32(Configuration.getInstance().get("Home_Location_Hight"));
 
             Mission mission = new MoveToGPSPoint(this, LocationManager.HomeLocation.lat, LocationManager.HomeLocation.lng, hight);
@@ -24,7 +26,6 @@ namespace DroneServer.BL.Missions
 
         public override void stop()
         {
-            throw new NotImplementedException();
         }
     }
 
