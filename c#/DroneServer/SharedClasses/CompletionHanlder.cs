@@ -1,23 +1,22 @@
 ﻿using DroneServer.SharedClasses;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AndroidAccepanceTests
+namespace DroneServer.SharedClasses
 {
-    public class CompletionHanlder
+    public class CompletionHandler
     {
-        private static long MAX_WAIT_TIME = 120;
-
+        private long max_wait_time = 120;
         public Response response;
         private int mission_index;
 
-        public CompletionHanlder(int mission_index)
+        public CompletionHandler(int mission_index,int max_wait_time = 120)
         {
             this.mission_index = mission_index;
+            this.max_wait_time = max_wait_time;
             response = null;
         }
 
@@ -26,7 +25,8 @@ namespace AndroidAccepanceTests
             long start_time = get_time();
             while (response == null)
             {
-                Assert.IsTrue(get_time() - start_time < MAX_WAIT_TIME);
+                //TODO: change assert;
+                Assertions.verify(get_time() - start_time < max_wait_time, "mission index:" + mission_index + "time out");
                 System.Threading.Thread.Sleep(100);
             }
         }

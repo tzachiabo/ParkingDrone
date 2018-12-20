@@ -14,11 +14,11 @@ namespace DroneServer.BL.Missions
 
         }
 
-        public override void execute()
+        public override CompletionHandler execute()
         {
             BLManagger.getInstance().increment_version();
             m_version = BLManagger.getInstance().get_version();
-            base.execute();
+            return base.execute();
         }
 
         public override string encode()

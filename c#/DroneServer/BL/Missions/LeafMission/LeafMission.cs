@@ -17,10 +17,10 @@ namespace DroneServer.BL.Missions
 
         }
 
-        public override void execute()
+        public override CompletionHandler execute()
         {
             Logger.getInstance().debug("start executing a leaf mission");
-            CommManager.getInstance().execMission(this);
+            return CommManager.getInstance().execMission(this);
         }
 
         public bool validate_version()

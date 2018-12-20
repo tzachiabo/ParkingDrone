@@ -36,7 +36,7 @@ namespace DroneServer.BL.Missions
             want_to_be_notified.AddLast(func);
         }
 
-        public abstract void execute();
+        public abstract CompletionHandler execute();
 
         public virtual void done(Response response) {
             foreach (notify_finished n_f in want_to_be_notified)

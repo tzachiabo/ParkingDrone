@@ -13,7 +13,7 @@ namespace DroneServer.BL.Missions
         {
         }
 
-        public override void execute()
+        public override CompletionHandler execute()
         {
             BLManagger.getInstance().setSafeZone(false);
 
@@ -22,6 +22,7 @@ namespace DroneServer.BL.Missions
             Mission mission = new MoveToGPSPoint(this, LocationManager.HomeLocation.lat, LocationManager.HomeLocation.lng, hight);
 
             mission.execute();
+            return compHandler;
         }
 
         public override void stop()

@@ -10,24 +10,29 @@ namespace DroneServer.BL.Missions
     public abstract class ComplexMission : Mission
     {
         protected Queue<Mission> m_SubMission;
+        protected CompletionHandler compHandler;
 
         public ComplexMission(ComplexMission ParentMission) : base(ParentMission)
         {
+            compHandler = new CompletionHandler(this.m_index,1000);
             m_SubMission = new Queue<Mission>();
         }
 
-        public override void execute()
+        public override CompletionHandler execute()
         {
             Mission mission = m_SubMission.Dequeue();
 
             mission.execute();
+            return compHandler;
         }
 
         public virtual void notify(Response response)
         {
             if (m_SubMission.Count == 0)
             {
-                done(new Response(m_index, Status.Ok, MissionType.MainMission, null));
+                Response res = new Response(m_index, Status.Ok, MissionType.MainMission, null);
+                compHandler.response = res;
+                done(res);
             }
             else
             {
