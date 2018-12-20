@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DroneServer.SharedClasses;
 
 namespace DroneServer.BL.Missions
 {
@@ -13,10 +14,10 @@ namespace DroneServer.BL.Missions
         {
 
         }
-        public override void execute()
+        public override CompletionHandler execute()
         {
             BLManagger.getInstance().setSafeZone(false);
-            base.execute();
+            return base.execute();
         }
         public override void stop()
         {

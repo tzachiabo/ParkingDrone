@@ -16,11 +16,11 @@ namespace AndroidAccepanceTests
     {
         private NetworkStream m_ns;
         Thread thread;
-        private ConcurrentDictionary<int, CompletionHanlder> m_missions;
+        private ConcurrentDictionary<int, CompletionHandler> m_missions;
 
         public Reader(NetworkStream ns)
         {
-            m_missions = new ConcurrentDictionary<int, CompletionHanlder>();
+            m_missions = new ConcurrentDictionary<int, CompletionHandler>();
             m_ns = ns;
 
             thread = new Thread(() =>
@@ -41,7 +41,7 @@ namespace AndroidAccepanceTests
                                 Logger.getInstance().info("recevied from android : " + curr_message);
                             Response r = DroneServer.BL.Comm.Decoder.decode(curr_message);
 
-                            CompletionHanlder comp_out;
+                            CompletionHandler comp_out;
                             Assert.IsTrue(m_missions.TryRemove(r.Key, out comp_out));
                             comp_out.response = r;
 
@@ -60,7 +60,7 @@ namespace AndroidAccepanceTests
             thread.Start();
         }
 
-        public void addMission(int i, CompletionHanlder comp_handler)
+        public void addMission(int i, CompletionHandler comp_handler)
         {
             bool res = m_missions.TryAdd(i, comp_handler);
             Assert.IsTrue(res);

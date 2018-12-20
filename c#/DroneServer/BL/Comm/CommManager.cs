@@ -21,6 +21,8 @@ namespace DroneServer.BL.Comm
         private static CommManager m_instance = null;
         internal NetworkStream m_ns;
         private ConcurrentDictionary<int, Mission> m_missions;
+        private ConcurrentDictionary<int, CompletionHandler> m_comp_handle;
+
         internal ConcurrentQueue<Response> m_main_responses;
         internal ConcurrentQueue<Response> m_status_responses;
         private TcpListener m_server;
@@ -37,6 +39,7 @@ namespace DroneServer.BL.Comm
             Logger.getInstance().debug("Initiate Comm manager");
 
             m_missions = new ConcurrentDictionary<int, Mission>();
+            m_comp_handle = new ConcurrentDictionary<int, CompletionHandler>();
             m_main_responses = new ConcurrentQueue<Response>();
             m_status_responses = new ConcurrentQueue<Response>();
 
@@ -68,9 +71,9 @@ namespace DroneServer.BL.Comm
 
                 comm_reader = new CommReader(m_main_responses, m_status_responses);
 
-                m_main_mission_consumer = new ResponseConsumer(m_missions, m_main_responses);
+                m_main_mission_consumer = new ResponseConsumer(m_missions, m_main_responses, m_comp_handle);
 
-                m_status_mission_consumer = new ResponseConsumer(m_missions, m_status_responses);
+                m_status_mission_consumer = new ResponseConsumer(m_missions, m_status_responses, m_comp_handle);
 
                 m_pic_transfer_server = new PicTransferServer();
             });
@@ -116,17 +119,20 @@ namespace DroneServer.BL.Comm
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void execMission(LeafMission mission)
+        public CompletionHandler execMission(LeafMission mission)
         {
             Assertions.verify(isSocketInitiated, "socket was not initiated");
+            CompletionHandler compHandle = new CompletionHandler(mission.m_index);
+            bool res = m_comp_handle.TryAdd(mission.m_index, compHandle);
+            Assertions.verify(res, "failed when trying to add completion handler to comp_handler map");
 
             if (!mission.validate_version())
             {
                 Logger.getInstance().info("mission was out of version");
-                return;
+                return compHandle;
             }
 
-            bool res = m_missions.TryAdd(mission.m_index, mission);
+            res = m_missions.TryAdd(mission.m_index, mission);
             Assertions.verify(res, "failed when trying to add mission to comm map missions");
 
             String message_to_android = mission.encode();
@@ -141,11 +147,13 @@ namespace DroneServer.BL.Comm
             {
                 m_ns.Write(to_send, 0, to_send.Length);
                 m_ns.Flush();
+                return compHandle;
             }
             catch(Exception e)
             {
                 Assertions.verify(false, "failed to write to network stream with error " + e.ToString());
             }
+            return null;
 
         }
 

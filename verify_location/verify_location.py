@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import sys
 from matplotlib import pyplot as plt
+import functools
 
 
 base_photo_path = sys.argv[1]
@@ -40,15 +41,15 @@ for meth in methods:
 
     locations.append(((top_left[0]+bottom_right[0])/2,
                       (top_left[1]+bottom_right[1])/2))
-
+					  
 
 def sum(x, y):
     return (x[0]+y[0], x[1]+y[1])
 
 
-all_sum = reduce(sum, locations)
-location = (all_sum[0]/len(locations), all_sum[1]/len(locations))
-print location
+all_sum = functools.reduce(sum, locations)
+location = (int(all_sum[0]/len(locations)), int(all_sum[1]/len(locations)))
+print(location)
 if debug:
     img = cv2.imread(base_photo_path, 1)
     cv2.rectangle(

@@ -52,7 +52,7 @@ namespace AndroidAccepanceTests
             m_reader = new Reader(m_ns);
 
             getDroneStatus drone_status_mission = new getDroneStatus();
-            CompletionHanlder drone_status = sendMission(drone_status_mission);
+            CompletionHandler drone_status = sendMission(drone_status_mission);
             drone_status.wait();
             while((DroneStatus)drone_status.response.Data != DroneStatus.Connected)
             {
@@ -66,10 +66,10 @@ namespace AndroidAccepanceTests
 
         }
 
-        public CompletionHanlder sendMission(LeafMission mission, bool isAsync=false)
+        public CompletionHandler sendMission(LeafMission mission, bool isAsync=false)
         {
             String message_to_android = mission.encode();
-            CompletionHanlder comp_handler = sendString(mission.m_index, message_to_android);
+            CompletionHandler comp_handler = sendString(mission.m_index, message_to_android);
             if (!isAsync)
             {
                 comp_handler.wait();
@@ -79,9 +79,9 @@ namespace AndroidAccepanceTests
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public CompletionHanlder sendString(int index, String message_to_android)
+        public CompletionHandler sendString(int index, String message_to_android)
         {
-            CompletionHanlder comp_handler = new CompletionHanlder(index);
+            CompletionHandler comp_handler = new CompletionHandler(index);
 
             m_reader.addMission(index, comp_handler);
 

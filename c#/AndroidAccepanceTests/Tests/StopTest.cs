@@ -12,8 +12,8 @@ namespace AndroidAccepanceTests
         {
             take_off();
             move(DroneServer.SharedClasses.Direction.up, 30);
-            CompletionHanlder isLanded = startLanding(true);
-            System.Threading.Thread.Sleep(3000); 
+            CompletionHandler isLanded = startLanding(true);
+            System.Threading.Thread.Sleep(3000); // talk to bar about this
             stop();
             System.Threading.Thread.Sleep(30000);
             Assert.IsNull(isLanded.response);
@@ -30,7 +30,7 @@ namespace AndroidAccepanceTests
             Point loc = getLocation();
             move(DroneServer.SharedClasses.Direction.up, 10);
             move(DroneServer.SharedClasses.Direction.left, 30);
-            CompletionHanlder ch = MoveByGPS(loc.lat, loc.lng, 10,true);
+            CompletionHandler ch = MoveByGPS(loc.lat, loc.lng, 10,true);
             System.Threading.Thread.Sleep(3000);
             stop();
             System.Threading.Thread.Sleep(30000);
@@ -46,7 +46,7 @@ namespace AndroidAccepanceTests
             take_off();
             Point loc = getLocation();
             move(DroneServer.SharedClasses.Direction.up, 10);
-            CompletionHanlder ch = move(DroneServer.SharedClasses.Direction.forward, 30, true);
+            CompletionHandler ch = move(DroneServer.SharedClasses.Direction.forward, 30, true);
             System.Threading.Thread.Sleep(3000);
             stop();
             System.Threading.Thread.Sleep(30000);

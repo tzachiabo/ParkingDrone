@@ -9,9 +9,27 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DroneServer</RootNamespace>
     <AssemblyName>DroneServer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +50,44 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.8.1.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.Windows.1.8.1\lib\net40\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.8.1.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.Windows.1.8.1\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsPresentation, Version=1.8.1.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.Windows.1.8.1\lib\net40\GMap.NET.WindowsPresentation.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.1\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Device" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,36 +99,75 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\Missions\ComplexMission.cs" />
-    <Compile Include="BL\Missions\GetCarPlate.cs" />
-    <Compile Include="BL\Missions\GetCarSticker.cs" />
-    <Compile Include="BL\Missions\GoToCar.cs" />
-    <Compile Include="BL\Missions\InitParkingMission.cs" />
-    <Compile Include="BL\Missions\Landing.cs" />
-    <Compile Include="BL\Missions\LeafMission.cs" />
-    <Compile Include="BL\Missions\Mission.cs" />
-    <Compile Include="BL\Missions\Move.cs" />
-    <Compile Include="BL\Missions\MoveToGPSPoint.cs" />
-    <Compile Include="BL\Missions\ParkingMission.cs" />
-    <Compile Include="BL\Missions\ScanCars.cs" />
-    <Compile Include="BL\Missions\ScanSingleCar.cs" />
-    <Compile Include="BL\Missions\TakeOff.cs" />
-    <Compile Include="BL\Missions\TakePhoto.cs" />
-    <Compile Include="BL\Missions\VerifyLocation.cs" />
+    <Compile Include="BL\BLManagger.cs" />
+    <Compile Include="BL\CV\CarDetector.cs" />
     <Compile Include="BL\Comm\CommManager.cs" />
-    <Compile Include="PL\BaseObservable.cs" />
-    <Compile Include="PL\BaseObserver.cs" />
+    <Compile Include="BL\Comm\CommReader.cs" />
+    <Compile Include="BL\Comm\Decoder.cs" />
+    <Compile Include="BL\Comm\PicTransferServer.cs" />
+    <Compile Include="BL\Comm\ResponseConsumer.cs" />
+    <Compile Include="BL\CV\VerifyLocation.cs" />
+    <Compile Include="BL\LocationManager.cs" />
+    <Compile Include="BL\Missions\ComplexMission\AbortMission.cs" />
+    <Compile Include="BL\Missions\ComplexMission\AbsoluteMoveGimbalMission.cs" />
+    <Compile Include="BL\Missions\ComplexMission\ComplexGoHome.cs" />
+    <Compile Include="BL\Missions\ComplexMission\EndMission.cs" />
+    <Compile Include="BL\Missions\LeafMission\ConfirmLanding.cs" />
+    <Compile Include="BL\Missions\ComplexMission\Landing.cs" />
+    <Compile Include="BL\Missions\LeafMission\getDroneStatus.cs" />
+    <Compile Include="BL\Missions\LeafMission\GetLocation.cs" />
+    <Compile Include="BL\Missions\LeafMission\GoHomeMission.cs" />
+    <Compile Include="BL\Missions\LeafMission\MoveGimbal.cs" />
+    <Compile Include="BL\Missions\LeafMission\stopMission.cs" />
+    <Compile Include="BL\statusManager.cs" />
+    <Compile Include="DL\DB.cs" />
+    <Compile Include="PL\Observers\MapObserver.cs" />
+<<<<<<< HEAD
+    <Compile Include="SharedClasses\Car.cs" />
+=======
+    <Compile Include="SharedClasses\CompletionHanlder.cs" />
+>>>>>>> 11ffc17... add CompletionHandler to C#
+    <Compile Include="SharedClasses\ConnectionStatus.cs" />
+    <Compile Include="SharedClasses\DroneStatus.cs" />
+    <Compile Include="SharedClasses\Map.cs" />
+    <Compile Include="SharedClasses\Assertions.cs" />
+    <Compile Include="SharedClasses\Configuration.cs" />
+    <Compile Include="BL\Missions\ComplexMission\ComplexMission.cs" />
+    <Compile Include="BL\Missions\ComplexMission\GetCarPlate.cs" />
+    <Compile Include="BL\Missions\ComplexMission\GetCarSticker.cs" />
+    <Compile Include="BL\Missions\ComplexMission\GoToCar.cs" />
+    <Compile Include="BL\Missions\ComplexMission\InitParkingMission.cs" />
+    <Compile Include="BL\Missions\LeafMission\StartLanding.cs" />
+    <Compile Include="BL\Missions\LeafMission\LeafMission.cs" />
+    <Compile Include="BL\Missions\Mission.cs" />
+    <Compile Include="BL\Missions\LeafMission\MoveMission.cs" />
+    <Compile Include="BL\Missions\LeafMission\MoveToGPSPoint.cs" />
+    <Compile Include="BL\Missions\ComplexMission\ParkingMission.cs" />
+    <Compile Include="BL\Missions\ComplexMission\ScanCars.cs" />
+    <Compile Include="BL\Missions\ComplexMission\ScanSingleCar.cs" />
+    <Compile Include="BL\Missions\LeafMission\TakeOff.cs" />
+    <Compile Include="BL\Missions\LeafMission\TakePhoto.cs" />
+    <Compile Include="BL\Missions\ComplexMission\VerifyLocation.cs" />
+    <Compile Include="PL\Observers\BaseObservable.cs" />
+    <Compile Include="PL\Observers\BaseObserver.cs" />
     <Compile Include="PL\GUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PL\GUI.Designer.cs">
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="PL\ListObserver.cs" />
+    <Compile Include="PL\Observers\ListObserver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PL\SpecificObservable.cs" />
-    <Compile Include="PL\TextObserver.cs" />
+    <Compile Include="PL\Observers\TextObserver.cs" />
+    <Compile Include="SharedClasses\Direction.cs" />
+    <Compile Include="SharedClasses\Gimbal.cs" />
+    <Compile Include="SharedClasses\Logger.cs" />
+    <Compile Include="SharedClasses\MissionType.cs" />
+    <Compile Include="SharedClasses\Parking.cs" />
+    <Compile Include="SharedClasses\Point.cs" />
+    <Compile Include="SharedClasses\Response.cs" />
+    <Compile Include="SharedClasses\Status.cs" />
     <EmbeddedResource Include="PL\GUI.resx">
       <DependentUpon>GUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,7 +179,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,8 +195,40 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\..\verify_location\verify_location.py">
+      <Link>verify_location.py</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BaseConfig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="car_detector.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DL\DroneDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DL\DroneDB_log.ldf">
+      <DependentUpon>DroneDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.1\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.1\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -24,7 +24,7 @@ namespace DroneServer.BL.Missions
             Assertions.verify(false, "get status -stop not implemented yet");
         }
 
-        public override void execute()
+        public override CompletionHandler execute()
         {
             if (Configuration.getInstance().get("print_get_status") == "True")
                 Logger.getInstance().debug("start executing a getStatus");
@@ -33,11 +33,15 @@ namespace DroneServer.BL.Missions
 
             if (comm_manager.isSocketInitiated)
             {
-                comm_manager.execMission(this);
+                return comm_manager.execMission(this);
             }
             else
             {
-                done(new Response(m_index, Status.Failed, MissionType.StateMission, DroneStatus.Disconnected));
+                Response res = new Response(m_index, Status.Failed, MissionType.StateMission, DroneStatus.Disconnected);
+                CompletionHandler compHandler = new CompletionHandler(this.m_index);
+                compHandler.response = res;
+                done(res);
+                return compHandler;
             }
         }
     }

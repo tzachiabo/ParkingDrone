@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comm.cs" />
-    <Compile Include="CompletionHanlder.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Tests\BaseAcceptanceTest.cs" />
