@@ -95,7 +95,19 @@ public class ControllerManager {
                 }
                 else{
                     Logger.error("confirm landing failed with err : " + djiError.toString());
-                    cb.failed();
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (m_flight_controller.getState().areMotorsOn()){
+                        confirmLanding(cb);
+                        return;
+                    }
+                    else{
+                        cb.success();
+                    }
+
                 }
             }
         });
