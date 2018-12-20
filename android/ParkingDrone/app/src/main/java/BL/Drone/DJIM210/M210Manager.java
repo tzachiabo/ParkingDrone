@@ -29,7 +29,6 @@ public class M210Manager implements IDrone{
     public synchronized void initAircraft(){
         m_aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         Assertions.verify(m_aircraft != null,"Aircraft is null when constracting M210Manager");
-
         m_controller = new ControllerManager(m_aircraft);
         m_mission_control = new MissionControlManager();
         m_camera_manager = new CameraManager(m_aircraft.getCameras());

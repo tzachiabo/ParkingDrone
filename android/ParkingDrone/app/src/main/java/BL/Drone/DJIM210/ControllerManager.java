@@ -180,6 +180,7 @@ public class ControllerManager {
     }
 
     private void initFlightController() {
+        m_flight_controller.setESCBeepEnabled(false,null);
         m_flight_controller.setRollPitchControlMode(RollPitchControlMode.VELOCITY);
         m_flight_controller.setYawControlMode(YawControlMode.ANGULAR_VELOCITY);
         m_flight_controller.setVerticalControlMode(VerticalControlMode.VELOCITY);
@@ -221,8 +222,19 @@ public class ControllerManager {
             public void onResult(DJIError djiError) {
                 if(djiError != null) {
                     Logger.error("after start landing djierror is " + djiError.toString());
-                    p.failed();
-                    return;
+                    if (djiError == DJIError.COMMON_TIMEOUT){
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        startLanding(p);
+                        return;
+                    }
+                    else {
+                        p.failed();
+                        return;
+                    }
                 }
 
                 Logger.info("start start landing");

@@ -1,8 +1,10 @@
 package com.example.aviad.parkingdrone;
 
 import android.graphics.Bitmap;
+import android.graphics.SurfaceTexture;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.TextureView;
 import android.view.View;
 
 
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+        TextureView.SurfaceTextureListener SurView = findViewById(R.id.fpv_camera);
+
 
         bl_manager = BLManager.getInstance();
 
