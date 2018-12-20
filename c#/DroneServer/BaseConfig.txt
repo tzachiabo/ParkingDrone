@@ -3,7 +3,7 @@
 <pic_server_port>3001</pic_server_port>
 <debugMode>true</debugMode>
 <log_interval>5000</log_interval>
-<getLocationInterval>1000</getLocationInterval>
+<getLocationInterval>500</getLocationInterval>
 <getStatusInterval>5000</getStatusInterval>
 <print_get_status>false</print_get_status>
 <print_get_location>false</print_get_location>

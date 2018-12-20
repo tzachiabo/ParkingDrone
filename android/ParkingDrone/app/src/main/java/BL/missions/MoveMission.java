@@ -1,6 +1,7 @@
 package BL.missions;
 import java.util.TimerTask;
 
+import SharedClasses.AssertionViolation;
 import SharedClasses.Config;
 import BL.SuperTimer;
 import SharedClasses.Assertions;
@@ -64,9 +65,14 @@ public class MoveMission extends Mission {
                 aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
                     @Override
                     public void onResult(DJIError djiError) {
-                        if(djiError != null) {
-                            Logger.error("after move djierror is " + djiError.toString());
-                            Assertions.verify(false, "failed to move drone");
+                        try {
+                            if (djiError != null) {
+                                Logger.error("after move djierror is " + djiError.toString());
+                                Assertions.verify(false, "failed to move drone");
+                            }
+                        }
+                        catch (AssertionViolation e){
+                            Logger.fatal("catch - failed to move drone with dji error");
                         }
                     }
                 });
