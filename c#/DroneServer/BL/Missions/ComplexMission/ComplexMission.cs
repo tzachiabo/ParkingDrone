@@ -14,7 +14,7 @@ namespace DroneServer.BL.Missions
 
         public ComplexMission(ComplexMission ParentMission) : base(ParentMission)
         {
-            compHandler = new CompletionHandler(this.m_index,1000);
+            compHandler = new CompletionHandler(this.m_index,10000);
             m_SubMission = new Queue<Mission>();
         }
 
