@@ -78,10 +78,7 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-<<<<<<< HEAD
             this.RotateDroneBtn = new System.Windows.Forms.Button();
-=======
->>>>>>> b497a38... add QuickPhoto to C# side
             this.takeQuickPhoto_dummy_btn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
@@ -405,15 +402,9 @@
             // 
             // dummyTab
             // 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
             this.dummyTab.Controls.Add(this.RotateDroneBtn);
-=======
             this.dummyTab.Controls.Add(this.takeQuickPhoto_dummy_btn);
->>>>>>> 3f3bbeb... add QuickPhoto to C# side
-=======
-            this.dummyTab.Controls.Add(this.takeQuickPhoto_dummy_btn);
->>>>>>> b497a38... add QuickPhoto to C# side
             this.dummyTab.Controls.Add(this.stop_dummy_btn);
             this.dummyTab.Controls.Add(this.Yaw);
             this.dummyTab.Controls.Add(this.Pitch);
@@ -707,8 +698,6 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-<<<<<<< HEAD
-<<<<<<< HEAD
             // RotateDroneBtn
             // 
             this.RotateDroneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -733,13 +722,7 @@
             this.takeQuickPhoto_dummy_btn.Text = "Take Quick Photo";
             this.takeQuickPhoto_dummy_btn.UseVisualStyleBackColor = true;
             this.takeQuickPhoto_dummy_btn.Click += new System.EventHandler(this.takequickPhoto_dummy_btn);
-<<<<<<< HEAD
->>>>>>> 3f3bbeb... add QuickPhoto to C# side
-=======
->>>>>>> b497a38... add QuickPhoto to C# side
-            // 
-            // GUI
-            // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
@@ -819,15 +802,9 @@
         private System.Windows.Forms.Label connected_home_lbl;
         private System.Windows.Forms.Button clear_home_btn;
         private System.Windows.Forms.Button clear_create_btn;
-<<<<<<< HEAD
-<<<<<<< HEAD
         private System.Windows.Forms.Button RotateDroneBtn;
-=======
         private System.Windows.Forms.Button takeQuickPhoto_dummy_btn;
->>>>>>> 3f3bbeb... add QuickPhoto to C# side
-=======
-        private System.Windows.Forms.Button takeQuickPhoto_dummy_btn;
->>>>>>> b497a38... add QuickPhoto to C# side
+
     }
 }
 

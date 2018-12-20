@@ -1,6 +1,5 @@
 package BL.missions;
 
-<<<<<<< HEAD
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -20,7 +19,6 @@ import BL.BLManager;
 import SharedClasses.Config;
 import SharedClasses.Logger;
 
-import static java.security.AccessController.getContext;
 
 public class TakeQuickPhotoMission extends Mission {
 
@@ -34,20 +32,6 @@ public class TakeQuickPhotoMission extends Mission {
     }
 
 
-
-=======
-public class TakeQuickPhotoMission extends Mission {
-
-    public TakeQuickPhotoMission(int index) {
-        super("takePhoto", index);
-    }
-
-    @Override
-    public void start() {
-        
-    }
-
->>>>>>> 7ea7cea... start android imp
     @Override
     public void stop() {
 
@@ -55,7 +39,6 @@ public class TakeQuickPhotoMission extends Mission {
 
     @Override
     public String encode() {
-<<<<<<< HEAD
         return getName() + " " + getIndex() + " " + "Done" + " " + pic_name+".JPG";
     }
 
@@ -129,8 +112,5 @@ public class TakeQuickPhotoMission extends Mission {
             // Several error may come out with file handling or DOM
             e.printStackTrace();
         }
-=======
-        return null;
->>>>>>> 7ea7cea... start android imp
     }
 }

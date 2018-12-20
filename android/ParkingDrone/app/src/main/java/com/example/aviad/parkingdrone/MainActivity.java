@@ -13,11 +13,8 @@ import java.nio.IntBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import BL.BLManager;
-<<<<<<< HEAD
 import dji.ux.widget.FPVWidget;
-=======
 import SharedClasses.Logger;
->>>>>>> 52833bf... send pic to server TODO: capture part of the pic
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
         getSupportActionBar().hide();
 
         TextureView.SurfaceTextureListener SurView = findViewById(R.id.fpv_camera);
@@ -35,14 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         bl_manager = BLManager.getInstance();
 
-=======
-         bl_manager = BLManager.getInstance();
-<<<<<<< HEAD
-         bl_manager.setWindow(getWindow());
->>>>>>> 9da29b8... android dont work save changing
-=======
-         bl_manager.setActivity(this);
->>>>>>> 52833bf... send pic to server TODO: capture part of the pic
     }
     public void stopProgram(View v){
 

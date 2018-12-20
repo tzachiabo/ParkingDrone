@@ -7,14 +7,7 @@ import SharedClasses.Logger;
 
 import android.app.Activity;
 import android.os.Environment;
-<<<<<<< HEAD
-import android.provider.Telephony;
-=======
-import android.view.Window;
->>>>>>> 9da29b8... android dont work save changing
-
 import java.io.File;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class BLManager {
     private static BLManager instance = null;

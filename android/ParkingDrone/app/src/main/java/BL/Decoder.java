@@ -62,24 +62,16 @@ public class Decoder {
             case "getLocation":
                 to_return = new GetGPSLocationMission(index);
                 break;
-<<<<<<< HEAD
-<<<<<<< HEAD
             case "setVirtualStick":
                 to_return = new setVirtualStick(index);
+                break;
+
+            case "takeQuickPhoto":
+                to_return = new TakeQuickPhotoMission(index);
                 break;
         }
         if (to_return == null){
             Logger.fatal("failed to decode " + mission_string);
-=======
-            case "takeQuickPhoto":
-                to_return = new TakeQuickPhotoMission(index);
-                break;
->>>>>>> 7474844... start android imp
-=======
-            case "takeQuickPhoto":
-                to_return = new TakeQuickPhotoMission(index);
-                break;
->>>>>>> 7ea7cea... start android imp
         }
 
         return to_return;
