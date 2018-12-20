@@ -4,6 +4,7 @@ import BL.Drone.DroneFactory;
 import BL.Drone.IDrone;
 import SharedClasses.Assertions;
 import SharedClasses.Logger;
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.LocationCoordinate3D;
 
 public class GetGPSLocationMission extends Mission {
@@ -19,7 +20,11 @@ public class GetGPSLocationMission extends Mission {
     public void start() {
         Logger.info("start getGPSLocation mission num " + index);
         IDrone drone = DroneFactory.getDroneManager();
-        LocationCoordinate3D lc3d = drone.getDroneState().getAircraftLocation();
+        FlightControllerState droneState = null;
+        while (droneState == null){
+            droneState = drone.getDroneState();
+        }
+        LocationCoordinate3D lc3d = droneState.getAircraftLocation();
         Altitude = lc3d.getAltitude();
         Latitude = lc3d.getLatitude();
         Longitude = lc3d.getLongitude();

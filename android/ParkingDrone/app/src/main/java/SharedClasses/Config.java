@@ -7,7 +7,7 @@ public interface Config {
     int DST_PORT = 3000;
     String MAIN_CAMERA_NAME = "Zenmuse X5S";
     String DJI_PHOTO_DIR = "DJI_Photo";
-    int TIME_OF_GIMBAL_MOVE = 4;//seconds
+    int TIME_OF_GIMBAL_MOVE = 2;//seconds
     int MAX_TIME_WAIT_FOR_LANDING = 150000;//ms
     int MAX_TIME_WAIT_FOR_TAKEOFF = 60000;//ms
     int MAX_TIME_FOR_SETP_IN_GO_TO_GPS = 60000;//ms

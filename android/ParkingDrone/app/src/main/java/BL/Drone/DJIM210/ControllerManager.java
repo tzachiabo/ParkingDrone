@@ -233,7 +233,7 @@ public class ControllerManager {
         return isInitiated;
     }
 
-    public FlightControllerState  getDroneState(){
+    public FlightControllerState getDroneState(){
         return flight_controller_state;
     }
 

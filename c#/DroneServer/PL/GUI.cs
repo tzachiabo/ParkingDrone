@@ -46,12 +46,17 @@ namespace DroneServer
             missionPanel.Location = new System.Drawing.Point(0, 0);
             missionPanel.Visible = false;
 
+            logger_home_lst.Visible = false;
+            logger_mission_lst.Visible = false;
+            androidLogger_home_lst.Visible = false;
+            androidLogger_mission_lst.Visible = false;
+
             Logger.getInstance().debug("Gui Load has started");
             confige();
             timer.Start();
             bl = BLManagger.getInstance();
-            bl.registerToLogs(logger_home_lst);
-            bl.registerToLogs(logger_mission_lst);
+            //bl.registerToLogs(logger_home_lst);
+            //bl.registerToLogs(logger_mission_lst);
             bl.registerToMap(map_mission_map);
             bl.registerToConnection(connected_home_lbl);
             bl.registerToConnection(connected_mission_lbl);
