@@ -79,7 +79,7 @@ namespace DroneServer
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            bl.updateAndroidLog(androidLogger_home_lst,androidLogger_mission_lst);
+            //bl.updateAndroidLog(androidLogger_home_lst,androidLogger_mission_lst);
         }
 
 

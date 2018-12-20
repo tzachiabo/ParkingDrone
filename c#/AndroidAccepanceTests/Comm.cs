@@ -62,7 +62,7 @@ namespace AndroidAccepanceTests
                 drone_status.wait();
             }
 
-            //m_load = new Loader(100);
+            m_load = new Loader(100);
 
         }
 

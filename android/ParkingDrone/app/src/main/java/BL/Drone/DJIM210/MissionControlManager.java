@@ -80,8 +80,7 @@ public class MissionControlManager {
 
                 @Override
                 public void onExecutionUpdate(@NonNull WaypointMissionExecutionEvent waypointMissionExecutionEvent) {
-                    Logger.info("onExecutionUpdate " + waypointMissionExecutionEvent.getCurrentState() +
-                            " msg : " + waypointMissionExecutionEvent.toString());
+                    Logger.info("onExecutionUpdate");
 
                 }
 
@@ -108,9 +107,11 @@ public class MissionControlManager {
                         if (djiError != null) {
                             Assertions.verify(false,
                                     "failed to start mission with err :" + djiError.toString());
+                            isStoped = true;
                             p.failed();
                         }
                     } catch (AssertionViolation e) {
+                        isStoped = true;
                         p.failed();
                     }
                 }
@@ -118,6 +119,7 @@ public class MissionControlManager {
 
 
         } catch (AssertionViolation e) {
+            isStoped = true;
             p.failed();
         }
 

@@ -116,7 +116,6 @@
     <Compile Include="BL\Missions\LeafMission\GetLocation.cs" />
     <Compile Include="BL\Missions\LeafMission\GoHomeMission.cs" />
     <Compile Include="BL\Missions\LeafMission\MoveGimbal.cs" />
-    <Compile Include="BL\Missions\LeafMission\RotateMission.cs" />
     <Compile Include="BL\Missions\LeafMission\stopMission.cs" />
     <Compile Include="BL\statusManager.cs" />
     <Compile Include="DL\DB.cs" />

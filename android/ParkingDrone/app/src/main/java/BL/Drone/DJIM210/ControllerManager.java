@@ -51,8 +51,18 @@ public class ControllerManager {
                 try {
                     if (djiError != null) {
                         Logger.error("after takeoff djierror is " + djiError.toString());
-                        Assertions.verify(false,
-                                "failed to take off drone returned " + djiError.toString());
+
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (flight_controller_state.getAircraftLocation().getAltitude() > 0.4){
+                            cb.success();
+                            return;
+                        }
+                        takeOff(cb);
+                        return;
                     }
 
                     float height;
@@ -222,19 +232,13 @@ public class ControllerManager {
             public void onResult(DJIError djiError) {
                 if(djiError != null) {
                     Logger.error("after start landing djierror is " + djiError.toString());
-                    if (djiError == DJIError.COMMON_TIMEOUT){
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        startLanding(p);
-                        return;
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    else {
-                        p.failed();
-                        return;
-                    }
+                    startLanding(p);
+                    return;
                 }
 
                 Logger.info("start start landing");
@@ -242,6 +246,7 @@ public class ControllerManager {
                 while (!isFinishedLanding() && !hasStoped) {
                     if (System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_LANDING)
                     {
+                        Logger.fatal("failed to land timeout");
                         p.failed();
                         return;
                     }
@@ -255,8 +260,6 @@ public class ControllerManager {
                 Logger.info("finish start landing hasStop="+ hasStoped);
                 if (!hasStoped)
                     p.success();
-                else
-                    p.failed();
             }
         });
 

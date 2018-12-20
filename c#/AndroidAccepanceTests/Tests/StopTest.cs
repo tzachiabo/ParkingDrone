@@ -13,7 +13,7 @@ namespace AndroidAccepanceTests
             take_off();
             move(DroneServer.SharedClasses.Direction.up, 30);
             CompletionHanlder isLanded = startLanding(true);
-            System.Threading.Thread.Sleep(3000); // talk to bar about this
+            System.Threading.Thread.Sleep(3000); 
             stop();
             System.Threading.Thread.Sleep(30000);
             Assert.IsNull(isLanded.response);
