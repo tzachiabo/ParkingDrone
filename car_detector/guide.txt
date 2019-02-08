@@ -1,0 +1,2 @@
+    test_detector("cfg/coco.data", "yolov3-aerial.cfg", "yolov3-aerial.weights", filename, .24, 0.5, 0, 1, 0, "prediction.jpg");
+./darknet_no_gpu.exe detect "yolov3-aerial.cfg" "yolov3-aerial.weights" car.jpg
