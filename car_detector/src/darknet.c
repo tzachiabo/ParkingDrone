@@ -480,8 +480,8 @@ int main(int argc, char **argv)
     else if (0 == strcmp(argv[1], "detect")) {
         float thresh = find_float_arg(argc, argv, "-thresh", .7);
         int ext_output = find_arg(argc, argv, "-ext_output");
-        char *filename = (argc > 4) ? argv[4] : 0;
-        test_detector("cfg/coco.data", argv[2], argv[3], filename, thresh, 0.5, 0, 1, 0, NULL);
+        char *filename = (argc > 5) ? argv[5] : 0;
+        test_detector(argv[4], argv[2], argv[3], filename, thresh, 0.5, 0, 1, 0, NULL);
     }
     else if (0 == strcmp(argv[1], "cifar")) {
         run_cifar(argc, argv);

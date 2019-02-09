@@ -50,6 +50,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\CarDetectorTest.cs" />
     <Compile Include="ParkingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBTest.cs" />
@@ -62,6 +63,11 @@
       <Project>{732459f9-e326-44ab-9eb3-75c09627f554}</Project>
       <Name>DroneServer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BL\car.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
