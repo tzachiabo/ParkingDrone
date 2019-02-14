@@ -14,5 +14,5 @@ Server which uses computer vision modules to analyze real-time photos and manage
 
 **Location detector** not implemented yet used for detecting the drone location base on CV alguritums
 
-**CarPlateDetector** not implemented yet used for detecting car plate number 
+**Car plate detector** not implemented yet used for detecting car plate number 
 
