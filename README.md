@@ -7,7 +7,7 @@ Developing an automate system that will be able to identify cars that park illeg
 **Mediator –**
 Android OS based machine connected to the controller and mediates between the Drone and the Mission Manager server.
 
-**mission manager** is written in c#
+**Mission manager** is written in c#
 Server which uses computer vision modules to analyze real-time photos and manage the drone accordingly.
 
 **Car detector** is using YOLOV3 for detecting cars from aerial view 
