@@ -100,12 +100,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\BLManagger.cs" />
-    <Compile Include="BL\CarDetector.cs" />
+    <Compile Include="BL\CV\CarDetector.cs" />
     <Compile Include="BL\Comm\CommManager.cs" />
     <Compile Include="BL\Comm\CommReader.cs" />
     <Compile Include="BL\Comm\Decoder.cs" />
     <Compile Include="BL\Comm\PicTransferServer.cs" />
     <Compile Include="BL\Comm\ResponseConsumer.cs" />
+    <Compile Include="BL\CV\VerifyLocation.cs" />
     <Compile Include="BL\LocationManager.cs" />
     <Compile Include="BL\Missions\ComplexMission\AbortMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\AbsoluteMoveGimbalMission.cs" />
@@ -191,6 +192,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\verify_location\verify_location.py">
+      <Link>verify_location.py</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BaseConfig.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

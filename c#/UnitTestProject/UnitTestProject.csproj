@@ -50,7 +50,8 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\CarDetectorTest.cs" />
+    <Compile Include="BL\CarDetectorTests\CarDetectorTest.cs" />
+    <Compile Include="BL\VerifyLocationTests\verifyLocationTest.cs" />
     <Compile Include="ParkingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBTest.cs" />
@@ -65,7 +66,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BL\car.jpg">
+    <Content Include="..\..\verify_location\verify_location.py">
+      <Link>verify_location.py</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\CarDetectorTests\car.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\VerifyLocationTests\big_pic.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\VerifyLocationTests\car.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\VerifyLocationTests\sub_big_pic.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\VerifyLocationTests\sub_car.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

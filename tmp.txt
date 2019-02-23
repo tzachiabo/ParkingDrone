@@ -1,0 +1,8 @@
+
+import socket
+
+s = socket.socket()
+host = '192.168.1.14' # needs to be in quote
+port = 3004
+s.connect((host, port))
+s.send('hello')
