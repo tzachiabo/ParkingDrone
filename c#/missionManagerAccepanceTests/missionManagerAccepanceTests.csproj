@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98F323D8-3692-4046-AE3F-7E05DD1539DB}</ProjectGuid>
+    <ProjectGuid>{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestProject</RootNamespace>
-    <AssemblyName>UnitTestProject</AssemblyName>
+    <RootNamespace>missionManagerAccepanceTests</RootNamespace>
+    <AssemblyName>missionManagerAccepanceTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -47,65 +47,27 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\CarDetectorTests\CarDetectorTest.cs" />
-    <Compile Include="BL\VerifyLocationTests\verifyLocationTest.cs" />
-    <Compile Include="ParkingTest.cs" />
+    <Compile Include="Comm.cs" />
+    <Compile Include="Tests\BaseAcceptanceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DBTest.cs" />
+    <Compile Include="Tests\TakeOffTest.cs" />
+    <Compile Include="Tests\ConfirmLandingTest.cs" />
+    <Compile Include="Tests\MoveGimbalTest.cs" />
+    <Compile Include="Tests\MoveTest.cs" />
+    <Compile Include="Tests\MoveToGPSTest.cs" />
+    <Compile Include="Tests\StartLanding.cs" />
+    <Compile Include="Tests\InitParkingMissionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\verify_location\verify_location.py">
-      <Link>verify_location.py</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\CarDetectorTests\car.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\big_pic.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\car.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\sub_big_pic.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\sub_car.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DroneServer\DroneServer.csproj">
       <Project>{732459f9-e326-44ab-9eb3-75c09627f554}</Project>
       <Name>DroneServer</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\verify_location\verify_location.py">
-      <Link>verify_location.py</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\CarDetectorTests\car.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\big_pic.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\car.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\sub_big_pic.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BL\VerifyLocationTests\sub_car.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
