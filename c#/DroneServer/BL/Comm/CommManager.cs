@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 
 namespace DroneServer.BL.Comm
 {
-    class CommManager
+    public class CommManager
     {
         public bool isSocketInitiated;
 

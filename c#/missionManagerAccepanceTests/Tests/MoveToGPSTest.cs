@@ -12,8 +12,8 @@ namespace missionManagerAccepanceTests.Tests
         {
             take_off();
             Point loc = (Point)getLocation().response.Data;
-            move(DroneServer.SharedClasses.Direction.left, 30);
-            move(DroneServer.SharedClasses.Direction.up, 20);
+            move(DroneServer.SharedClasses.Direction.left, 10);
+            //move(DroneServer.SharedClasses.Direction.up, 20);
             MoveByGPS(loc.lat, loc.lng, 10);
             loc = (Point)getLocation().response.Data;
 

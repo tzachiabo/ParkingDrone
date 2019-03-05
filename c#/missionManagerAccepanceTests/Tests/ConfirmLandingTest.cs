@@ -12,7 +12,8 @@ namespace missionManagerAccepanceTests.Tests
         {
             take_off();
             landing();
-            CompletionHandler completionHandler= getLocation();
+            CompletionHandler completionHandler = getLocation();
+
             Point point = (Point)completionHandler.response.Data;
 
             Assert.AreEqual(point.alt, 0);

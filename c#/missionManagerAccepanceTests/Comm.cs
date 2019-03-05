@@ -21,6 +21,9 @@ namespace missionManagerAccepanceTests
         private Comm()
         {
             BLManagger.getInstance().initComm();
+            while (!CommManager.getInstance().isSocketInitiated);
+
+            init();
         }
 
         public static Comm getInstance()
@@ -30,6 +33,22 @@ namespace missionManagerAccepanceTests
                 instance = new Comm();
             }
             return instance;
+        }
+
+        private void init()
+        {
+            getDroneStatus get_status = new getDroneStatus();
+            CompletionHandler ch = get_status.execute();
+
+            ch.wait();
+
+            while ((DroneStatus)ch.response.Data != DroneStatus.Connected)
+            {
+                get_status = new getDroneStatus();
+                ch = get_status.execute();
+                ch.wait();
+
+            }
         }
 
     }

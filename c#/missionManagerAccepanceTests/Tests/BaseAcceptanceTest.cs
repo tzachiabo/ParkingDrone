@@ -14,70 +14,123 @@ namespace missionManagerAccepanceTests
     [TestClass]
     public class BaseAcceptanceTest
     {
+        private Comm comm = Comm.getInstance();
 
         [TestInitialize]
         public void TestInitialize()
         {
             //emptyHerukuLogs();
         }
-        protected CompletionHandler initParkMission(Parking park,bool isAsync = false)
+        
+        protected CompletionHandler initParkMission(Parking park, bool isAsync = false)
         {
-
             InitParkingMission initParkMission = new InitParkingMission(park);
-            return initParkMission.execute();
+            CompletionHandler ch = initParkMission.execute();
+
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
-        protected CompletionHandler take_off()
+
+        protected CompletionHandler take_off(bool isAsync = false)
         {
             TakeOff take_off = new TakeOff();
-            return take_off.execute();
+            CompletionHandler ch = take_off.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
-        protected CompletionHandler landing()
+        protected CompletionHandler landing(bool isAsync = false)
         {
-            startLanding();
-            return confirmLanding();
+            Landing landing = new Landing();
+            CompletionHandler ch = landing.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
         protected CompletionHandler startLanding(bool isAsync = false)
         {
             DroneServer.BL.Missions.StartLanding start_landing = new DroneServer.BL.Missions.StartLanding();
-            return start_landing.execute();
+            CompletionHandler ch = start_landing.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
-        protected CompletionHandler confirmLanding()
+        protected CompletionHandler confirmLanding(bool isAsync = false)
         {
             ConfirmLanding conf_landing = new ConfirmLanding();
-            return conf_landing.execute();
+            CompletionHandler ch = conf_landing.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
         protected CompletionHandler move(Direction direction, double distance, bool isAsync = false)
         {
             MoveMission move = new MoveMission(direction, distance);
-            return move.execute();
+            CompletionHandler ch = move.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
         protected CompletionHandler MoveByGPS(double lat, double lng, double alt, bool isAsync = false)
         {
             MoveToGPSPoint move = new MoveToGPSPoint(lat, lng, alt);
-            return move.execute();
+            CompletionHandler ch = move.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
-        protected CompletionHandler MoveGimbal(GimbalMovementType movment_type, double roll, double pitch, double yaw)
+        protected CompletionHandler MoveGimbal(GimbalMovementType movment_type, double roll, double pitch, double yaw, bool isAsync = false)
         {
             MoveGimbal move = new MoveGimbal(Gimbal.left, movment_type, roll, pitch, yaw);
-            return move.execute();
+            CompletionHandler ch = move.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
-        protected CompletionHandler takePicture()
+        protected CompletionHandler takePicture(bool isAsync = false)
         {
             TakePhoto photo = new TakePhoto();
-            return photo.execute();
+            CompletionHandler ch = photo.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
-        protected CompletionHandler getLocation()
+        protected CompletionHandler getLocation(bool isAsync = false)
         {
             GetLocation get_loation = new GetLocation();
-            return get_loation.execute();
+            CompletionHandler ch = get_loation.execute();
+            if (!isAsync)
+            {
+                ch.wait();
+            }
+            return ch;
         }
 
         protected CompletionHandler stop()
@@ -85,6 +138,7 @@ namespace missionManagerAccepanceTests
             stopMission stop = new stopMission();
             return stop.execute();
         }
+
         private void emptyHerukuLogs()
         {
             try

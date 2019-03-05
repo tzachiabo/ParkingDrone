@@ -60,12 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DroneServer\DroneServer.csproj">
-      <Project>{732459f9-e326-44ab-9eb3-75c09627f554}</Project>
-      <Name>DroneServer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\..\verify_location\verify_location.py">
       <Link>verify_location.py</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -85,6 +79,12 @@
     <Content Include="BL\VerifyLocationTests\sub_car.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DroneServer\DroneServer.csproj">
+      <Project>{732459f9-e326-44ab-9eb3-75c09627f554}</Project>
+      <Name>DroneServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

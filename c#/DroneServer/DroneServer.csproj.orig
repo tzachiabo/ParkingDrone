@@ -122,11 +122,8 @@
     <Compile Include="BL\statusManager.cs" />
     <Compile Include="DL\DB.cs" />
     <Compile Include="PL\Observers\MapObserver.cs" />
-<<<<<<< HEAD
     <Compile Include="SharedClasses\Car.cs" />
-=======
     <Compile Include="SharedClasses\CompletionHanlder.cs" />
->>>>>>> 11ffc17... add CompletionHandler to C#
     <Compile Include="SharedClasses\ConnectionStatus.cs" />
     <Compile Include="SharedClasses\DroneStatus.cs" />
     <Compile Include="SharedClasses\Map.cs" />
