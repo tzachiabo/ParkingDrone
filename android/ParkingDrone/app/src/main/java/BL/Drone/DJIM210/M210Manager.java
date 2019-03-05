@@ -5,6 +5,7 @@ import SharedClasses.Assertions;
 import SharedClasses.Promise;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.LocationCoordinate3D;
+import dji.sdk.camera.VideoFeeder;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
@@ -66,6 +67,11 @@ public class M210Manager implements IDrone{
     }
 
     public synchronized void stopGoHome(){ m_controller.stopGoHome(); }
+
+    @Override
+    public byte[] getQuickImage() {
+        return m_camera_manager.getImg();
+    }
 
     public synchronized FlightControllerState getDroneState(){ return m_controller.getDroneState(); }
 }

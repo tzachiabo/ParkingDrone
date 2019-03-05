@@ -15,5 +15,6 @@ public interface IDrone {
     void confirmLanding(final Promise cb);
     void goHome(final Promise cb);
     void stopGoHome();
+    byte[] getQuickImage();
     FlightControllerState getDroneState();
 }

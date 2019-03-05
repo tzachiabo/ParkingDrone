@@ -1,5 +1,6 @@
 package BL.Drone.DJIM210;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import BL.missions.TakePictureMission;
@@ -10,16 +11,21 @@ import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.camera.Camera;
+import dji.sdk.camera.VideoFeeder;
 
 public class CameraManager {
     List<Camera> cameras;
     Camera mainCamera;
+    Object lock_for_image;
+    byte[] img;
     boolean isInitiated;
 
     public CameraManager(List<Camera> cameras){
         this.cameras = cameras;
         mainCamera = getCamera();
         isInitiated = false;
+        img = null;
+        lock_for_image = new Object();
         initCamera();
     }
 
@@ -55,6 +61,13 @@ public class CameraManager {
                 }
             }
         });
+        VideoFeeder.VideoFeed video_feed = VideoFeeder.getInstance().getPrimaryVideoFeed();
+        video_feed.addVideoDataListener(new VideoFeeder.VideoDataListener(){
+            @Override
+            public void onReceive(byte[] bytes, int size) {
+                img = bytes.clone();
+            }
+        });
     }
 
     public boolean isInitiated() {
@@ -62,5 +75,11 @@ public class CameraManager {
             Logger.info("camera is not initiated yet");
         }
         return isInitiated;
+    }
+
+    public byte[] getImg()
+    {
+        Assertions.verify(img != null, "img is null");
+        return img;
     }
 }

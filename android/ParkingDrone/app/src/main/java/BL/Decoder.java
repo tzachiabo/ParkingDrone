@@ -52,6 +52,9 @@ public class Decoder {
             case "takePhoto":
                 to_return = new TakePictureMission(index);
                 break;
+            case "takeQuickPhoto":
+                to_return = new TakeQuickPictureMission(index);
+                break;
             case "stop":
                 to_return = new StopMission(index);
                 break;
