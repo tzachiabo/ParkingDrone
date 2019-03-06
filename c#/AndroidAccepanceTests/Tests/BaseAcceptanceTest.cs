@@ -69,6 +69,12 @@ namespace AndroidAccepanceTests
             CompletionHanlder photo_mission = comm.sendMission(photo);
         }
 
+        protected void takeQuickPicture()
+        {
+            quickPhoto photo = new quickPhoto();
+            CompletionHanlder photo_mission = comm.sendMission(photo);
+        }
+
         protected Point getLocation()
         {
             GetLocation get_loation = new GetLocation();
