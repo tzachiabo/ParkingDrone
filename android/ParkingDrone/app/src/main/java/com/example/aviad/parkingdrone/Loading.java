@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import BL.BLManager;
+import SharedClasses.Config;
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
 import dji.sdk.base.BaseComponent;
@@ -125,6 +126,7 @@ public class Loading extends AppCompatActivity {
                         public void onRegister(DJIError djiError) {
                             BLManager.getInstance();
                             if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
+                                //DJISDKManager.getInstance().enableBridgeModeWithBridgeAppIP(Config.BRIDGE_ADDRESS);
                                 showToast("Register Success");
                                 startActivity(new Intent(Loading.this, MainActivity.class));
                             } else {

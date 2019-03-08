@@ -18,10 +18,6 @@ public class TakeQuickPictureMission extends Mission {
 
     @Override
     public void start() {
-        Logger.debug("start quick take photo");
-        IDrone drone = DroneFactory.getDroneManager();
-        byte[] img = drone.getQuickImage();
-        sendPic(img);
     }
 
 

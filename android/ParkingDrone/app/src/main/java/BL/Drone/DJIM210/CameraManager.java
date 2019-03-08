@@ -1,5 +1,6 @@
 package BL.Drone.DJIM210;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 import BL.missions.TakePictureMission;
@@ -10,11 +11,14 @@ import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.camera.Camera;
+import dji.sdk.codec.DJICodecManager;
+import dji.thirdparty.afinal.core.AsyncTask;
 
-public class CameraManager {
+public class CameraManager implements DJICodecManager.YuvDataCallback  {
     List<Camera> cameras;
     Camera mainCamera;
     boolean isInitiated;
+    private int count;
 
     public CameraManager(List<Camera> cameras){
         this.cameras = cameras;
@@ -62,5 +66,22 @@ public class CameraManager {
             Logger.info("camera is not initiated yet");
         }
         return isInitiated;
+    }
+
+    @Override
+    public void onYuvDataReceived(final ByteBuffer yuvFrame, int dataSize, final int width, final int height) {
+        //In this demo, we test the YUV data by saving it into JPG files.
+        //DJILog.d(TAG, "onYuvDataReceived " + dataSize);
+        if (count++ % 30 == 0 && yuvFrame != null) {
+            final byte[] bytes = new byte[dataSize];
+            yuvFrame.get(bytes);
+            //DJILog.d(TAG, "onYuvDataReceived2 " + dataSize);
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+//                    saveYuvDataToJPEG(bytes, width, height);
+                }
+            });
+        }
     }
 }
