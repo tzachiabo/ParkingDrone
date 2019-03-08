@@ -17,6 +17,16 @@
         android:layout_gravity="center"
         android:visibility="gone"
         android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/activity_main_screen_shot"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="YUV Screen Shot"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:gravity="center"
+        android:layout_marginTop="50dp"/>
     <!-- Widget to see first person view (FPV) -->
     <!--<dji.ux.widget.FPVWidget-->
         <!--android:id="@+id/fpv_camera"-->

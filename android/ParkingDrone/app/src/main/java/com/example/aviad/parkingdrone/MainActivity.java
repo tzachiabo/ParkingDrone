@@ -1,5 +1,6 @@
 package com.example.aviad.parkingdrone;
 
+import android.app.Activity;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
@@ -33,9 +34,8 @@ import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
 import dji.sdk.codec.DJICodecManager;
 import dji.thirdparty.afinal.core.AsyncTask;
-import dji.ux.widget.FPVWidget;
 
-public class MainActivity extends AppCompatActivity implements DJICodecManager.YuvDataCallback {
+public class MainActivity extends Activity implements DJICodecManager.YuvDataCallback {
 
     private SurfaceView videostreamPreviewSf;
     private SurfaceHolder videostreamPreviewSh;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements DJICodecManager.Y
     private int videoViewWidth;
     private int videoViewHeight;
     private DJICodecManager mCodecManager;
+    private VideoFeeder.VideoFeed standardVideoFeeder = null;
     protected VideoFeeder.VideoDataListener mReceivedVideoDataListener = null;
     private Camera mCamera;
     private int count = 0;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements DJICodecManager.Y
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
@@ -64,7 +65,36 @@ public class MainActivity extends AppCompatActivity implements DJICodecManager.Y
 
         BLManager.getInstance();
         initUI();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initSurfaceView();
         initVF();
+    }
+
+    @Override
+    protected void onPause() {
+        if (mCamera != null) {
+            if (VideoFeeder.getInstance().getPrimaryVideoFeed() != null) {
+                VideoFeeder.getInstance().getPrimaryVideoFeed().removeVideoDataListener(mReceivedVideoDataListener);
+            }
+            if (standardVideoFeeder != null) {
+                standardVideoFeeder.removeVideoDataListener(mReceivedVideoDataListener);
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mCodecManager != null) {
+            mCodecManager.cleanSurface();
+            mCodecManager.destroyCodec();
+        }
+        super.onDestroy();
     }
 
     public void initUI(){
@@ -82,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements DJICodecManager.Y
             }
         });
         videostreamPreviewSf.setVisibility(View.VISIBLE);
-        initSurfaceView();
+
     }
 
 
@@ -143,19 +173,16 @@ public class MainActivity extends AppCompatActivity implements DJICodecManager.Y
         };
         videostreamPreviewSh = videostreamPreviewSf.getHolder();
         videostreamPreviewSh.addCallback(surfaceCallback);
-        //TODO:EXTRACT
-//        mCodecManager.enabledYuvData(false);
-//        mCodecManager.setYuvDataCallback(null);
-//        mCodecManager.enabledYuvData(true);
-//        mCodecManager.setYuvDataCallback(this);
     }
-
+    public void onClick(View v) {
+        mCodecManager.enabledYuvData(true);
+        mCodecManager.setYuvDataCallback(this);
+    }
     @Override
     public void onYuvDataReceived(ByteBuffer yuvFrame, int dataSize, final int width, final int height) {
-        if (count++ % 60 == 0 && yuvFrame != null) {
+        if (count++ % 30 == 0 && yuvFrame != null) {
             final byte[] bytes = new byte[dataSize];
             yuvFrame.get(bytes);
-            //DJILog.d(TAG, "onYuvDataReceived2 " + dataSize);
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -167,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements DJICodecManager.Y
 
     private void saveYuvDataToJPEG(byte[] yuvFrame, int width, int height){
         if (yuvFrame.length < width * height) {
-            //DJILog.d(TAG, "yuvFrame size is too small " + yuvFrame.length);
+            Logger.error("yuvFrame size is too small "+ yuvFrame.length + " width * height = " + width * height );
             return;
         }
 
