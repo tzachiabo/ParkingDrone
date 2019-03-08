@@ -15,7 +15,7 @@ namespace DroneServer.SharedClasses
         private int width;
         private int height;
 
-        public Car(String type, int precent, int left_margin, int top_margin, int width, int height)
+        public Car(String type, int precent, int left_margin, int top_margin, int width, int height, double base_photo_height)
         {
             this.type = type;
             this.precent = precent;
@@ -23,6 +23,7 @@ namespace DroneServer.SharedClasses
             this.top_margin = top_margin;
             this.width = width;
             this.height = height;
+            // TODO aviad zabow decode to meter
         }
 
 

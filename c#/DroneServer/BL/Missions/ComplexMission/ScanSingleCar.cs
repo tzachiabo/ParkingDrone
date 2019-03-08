@@ -9,6 +9,9 @@ namespace DroneServer.BL.Missions
 {
     class ScanSingleCar : ComplexMission
     {
+        private Point curr_position;
+        private Point car_position;
+
         public ScanSingleCar(ComplexMission ParentMission = null) : base(ParentMission)
         {
         }

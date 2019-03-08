@@ -11,11 +11,11 @@ namespace DroneServer.BL
 {
     public class CarDetector
     {
-        public static List<Car> getCarsFromBasePhoto(String base_photo_path)
+        public static List<Car> getCarsFromBasePhoto(String base_photo_path, double base_photo_height)
         {
             String[] module_result = run_car_detector_module(base_photo_path);
 
-            return generate_cars_objects(module_result);
+            return generate_cars_objects(module_result, base_photo_height);
         }
 
         private static String[] run_car_detector_module(String base_photo_path)
@@ -44,7 +44,7 @@ namespace DroneServer.BL
         }
 
 
-        private static List<Car> generate_cars_objects(String[] module_result)
+        private static List<Car> generate_cars_objects(String[] module_result, double base_photo_height)
         {
             List<Car> res = new List<Car>();
 
@@ -60,7 +60,7 @@ namespace DroneServer.BL
                     int margin_top = Int32.Parse(colums[3]);
                     int width = Int32.Parse(colums[4]);
                     int height = Int32.Parse(colums[5]);
-                    Car car = new Car(type, precent, margin_left, margin_top, width, height);
+                    Car car = new Car(type, precent, margin_left, margin_top, width, height, base_photo_height);
                     res.Add(car);
                 }
             }

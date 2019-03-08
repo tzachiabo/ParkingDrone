@@ -63,37 +63,41 @@ namespace DroneServer.SharedClasses
         }
         public Point getBasePoint()
         {
-            var XList = new List<double>();
-            var YList = new List<double>();
-            var ZList = new List<double>();
-
-            foreach (Point point in border)
+            if (basePossition != null)
             {
-                XList.Add(point.lng);
-                YList.Add(point.lat);
-                ZList.Add(point.alt);
+                var XList = new List<double>();
+                var YList = new List<double>();
+                var ZList = new List<double>();
+
+                foreach (Point point in border)
+                {
+                    XList.Add(point.lng);
+                    YList.Add(point.lat);
+                    ZList.Add(point.alt);
+                }
+
+                double minX = XList.Min();
+                double maxX = XList.Max();
+                double minY = YList.Min();
+                double maxY = YList.Max();
+                double maxZ = ZList.Max();
+
+                Configuration conf = Configuration.getInstance();
+                double middleX = (minX + maxX) / 2;
+                double middleY = (minY + maxY) / 2;
+                var sCoord = new GeoCoordinate(minX, minY);
+                var eCoord = new GeoCoordinate(maxX, maxY);
+
+                double radius = eCoord.GetDistanceTo(sCoord) / 2;
+                double degree = double.Parse(conf.get("cameraOpeningDegree"));
+                double rad = ConvertToRadians(degree);
+
+                double hight = maxZ + (radius / Math.Tan(rad));
+
+                basePossition = new Point(middleX, middleY, hight);
             }
-
-            double minX = XList.Min();
-            double maxX = XList.Max();
-            double minY = YList.Min();
-            double maxY = YList.Max();
-            double maxZ = ZList.Max();
-
-            Configuration conf= Configuration.getInstance();
-            double middleX = (minX + maxX) / 2;
-            double middleY = (minY + maxY) / 2;
-            var sCoord = new GeoCoordinate(minX, minY);
-            var eCoord = new GeoCoordinate(maxX, maxY);
-
-            double radius = eCoord.GetDistanceTo(sCoord) / 2;
-            double degree = double.Parse(conf.get("cameraOpeningDegree"));
-            double rad = ConvertToRadians(degree);
-
-            double hight =maxZ + (radius / Math.Tan(rad));
-
-            return new Point(middleX,middleY,hight);
-        }
+            return basePossition;
+            }
 
         private double ConvertToRadians(double angle)
         {

@@ -17,7 +17,7 @@ namespace DroneServer.BL.Comm
 
         Thread thread;
         private TcpListener m_server;
-        private int m_index;
+        public static int m_index;
 
         public PicTransferServer()
         {
@@ -73,6 +73,11 @@ namespace DroneServer.BL.Comm
                 }
             });
             thread.Start();
+        }
+
+        public static String getLastPicPath()
+        {
+            return m_index + ".JPG";
         }
 
 
