@@ -1,6 +1,9 @@
 package BL.missions;
 
 import android.os.Handler;
+
+import com.example.aviad.parkingdrone.MainActivity;
+
 import BL.BLManager;
 import SharedClasses.Config;
 import SharedClasses.Logger;
@@ -33,74 +36,8 @@ public class TakePictureMission extends Mission {
     @Override
     public void start() {
         Logger.debug("start take photo");
-        SettingsDefinitions.ShootPhotoMode photoMode = SettingsDefinitions.ShootPhotoMode.SINGLE;
-        camera.setShootPhotoMode(photoMode,new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError djiError) {
-                camera.startShootPhoto(new CommonCallbacks.CompletionCallback() {
-                    @Override
-                    public void onResult(DJIError djiError) {
-                        if (djiError == null) {
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Logger.debug("take photo: success");
-                            camera.getMediaManager().refreshFileListOfStorageLocation(SettingsDefinitions.StorageLocation.SDCARD, new CommonCallbacks.CompletionCallback() {
-                                @Override
-                                public void onResult(DJIError djiError) {
-                                    if(djiError!=null){
-                                        Logger.debug("refreshFileListOfStorageLocation result in error : "+djiError.toString());
-                                    }
-                                    else{
-                                        Logger.debug("sd storage list state : " + camera.getMediaManager().getSDCardFileListState());
-                                        List<MediaFile> sdCardFileListSnapshot = camera.getMediaManager().getSDCardFileListSnapshot();
-                                        Logger.debug("number of files in fs :" + sdCardFileListSnapshot.size());
-
-                                        MediaFile file = sdCardFileListSnapshot.get(sdCardFileListSnapshot.size()-1);
-                                        pic_name ="basePhoto" + index;
-
-                                        file.fetchFileData(BLManager.getInstance().file,pic_name, new DownloadListener<String>() {
-                                            @Override
-                                            public void onStart() {
-                                                Logger.info("fetching file");
-                                            }
-
-                                            @Override
-                                            public void onRateUpdate(long l, long l1, long l2) {
-
-                                            }
-
-                                            @Override
-                                            public void onProgress(long l, long l1) {
-                                                //Logger.debug("processing fetching data");
-                                            }
-
-                                            @Override
-                                            public void onSuccess(String s) {
-                                                Logger.info("fetching file Success");
-                                                sendFileToServer(pic_name + ".JPG");
-                                            }
-
-                                            @Override
-                                            public void onFailure(DJIError djiError) {
-                                                Logger.info("fetching file failed error: "+ djiError.toString());
-                                            }
-                                        });
-
-                                    }
-                                }
-                            });
-
-                        } else {
-                            Logger.error("take photo result in error : " + djiError.getDescription());
-                        }
-                    }
-
-                });
-            }});
-        }
+        sendFileToServer("pic_" + MainActivity.current_pic + ".jpg");
+    }
 
 
     @Override
@@ -109,7 +46,7 @@ public class TakePictureMission extends Mission {
     }
 
     private void sendFileToServer(String file_name){
-        File pic = new File(BLManager.getInstance().file,file_name);
+        File pic = new File(BLManager.getInstance().file, file_name);
         Logger.debug("start read pic from android memory");
 
         try {

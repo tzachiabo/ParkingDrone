@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_blue"
-    android:orientation="horizontal"
-    tools:context=".MainActivity">
+    tools:context="com.example.aviad.parkingdrone.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/main_title_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/title_dark">
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:text="@string/title_main_activity"/>
+
+    </RelativeLayout>
+
+    <TextureView
+        android:id="@+id/livestream_preview_ttv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="50"
+        android:visibility="visible"
+        android:layout_below="@id/main_title_rl"/>
 
     <SurfaceView
         android:id="@+id/livestream_preview_sf"
@@ -16,82 +39,64 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:layout_marginTop="10dp"/>
+        android:layout_below="@id/main_title_rl"/>
 
-    <Button
-        android:id="@+id/activity_main_screen_shot"
+    <LinearLayout
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="YUV Screen Shot"
-        android:clickable="true"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:layout_marginTop="50dp"/>
-    <!-- Widget to see first person view (FPV) -->
-    <!--<dji.ux.widget.FPVWidget-->
-        <!--android:id="@+id/fpv_camera"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
-    <!--<dji.ux.widget.FPVOverlayWidget-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
-    <!--<dji.ux.workflow.CompassCalibratingWorkFlow-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
-    <!--&lt;!&ndash; Widgets in top status bar &ndash;&gt;-->
-    <LinearLayout
-        android:id="@+id/signal"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="@color/dark_gray"
-        android:orientation="horizontal">
-        <dji.ux.widget.PreFlightStatusWidget
-            android:layout_width="238dp"
-            android:layout_height="25dp"/>
-        <!--<dji.ux.widget.FlightModeWidget-->
-            <!--android:layout_width="103dp"-->
-            <!--android:layout_height="22dp"/>-->
-        <!--<dji.ux.widget.GPSSignalWidget-->
-            <!--android:layout_width="44dp"-->
-            <!--android:layout_height="22dp"/>-->
-        <!--<dji.ux.widget.VisionWidget-->
-            <!--android:layout_width="22dp"-->
-            <!--android:layout_height="22dp"/>-->
-        <!--<dji.ux.widget.RemoteControlSignalWidget-->
-            <!--android:layout_width="38dp"-->
-            <!--android:layout_height="22dp"/>-->
-        <!--<dji.ux.widget.VideoSignalWidget-->
-            <!--android:layout_width="38dp"-->
-            <!--android:layout_height="22dp"/>-->
-        <!--<dji.ux.widget.WiFiSignalWidget-->
-            <!--android:layout_width="22dp"-->
-            <!--android:layout_height="20dp"/>-->
-        <!--<dji.ux.widget.BatteryWidget-->
-            <!--android:layout_width="96dp"-->
-            <!--android:layout_height="22dp"-->
-            <!--custom:excludeView="singleVoltage"/>-->
-        <!--<dji.ux.widget.ConnectionWidget-->
-            <!--android:layout_marginTop="3dp"-->
-            <!--android:layout_width="18dp"-->
-            <!--android:layout_height="18dp"/>-->
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/main_title_rl"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/activity_main_screen_texture"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Demo TextureView"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:gravity="center"  />
+
+        <Button
+            android:id="@+id/activity_main_screen_surface_with_own_decoder"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Demo custom decoder"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/activity_main_screen_surface"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Demo SurfaceView"
+            android:onClick="onClick"
+            android:gravity="center" />
+
+
+        <Button
+            android:id="@+id/activity_main_screen_shot"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="YUV Screen Shot"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:gravity="center" />
+
     </LinearLayout>
-    <!--<dji.ux.widget.RemainingFlightTimeWidget-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginTop="18dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:background="@color/transparent"-->
-        <!--android:layout_height="20dp"/>-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:padding="12dp">-->
-        <!--<dji.ux.widget.dashboard.DashboardWidget-->
-            <!--android:id="@+id/Compass"-->
-            <!--android:layout_width="350dp"-->
-            <!--android:layout_height="91dp"-->
-            <!--android:layout_marginRight="12dp"-->
-            <!--tools:ignore="RtlHardcoded"/>-->
-    <!--</LinearLayout>-->
+    <TextView
+        android:id="@+id/activity_main_save_path"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:background="@color/title_dark"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/main_title_rl"
+        android:textColor="@color/colorWhite"
+        android:visibility="invisible"
+        android:scrollbars="vertical"
+        android:gravity="bottom"
+        />
+
 </RelativeLayout>

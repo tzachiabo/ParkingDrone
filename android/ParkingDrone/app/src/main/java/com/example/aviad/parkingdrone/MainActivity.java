@@ -3,76 +3,115 @@ package com.example.aviad.parkingdrone;
 import android.app.Activity;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
+import android.graphics.SurfaceTexture;
 import android.graphics.YuvImage;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.example.aviad.parkingdrone.R;
+
+import BL.BLManager;
+import BL.VideoDecodingApplication;
+import dji.common.camera.SettingsDefinitions;
+import dji.common.error.DJIError;
+import dji.common.util.CommonCallbacks;
+import dji.log.DJILog;
+import dji.thirdparty.afinal.core.AsyncTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 
-import javax.microedition.khronos.opengles.GL10;
-
-import BL.BLManager;
-import BL.VideoDecodingApplication;
-import SharedClasses.Logger;
-import dji.common.camera.SettingsDefinitions;
-import dji.common.error.DJIError;
-import dji.common.util.CommonCallbacks;
+import dji.common.product.Model;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.camera.VideoFeeder;
 import dji.sdk.codec.DJICodecManager;
-import dji.thirdparty.afinal.core.AsyncTask;
+import java.nio.ByteBuffer;
 
 public class MainActivity extends Activity implements DJICodecManager.YuvDataCallback {
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int MSG_WHAT_SHOW_TOAST = 0;
+    private static final int MSG_WHAT_UPDATE_TITLE = 1;
+    private SurfaceHolder.Callback surfaceCallback;
+    private enum DemoType { USE_TEXTURE_VIEW, USE_SURFACE_VIEW, USE_SURFACE_VIEW_DEMO_DECODER}
+    private static DemoType demoType = DemoType.USE_TEXTURE_VIEW;
+    private VideoFeeder.VideoFeed standardVideoFeeder;
+    public static int current_pic = 0;
 
+
+    protected VideoFeeder.VideoDataListener mReceivedVideoDataListener = null;
+    private TextView titleTv;
+    public Handler mainHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_WHAT_SHOW_TOAST:
+                    Toast.makeText(getApplicationContext(), (String) msg.obj, Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_WHAT_UPDATE_TITLE:
+                    if (titleTv != null) {
+                        titleTv.setText((String) msg.obj);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    private TextureView videostreamPreviewTtView;
     private SurfaceView videostreamPreviewSf;
     private SurfaceHolder videostreamPreviewSh;
-    private SurfaceHolder.Callback surfaceCallback;
+    private Camera mCamera;
+    private DJICodecManager mCodecManager;
+    private TextView savePath;
+    private Button screenShot;
+    private StringBuilder stringBuilder;
     private int videoViewWidth;
     private int videoViewHeight;
-    private DJICodecManager mCodecManager;
-    private VideoFeeder.VideoFeed standardVideoFeeder = null;
-    protected VideoFeeder.VideoDataListener mReceivedVideoDataListener = null;
-    private Camera mCamera;
-    private int count = 0;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //getSupportActionBar().hide();
-
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
-                Logger.fatal("UI exception thrown");
-            }
-        });
-
-        BLManager.getInstance();
-        initUI();
-
-    }
+    private int count;
 
     @Override
     protected void onResume() {
         super.onResume();
-        initSurfaceView();
-        initVF();
+        initSurfaceOrTextureView();
+        notifyStatusChange();
+    }
+
+    private void initSurfaceOrTextureView(){
+        switch (demoType) {
+            case USE_SURFACE_VIEW:
+                initPreviewerSurfaceView();
+                break;
+            case USE_SURFACE_VIEW_DEMO_DECODER:
+                /**
+                 * we also need init the textureView because the pre-transcoded video steam will display in the textureView
+                 */
+                initPreviewerTextureView();
+
+                /**
+                 * we use standardVideoFeeder to pass the transcoded video data to DJIVideoStreamDecoder, and then display it
+                 * on surfaceView
+                 */
+                initPreviewerSurfaceView();
+                break;
+            case USE_TEXTURE_VIEW:
+                initPreviewerTextureView();
+                break;
+        }
     }
 
     @Override
@@ -97,92 +136,245 @@ public class MainActivity extends Activity implements DJICodecManager.YuvDataCal
         super.onDestroy();
     }
 
-    public void initUI(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BLManager.getInstance();
+        setContentView(R.layout.activity_main);
+        initUi();
+    }
+
+    private void showToast(String s) {
+        mainHandler.sendMessage(
+                mainHandler.obtainMessage(MSG_WHAT_SHOW_TOAST, s)
+        );
+    }
+
+    private void updateTitle(String s) {
+        mainHandler.sendMessage(
+                mainHandler.obtainMessage(MSG_WHAT_UPDATE_TITLE, s)
+        );
+    }
+
+    private void initUi() {
+        savePath = (TextView) findViewById(R.id.activity_main_save_path);
+        screenShot = (Button) findViewById(R.id.activity_main_screen_shot);
+        screenShot.setSelected(false);
+
+        titleTv = (TextView) findViewById(R.id.title_tv);
+        videostreamPreviewTtView = (TextureView) findViewById(R.id.livestream_preview_ttv);
         videostreamPreviewSf = (SurfaceView) findViewById(R.id.livestream_preview_sf);
         videostreamPreviewSf.setClickable(true);
         videostreamPreviewSf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 float rate = VideoFeeder.getInstance().getTranscodingDataRate();
+                showToast("current rate:" + rate + "Mbps");
                 if (rate < 10) {
                     VideoFeeder.getInstance().setTranscodingDataRate(10.0f);
+                    showToast("set rate to 10Mbps");
                 } else {
                     VideoFeeder.getInstance().setTranscodingDataRate(3.0f);
+                    showToast("set rate to 3Mbps");
                 }
             }
         });
-        videostreamPreviewSf.setVisibility(View.VISIBLE);
-
+        updateUIVisibility();
     }
 
+    private void updateUIVisibility(){
+        switch (demoType) {
+            case USE_SURFACE_VIEW:
+                videostreamPreviewSf.setVisibility(View.VISIBLE);
+                videostreamPreviewTtView.setVisibility(View.GONE);
+                break;
+            case USE_SURFACE_VIEW_DEMO_DECODER:
+                /**
+                 * we need display two video stream at the same time, so we need let them to be visible.
+                 */
+                videostreamPreviewSf.setVisibility(View.VISIBLE);
+                videostreamPreviewTtView.setVisibility(View.VISIBLE);
+                break;
 
-    public void initVF(){
+            case USE_TEXTURE_VIEW:
+                videostreamPreviewSf.setVisibility(View.GONE);
+                videostreamPreviewTtView.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+    private long lastupdate;
+    private void notifyStatusChange() {
+
         final BaseProduct product = VideoDecodingApplication.getProductInstance();
 
+        Log.d(TAG, "notifyStatusChange: " + (product == null ? "Disconnect" : (product.getModel() == null ? "null model" : product.getModel().name())));
+        if (product != null && product.isConnected() && product.getModel() != null) {
+            updateTitle(product.getModel().name() + " Connected " + demoType.name());
+        } else {
+            updateTitle("Disconnected");
+        }
+
+        // The callback for receiving the raw H264 video data for camera live view
         mReceivedVideoDataListener = new VideoFeeder.VideoDataListener() {
+
             @Override
             public void onReceive(byte[] videoBuffer, int size) {
-                if (mCodecManager != null) {
-                    mCodecManager.sendDataToDecoder(videoBuffer, size);
+                if (System.currentTimeMillis() - lastupdate > 1000) {
+                    Log.d(TAG, "camera recv video data size: " + size);
+                    lastupdate = System.currentTimeMillis();
                 }
+                switch (demoType) {
+                    case USE_SURFACE_VIEW:
+                        if (mCodecManager != null) {
+                            mCodecManager.sendDataToDecoder(videoBuffer, size);
+                        }
+                        break;
+
+
+                    case USE_TEXTURE_VIEW:
+                        if (mCodecManager != null) {
+                            mCodecManager.sendDataToDecoder(videoBuffer, size);
+                        }
+                        break;
+                }
+
             }
         };
 
-        if (null != product && product.isConnected()) {
-            mCamera = product.getCamera();
-            mCamera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, new CommonCallbacks.CompletionCallback() {
-                @Override
-                public void onResult(DJIError djiError) { }
-            });
-            VideoFeeder vf = VideoFeeder.getInstance();
-            if (vf != null) {
-                VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(mReceivedVideoDataListener);
+        if (null == product || !product.isConnected()) {
+            mCamera = null;
+            showToast("Disconnected");
+        } else {
+            if (!product.getModel().equals(Model.UNKNOWN_AIRCRAFT)) {
+                mCamera = product.getCamera();
+                mCamera.setMode(SettingsDefinitions.CameraMode.SHOOT_PHOTO, new CommonCallbacks.CompletionCallback() {
+                    @Override
+                    public void onResult(DJIError djiError) {
+                        if (djiError != null) {
+                            showToast("can't change mode of camera, error:"+djiError.getDescription());
+                        }
+                    }
+                });
+
+                if (demoType == DemoType.USE_SURFACE_VIEW_DEMO_DECODER) {
+                    if (VideoFeeder.getInstance() != null) {
+                        standardVideoFeeder = VideoFeeder.getInstance().provideTranscodedVideoFeed();
+                        standardVideoFeeder.addVideoDataListener(mReceivedVideoDataListener);
+                    }
+                } else {
+                    if (VideoFeeder.getInstance().getPrimaryVideoFeed() != null) {
+                        VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(mReceivedVideoDataListener);
+                    }
+                }
             }
         }
-
     }
 
-    private void initSurfaceView(){
+    /**
+     * Init a fake texture view to for the codec manager, so that the video raw data can be received
+     * by the camera
+     */
+    private void initPreviewerTextureView() {
+        videostreamPreviewTtView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+            @Override
+            public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+                Log.d(TAG, "real onSurfaceTextureAvailable");
+                videoViewWidth = width;
+                videoViewHeight = height;
+                Log.d(TAG, "real onSurfaceTextureAvailable: width " + videoViewWidth + " height " + videoViewHeight);
+                if (mCodecManager == null) {
+                    mCodecManager = new DJICodecManager(getApplicationContext(), surface, width, height);
+                }
+            }
+
+            @Override
+            public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+                videoViewWidth = width;
+                videoViewHeight = height;
+                Log.d(TAG, "real onSurfaceTextureAvailable2: width " + videoViewWidth + " height " + videoViewHeight);
+            }
+
+            @Override
+            public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+                if (mCodecManager != null) {
+                    mCodecManager.cleanSurface();
+                }
+                return false;
+            }
+
+            @Override
+            public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+
+            }
+        });
+    }
+
+    /**
+     * Init a surface view for the DJIVideoStreamDecoder
+     */
+    private void initPreviewerSurfaceView() {
+        videostreamPreviewSh = videostreamPreviewSf.getHolder();
         surfaceCallback = new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
+                Log.d(TAG, "real onSurfaceTextureAvailable");
                 videoViewWidth = videostreamPreviewSf.getWidth();
                 videoViewHeight = videostreamPreviewSf.getHeight();
+                Log.d(TAG, "real onSurfaceTextureAvailable3: width " + videoViewWidth + " height " + videoViewHeight);
+                switch (demoType) {
+                    case USE_SURFACE_VIEW:
+                        if (mCodecManager == null) {
+                            mCodecManager = new DJICodecManager(getApplicationContext(), holder, videoViewWidth,
+                                    videoViewHeight);
+                        }
+                        break;
 
-                if (mCodecManager == null) {
-                    mCodecManager = new DJICodecManager(getApplicationContext(), holder, videoViewWidth,
-                            videoViewHeight);
                 }
+
             }
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
                 videoViewWidth = width;
                 videoViewHeight = height;
+                Log.d(TAG, "real onSurfaceTextureAvailable4: width " + videoViewWidth + " height " + videoViewHeight);
+                switch (demoType) {
+                    case USE_SURFACE_VIEW:
+                        //mCodecManager.onSurfaceSizeChanged(videoViewWidth, videoViewHeight, 0);
+                        break;
+
+                }
+
             }
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                if (mCodecManager != null) {
-                    mCodecManager.cleanSurface();
-                    mCodecManager.destroyCodec();
-                    mCodecManager = null;
+                switch (demoType) {
+                    case USE_SURFACE_VIEW:
+                        if (mCodecManager != null) {
+                            mCodecManager.cleanSurface();
+                            mCodecManager.destroyCodec();
+                            mCodecManager = null;
+                        }
+                        break;
+
                 }
 
             }
         };
-        videostreamPreviewSh = videostreamPreviewSf.getHolder();
+
         videostreamPreviewSh.addCallback(surfaceCallback);
     }
-    public void onClick(View v) {
-        mCodecManager.enabledYuvData(true);
-        mCodecManager.setYuvDataCallback(this);
-    }
+
+
     @Override
-    public void onYuvDataReceived(ByteBuffer yuvFrame, int dataSize, final int width, final int height) {
-        if (count++ % 30 == 0 && yuvFrame != null) {
+    public void onYuvDataReceived(final ByteBuffer yuvFrame, int dataSize, final int width, final int height) {
+        //In this demo, we test the YUV data by saving it into JPG files.
+        //DJILog.d(TAG, "onYuvDataReceived " + dataSize);
+        if (count++ % 70 == 0 && yuvFrame != null) {
             final byte[] bytes = new byte[dataSize];
             yuvFrame.get(bytes);
+            //DJILog.d(TAG, "onYuvDataReceived2 " + dataSize);
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -194,7 +386,7 @@ public class MainActivity extends Activity implements DJICodecManager.YuvDataCal
 
     private void saveYuvDataToJPEG(byte[] yuvFrame, int width, int height){
         if (yuvFrame.length < width * height) {
-            Logger.error("yuvFrame size is too small "+ yuvFrame.length + " width * height = " + width * height );
+            //DJILog.d(TAG, "yuvFrame size is too small " + yuvFrame.length);
             return;
         }
 
@@ -235,9 +427,12 @@ public class MainActivity extends Activity implements DJICodecManager.YuvDataCal
             bytes[y.length + (i * 2) + 1] = nu[i];
         }
 
-        screenShot(bytes, Environment.getExternalStorageDirectory() + "/DJI_ScreenShot", width, height);
+        screenShot(bytes,Environment.getExternalStorageDirectory() + "/DJI_ScreenShot", width, height);
     }
 
+    /**
+     * Save the buffered data into a JPG image file
+     */
     private void screenShot(byte[] buf, String shotDir, int width, int height) {
         File dir = new File(shotDir);
         if (!dir.exists() || !dir.isDirectory()) {
@@ -249,10 +444,12 @@ public class MainActivity extends Activity implements DJICodecManager.YuvDataCal
                 height,
                 null);
         OutputStream outputFile;
-        final String path = dir + "/ScreenShot_" + System.currentTimeMillis() + ".jpg";
+        current_pic = (current_pic + 1)%30;
+        final String path = dir + "/pic_" + current_pic + ".jpg";
         try {
             outputFile = new FileOutputStream(new File(path));
         } catch (FileNotFoundException e) {
+            Log.e(TAG, "test screenShot: new bitmap output file error: " + e);
             return;
         }
         if (outputFile != null) {
@@ -264,13 +461,89 @@ public class MainActivity extends Activity implements DJICodecManager.YuvDataCal
         try {
             outputFile.close();
         } catch (IOException e) {
+            Log.e(TAG, "test screenShot: compress yuv image error: " + e);
             e.printStackTrace();
         }
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                displayPath(path);
-//            }
-//        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                displayPath(path);
+            }
+        });
+    }
+
+
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.activity_main_screen_shot) {
+            handleYUVClick();
+        } else {
+            DemoType newDemoType = null;
+            if (v.getId() == R.id.activity_main_screen_texture) {
+                newDemoType = DemoType.USE_TEXTURE_VIEW;
+            } else if (v.getId() == R.id.activity_main_screen_surface) {
+                newDemoType = DemoType.USE_SURFACE_VIEW;
+            } else if (v.getId() == R.id.activity_main_screen_surface_with_own_decoder) {
+                newDemoType = DemoType.USE_SURFACE_VIEW_DEMO_DECODER;
+            }
+
+            if (newDemoType != null && newDemoType != demoType) {
+                // Although finish will trigger onDestroy() is called, but it is not called before OnCreate of new activity.
+                if (mCodecManager != null) {
+                    mCodecManager.cleanSurface();
+                    mCodecManager.destroyCodec();
+                    mCodecManager = null;
+                }
+                demoType = newDemoType;
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        }
+    }
+
+    private void handleYUVClick() {
+        if (screenShot.isSelected()) {
+            screenShot.setText("YUV Screen Shot");
+            screenShot.setSelected(false);
+
+            switch (demoType) {
+                case USE_SURFACE_VIEW:
+                case USE_TEXTURE_VIEW:
+                    mCodecManager.enabledYuvData(false);
+                    mCodecManager.setYuvDataCallback(null);
+                    // ToDo:
+                    break;
+
+            }
+            savePath.setText("");
+            savePath.setVisibility(View.INVISIBLE);
+            stringBuilder = null;
+        } else {
+            screenShot.setText("Live Stream");
+            screenShot.setSelected(true);
+
+            switch (demoType) {
+                case USE_TEXTURE_VIEW:
+                case USE_SURFACE_VIEW:
+                    mCodecManager.enabledYuvData(true);
+                    mCodecManager.setYuvDataCallback(this);
+                    break;
+
+            }
+            savePath.setText("");
+            savePath.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void displayPath(String path) {
+        if (stringBuilder == null) {
+            stringBuilder = new StringBuilder();
+        }
+
+        path = path + "\n";
+        stringBuilder.append(path);
+        savePath.setText(stringBuilder.toString());
     }
 }
