@@ -30,7 +30,7 @@ namespace AndroidAccepanceTests
         protected void landing()
         {
             startLanding();
-            confirmLanding();
+            //confirmLanding();
         }
 
         protected CompletionHanlder startLanding(bool isAsync=false)

@@ -57,7 +57,7 @@ public class ControllerManager {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if (flight_controller_state.getAircraftLocation().getAltitude() > 0.4){
+                        if (flight_controller_state.getAircraftLocation().getAltitude() > 0.2){
                             cb.success();
                             return;
                         }
@@ -72,7 +72,7 @@ public class ControllerManager {
                         Assertions.verify(System.currentTimeMillis() - startTime < Config.MAX_TIME_WAIT_FOR_TAKEOFF,
                                 "Takeoff timeout: wait too much time for takeoff");
                     }
-                    while (height < 1.1);
+                    while (height < 0.7);
 
                     m_flight_controller.setHomeLocationUsingAircraftCurrentLocation(null);
 
@@ -239,6 +239,8 @@ public class ControllerManager {
 
     public void startLanding(final Promise p){
         hasStoped = false;
+        Logger.info("ControllerManager : start landing");
+
         m_flight_controller.startLanding(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError djiError) {
@@ -256,6 +258,8 @@ public class ControllerManager {
                 Logger.info("start start landing");
                 long startTime = System.currentTimeMillis();
                 while (!isFinishedLanding() && !hasStoped) {
+                    Logger.info("ControllerManager : start landing in loop");
+
                     if (System.currentTimeMillis() - startTime > Config.MAX_TIME_WAIT_FOR_LANDING)
                     {
                         Logger.fatal("failed to land timeout");
@@ -263,7 +267,7 @@ public class ControllerManager {
                         return;
                     }
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -278,7 +282,7 @@ public class ControllerManager {
     }
 
     private boolean isFinishedLanding(){
-        return getDroneState().isLandingConfirmationNeeded();
+        return getDroneState().isLandingConfirmationNeeded() || !m_flight_controller.getState().areMotorsOn();
     }
 
     public void stopLanding() {

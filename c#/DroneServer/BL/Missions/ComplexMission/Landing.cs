@@ -13,7 +13,7 @@ namespace DroneServer.BL.Missions
         {
             m_ParentMission = ParentMission;
             m_SubMission.Enqueue(new StartLanding(this));
-            m_SubMission.Enqueue(new ConfirmLanding(this));
+            //em_SubMission.Enqueue(new ConfirmLanding(this));
         }
 
         public override void stop()

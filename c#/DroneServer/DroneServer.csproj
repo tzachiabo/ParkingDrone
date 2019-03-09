@@ -112,6 +112,7 @@
     <Compile Include="BL\Missions\ComplexMission\AbsoluteMoveGimbalMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\ComplexGoHome.cs" />
     <Compile Include="BL\Missions\ComplexMission\EndMission.cs" />
+    <Compile Include="BL\Missions\ComplexMission\GetToCertainHeight.cs" />
     <Compile Include="BL\Missions\LeafMission\ConfirmLanding.cs" />
     <Compile Include="BL\Missions\ComplexMission\Landing.cs" />
     <Compile Include="BL\Missions\LeafMission\getDroneStatus.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="DL\DB.cs" />
     <Compile Include="PL\Observers\MapObserver.cs" />
     <Compile Include="SharedClasses\Car.cs" />
+    <Compile Include="SharedClasses\CompletionHanlder.cs" />
     <Compile Include="SharedClasses\ConnectionStatus.cs" />
     <Compile Include="SharedClasses\DroneStatus.cs" />
     <Compile Include="SharedClasses\Map.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="SharedClasses\Logger.cs" />
     <Compile Include="SharedClasses\MissionType.cs" />
     <Compile Include="SharedClasses\Parking.cs" />
+    <Compile Include="SharedClasses\PixelConverterHelper.cs" />
     <Compile Include="SharedClasses\Point.cs" />
     <Compile Include="SharedClasses\Response.cs" />
     <Compile Include="SharedClasses\Status.cs" />

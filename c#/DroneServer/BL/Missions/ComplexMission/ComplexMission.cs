@@ -18,9 +18,16 @@ namespace DroneServer.BL.Missions
 
         public override void execute()
         {
-            Mission mission = m_SubMission.Dequeue();
+            if (m_SubMission.Count > 0)
+            {
+                Mission mission = m_SubMission.Dequeue();
 
-            mission.execute();
+                mission.execute();
+            }
+            else
+            {
+                done(new Response(m_index,Status.Ok, MissionType.MainMission));
+            }
         }
 
         public virtual void notify(Response response)

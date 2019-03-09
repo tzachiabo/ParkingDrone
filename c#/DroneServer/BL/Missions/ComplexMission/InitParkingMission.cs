@@ -24,6 +24,12 @@ namespace DroneServer.BL.Missions
 
         }
 
+        public override void execute()
+        {
+            Logger.getInstance().info("init mission started");
+            base.execute();
+        }
+
         public override void done(Response response) 
         {
             Response res = new Response(m_index, Status.Ok, MissionType.MainMission, PicTransferServer.getLastPicPath());

@@ -11,8 +11,13 @@ namespace DroneServer.BL.CV
 {
     public class VerifyLocation
     {
-        public static SharedClasses.Point getLocation(String base_photo_path, String current_photo_path, Double ratio = 1)
+        public static SharedClasses.Point getLocation(String base_photo_path, String current_photo_path, Double ratio = 0)
         {
+            if (ratio == 0)
+            {
+                ratio = BLManagger.getInstance().get_parking().getBasePoint().alt / LocationManager.current_position.alt;
+            }
+
             String module_result = run_verify_location_module(base_photo_path, current_photo_path, ratio);
 
             return parseStringToPoint(module_result);

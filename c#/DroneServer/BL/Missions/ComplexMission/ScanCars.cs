@@ -27,11 +27,7 @@ namespace DroneServer.BL.Missions
                 ScanSingleCar scan_car = new ScanSingleCar(parking.getBasePointInMeters(), first, this);
                 m_SubMission.Enqueue(scan_car);
             }
-            else
-            {
-                Logger.getInstance().debug("no cars in the parking");
-                done(new Response(m_index, Status.Ok, MissionType.MainMission));
-            }
+            
         }
 
         public override void stop()

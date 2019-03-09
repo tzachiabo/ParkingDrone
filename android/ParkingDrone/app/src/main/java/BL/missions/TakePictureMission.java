@@ -36,6 +36,11 @@ public class TakePictureMission extends Mission {
     @Override
     public void start() {
         Logger.debug("start take photo");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         sendFileToServer("pic_" + MainActivity.current_pic + ".jpg");
     }
 

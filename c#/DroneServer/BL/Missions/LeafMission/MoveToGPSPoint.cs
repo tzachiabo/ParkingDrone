@@ -38,6 +38,7 @@ namespace DroneServer.BL.Missions
         public override void execute()
         {
             BLManagger.getInstance().setSafeZone(false);
+            Logger.getInstance().info("move to gps execute");
             base.execute();
         }
 

@@ -63,8 +63,8 @@ namespace DroneServer.SharedClasses
         }
         public Point getBasePoint()
         {
-            if (basePossition != null)
-            {
+            ////if (basePossition != null)  TODO aviad zabow
+            ////{
                 var XList = new List<double>();
                 var YList = new List<double>();
                 var ZList = new List<double>();
@@ -95,7 +95,7 @@ namespace DroneServer.SharedClasses
                 double hight = maxZ + (radius / Math.Tan(rad));
 
                 basePossition = new Point(middleX, middleY, hight);
-            }
+            //}
             return basePossition;
         }
 
