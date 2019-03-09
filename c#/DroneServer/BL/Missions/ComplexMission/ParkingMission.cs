@@ -11,18 +11,18 @@ namespace DroneServer.BL.Missions
     {
         protected Parking m_parking;
 
-        public ParkingMission(Parking parking):this(null,parking)
-        {
-
-        }
+        public ParkingMission(Parking parking):this(null,parking){ }
 
         public ParkingMission(ComplexMission ParentMission, Parking parking) : base(ParentMission)
         {
-            m_SubMission.Enqueue(new TakeOff(this));
-            InitParkingMission init = new InitParkingMission(parking, this);
-            m_SubMission.Enqueue(init);
-            init.register_to_notification(init_mission_finished);
             m_parking = parking;
+            BLManagger.getInstance().set_parking(parking);
+
+            m_SubMission.Enqueue(new TakeOff(this));
+
+            InitParkingMission init = new InitParkingMission(parking, this);
+            init.register_to_notification(init_mission_finished);
+            m_SubMission.Enqueue(init);
         }
 
         public override void stop()
@@ -33,7 +33,9 @@ namespace DroneServer.BL.Missions
         private void init_mission_finished(Response res)
         {
             String Base_photo_path = (String)res.Data;
-            m_SubMission.Enqueue(new ScanCars(m_parking, Base_photo_path, this));
+            BLManagger.getInstance().set_base_photo_path(Base_photo_path);
+            PixelConverterHelper.init(m_parking.getBasePoint().alt);
+            m_SubMission.Enqueue(new ScanCars(m_parking, this));
             m_SubMission.Enqueue(new ComplexGoHome(this));
             m_SubMission.Enqueue(new Landing(this));
         }

@@ -12,21 +12,26 @@ namespace DroneServer.BL.Missions
     {
         private Queue<Car> cars;
 
-        public ScanCars(Parking parking,String BasePhoto, ComplexMission ParentMission = null) : base(ParentMission)
+        public ScanCars(Parking parking, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_ParentMission = ParentMission;
+
             Point base_point = parking.getBasePoint();
-            cars = new Queue<Car>(CarDetector.getCarsFromBasePhoto(BasePhoto, base_point.alt));
+            cars = new Queue<Car>(CarDetector.getCarsFromBasePhoto(BLManagger.getInstance().get_base_photo_path(), base_point.alt));
+
+            Logger.getInstance().info("number of cars in parking = " + cars.Count);
             if (cars.Count > 0)
             {
+                Logger.getInstance().info("ScanCars : start scanning cars");
                 Car first = cars.Dequeue();
-                ScanSingleCar scan_car = new ScanSingleCar(this);
+                ScanSingleCar scan_car = new ScanSingleCar(parking.getBasePointInMeters(), first, this);
                 m_SubMission.Enqueue(scan_car);
             }
             else
             {
-
-            }            
+                Logger.getInstance().debug("no cars in the parking");
+                done(new Response(m_index, Status.Ok, MissionType.MainMission));
+            }
         }
 
         public override void stop()
@@ -38,12 +43,16 @@ namespace DroneServer.BL.Missions
         {
             if (cars.Count > 0)
             {
+                Logger.getInstance().info("ScanCars :scaning next car");
+                Point curr_point = (Point)response.Data;
                 Car car = cars.Dequeue();
-                ScanSingleCar scan_car = new ScanSingleCar(this);
+                ScanSingleCar scan_car = new ScanSingleCar(curr_point, car, this);
                 scan_car.execute();
             }
             else
             {
+                Logger.getInstance().info("ScanCars : finish scanning all cars");
+
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, null));
             }
         }

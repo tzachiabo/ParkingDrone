@@ -11,7 +11,7 @@ namespace DroneServer.BL.CV
 {
     public class VerifyLocation
     {
-        public static SharedClasses.Point getLocation(String base_photo_path, String current_photo_path, Double ratio)
+        public static SharedClasses.Point getLocation(String base_photo_path, String current_photo_path, Double ratio = 1)
         {
             String module_result = run_verify_location_module(base_photo_path, current_photo_path, ratio);
 
@@ -51,7 +51,10 @@ namespace DroneServer.BL.CV
 
             String[] split_point_str = sub_point_str.Split(',');
 
-            return new Point(Int32.Parse(split_point_str[0]), Int32.Parse(split_point_str[1]));
+            int width_in_pixels = Int32.Parse(split_point_str[0]);
+            int hight_in_pixels = Int32.Parse(split_point_str[1]);
+
+            return new Point(PixelConverterHelper.convert_width(width_in_pixels), PixelConverterHelper.convert_height(hight_in_pixels));
         }
     }
 }

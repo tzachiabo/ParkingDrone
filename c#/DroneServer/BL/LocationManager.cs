@@ -18,6 +18,7 @@ namespace DroneServer.BL
         public static Point HomeLocation;
         private static Point bl = null;
         private static Point tr = null;
+        public static Point current_position = null;
 
         private LocationManager(Parking p)
         {
@@ -70,6 +71,7 @@ namespace DroneServer.BL
         private static void update_location(Response response)
         {
             Point p = (Point)response.Data;
+            current_position = p;
             Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
             BLManagger.getInstance().setLocation(p.lat, p.lng);
             if (HomeLocation == null)

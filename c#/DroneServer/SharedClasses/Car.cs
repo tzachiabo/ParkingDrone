@@ -10,20 +10,29 @@ namespace DroneServer.SharedClasses
     {
         private String type;
         private int precent;
-        private int left_margin;
-        private int top_margin;
-        private int width;
-        private int height;
+        private double m_left_margin;
+        private double m_top_margin;
+        private double m_width_of_car;
+        private double m_height_of_car;
 
         public Car(String type, int precent, int left_margin, int top_margin, int width, int height, double base_photo_height)
         {
             this.type = type;
             this.precent = precent;
-            this.left_margin = left_margin;
-            this.top_margin = top_margin;
-            this.width = width;
-            this.height = height;
-            // TODO aviad zabow decode to meter
+
+            this.m_left_margin = PixelConverterHelper.convert_width(left_margin);
+            this.m_top_margin = PixelConverterHelper.convert_height(top_margin);
+            this.m_width_of_car = PixelConverterHelper.convert_width(width);
+            this.m_height_of_car = PixelConverterHelper.convert_height(height);
+        }
+
+
+        public Point getPointOfCar()
+        {
+            double width = m_left_margin + m_width_of_car / 2;
+            double height = m_top_margin + m_height_of_car / 2;
+
+            return new Point(width, height); 
         }
 
 

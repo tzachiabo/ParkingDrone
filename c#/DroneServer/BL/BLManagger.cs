@@ -27,6 +27,8 @@ namespace DroneServer.BL
         private static ConnectionStatus status = new ConnectionStatus();
         private static int Version;
         private static bool stayInSafeZone = false;
+        private String m_base_photo_path = null;
+        private Parking m_parking = null;
 
         private BLManagger()
         {
@@ -51,6 +53,30 @@ namespace DroneServer.BL
         public int get_version()
         {
             return Version;
+        }
+
+        public void set_base_photo_path(String base_photo_path)
+        {
+            Assertions.verify(m_base_photo_path == null, "cannot set base photo twice");
+            m_base_photo_path = base_photo_path;
+        }
+
+        public String get_base_photo_path()
+        {
+            Assertions.verify(m_base_photo_path != null, "base photo is null");
+            return m_base_photo_path;
+        }
+
+        public void set_parking(Parking parking)
+        {
+            Assertions.verify(m_parking == null, "cannot set parking twice");
+            m_parking = parking;
+        }
+
+        public Parking get_parking()
+        {
+            Assertions.verify(m_parking != null, "parking is null");
+            return m_parking;
         }
 
         public void initComm()

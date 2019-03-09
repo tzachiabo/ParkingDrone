@@ -97,7 +97,14 @@ namespace DroneServer.SharedClasses
                 basePossition = new Point(middleX, middleY, hight);
             }
             return basePossition;
-            }
+        }
+
+        public Point getBasePointInMeters()
+        {  //TODO check
+            int num_of_width_pixels = Int32.Parse(Configuration.getInstance().get("num_of_width_pixels"));
+            int num_of_height_pixels = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels"));
+            return new Point(PixelConverterHelper.convert_width(num_of_width_pixels / 2), PixelConverterHelper.convert_height(num_of_height_pixels / 2));
+        }
 
         private double ConvertToRadians(double angle)
         {
