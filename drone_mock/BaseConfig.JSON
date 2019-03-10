@@ -1,0 +1,18 @@
+{
+    "drone":
+    {
+        "mistake_in_move": 0.1,
+        "initial_lng": 0,
+        "initial_lat": 0
+
+    },
+
+    "transport":
+    {
+        "ip_of_server": "localhost",
+        "port": 3000,
+        "pic_port": 3001,
+        "num_of_workers": 3
+    }
+
+}
