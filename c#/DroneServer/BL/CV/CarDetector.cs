@@ -13,9 +13,15 @@ namespace DroneServer.BL
     {
         public static List<Car> getCarsFromBasePhoto(String base_photo_path, double base_photo_height)
         {
+            Logger.getInstance().info("start carDetector with YOLOV3");
+
             String[] module_result = run_car_detector_module(base_photo_path);
 
-            return generate_cars_objects(module_result, base_photo_height);
+            List<Car> cars = generate_cars_objects(module_result, base_photo_height);
+
+            Logger.getInstance().info("finish carDetector with YOLOV3 detect " + cars.Count + " cars");
+
+            return cars;
         }
 
         private static String[] run_car_detector_module(String base_photo_path)

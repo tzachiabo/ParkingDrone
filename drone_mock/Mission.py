@@ -37,3 +37,79 @@ class GetLocation(Mission):
         return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng}'
 
 
+class TakeOff(Mission):
+    def __init__(self, index, drone):
+        super(TakeOff, self).__init__(index, drone)
+
+    def execute(self):
+        self.drone.take_off()
+
+    def encode_result(self):
+        return f'takeOff {self.index} Done'
+
+
+class Landing(Mission):
+    def __init__(self, index, drone):
+        super(Landing, self).__init__(index, drone)
+
+    def execute(self):
+        self.drone.landing()
+
+    def encode_result(self):
+        return f'startLanding {self.index} Done'
+
+
+class Move(Mission):
+    def __init__(self, index, drone, direction, amount):
+        super(Move, self).__init__(index, drone)
+        self.direction = direction
+        self.amount = amount
+
+    def execute(self):
+        self.drone.move(self.direction, self.amount)
+
+    def encode_result(self):
+        return f'move {self.index} Done'
+
+
+class MoveGimbal(Mission):
+    def __init__(self, index, drone, gimbal_position, gimbal_movment_type, roll, pitch, yaw):
+        super(MoveGimbal, self).__init__(index, drone)
+        self.gimbal_position = gimbal_position
+        self.gimbal_movment_type = gimbal_movment_type
+        self.roll = roll
+        self.pitch = pitch
+        self.yaw = yaw
+
+    def execute(self):
+        self.drone.move_gimbal(self.gimbal_position, self.gimbal_movment_type,
+                               self.roll, self.pitch, self.yaw)
+
+    def encode_result(self):
+        return f'moveGimbal {self.index} Done'
+
+
+class GoToGps(Mission):
+    def __init__(self, index, drone, lng, lat, alt):
+        super(GoToGps, self).__init__(index, drone)
+        self.lng = lng
+        self.lat = lat
+        self.alt = alt
+
+    def execute(self):
+        self.drone.go_to_gps(self.lng, self.lat, self.alt)
+
+    def encode_result(self):
+        return f'goToGPS {self.index} Done'
+
+
+class TakePhoto(Mission):
+    def __init__(self, index, drone):
+        super(TakePhoto, self).__init__(index, drone)
+
+    def execute(self):
+        self.drone.take_photo()
+
+    def encode_result(self):
+        return f'takePhoto {self.index} Done pic.JPG'
+

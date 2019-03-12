@@ -2,6 +2,7 @@ import socket
 from Mission import *
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
+from common import Direction, GimbalMoveType, GimbalPosition
 
 
 class Comm:
@@ -15,7 +16,7 @@ class Comm:
 
     def executor_mission(self, mission):
         mission.execute()
-        print(f'send message {mission.encode_result()}')
+        # print(f'send message {mission.encode_result()}')
 
         self.client_socket.send(f'{mission.encode_result()}%'.encode())
 
@@ -26,9 +27,31 @@ class Comm:
         if sub_message[0] == 'getStatus':
             return GetStatus(index, self.drone)
         if sub_message[0] == 'getLocation':
-            return GetLocation(index)
+            return GetLocation(index, self.drone)
+        if sub_message[0] == 'startLanding':
+            return Landing(index, self.drone)
+        if sub_message[0] == 'takeOff':
+            return TakeOff(index, self.drone)
+        if sub_message[0] == 'move':
+            direction = Direction[sub_message[2]]
+            distance = float(sub_message[3])
+            return Move(index, self.drone, direction, distance)
+        if sub_message[0] == 'moveGimbal':
+            gimbal_position = GimbalPosition[sub_message[2]]
+            gimbal_movment_type = GimbalMoveType[sub_message[3]]
+            roll = float(sub_message[4])
+            pitch = float(sub_message[5])
+            yaw = float(sub_message[6])
+            return MoveGimbal(index, self.drone, gimbal_position, gimbal_movment_type, roll, pitch, yaw)
+        if sub_message[0] == 'goToGPS':
+            lat = float(sub_message[2])
+            lng = float(sub_message[3])
+            alt = float(sub_message[4])
+            return GoToGps(index, self.drone, lng, lat, alt)
+        if sub_message[0] == 'takePhoto':
+            return TakePhoto(index, self.drone)
 
-        print(sub_message[0])
+        # print(sub_message[0])
 
         assert False
 
@@ -47,7 +70,5 @@ class Comm:
                     message = data[:end_of_message]
                     data = data[end_of_message + 1:]
 
-                    print(f'got message {message}')
                     mission = self.decoder(message)
                     executor.submit(partial(self.executor_mission, mission))
-

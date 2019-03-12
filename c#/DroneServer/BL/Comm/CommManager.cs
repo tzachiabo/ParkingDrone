@@ -110,7 +110,7 @@ namespace DroneServer.BL.Comm
                 Assertions.verify(running == false, "socket got unexpected exception");
                 return;
             }
-            Logger.getInstance().info("client has reconnected");
+            Logger.getInstance().debug("client has reconnected");
             m_ns = client.GetStream();
             isSocketInitiated = true;
         }
@@ -122,7 +122,7 @@ namespace DroneServer.BL.Comm
 
             if (!mission.validate_version())
             {
-                Logger.getInstance().info("mission was out of version");
+                Logger.getInstance().warn("mission was out of version");
                 return;
             }
 
@@ -131,7 +131,7 @@ namespace DroneServer.BL.Comm
 
             String message_to_android = mission.encode();
 
-            Logger.getInstance().info("send this message to Android : " + message_to_android);
+            Logger.getInstance().debug("send this message to Android : " + message_to_android);
 
             byte[] to_send = Encoding.UTF8.GetBytes(message_to_android + "%");
 

@@ -31,7 +31,7 @@ namespace DroneServer.BL.Missions
 
         private void build_moves()
         {
-            Logger.getInstance().debug("start build moves");
+            Logger.getInstance().info("GoToCar : start build moves");
             Point car_position = m_car.getPointOfCar();
 
             int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));

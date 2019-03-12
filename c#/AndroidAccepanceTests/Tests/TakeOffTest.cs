@@ -22,8 +22,8 @@ namespace AndroidAccepanceTests
             CompletionHanlder start_landing_mission = comm.sendMission(start_landing, true);
             start_landing_mission.wait();
 
-            ConfirmLanding conf_landing = new ConfirmLanding();
-            CompletionHanlder conf_landing_mission = comm.sendMission(conf_landing);
+            //ConfirmLanding conf_landing = new ConfirmLanding();
+            //CompletionHanlder conf_landing_mission = comm.sendMission(conf_landing);
         }
 
         [TestMethod]
