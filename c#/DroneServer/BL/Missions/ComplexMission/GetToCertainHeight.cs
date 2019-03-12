@@ -15,7 +15,7 @@ namespace DroneServer.BL.Missions
         {
             Point curr_position = LocationManager.current_position;
             
-            m_SubMission.Enqueue(new MoveToGPSPoint(curr_position.lng, curr_position.lng, height_destination));
+            m_SubMission.Enqueue(new MoveToGPSPoint(curr_position.lat, curr_position.lng, height_destination));
         }
 
         public override void stop()

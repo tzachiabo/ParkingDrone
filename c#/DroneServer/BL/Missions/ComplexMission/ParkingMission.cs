@@ -35,9 +35,16 @@ namespace DroneServer.BL.Missions
             String Base_photo_path = (String)res.Data;
             BLManagger.getInstance().set_base_photo_path(Base_photo_path);
             PixelConverterHelper.init(m_parking.getBasePoint().alt);
-            m_SubMission.Enqueue(new ScanCars(m_parking, this));
+            ScanCars scan_cars = new ScanCars(m_parking, this);
+            m_SubMission.Enqueue(scan_cars);
+            scan_cars.register_to_notification(scan_cars_finished);
+        }
+
+        private void scan_cars_finished(Response res)
+        {
             m_SubMission.Enqueue(new ComplexGoHome(this));
             m_SubMission.Enqueue(new Landing(this));
+
         }
 
         //public void updateBasePhoto(Photo photo)

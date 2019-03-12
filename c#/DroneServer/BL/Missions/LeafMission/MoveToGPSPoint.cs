@@ -13,15 +13,15 @@ namespace DroneServer.BL.Missions
         private double m_lng;
         private double m_alt;
 
-        public MoveToGPSPoint(double x, double y, double z) : this(null,x,y,z)
+        public MoveToGPSPoint(double lat, double lng, double alt) : this(null, lat, lng, alt)
         {
         }
 
-        public MoveToGPSPoint(ComplexMission ParentMission,double x, double y, double z) : base(ParentMission)
+        public MoveToGPSPoint(ComplexMission ParentMission,double lat, double lng, double alt) : base(ParentMission)
         {
-            m_lat = x;
-            m_lng = y;
-            m_alt = z;
+            m_lat = lat;
+            m_lng = lng;
+            m_alt = alt;
         }
 
         public override void stop()
