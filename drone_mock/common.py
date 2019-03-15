@@ -1,6 +1,11 @@
 from enum import Enum
 
 
+class CameraType(Enum):
+    SimpleCamera = 0
+    AerialViewCamera = 1
+
+
 class Direction(Enum):
     forward = 0
     backward = 1
@@ -19,3 +24,10 @@ class GimbalMoveType(Enum):
 class GimbalPosition(Enum):
     left = 0,
     right = 1
+
+
+def verify(predicate, msg):
+    if not predicate:
+        print(msg)
+        assert False, msg
+

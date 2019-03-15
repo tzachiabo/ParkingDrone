@@ -15,7 +15,7 @@ namespace DroneServer.BL.CV
         {
             if (ratio == 0)
             {
-                ratio = BLManagger.getInstance().get_parking().getBasePoint().alt / LocationManager.current_position.alt;
+                ratio = LocationManager.current_position.alt / BLManagger.getInstance().get_parking().getBasePoint().alt;
             }
 
             String module_result = run_verify_location_module(base_photo_path, current_photo_path, ratio);
@@ -34,6 +34,8 @@ namespace DroneServer.BL.CV
             myProcessStartInfo.CreateNoWindow = true;
 
             String myPythonApp = "verify_location.py " + base_photo_path + " " + current_photo_path + " " + ratio;
+
+            Logger.getInstance().info("verify location params are: " + myPythonApp);
             myProcessStartInfo.Arguments = myPythonApp;
 
             Process myProcess = new Process();

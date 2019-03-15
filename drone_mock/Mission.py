@@ -14,8 +14,54 @@ class Mission(ABC):
     def encode_result(self):
         pass
 
+    @abstractmethod
+    def print_if__if_main_mission(self, msg):
+        pass
 
-class GetStatus(Mission):
+    @abstractmethod
+    def is_main_mission(self):
+        pass
+
+
+class MainMission(Mission):
+    def __init__(self, index, drone):
+        super(MainMission, self).__init__(index, drone)
+
+    @abstractmethod
+    def execute(self):
+        pass
+
+    @abstractmethod
+    def encode_result(self):
+        pass
+
+    def print_if__if_main_mission(self, msg):
+        print(msg)
+
+    def is_main_mission(self):
+        return True
+
+
+class StatusMission(Mission):
+    def __init__(self, index, drone):
+        super(StatusMission, self).__init__(index, drone)
+
+    @abstractmethod
+    def execute(self):
+        pass
+
+    @abstractmethod
+    def encode_result(self):
+        pass
+
+    def print_if__if_main_mission(self, msg):
+        pass
+
+    def is_main_mission(self):
+        return False
+
+
+class GetStatus(StatusMission):
     def __init__(self, index, drone):
         super(GetStatus, self).__init__(index, drone)
 
@@ -26,7 +72,7 @@ class GetStatus(Mission):
         return f'getStatus {self.index} Done Connected'
 
 
-class GetLocation(Mission):
+class GetLocation(StatusMission):
     def __init__(self, index, drone):
         super(GetLocation, self).__init__(index, drone)
 
@@ -37,7 +83,7 @@ class GetLocation(Mission):
         return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng}'
 
 
-class TakeOff(Mission):
+class TakeOff(MainMission):
     def __init__(self, index, drone):
         super(TakeOff, self).__init__(index, drone)
 
@@ -48,7 +94,7 @@ class TakeOff(Mission):
         return f'takeOff {self.index} Done'
 
 
-class Landing(Mission):
+class Landing(MainMission):
     def __init__(self, index, drone):
         super(Landing, self).__init__(index, drone)
 
@@ -59,7 +105,7 @@ class Landing(Mission):
         return f'startLanding {self.index} Done'
 
 
-class Move(Mission):
+class Move(MainMission):
     def __init__(self, index, drone, direction, amount):
         super(Move, self).__init__(index, drone)
         self.direction = direction
@@ -72,7 +118,7 @@ class Move(Mission):
         return f'move {self.index} Done'
 
 
-class MoveGimbal(Mission):
+class MoveGimbal(MainMission):
     def __init__(self, index, drone, gimbal_position, gimbal_movment_type, roll, pitch, yaw):
         super(MoveGimbal, self).__init__(index, drone)
         self.gimbal_position = gimbal_position
@@ -89,7 +135,7 @@ class MoveGimbal(Mission):
         return f'moveGimbal {self.index} Done'
 
 
-class GoToGps(Mission):
+class GoToGps(MainMission):
     def __init__(self, index, drone, lng, lat, alt):
         super(GoToGps, self).__init__(index, drone)
         self.lng = lng
@@ -103,7 +149,7 @@ class GoToGps(Mission):
         return f'goToGPS {self.index} Done'
 
 
-class TakePhoto(Mission):
+class TakePhoto(MainMission):
     def __init__(self, index, drone):
         super(TakePhoto, self).__init__(index, drone)
 

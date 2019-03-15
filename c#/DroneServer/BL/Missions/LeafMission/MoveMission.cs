@@ -19,7 +19,6 @@ namespace DroneServer.BL.Missions
 
         public MoveMission(ComplexMission ParentMission, Direction direction, double distance):base(ParentMission)
         {
-            Logger.getInstance().info("move " + direction + " distance: " + distance);
             this.direction = direction;
             this.distance = distance;
         }
@@ -27,6 +26,12 @@ namespace DroneServer.BL.Missions
         public override void stop()
         {
 
+        }
+
+        public override void execute()
+        {
+            Logger.getInstance().info("move " + direction + " distance: " + distance);
+            base.execute();
         }
 
         public override string encode()

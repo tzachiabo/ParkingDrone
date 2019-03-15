@@ -24,6 +24,9 @@ namespace DroneServer.SharedClasses
             this.m_top_margin = PixelConverterHelper.convert_height(top_margin);
             this.m_width_of_car = PixelConverterHelper.convert_width(width);
             this.m_height_of_car = PixelConverterHelper.convert_height(height);
+
+            Logger.getInstance().info("Car ctor m_left_margin: " + m_left_margin + " m_top_margin: " + m_top_margin +
+                                      " m_width_of_car " + m_width_of_car + " m_height_of_car " + m_height_of_car);
         }
 
 

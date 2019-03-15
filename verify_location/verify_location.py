@@ -21,7 +21,7 @@ w, h = template.shape[::-1]
 # All the 6 methods for comparison in a list
 methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED',
            'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
-
+		   
 locations = []
 
 for meth in methods:
@@ -42,6 +42,9 @@ for meth in methods:
     locations.append(((top_left[0]+bottom_right[0])/2,
                       (top_left[1]+bottom_right[1])/2))
 					  
+import pdb
+pdb.set_trace()
+
 
 def sum(x, y):
     return (x[0]+y[0], x[1]+y[1])
@@ -50,11 +53,12 @@ def sum(x, y):
 all_sum = functools.reduce(sum, locations)
 location = (int(all_sum[0]/len(locations)), int(all_sum[1]/len(locations)))
 print(location)
-if debug:
-    img = cv2.imread(base_photo_path, 1)
-    cv2.rectangle(
-        img, (location[0]-15, location[1]-15), (location[0]+15, location[1]+15), (255, 0, 0), 30)
+img = cv2.imread(base_photo_path, 1)
+cv2.rectangle(img, (location[0]-15, location[1]-15), (location[0]+15, location[1]+15), (255, 0, 0), 30)
 
-    plt.subplot(121), plt.imshow(img)
-    plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
-    plt.show()
+base_photo_path = sys.argv[1]
+base_photo_name = base_photo_path[:base_photo_path.index('.')]
+current_photo_path = sys.argv[2]
+current_photo_name = current_photo_path[:current_photo_path.index('.')]
+
+cv2.imwrite(f'{base_photo_name}_{current_photo_name}.JPG', img)

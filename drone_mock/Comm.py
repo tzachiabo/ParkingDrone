@@ -16,7 +16,7 @@ class Comm:
 
     def executor_mission(self, mission):
         mission.execute()
-        # print(f'send message {mission.encode_result()}')
+        mission.print_if__if_main_mission(f'{mission.encode_result()}')
 
         self.client_socket.send(f'{mission.encode_result()}%'.encode())
 
@@ -51,13 +51,14 @@ class Comm:
         if sub_message[0] == 'takePhoto':
             return TakePhoto(index, self.drone)
 
-        # print(sub_message[0])
+        print(sub_message[0])
 
         assert False
 
     def start(self, drone):
         self.drone = drone
-        executor = ThreadPoolExecutor(max_workers=self.num_of_workers)
+        executor_of_status_missions = ThreadPoolExecutor(max_workers=self.num_of_workers)
+        executor_of_main_missions = ThreadPoolExecutor(max_workers=1)
 
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client_socket.connect((self.ip, self.port))
@@ -71,4 +72,10 @@ class Comm:
                     data = data[end_of_message + 1:]
 
                     mission = self.decoder(message)
-                    executor.submit(partial(self.executor_mission, mission))
+
+                    if mission.is_main_mission():
+
+                        print(message)
+                        executor_of_main_missions.submit(partial(self.executor_mission, mission))
+                    else:
+                        executor_of_status_missions.submit(partial(self.executor_mission, mission))

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,6 +58,7 @@ namespace DroneServer.BL.Missions
         
         public abstract void stop();
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         protected int getNextIndex()
         {
             return NextIndex++;

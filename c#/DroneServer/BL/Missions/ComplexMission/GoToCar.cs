@@ -1,4 +1,5 @@
-﻿using DroneServer.SharedClasses;
+﻿using DroneServer.BL.Comm;
+using DroneServer.SharedClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace DroneServer.BL.Missions
         {
             Logger.getInstance().info("GoToCar : start build moves");
             Point car_position = m_car.getPointOfCar();
+            Logger.getInstance().info("GoToCar at position margin-left: " + car_position.lng + " margin-top: " + car_position.lat);
 
             int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
             m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_moving_in_parking, this));
@@ -67,7 +69,7 @@ namespace DroneServer.BL.Missions
 
             if (curr_position.is_close(m_car.getPointOfCar()))
             {
-                Logger.getInstance().info("GoToCar : done");
+                Logger.getInstance().info("GoToCar : got to the car pic at position " + PicTransferServer.getLastPicPath());
                 done(res);
             }
             else

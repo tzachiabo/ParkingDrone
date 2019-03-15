@@ -15,8 +15,8 @@
 <num_of_height_pixels>720</num_of_height_pixels>
 
 <height_of_drone_when_moving_in_parking>50</height_of_drone_when_moving_in_parking> 
-<height_of_drone_when_get_close_to_car>5</height_of_drone_when_get_close_to_car> 
-<acceptable_delta_for_error_in_distance>2.5</acceptable_delta_for_error_in_distance> 
+<height_of_drone_when_get_close_to_car>10</height_of_drone_when_get_close_to_car> 
+<acceptable_delta_for_error_in_distance>1.7</acceptable_delta_for_error_in_distance> 
 
 
 </xml>

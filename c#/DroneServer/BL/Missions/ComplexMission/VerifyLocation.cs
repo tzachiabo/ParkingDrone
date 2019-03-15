@@ -20,11 +20,20 @@ namespace DroneServer.BL.Missions
         {
 
         }
+
+        public override void execute()
+        {
+            Logger.getInstance().info("Start verify location");
+
+            base.execute();
+        }
+
         public override void done(Response response)
         {
             String curr_photo_path = PicTransferServer.getLastPicPath();
             String base_photo_path = BLManagger.getInstance().get_base_photo_path();
             Point location = CV.VerifyLocation.getLocation(base_photo_path, curr_photo_path);
+            Logger.getInstance().info("After verify location drone location is margin-left: " + location.lng + " margin-top " + location.lat);
             base.done(new Response(m_index, Status.Ok, MissionType.MainMission, location));
         }
     }

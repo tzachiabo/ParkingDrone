@@ -1,7 +1,7 @@
 {
     "drone":
     {
-        "mistake_in_move": 0.1,
+        "mistake_in_move": 0.3,
 
         "initial_lng": 34.8053044080734,
         "initial_lat": 31.2643830184825,
@@ -13,11 +13,17 @@
         },
 
         "camera":{
+            "camera_type_enum": ["SimpleCamera", "AerialViewCamera"],
+            "camera_type": "AerialViewCamera",
+
+            "camera_opening_degree": 36,
             "connected_gimbal": "left",
             "images_path": "./images",
             "ip_server": "localhost",
             "port": 3001
         },
+
+        "move_step_size": 0.5,
 
         "gimbal_delay_in_sec": 2,
         "speed_in_ms": 5
