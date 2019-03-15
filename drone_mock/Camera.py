@@ -132,6 +132,7 @@ class AerialViewCamera(Camera):
         return num_of_height_pixel_in_base_photo, num_of_width_pixel_in_base_photo
 
     def generate_and_send_photo(self, drone_height):
+        time.sleep(1)# zabow
         verify(self.base_photo_bearing == 0, 'bearing is not align with photo currently not support rotating')
 
         height_pixel_in_base_photo, width_pixel_in_base_photo = self.get_pixels_size_of_base_photo(drone_height)

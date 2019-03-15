@@ -42,9 +42,6 @@ for meth in methods:
     locations.append(((top_left[0]+bottom_right[0])/2,
                       (top_left[1]+bottom_right[1])/2))
 					  
-import pdb
-pdb.set_trace()
-
 
 def sum(x, y):
     return (x[0]+y[0], x[1]+y[1])
