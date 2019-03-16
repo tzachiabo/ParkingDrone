@@ -17,15 +17,15 @@ namespace DroneServer.BL.Missions
             m_ParentMission = ParentMission;
 
             Point base_point = parking.getBasePoint();
+
             cars = new Queue<Car>(CarDetector.getCarsFromBasePhoto(BLManagger.getInstance().get_base_photo_path(), base_point.alt));
 
             Logger.getInstance().info("number of cars in parking = " + cars.Count);
             if (cars.Count > 0)
             {
-                Logger.getInstance().info("ScanCars : start scanning cars");
-                Car first = cars.Dequeue();
-                ScanSingleCar scan_car = new ScanSingleCar(parking.getBasePointInMeters(), first, this);
-                m_SubMission.Enqueue(scan_car);
+                VerifyLocation vl = new VerifyLocation();
+                vl.register_to_notification(veridy_location_finished);
+                m_SubMission.Enqueue(vl);
             }
             
         }
@@ -33,6 +33,14 @@ namespace DroneServer.BL.Missions
         public override void stop()
         {
 
+        }
+
+        public void veridy_location_finished(Response response)
+        {
+            Logger.getInstance().info("ScanCars : start scanning cars");
+            Car first = cars.Dequeue();
+            ScanSingleCar scan_car = new ScanSingleCar((Point) response.Data, first, this);
+            scan_car.execute();
         }
 
         public override void notify(Response response)

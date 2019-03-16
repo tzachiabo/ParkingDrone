@@ -18,6 +18,9 @@ namespace DroneServer.BL.Missions
             m_curr_position = curr_position;
             m_car = car;
 
+            int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
+            m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_moving_in_parking, this));
+
             build_moves();
 
             VerifyLocation vl = new VerifyLocation(this);
@@ -36,18 +39,12 @@ namespace DroneServer.BL.Missions
             Point car_position = m_car.getPointOfCar();
             Logger.getInstance().info("GoToCar at position margin-left: " + car_position.lng + " margin-top: " + car_position.lat);
 
-            int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
-            m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_moving_in_parking, this));
-
             List<KeyValuePair<Direction, double>> moves_direction = m_curr_position.get_moves(car_position);
             foreach (KeyValuePair<Direction, double> single_move in moves_direction)
             {
                 Logger.getInstance().info("enqueue move mission direction : " + single_move.Key + " amount : " + single_move.Value);
                 m_SubMission.Enqueue(new MoveMission(this, single_move.Key, single_move.Value));
             }
-
-            int height_of_drone_when_get_close_to_car = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_get_close_to_car"));
-            m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_get_close_to_car, this));
         }
 
         public override void notify(Response response)

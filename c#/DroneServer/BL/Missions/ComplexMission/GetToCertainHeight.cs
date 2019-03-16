@@ -12,7 +12,7 @@ namespace DroneServer.BL.Missions
         private double m_height_destination;
         private int get_location_index;
 
-        public GetToCertainHeight(int height_destination, ComplexMission ParentMission = null) : base(ParentMission)
+        public GetToCertainHeight(double height_destination, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_height_destination = height_destination;
             GetLocation get_location = new GetLocation(this);

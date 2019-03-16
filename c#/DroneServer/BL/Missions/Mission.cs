@@ -13,7 +13,7 @@ namespace DroneServer.BL.Missions
 
     public abstract class Mission
     {
-        static int NextIndex = 1;
+        private static int NextIndex = 1;
         protected int m_version;
         public int m_index;
 

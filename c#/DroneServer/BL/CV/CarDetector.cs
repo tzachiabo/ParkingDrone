@@ -35,6 +35,7 @@ namespace DroneServer.BL
             myProcessStartInfo.CreateNoWindow = true;
 
             String myPythonApp = "car_detector.py "+ base_photo_path;
+            Logger.getInstance().info("CV CarDetector params: " + myPythonApp);
             myProcessStartInfo.Arguments = myPythonApp;
 
             Process myProcess = new Process();
@@ -45,6 +46,7 @@ namespace DroneServer.BL
             StreamReader myStreamReader = myProcess.StandardOutput;
             string myString = myStreamReader.ReadToEnd();
             myProcess.WaitForExit();
+            Logger.getInstance().info("CV CarDetector result: " + myString);
 
             return myString.Split('\n');
         }
@@ -66,13 +68,30 @@ namespace DroneServer.BL
                     int margin_top = Int32.Parse(colums[3]);
                     int width = Int32.Parse(colums[4]);
                     int height = Int32.Parse(colums[5]);
-                    Car car = new Car(type, precent, margin_left, margin_top, width, height, base_photo_height);
-                    res.Add(car);
+                    if(is_valid_car(margin_left, margin_top, width, height))
+                    {
+                        Car car = new Car(type, precent, margin_left, margin_top, width, height, base_photo_height);
+                        res.Add(car);
+
+                    }
+
                 }
             }
 
             return res;
         }
 
+        private static bool is_valid_car(int margin_left, int margin_top, int width, int height)
+        {
+            int car_min_margin_left = Int32.Parse(Configuration.getInstance().get("car_min_margin_left"));
+            int car_min_margin_top = Int32.Parse(Configuration.getInstance().get("car_min_margin_top"));
+            int car_min_height = Int32.Parse(Configuration.getInstance().get("car_min_height"));
+            int car_min_width = Int32.Parse(Configuration.getInstance().get("car_min_width"));
+
+            return margin_left > car_min_margin_left && margin_top > car_min_margin_top &&
+                   width > car_min_width && height > car_min_height;
+        }
+
     }
+
 }

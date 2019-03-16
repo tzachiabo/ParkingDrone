@@ -46,10 +46,5 @@ namespace DroneServer.BL.Missions
             m_SubMission.Enqueue(new Landing(this));
 
         }
-
-        //public void updateBasePhoto(Photo photo)
-        //{
-
-        //}
     }
 }

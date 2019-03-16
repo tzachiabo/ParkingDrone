@@ -11,17 +11,10 @@ namespace DroneServer.BL.Missions
     {
         public ComplexGoHome(ComplexMission ParentMission = null) : base(ParentMission)
         {
-        }
-
-        public override void execute()
-        {
             BLManagger.getInstance().setSafeZone(false);
 
             int hight = Convert.ToInt32(Configuration.getInstance().get("Home_Location_Hight"));
-
-            Mission mission = new MoveToGPSPoint(this, LocationManager.HomeLocation.lat, LocationManager.HomeLocation.lng, hight);
-
-            mission.execute();
+            m_SubMission.Enqueue(new MoveToGPSPoint(this, LocationManager.HomeLocation.lat, LocationManager.HomeLocation.lng, hight));
         }
 
         public override void stop()

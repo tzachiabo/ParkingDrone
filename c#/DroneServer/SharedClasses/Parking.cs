@@ -63,8 +63,8 @@ namespace DroneServer.SharedClasses
         }
         public Point getBasePoint()
         {
-            ////if (basePossition != null)  TODO aviad zabow
-            ////{
+            if (basePossition == null)
+            {
                 var XList = new List<double>();
                 var YList = new List<double>();
                 var ZList = new List<double>();
@@ -95,12 +95,32 @@ namespace DroneServer.SharedClasses
                 double hight = maxZ + (radius / Math.Tan(rad));
 
                 basePossition = new Point(middleX, middleY, hight);
-            //}
+
+            }
             return basePossition;
         }
 
+        public Point getMidleEdgePoint()
+        {
+            var XList = new List<double>();
+            var YList = new List<double>();
+
+            foreach (Point point in border)
+            {
+                XList.Add(point.lng);
+                YList.Add(point.lat);
+            }
+
+            double minX = XList.Min();
+            double maxX = XList.Max();
+            double minY = YList.Min();
+
+            return new Point((minX + maxX) / 2, minY, getBasePoint().alt);
+
+        }
+
         public Point getBasePointInMeters()
-        {  //TODO check
+        {  
             int num_of_width_pixels = Int32.Parse(Configuration.getInstance().get("num_of_width_pixels"));
             int num_of_height_pixels = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels"));
             return new Point(PixelConverterHelper.convert_width(num_of_width_pixels / 2), PixelConverterHelper.convert_height(num_of_height_pixels / 2));
