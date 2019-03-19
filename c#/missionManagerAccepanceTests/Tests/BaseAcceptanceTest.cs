@@ -27,7 +27,7 @@ namespace missionManagerAccepanceTests
             InitParkingMission initParkMission = new InitParkingMission(park);
             CompletionHandler ch = initParkMission.execute();
 
-            if (!isAsync)
+         q   if (!isAsync)
             {
                 ch.wait();
             }

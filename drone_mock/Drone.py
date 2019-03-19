@@ -5,6 +5,7 @@ import math
 import time
 import numpy
 import geopy.distance
+from GeoHelper import getLocationByBearingAndDistance
 
 
 class Drone:
@@ -40,8 +41,7 @@ class Drone:
         self.alt = 0
 
     def move_drone(self, distance, bearing):
-        origin = geopy.Point(self.lat, self.lng)
-        destination = geopy.distance.vincenty(kilometers=distance/1000).destination(origin, bearing)
+        destination = getLocationByBearingAndDistance(self.lat, self.lng, distance/1000, bearing)
 
         if self.lat != destination.latitude:
             start_lat = self.lat
@@ -62,10 +62,8 @@ class Drone:
                 self.lng = current_lng
 
     def move(self, direction, amount):
-        # not support wait now
         error = amount * self.mistake_in_move
         actual_move_amount = random.uniform(amount - error, amount + error)
-        self.camera.move(direction, actual_move_amount)
 
         if direction == Direction.up:
             self.alt += actual_move_amount
@@ -131,7 +129,7 @@ class Drone:
                 self.lat = current_lat
 
     def take_photo(self):
-        self.camera.take_photo(self.alt)
+        self.camera.take_photo(self)
 
 
 class Gimbal:

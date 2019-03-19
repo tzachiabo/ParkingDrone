@@ -5,6 +5,7 @@ import socket
 import cv2
 import time
 import math
+import geopy.distance
 
 
 def to_rad(degree):
@@ -34,10 +35,6 @@ class Camera(ABC):
     def take_photo(self, drone_height):
         pass
 
-    @abstractmethod
-    def move(self, direction, amount):
-        pass
-
 
 class SimpleCamera(Camera):
     def __init__(self, drone, conf):
@@ -55,9 +52,6 @@ class SimpleCamera(Camera):
 
         self.image_index += 1
 
-    def move(self, direction, amount):
-        pass
-
 
 class AerialViewCamera(Camera):
     def __init__(self, drone, conf):
@@ -68,56 +62,32 @@ class AerialViewCamera(Camera):
 
         self.num_of_width_pixels = None
         self.num_of_height_pixels = None
-        self.pixel_margin_left = None
-        self.pixel_margin_top = None
         self.base_photo_height = None
         self.base_photo_bearing = None
 
-    def take_photo(self, drone_height):
+        self.lat_of_base_photo = None
+        self.lng_of_base_photo = None
+
+    def take_photo(self, drone):
         verify(self.gimbal.roll == 0 and self.gimbal.pitch == -90 and self.gimbal.yaw == 0,
                'gimbal is not set to aerial position')
 
         if not self.base_photo_height:
-            self.send_base_photo(drone_height)
+            self.send_base_photo(drone)
         else:
-            self.generate_and_send_photo(drone_height)
+            self.generate_and_send_photo(drone)
 
-    def move(self, direction, amount):
-        if direction == Direction.up:
-            pass
-        elif direction == Direction.down:
-            pass
-        elif direction == Direction.forward:
-            self.move_pixels(0, -1 * amount)
-        elif direction == Direction.backward:
-            self.move_pixels(0, amount)
-        elif direction == Direction.right:
-            self.move_pixels(amount, 0)
-        elif direction == Direction.left:
-            self.move_pixels(-1 * amount, 0)
-        else:
-            verify(False, "Unknown direction")
-
-    def move_pixels(self, width_diff_in_meter, height_diff_in_meter):
-        size = 2 * self.base_photo_height * math.tan(to_rad(self.camera_opening_degree))
-
-        self.pixel_margin_left = self.pixel_margin_left + int((width_diff_in_meter / size) * self.num_of_width_pixels)
-        self.pixel_margin_top = self.pixel_margin_top + int((height_diff_in_meter / size) * self.num_of_height_pixels)
-
-        verify(self.pixel_margin_left < self.num_of_width_pixels, 'margin left is out of base_photo')
-        verify(self.pixel_margin_top < self.num_of_height_pixels, 'margin top is out of base_photo')
-
-    def send_base_photo(self, drone_height):
+    def send_base_photo(self, drone):
         assert self.num_of_width_pixels is None and self.num_of_height_pixels is None and \
-               self.pixel_margin_left is None and self.pixel_margin_top is None and \
                self.base_photo_height is None and self.base_photo_bearing is None
 
         img = cv2.imread(self.base_photo_location, 0)
         self.num_of_height_pixels, self.num_of_width_pixels = img.shape
-        self.pixel_margin_left = int(self.num_of_width_pixels / 2)
-        self.pixel_margin_top = int(self.num_of_height_pixels / 2)
-        self.base_photo_height = drone_height
-        self.base_photo_bearing = 0
+
+        self.base_photo_height = drone.alt
+        self.lat_of_base_photo = drone.lat
+        self.lng_of_base_photo = drone.lng
+        self.base_photo_bearing = drone.bearing_radians
 
         with open(self.base_photo_location, 'rb') as image_file:
             image_buffer = image_file.read()
@@ -131,18 +101,48 @@ class AerialViewCamera(Camera):
 
         return num_of_height_pixel_in_base_photo, num_of_width_pixel_in_base_photo
 
-    def generate_and_send_photo(self, drone_height):
-        time.sleep(1)# zabow
+    def get_margins(self, lat, lng):
+        def measure(lat_des, lng_des):
+            coords_1 = (self.lat_of_base_photo, self.lng_of_base_photo)
+            coords_2 = (lat_des, lng_des)
+
+            return geopy.distance.geodesic(coords_1, coords_2).m
+
+        width_dif_from_base_photo = measure(self.lat_of_base_photo, lng)
+        if lng < self.lng_of_base_photo:
+            width_dif_from_base_photo = width_dif_from_base_photo * -1
+
+        height_dif_from_base_photo = measure(lat, self.lng_of_base_photo)
+        if lat > self.lat_of_base_photo:
+            height_dif_from_base_photo = height_dif_from_base_photo * -1
+
+        size = 2 * self.base_photo_height * math.tan(to_rad(self.camera_opening_degree))
+
+        base_photo_pixel_margin_left = int(self.num_of_width_pixels / 2)
+        base_photo_pixel_margin_top = int(self.num_of_height_pixels / 2)
+
+        pixel_margin_left = base_photo_pixel_margin_left + int((width_dif_from_base_photo / size) * self.num_of_width_pixels)
+        pixel_margin_top = base_photo_pixel_margin_top + int((height_dif_from_base_photo / size) * self.num_of_height_pixels)
+
+        verify(pixel_margin_left < self.num_of_width_pixels, 'margin left is out of base_photo')
+        verify(pixel_margin_top < self.num_of_height_pixels, 'margin top is out of base_photo')
+
+        return pixel_margin_top, pixel_margin_left
+
+    def generate_and_send_photo(self, drone):
+        time.sleep(1) # zabow
         verify(self.base_photo_bearing == 0, 'bearing is not align with photo currently not support rotating')
 
-        height_pixel_in_base_photo, width_pixel_in_base_photo = self.get_pixels_size_of_base_photo(drone_height)
+        height_pixel_in_base_photo, width_pixel_in_base_photo = self.get_pixels_size_of_base_photo(drone.alt)
         img = cv2.imread(self.base_photo_location, 0)
 
         width_radius = int(width_pixel_in_base_photo / 2)
         height_radius = int(height_pixel_in_base_photo / 2)
 
-        cropped_img = img[self.pixel_margin_top - height_radius:self.pixel_margin_top + height_radius,
-                          self.pixel_margin_left - width_radius:self.pixel_margin_left + width_radius]
+        pixel_margin_top, pixel_margin_left = self.get_margins(drone.lat, drone.lng)
+
+        cropped_img = img[pixel_margin_top - height_radius:pixel_margin_top + height_radius,
+                          pixel_margin_left - width_radius:pixel_margin_left + width_radius]
 
         resized_img = cv2.resize(cropped_img, (self.num_of_width_pixels, self.num_of_height_pixels))
         time_stamp = int(time.time())
