@@ -6,6 +6,7 @@ import cv2
 import time
 import math
 import geopy.distance
+import logging
 
 
 def to_rad(degree):
@@ -43,13 +44,17 @@ class SimpleCamera(Camera):
         self.image_index = 1
 
     def take_photo(self, drone_height):
+        logging.info('start take photo at Camera')
         file_path = f'{self.images_path}/{str(self.image_index)}.JPG'
         verify(os.path.isfile(file_path), f'pic not exist {file_path}')
 
         with open(file_path, 'rb') as image_file:
+            logging.info('start read pic')
             image_buffer = image_file.read()
+            logging.info('start send pic')
             send_image(self.server_ip, self.server_port, image_buffer)
 
+        logging.info('finish take photo at Camera')
         self.image_index += 1
 
 
@@ -78,9 +83,10 @@ class AerialViewCamera(Camera):
             self.generate_and_send_photo(drone)
 
     def send_base_photo(self, drone):
-        assert self.num_of_width_pixels is None and self.num_of_height_pixels is None and \
-               self.base_photo_height is None and self.base_photo_bearing is None
+        verify(self.num_of_width_pixels is None and self.num_of_height_pixels is None and
+               self.base_photo_height is None and self.base_photo_bearing is None, '')
 
+        logging.info('start send_base_photo')
         img = cv2.imread(self.base_photo_location, 0)
         self.num_of_height_pixels, self.num_of_width_pixels = img.shape
 
@@ -90,8 +96,12 @@ class AerialViewCamera(Camera):
         self.base_photo_bearing = drone.bearing_radians
 
         with open(self.base_photo_location, 'rb') as image_file:
+            logging.info('start read base photo for sending')
             image_buffer = image_file.read()
+            logging.info('start send base photo')
             send_image(self.server_ip, self.server_port, image_buffer)
+
+        logging.info('finish send_base_photo')
 
     def get_pixels_size_of_base_photo(self, drone_height):
         ratio = drone_height / self.base_photo_height
@@ -130,8 +140,8 @@ class AerialViewCamera(Camera):
         return pixel_margin_top, pixel_margin_left
 
     def generate_and_send_photo(self, drone):
-        time.sleep(1) # zabow
         verify(self.base_photo_bearing == 0, 'bearing is not align with photo currently not support rotating')
+        logging.info('start generate_and_send_photo')
 
         height_pixel_in_base_photo, width_pixel_in_base_photo = self.get_pixels_size_of_base_photo(drone.alt)
         img = cv2.imread(self.base_photo_location, 0)
@@ -153,12 +163,16 @@ class AerialViewCamera(Camera):
             image_buffer = image_file.read()
             send_image(self.server_ip, self.server_port, image_buffer)
 
+        logging.info('finish generate_and_send_photo')
+
 
 def camera_factory(drone, conf):
     camera_type = CameraType[conf['camera_type']]
     if camera_type == CameraType.SimpleCamera:
+        logging.info('using SimpleCamera')
         return SimpleCamera(drone, conf)
     elif camera_type == CameraType.AerialViewCamera:
+        logging.info('using AerialViewCamera')
         return AerialViewCamera(drone, conf)
     else:
         verify(False, 'Unknown camera type')

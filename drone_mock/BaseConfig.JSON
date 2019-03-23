@@ -1,4 +1,10 @@
 {
+    "logger":
+    {
+        "path": "drone.log",
+        "level_enum": ["CRITICAL", "FATAL", "ERROR", "WARNING", "WARN", "INFO", "DEBUG", "NOTSET"],
+        "level": "INFO"
+    },
     "drone":
     {
         "mistake_in_move": 0.3,

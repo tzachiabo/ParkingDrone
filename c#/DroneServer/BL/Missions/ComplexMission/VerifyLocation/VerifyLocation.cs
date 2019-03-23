@@ -12,10 +12,10 @@ namespace DroneServer.BL.Missions
         public VerifyLocation(ComplexMission ParentMission = null) : base(ParentMission)
         {
             String algo = Configuration.getInstance().get("verify_location_alguritum");
-            if (algo == "Template_matching") { 
+            if (algo == "Template_Matching") { 
                 m_SubMission.Enqueue(new VerifyLocationByTemplateMatching(this));
             }
-            else if (algo == "Sift")
+            else if (algo == "SIFT")
             {
                 Assertions.verify(false, "Sift is not implemented yet");
             }

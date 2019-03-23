@@ -14,6 +14,7 @@ namespace DroneServer.BL.Missions
     public abstract class Mission
     {
         private static int NextIndex = 1;
+        private static object lock_for_index = new object();
         protected int m_version;
         public int m_index;
 
@@ -58,10 +59,14 @@ namespace DroneServer.BL.Missions
         
         public abstract void stop();
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         protected int getNextIndex()
         {
-            return NextIndex++;
+            int res = 0;
+            lock (lock_for_index)
+            {
+                res = NextIndex++;
+            }
+            return res;
         }
         
         

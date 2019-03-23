@@ -1,4 +1,5 @@
 from enum import Enum
+import logging
 
 
 class CameraType(Enum):
@@ -28,6 +29,8 @@ class GimbalPosition(Enum):
 
 def verify(predicate, msg):
     if not predicate:
+        logging.fatal(msg)
         print(msg)
+        logging.shutdown()
         assert False, msg
 

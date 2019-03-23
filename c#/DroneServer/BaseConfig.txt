@@ -15,7 +15,9 @@
 <num_of_height_pixels>720</num_of_height_pixels>
 
 <height_of_drone_when_moving_in_parking>30</height_of_drone_when_moving_in_parking> 
-<height_of_drone_when_get_close_to_car>10</height_of_drone_when_get_close_to_car> 
+<height_of_drone_when_get_close_to_car>5</height_of_drone_when_get_close_to_car> 
+<height_of_drone_when_verify_location>10</height_of_drone_when_verify_location> 
+
 <acceptable_delta_for_error_in_distance>1.7</acceptable_delta_for_error_in_distance> 
 
 <car_min_margin_left>20</car_min_margin_left>
@@ -23,10 +25,12 @@
 <car_min_height>1</car_min_height>
 <car_min_width>1</car_min_width>
 
-<verify_location_alguritums>[Template_matching, Sift, GPS]</verify_location_alguritums>
-<verify_location_alguritum>Template_matching</verify_location_alguritum>
+<verify_location_alguritums>[Template_Matching, SIFT, GPS]</verify_location_alguritums>
+<verify_location_alguritum>GPS</verify_location_alguritum>
 
 <go_to_car_by_gps>False</go_to_car_by_gps>
+
+<move_only_by_gps>False</move_only_by_gps>
 
 
 </xml>

@@ -3,6 +3,7 @@ from Mission import *
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from common import Direction, GimbalMoveType, GimbalPosition
+import logging
 
 
 class Comm:
@@ -23,6 +24,7 @@ class Comm:
     def decoder(self, message):
         sub_message = message.split(' ')
         index = int(sub_message[1])
+        logging.debug(f'start decode {message}')
 
         if sub_message[0] == 'getStatus':
             return GetStatus(index, self.drone)
@@ -51,11 +53,13 @@ class Comm:
         if sub_message[0] == 'takePhoto':
             return TakePhoto(index, self.drone)
 
+        logging.fatal(f'failed to decode {message}')
         print(sub_message[0])
-
+        logging.shutdown()
         assert False
 
     def start(self, drone):
+        logging.info('start comm')
         self.drone = drone
         executor_of_status_missions = ThreadPoolExecutor(max_workers=self.num_of_workers)
         executor_of_main_missions = ThreadPoolExecutor(max_workers=1)
@@ -74,8 +78,9 @@ class Comm:
                     mission = self.decoder(message)
 
                     if mission.is_main_mission():
-
+                        logging.info(f'new main mission has arrived {message}')
                         print(message)
                         executor_of_main_missions.submit(partial(self.executor_mission, mission))
                     else:
+                        logging.debug(f'new status mission has arrived {message}')
                         executor_of_status_missions.submit(partial(self.executor_mission, mission))
