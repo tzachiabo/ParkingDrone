@@ -18,9 +18,6 @@ namespace DroneServer.BL.Missions
             GetLocation get_location = new GetLocation(this);
             get_location_index = get_location.m_index;
             m_SubMission.Enqueue(get_location);
-
-
-            //m_SubMission.Enqueue(new MoveToGPSPoint(this, curr_position.lat, curr_position.lng, height_destination));
         }
 
         public override void stop()
@@ -37,7 +34,7 @@ namespace DroneServer.BL.Missions
             }
             else
             {
-                done(response);
+                done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
             }
         }
     }

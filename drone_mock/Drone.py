@@ -113,20 +113,23 @@ class Drone:
             distance_in_meters = self.measure(self.lat, lng)
             start_lng = self.lng
 
-            meter_in_lng_lat = -1 * (start_lng - lng) / distance_in_meters
+            if distance_in_meters != 0:
+                meter_in_lng_lat = -1 * (start_lng - lng) / distance_in_meters
 
-            for current_lng in numpy.arange(start_lng, lng, meter_in_lng_lat):
-                time.sleep(1 / self.speed_in_ms)
-                self.lng = current_lng
+                for current_lng in numpy.arange(start_lng, lng, meter_in_lng_lat):
+                    time.sleep(1 / self.speed_in_ms)
+                    self.lng = current_lng
 
         if lat != self.lat:
             distance_in_meters = self.measure(lat, self.lng)
             start_lat = self.lat
-            distance_per_sec = -1 * (start_lat - lat) / distance_in_meters
 
-            for current_lat in numpy.arange(start_lat, lat, distance_per_sec):
-                time.sleep(1 / self.speed_in_ms)
-                self.lat = current_lat
+            if distance_in_meters != 0:
+                distance_per_sec = -1 * (start_lat - lat) / distance_in_meters
+
+                for current_lat in numpy.arange(start_lat, lat, distance_per_sec):
+                    time.sleep(1 / self.speed_in_ms)
+                    self.lat = current_lat
 
     def take_photo(self):
         self.camera.take_photo(self)

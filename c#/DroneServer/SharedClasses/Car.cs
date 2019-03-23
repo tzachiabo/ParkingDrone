@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,71 @@ namespace DroneServer.SharedClasses
             return new Point(width, height); 
         }
 
+        public Point getCarLocationByGPS()
+        {
+            Point car_location_with_margin_to_base_photo = getPointOfCar();
+            Point base_photo_point = BL.BLManagger.getInstance().get_parking().getBasePoint();
+
+            int cameraOpeningDegree = Int32.Parse(Configuration.getInstance().get("cameraOpeningDegree"));
+            double radius = base_photo_point.alt * Math.Tan(DegreesToRadians(cameraOpeningDegree));
+
+            GeoLocation geo_base_loc = new GeoLocation();
+            geo_base_loc.Latitude = base_photo_point.lat;
+            geo_base_loc.Longitude = base_photo_point.lng;
+
+            GeoLocation left = FindPointAtDistanceFrom(geo_base_loc, (3 / 2) * Math.PI, radius / 1000);
+            GeoLocation top_left = FindPointAtDistanceFrom(left, 0, radius / 1000);
+
+            GeoLocation margin_left_from_top_left = FindPointAtDistanceFrom(top_left, Math.PI / 2, car_location_with_margin_to_base_photo.lng / 1000);
+            GeoLocation car_location_geo = FindPointAtDistanceFrom(margin_left_from_top_left, Math.PI, car_location_with_margin_to_base_photo.lat / 1000);
+
+            return new Point(car_location_geo.Longitude, car_location_geo.Latitude);
+        }
+
+        public static GeoLocation FindPointAtDistanceFrom(GeoLocation startPoint, double initialBearingRadians, double distanceKilometres)
+        {
+            const double radiusEarthKilometres = 6371.01;
+            var distRatio = distanceKilometres / radiusEarthKilometres;
+            var distRatioSine = Math.Sin(distRatio);
+            var distRatioCosine = Math.Cos(distRatio);
+
+            var startLatRad = DegreesToRadians(startPoint.Latitude);
+            var startLonRad = DegreesToRadians(startPoint.Longitude);
+
+            var startLatCos = Math.Cos(startLatRad);
+            var startLatSin = Math.Sin(startLatRad);
+
+            var endLatRads = Math.Asin((startLatSin * distRatioCosine) + (startLatCos * distRatioSine * Math.Cos(initialBearingRadians)));
+
+            var endLonRads = startLonRad
+                + Math.Atan2(
+                    Math.Sin(initialBearingRadians) * distRatioSine * startLatCos,
+                    distRatioCosine - startLatSin * Math.Sin(endLatRads));
+
+            return new GeoLocation
+            {
+                Latitude = RadiansToDegrees(endLatRads),
+                Longitude = RadiansToDegrees(endLonRads)
+            };
+        }
+
+        public struct GeoLocation
+        {
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
+        }
+
+        public static double DegreesToRadians(double degrees)
+        {
+            const double degToRadFactor = Math.PI / 180;
+            return degrees * degToRadFactor;
+        }
+
+        public static double RadiansToDegrees(double radians)
+        {
+            const double radToDegFactor = 180 / Math.PI;
+            return radians * radToDegFactor;
+        }
 
     }
 }

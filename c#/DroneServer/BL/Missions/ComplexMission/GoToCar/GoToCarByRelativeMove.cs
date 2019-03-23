@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class GoToCar : ComplexMission
+    internal class GoToCarByRelativeMove : ComplexMission
     {
         private Point m_curr_position;
         private Car m_car;
 
-        public GoToCar(Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
+        public GoToCarByRelativeMove(Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_curr_position = curr_position;
             m_car = car;
@@ -23,7 +23,7 @@ namespace DroneServer.BL.Missions
 
             build_moves();
 
-            VerifyLocation vl = new VerifyLocation(this);
+            VerifyLocation vl = new VerifyLocation();
             vl.register_to_notification(verify_location_done);
             m_SubMission.Enqueue(vl);
         }
@@ -76,7 +76,7 @@ namespace DroneServer.BL.Missions
 
                 build_moves();
 
-                VerifyLocation vl = new VerifyLocation(this);
+                VerifyLocation vl = new VerifyLocation();
                 vl.register_to_notification(verify_location_done);
                 m_SubMission.Enqueue(vl);
 

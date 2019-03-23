@@ -23,5 +23,10 @@
 <car_min_height>1</car_min_height>
 <car_min_width>1</car_min_width>
 
+<verify_location_alguritums>[Template_matching, Sift, GPS]</verify_location_alguritums>
+<verify_location_alguritum>Template_matching</verify_location_alguritum>
+
+<go_to_car_by_gps>False</go_to_car_by_gps>
+
 
 </xml>

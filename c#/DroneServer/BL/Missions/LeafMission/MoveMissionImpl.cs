@@ -8,16 +8,16 @@ using DroneServer.SharedClasses;
 
 namespace DroneServer.BL.Missions
 {
-    public class MoveMission : LeafMission
+    internal class MoveMissionImpl : LeafMission
     {
         private double distance;
         private Direction direction;
 
-        public MoveMission(Direction direction, double distance) : this(null, direction, distance)
+        public MoveMissionImpl(Direction direction, double distance) : this(null, direction, distance)
         {
         }
 
-        public MoveMission(ComplexMission ParentMission, Direction direction, double distance):base(ParentMission)
+        public MoveMissionImpl(ComplexMission ParentMission, Direction direction, double distance):base(ParentMission)
         {
             this.direction = direction;
             this.distance = distance;

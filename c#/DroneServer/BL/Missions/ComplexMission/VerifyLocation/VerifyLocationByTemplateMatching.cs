@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class VerifyLocation : ComplexMission 
+    internal class VerifyLocationByTemplateMatching : ComplexMission 
     {
         Point start_location;
         Response res;
 
 
-        public VerifyLocation(ComplexMission ParentMission = null) : base(ParentMission)
+        public VerifyLocationByTemplateMatching(ComplexMission ParentMission = null) : base(ParentMission)
         {
             AbsoluteMoveGimbalMission absolute_move_gimbal = new AbsoluteMoveGimbalMission(null, Gimbal.left, 0, -90, 0);
             absolute_move_gimbal.register_to_notification(absolute_move_gimbal_finished);

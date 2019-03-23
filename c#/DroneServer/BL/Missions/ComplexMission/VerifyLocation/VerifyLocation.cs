@@ -1,0 +1,44 @@
+﻿using DroneServer.SharedClasses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DroneServer.BL.Missions
+{
+    class VerifyLocation : ComplexMission
+    {
+        public VerifyLocation(ComplexMission ParentMission = null) : base(ParentMission)
+        {
+            String algo = Configuration.getInstance().get("verify_location_alguritum");
+            if (algo == "Template_matching") { 
+                m_SubMission.Enqueue(new VerifyLocationByTemplateMatching(this));
+            }
+            else if (algo == "Sift")
+            {
+                Assertions.verify(false, "Sift is not implemented yet");
+            }
+            else if (algo == "GPS")
+            {
+                m_SubMission.Enqueue(new VerifyLocationByGPS(this));
+            }
+            else
+            {
+                Assertions.verify(false, "unexpected path at Verify location");
+            }
+
+        }
+
+
+        public override void stop()
+        {
+
+        }
+
+        public override void notify(Response response)
+        {
+            done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
+        }
+    }
+}
