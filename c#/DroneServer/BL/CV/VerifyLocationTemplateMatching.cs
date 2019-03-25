@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.CV
 {
-    public class VerifyLocation
+    public class VerifyLocationTemplateMatching
     {
         public static SharedClasses.Point getLocation(String base_photo_path, String current_photo_path, Double ratio = 0)
         {

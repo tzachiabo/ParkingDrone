@@ -106,7 +106,7 @@
     <Compile Include="BL\Comm\Decoder.cs" />
     <Compile Include="BL\Comm\PicTransferServer.cs" />
     <Compile Include="BL\Comm\ResponseConsumer.cs" />
-    <Compile Include="BL\CV\VerifyLocation.cs" />
+    <Compile Include="BL\CV\VerifyLocationTemplateMatching.cs" />
     <Compile Include="BL\LocationManager.cs" />
     <Compile Include="BL\Missions\ComplexMission\AbortMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\AbsoluteMoveGimbalMission.cs" />
@@ -115,7 +115,7 @@
     <Compile Include="BL\Missions\ComplexMission\GetToCertainHeight.cs" />
     <Compile Include="BL\Missions\ComplexMission\GoToCar\GoToCar.cs" />
     <Compile Include="BL\Missions\ComplexMission\GoToCar\GoToCarByGPS.cs" />
-    <Compile Include="BL\Missions\ComplexMission\MoveMission.cs" />
+    <Compile Include="BL\Missions\ComplexMission\MoveMission\MoveMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\VerifyLocation\VerifyLocation.cs" />
     <Compile Include="BL\Missions\ComplexMission\VerifyLocation\VerifyLocationByGPS.cs" />
     <Compile Include="BL\Missions\LeafMission\ConfirmLanding.cs" />

@@ -12,20 +12,8 @@ namespace DroneServer.BL.Missions
     {
         public GoToCar(SharedClasses.Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
         {
-            if (Configuration.getInstance().get("go_to_car_by_gps") == "False")
-            {
-                GoToCarByRelativeMove mission = new GoToCarByRelativeMove(curr_position, car, this);
-                m_SubMission.Enqueue(mission);
-            }
-            else if (Configuration.getInstance().get("go_to_car_by_gps") == "True")
-            {
-                GoToCarByGPS mission = new GoToCarByGPS(car, this);
-                m_SubMission.Enqueue(mission);
-            }
-            else
-            {
-                Assertions.verify(false, "unpredicted path in GoToCar");
-            }
+            GoToCarByRelativeMove mission = new GoToCarByRelativeMove(curr_position, car, this);
+            m_SubMission.Enqueue(mission);
         }
 
         public override void stop()

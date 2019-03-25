@@ -28,9 +28,4 @@
 <verify_location_alguritums>[Template_Matching, SIFT, GPS]</verify_location_alguritums>
 <verify_location_alguritum>GPS</verify_location_alguritum>
 
-<go_to_car_by_gps>False</go_to_car_by_gps>
-
-<move_only_by_gps>False</move_only_by_gps>
-
-
 </xml>

@@ -61,7 +61,7 @@ namespace DroneServer.BL.Missions
         {
             String curr_photo_path = PicTransferServer.getLastPicPath();
             String base_photo_path = BLManagger.getInstance().get_base_photo_path();
-            Point locationFromCV = CV.VerifyLocation.getLocation(base_photo_path, curr_photo_path);
+            Point locationFromCV = CV.VerifyLocationTemplateMatching.getLocation(base_photo_path, curr_photo_path);
             res = new Response(m_index, Status.Ok, MissionType.MainMission, locationFromCV);
 
             GetToCertainHeight back_to_the_real_height = new GetToCertainHeight(start_location.alt, this);

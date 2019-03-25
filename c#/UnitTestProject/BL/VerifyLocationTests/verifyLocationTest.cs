@@ -11,14 +11,14 @@ namespace UnitTestProject.BL
         public void verifyLocation()
         {
             Double ratio = 0.33;
-            VerifyLocation.getLocation("BL\\VerifyLocationTests\\big_pic.jpg", "BL\\VerifyLocationTests\\sub_big_pic.jpg", ratio);
+            VerifyLocationTemplateMatching.getLocation("BL\\VerifyLocationTests\\big_pic.jpg", "BL\\VerifyLocationTests\\sub_big_pic.jpg", ratio);
         }
 
         [TestMethod]
         public void verifyLocationSmall ()
         {
             Double ratio = 0.2;
-            DroneServer.SharedClasses.Point point = VerifyLocation.getLocation("BL\\VerifyLocationTests\\car.jpg", "BL\\VerifyLocationTests\\sub_car.jpg", ratio);
+            DroneServer.SharedClasses.Point point = VerifyLocationTemplateMatching.getLocation("BL\\VerifyLocationTests\\car.jpg", "BL\\VerifyLocationTests\\sub_car.jpg", ratio);
             int i = 5;
         }
     }

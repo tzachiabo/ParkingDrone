@@ -33,5 +33,10 @@ namespace DroneServer.SharedClasses
             Point res = new Point(PixelConverterHelper.convert_width(mid_width_pixel) + x_distance, PixelConverterHelper.convert_height(mid_height_pixel) + y_distance);
             return res;
         }
+
+        public static Point getLocationByBearingAndDistance(double latitude, double longitude, double distance, double bearing)
+        {
+            return null;
+        }
     }
 }
