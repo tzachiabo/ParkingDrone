@@ -6,7 +6,7 @@ import logging
 
 
 def init_logger(logger_conf):
-    os.remove(logger_conf['path'])
+    # os.remove(logger_conf['path'])
     logging.basicConfig(filename=logger_conf['path'], level=getattr(logging, logger_conf['level']),
                         format='%(asctime)s, %(levelname)s %(message)s')
 

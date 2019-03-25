@@ -12,7 +12,7 @@
 .gradle/
 build/
 
-
+car_detector/*
 
 
 

@@ -5,11 +5,9 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneServer", "DroneServer\DroneServer.csproj", "{732459F9-E326-44AB-9EB3-75C09627F554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{98F323D8-3692-4046-AE3F-7E05DD1539DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneServerUnitTests", "UnitTestProject\DroneServerUnitTests.csproj", "{98F323D8-3692-4046-AE3F-7E05DD1539DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidAccepanceTests", "AndroidAccepanceTests\AndroidAccepanceTests.csproj", "{2C9C2E6E-E0FB-42F2-B6E8-2754B695311D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "missionManagerAccepanceTests", "missionManagerAccepanceTests\missionManagerAccepanceTests.csproj", "{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,22 +69,6 @@ Global
 		{2C9C2E6E-E0FB-42F2-B6E8-2754B695311D}.Release|x64.Build.0 = Release|Any CPU
 		{2C9C2E6E-E0FB-42F2-B6E8-2754B695311D}.Release|x86.ActiveCfg = Release|Any CPU
 		{2C9C2E6E-E0FB-42F2-B6E8-2754B695311D}.Release|x86.Build.0 = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|ARM.Build.0 = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|x64.Build.0 = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Debug|x86.Build.0 = Debug|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|ARM.ActiveCfg = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|ARM.Build.0 = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|x64.ActiveCfg = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|x64.Build.0 = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|x86.ActiveCfg = Release|Any CPU
-		{A48C5E3B-D8D3-45D6-89E6-8241A7D5CDF9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
