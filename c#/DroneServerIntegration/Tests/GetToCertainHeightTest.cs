@@ -16,7 +16,7 @@ namespace DroneServerIntegration
             getToCertainHeight(10);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.AreEqual(location.alt, 10);
+            Assert.IsTrue(is_close(location.alt, 10));
         }
 
 
@@ -24,10 +24,21 @@ namespace DroneServerIntegration
         public void simpleGetTolimitHeight()
         {
             takeoff();
-            getToCertainHeight(10);
+            getToCertainHeight(50);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.AreEqual(location.alt, 10);
+            Assert.IsTrue(is_close(location.alt, 50));
+        }
+
+        [TestMethod]
+        public void simpleGetToLowHeight()
+        {
+            takeoff();
+            getToCertainHeight(50);
+            getToCertainHeight(1);
+            Point location = (Point)getLocation().m_res.Data;
+
+            Assert.IsTrue(is_close(location.alt, 1));
         }
     }
 }

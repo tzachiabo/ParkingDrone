@@ -36,6 +36,11 @@ namespace DroneServerIntegration
             CommManager.getInstance().shutDown();
         }
 
+        protected bool is_close(double a, double b, double delta=1)
+        {
+            return System.Math.Abs(a - b) < delta;
+        }
+
         protected MissionWraper takeoff(bool is_async = false)
         {
             MissionWraper mission = new MissionWraper(new TakeOff());
@@ -65,5 +70,7 @@ namespace DroneServerIntegration
             }
             return mission;
         }
+
+       
     }
 }

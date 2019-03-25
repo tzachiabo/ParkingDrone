@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace DroneServerIntegration
 {
@@ -33,6 +34,7 @@ namespace DroneServerIntegration
 
             // start the process 
             myDroneProcess.Start();
+            Thread.Sleep(2000);
 
             is_drone_running = true;
         }
@@ -41,6 +43,19 @@ namespace DroneServerIntegration
         {
             myDroneProcess.Close();
             is_drone_running = false;
+        }
+
+        public bool is_drone_runing()
+        {
+            return is_drone_running;
+        }
+
+        ~Drone()
+        {
+            if (is_drone_runing())
+            {
+                close_drone();
+            }
         }
     }
 }

@@ -22,9 +22,17 @@ namespace DroneServerIntegration
             m_mission.execute();
         }
 
-        public void Wait()
+        public Boolean Wait(int timeout=60)
         {
-            while (!m_is_finished);
+            long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond;
+            while (!m_is_finished)
+            {
+                if (DateTime.Now.Ticks / TimeSpan.TicksPerSecond > milliseconds + timeout)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void Done(Response res)
