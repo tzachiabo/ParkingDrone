@@ -12,7 +12,12 @@
 .gradle/
 build/
 
+
 car_detector/*
+
+drone_mock/images/*
+
+>>>>>>> 43e433d... add integration tests
 
 
 

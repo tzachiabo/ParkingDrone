@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 
 namespace DroneServer.BL.Comm
 {
-    class CommManager
+    public class CommManager
     {
         public bool isSocketInitiated;
 
@@ -147,6 +147,11 @@ namespace DroneServer.BL.Comm
                 Assertions.verify(false, "failed to write to network stream with error " + e.ToString());
             }
 
+        }
+
+        ~CommManager()
+        {
+            shutDown();
         }
 
         public void shutDown()

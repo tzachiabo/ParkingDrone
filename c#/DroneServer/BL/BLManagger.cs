@@ -22,9 +22,9 @@ namespace DroneServer.BL
     public class BLManagger
     {
         private static BLManagger instance = null;
-        private static Logger logger = Logger.getInstance();
-        private static Map map= new Map();
-        private static ConnectionStatus status = new ConnectionStatus();
+        private static Logger logger;
+        private static Map map;
+        private static ConnectionStatus status;
         private static int Version;
         private static bool stayInSafeZone = false;
         private String m_base_photo_path = null;
@@ -32,7 +32,10 @@ namespace DroneServer.BL
 
         private BLManagger()
         {
-            logger.debug("Initiate BL");            
+            status = new ConnectionStatus();
+            logger = Logger.getInstance();
+            logger.debug("Initiate BL");
+            map = new Map();
         }
 
         

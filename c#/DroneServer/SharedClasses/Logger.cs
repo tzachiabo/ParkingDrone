@@ -16,13 +16,13 @@ namespace DroneServer.SharedClasses
 
     public class Logger : BaseObservable
     {
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static ILog Log;
         private static Logger instance = null;
         private static List<string> llogs=new List<string>();
 
         private Logger():base()
         {
-            
+            Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         }
         
         public static Logger getInstance()
