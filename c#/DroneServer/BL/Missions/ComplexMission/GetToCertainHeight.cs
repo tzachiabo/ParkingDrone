@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class GetToCertainHeight : ComplexMission
+    public class GetToCertainHeight : ComplexMission
     {
         private double m_height_destination;
         private int get_location_index;
