@@ -9,9 +9,9 @@ import logging
 class Comm:
     def __init__(self, comm_configuration):
         self.ip = comm_configuration['ip_of_server']
-        self.port = comm_configuration['port']
-        self.pic_port = comm_configuration['pic_port']
-        self.num_of_workers = comm_configuration['num_of_workers']
+        self.port = int(comm_configuration['port'])
+        self.pic_port = int(comm_configuration['pic_port'])
+        self.num_of_workers = int(comm_configuration['num_of_workers'])
         self.drone = None
         self.client_socket = None
 

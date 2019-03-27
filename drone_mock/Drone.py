@@ -15,24 +15,24 @@ class Drone:
     def __init__(self, drone_configuration):
         logging.info('start drone')
         self.alt = 0
-        self.lng = drone_configuration['initial_lng']
-        self.lat = drone_configuration['initial_lat']
-        self.bearing_radians = drone_configuration['initial_bearing_radians']
-        self.speed_in_ms = drone_configuration['speed_in_ms']
+        self.lng = float(drone_configuration['initial_lng'])
+        self.lat = float(drone_configuration['initial_lat'])
+        self.bearing_radians = float(drone_configuration['initial_bearing_radians'])
+        self.speed_in_ms = float(drone_configuration['speed_in_ms'])
 
-        self.mistake_in_move = drone_configuration['mistake_in_move']
+        self.mistake_in_move = float(drone_configuration['mistake_in_move'])
 
-        self.min_take_off_height = drone_configuration['take_off']['min_height']
-        self.max_take_off_height = drone_configuration['take_off']['max_height']
+        self.min_take_off_height = float(drone_configuration['take_off']['min_height'])
+        self.max_take_off_height = float(drone_configuration['take_off']['max_height'])
 
-        self.gimbal_delay_in_sec = drone_configuration['gimbal_delay_in_sec']
+        self.gimbal_delay_in_sec = float(drone_configuration['gimbal_delay_in_sec'])
 
         self.left_gimbal = Gimbal()
         self.right_gimbal = Gimbal()
 
         self.camera = Camera.camera_factory(self, drone_configuration['camera'])
 
-        self.move_step_size = drone_configuration['move_step_size']
+        self.move_step_size = float(drone_configuration['move_step_size'])
 
     def take_off(self):
         verify(self.alt == 0, "drone height should have been 0")

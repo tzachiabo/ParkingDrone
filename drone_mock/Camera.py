@@ -29,8 +29,8 @@ class Camera(ABC):
             assert False
 
         self.server_ip = conf['ip_server']
-        self.server_port = conf['port']
-        self.camera_opening_degree = conf['camera_opening_degree']
+        self.server_port = int(conf['port'])
+        self.camera_opening_degree = int(conf['camera_opening_degree'])
 
     @abstractmethod
     def take_photo(self, drone_height):
@@ -62,7 +62,7 @@ class AerialViewCamera(Camera):
     def __init__(self, drone, conf):
         super(AerialViewCamera, self).__init__(drone, conf)
         self.images_path = conf['images_path']
-        self.base_photo_location = f'{self.images_path}/1.JPG'
+        self.base_photo_location = f'{self.images_path}/{conf["base_photo_location"]}'
         verify(os.path.isfile(self.base_photo_location), f'pic not exist {self.base_photo_location}')
 
         self.num_of_width_pixels = None

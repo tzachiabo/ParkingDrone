@@ -121,7 +121,6 @@
     <Compile Include="BL\Missions\ComplexMission\EndMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\GetToCertainHeight.cs" />
     <Compile Include="BL\Missions\ComplexMission\GoToCar\GoToCar.cs" />
-    <Compile Include="BL\Missions\ComplexMission\GoToCar\GoToCarByGPS.cs" />
     <Compile Include="BL\Missions\ComplexMission\MoveMission\MoveMission.cs" />
     <Compile Include="BL\Missions\ComplexMission\VerifyLocation\VerifyLocation.cs" />
     <Compile Include="BL\Missions\ComplexMission\VerifyLocation\VerifyLocationByGPS.cs" />

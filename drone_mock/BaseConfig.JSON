@@ -7,40 +7,41 @@
     },
     "drone":
     {
-        "mistake_in_move": 0.3,
+        "mistake_in_move": "0.3",
 
-        "initial_lng": 34.8053044080734,
-        "initial_lat": 31.2643830184825,
-        "initial_bearing_radians": 0,
+        "initial_lng": "34.8053044080734",
+        "initial_lat": "31.2643830184825",
+        "initial_bearing_radians": "0",
 
         "take_off":{
-            "min_height": 0.7,
-            "max_height": 1.3
+            "min_height": "0.7",
+            "max_height": "1.3"
         },
 
         "camera":{
             "camera_type_enum": ["SimpleCamera", "AerialViewCamera"],
             "camera_type": "AerialViewCamera",
 
-            "camera_opening_degree": 36,
+            "camera_opening_degree": "36",
             "connected_gimbal": "left",
             "images_path": "./images",
             "ip_server": "localhost",
-            "port": 3001
+            "port": "3001",
+            "base_photo_location": "1.JPG"
         },
 
-        "move_step_size": 0.5,
+        "move_step_size": "0.5",
 
-        "gimbal_delay_in_sec": 0.5,
-        "speed_in_ms": 5
+        "gimbal_delay_in_sec": "0.5",
+        "speed_in_ms": "5"
     },
 
     "transport":
     {
         "ip_of_server": "localhost",
-        "port": 3000,
-        "pic_port": 3001,
-        "num_of_workers": 3
+        "port": "3000",
+        "pic_port": "3001",
+        "num_of_workers": "3"
     }
 
 }
