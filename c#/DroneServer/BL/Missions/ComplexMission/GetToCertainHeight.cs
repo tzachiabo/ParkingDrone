@@ -15,8 +15,9 @@ namespace DroneServer.BL.Missions
         public GetToCertainHeight(double height_destination, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_height_destination = height_destination;
-            GetLocation get_location = new GetLocation(this);
-            get_location_index = get_location.m_index;
+            GetLocation get_location = new GetLocation();
+
+            get_location.register_to_notification(get_location_finished);
             m_SubMission.Enqueue(get_location);
         }
 
@@ -24,18 +25,45 @@ namespace DroneServer.BL.Missions
         {
         }
 
-        public override void notify(Response response)
+        public void get_location_finished(Response response)
         {
-            if (response.Key == get_location_index)
+            Point location = (Point)response.Data;
+            double curr_height = location.alt;
+
+            double distance_to_move = Math.Abs(curr_height - m_height_destination);
+
+            if (distance_to_move > 2)
             {
-                Point location = (Point)response.Data;
-                MoveToGPSPoint move_to_gps_point = new MoveToGPSPoint(this, location.lat, location.lng, m_height_destination);
-                move_to_gps_point.execute();
+                MoveMission mission = null;
+                if (curr_height > m_height_destination)
+                {
+                    mission = new MoveMission(Direction.down, distance_to_move);
+                }
+                else
+                {
+                    mission = new MoveMission(Direction.up, distance_to_move);
+                }
+
+                mission.register_to_notification(move_mission_finished);
+                mission.execute();
             }
             else
             {
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
             }
+        }
+
+        public void move_mission_finished(Response response)
+        {
+            GetLocation get_location = new GetLocation();
+
+            get_location.register_to_notification(get_location_finished);
+            get_location.execute();
+        }
+
+        public override void notify(Response response)
+        {
+
         }
     }
 }
