@@ -63,6 +63,10 @@ class AerialViewCamera(Camera):
         super(AerialViewCamera, self).__init__(drone, conf)
         self.images_path = conf['images_path']
         self.base_photo_location = f'{self.images_path}/{conf["base_photo_location"]}'
+
+        self.weight_of_width_pixel_per_meter = float(conf['weight_of_width_pixel_per_meter'])
+        self.weight_of_height_pixel_per_meter = float(conf['weight_of_height_pixel_per_meter'])
+
         verify(os.path.isfile(self.base_photo_location), f'pic not exist {self.base_photo_location}')
 
         self.num_of_width_pixels = None
@@ -104,6 +108,7 @@ class AerialViewCamera(Camera):
         logging.info('finish send_base_photo')
 
     def get_pixels_size_of_base_photo(self, drone_height):
+
         ratio = drone_height / self.base_photo_height
 
         num_of_height_pixel_in_base_photo = int(ratio * self.num_of_height_pixels)
@@ -126,13 +131,14 @@ class AerialViewCamera(Camera):
         if lat > self.lat_of_base_photo:
             height_dif_from_base_photo = height_dif_from_base_photo * -1
 
-        size = 2 * self.base_photo_height * math.tan(to_rad(self.camera_opening_degree))
+        width_size = self.base_photo_height * self.weight_of_width_pixel_per_meter
+        height_size = self.base_photo_height * self.weight_of_height_pixel_per_meter
 
         base_photo_pixel_margin_left = int(self.num_of_width_pixels / 2)
         base_photo_pixel_margin_top = int(self.num_of_height_pixels / 2)
 
-        pixel_margin_left = base_photo_pixel_margin_left + int((width_dif_from_base_photo / size) * self.num_of_width_pixels)
-        pixel_margin_top = base_photo_pixel_margin_top + int((height_dif_from_base_photo / size) * self.num_of_height_pixels)
+        pixel_margin_left = base_photo_pixel_margin_left + int((width_dif_from_base_photo / width_size) * self.num_of_width_pixels)
+        pixel_margin_top = base_photo_pixel_margin_top + int((height_dif_from_base_photo / height_size) * self.num_of_height_pixels)
 
         verify(pixel_margin_left < self.num_of_width_pixels, 'margin left is out of base_photo')
         verify(pixel_margin_top < self.num_of_height_pixels, 'margin top is out of base_photo')
