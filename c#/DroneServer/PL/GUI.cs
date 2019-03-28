@@ -18,7 +18,7 @@ using GMap.NET;
 using DroneServer.BL;
 using DroneServer.SharedClasses;
 using Point = DroneServer.SharedClasses.Point;
-
+using DroneServer.BL.CV;
 
 namespace DroneServer
 {
@@ -63,6 +63,11 @@ namespace DroneServer
 
             initParkingList();
             initMaps();
+
+            PixelConverterHelper.init(52);
+            Point p= VerifyLocationSift.getLocation("./b.jpg", "s.jpg", 52 / 7);
+            Console.WriteLine(p.lng+" "+p.lat);
+
 
         }
 

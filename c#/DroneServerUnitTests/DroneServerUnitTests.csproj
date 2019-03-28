@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\CV\CarDetectorTest.cs" />
-    <Compile Include="BL\CV\VerifyLocationTest.cs" />
+    <Compile Include="BL\CV\VerifyLocationSiftTest.cs" />
     <Compile Include="Comm\DecoderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DL\DBTest.cs" />
@@ -86,12 +86,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DroneServer\DroneServer.csproj">
-      <Project>{732459f9-e326-44ab-9eb3-75c09627f554}</Project>
-      <Name>DroneServer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\..\verify_location\verify_location.py">
       <Link>verify_location.py</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -112,7 +106,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DroneServer\DroneServer.csproj">
+      <Project>{732459f9-e326-44ab-9eb3-75c09627f554}</Project>
+      <Name>DroneServer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

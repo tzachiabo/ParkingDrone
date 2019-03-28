@@ -108,12 +108,8 @@
   <ItemGroup>
     <Compile Include="BL\BLManagger.cs" />
     <Compile Include="BL\CV\CarDetector.cs" />
-
-    <Compile Include="BL\Missions\ComplexMission\AbsoulteRotateMission.cs" />
-
     <Compile Include="BL\CV\VerifyLocationSift.cs" />
     <Compile Include="BL\Missions\ComplexMission\VerifyLocation\VerifyLocationBySift.cs" />
-
     <Compile Include="Comm\CommManager.cs" />
     <Compile Include="Comm\CommReader.cs" />
     <Compile Include="Comm\Decoder.cs" />

@@ -17,7 +17,7 @@ namespace DroneServer.BL.Missions
             }
             else if (algo == "SIFT")
             {
-                Assertions.verify(false, "Sift is not implemented yet");
+                m_SubMission.Enqueue(new VerifyLocationBySift(this));
             }
             else if (algo == "GPS")
             {

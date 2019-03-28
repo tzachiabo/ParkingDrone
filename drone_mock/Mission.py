@@ -81,7 +81,7 @@ class GetLocation(StatusMission):
         pass
 
     def encode_result(self):
-        return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng}'
+        return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng} 0'
 
 
 class TakeOff(MainMission):
