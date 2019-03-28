@@ -56,6 +56,7 @@
             this.parkName_create_txt = new System.Windows.Forms.TextBox();
             this.points_create_lst = new System.Windows.Forms.ListBox();
             this.dummyTab = new System.Windows.Forms.TabPage();
+            this.GetLocation_btn = new System.Windows.Forms.Button();
             this.RotateDroneBtn = new System.Windows.Forms.Button();
             this.stop_dummy_btn = new System.Windows.Forms.Button();
             this.Yaw = new System.Windows.Forms.NumericUpDown();
@@ -403,6 +404,7 @@
             // dummyTab
             // 
             this.dummyTab.Controls.Add(this.button1);
+            this.dummyTab.Controls.Add(this.GetLocation_btn);
             this.dummyTab.Controls.Add(this.RotateDroneBtn);
             this.dummyTab.Controls.Add(this.stop_dummy_btn);
             this.dummyTab.Controls.Add(this.Yaw);
@@ -430,6 +432,16 @@
             this.dummyTab.TabIndex = 3;
             this.dummyTab.Text = "Dummy";
             this.dummyTab.UseVisualStyleBackColor = true;
+            // 
+            // GetLocation_btn
+            // 
+            this.GetLocation_btn.Location = new System.Drawing.Point(181, 62);
+            this.GetLocation_btn.Name = "GetLocation_btn";
+            this.GetLocation_btn.Size = new System.Drawing.Size(133, 35);
+            this.GetLocation_btn.TabIndex = 38;
+            this.GetLocation_btn.Text = "Get Location";
+            this.GetLocation_btn.UseVisualStyleBackColor = true;
+            this.GetLocation_btn.Click += new System.EventHandler(this.getlocation);
             // 
             // RotateDroneBtn
             // 
@@ -710,13 +722,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(181, 62);
+            this.button1.Location = new System.Drawing.Point(181, 120);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 38);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "AbsulotePosition";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.absoultepostion);
             // 
             // GUI
             // 
@@ -800,6 +812,7 @@
         private System.Windows.Forms.Button clear_home_btn;
         private System.Windows.Forms.Button clear_create_btn;
         private System.Windows.Forms.Button RotateDroneBtn;
+        private System.Windows.Forms.Button GetLocation_btn;
         private System.Windows.Forms.Button button1;
     }
 }

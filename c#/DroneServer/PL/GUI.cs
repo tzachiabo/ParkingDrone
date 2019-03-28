@@ -420,9 +420,14 @@ namespace DroneServer
             BLManagger.getInstance().MoveForTest(move_amount, Direction.rotate);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void getlocation(object sender, EventArgs e)
         {
             BLManagger.getInstance().getLocation();
+        }
+
+        private void absoultepostion(object sender, EventArgs e)
+        {
+            BLManagger.getInstance().absoutle_postision();
         }
     }
 }
