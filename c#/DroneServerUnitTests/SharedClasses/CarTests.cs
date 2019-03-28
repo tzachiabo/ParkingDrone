@@ -12,6 +12,16 @@ namespace DroneServer.SharedClasses.Tests
     public class CarTests
     {
         [TestMethod()]
+        public void getPointOfCarTest()
+        {
+            Car loc = new Car("car", 97, 10, 10, 10, 15, 50);
+            Point p = loc.getPointOfCar();
+
+            Assert.AreEqual(p.lng, 15);
+            Assert.AreEqual(p.lat, 12.5);
+        }
+
+        [TestMethod()]
         public void FindPointAtDistanceFromForwardTest()
         {
             Car.GeoLocation geo_base_loc = new Car.GeoLocation();
