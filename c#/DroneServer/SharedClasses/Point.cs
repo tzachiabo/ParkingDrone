@@ -9,24 +9,35 @@ namespace DroneServer.SharedClasses
         public double lng;//x
         public double lat;//y
         public double alt;
+        public double bearing;
 
         public Point()
         {
             this.lng = 0;
             this.lat = 0;
             this.alt = 0;
+            this.bearing = 404;
         }
         public Point(double lng, double lat)
         {
             this.lng = lng;
             this.lat = lat;
             this.alt = 0;
+            this.bearing = 404;
         }
         public Point(double lng, double lat, double alt)
         {
             this.lng = lng;
             this.lat = lat;
             this.alt = alt;
+            this.bearing = 404;
+        }
+        public Point(double lng, double lat, double alt, double bearing)
+        {
+            this.lng = lng;
+            this.lat = lat;
+            this.alt = alt;
+            this.bearing = bearing;
         }
 
         public List<KeyValuePair<Direction, double>> get_moves(Point des_point)

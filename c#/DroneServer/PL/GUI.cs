@@ -419,5 +419,10 @@ namespace DroneServer
             int move_amount = Convert.ToInt32(MoveAmount.Value);
             BLManagger.getInstance().MoveForTest(move_amount, Direction.rotate);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BLManagger.getInstance().getLocation();
+        }
     }
 }

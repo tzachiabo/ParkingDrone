@@ -100,14 +100,15 @@ namespace DroneServer.BL.Comm
 
         private static Response parseLocation(string[] sentance)
         {
-            Assertions.verify(sentance.Length == 6 && sentance[2] == "Done", "message recive is not according to protocol");
+            Assertions.verify(sentance.Length == 7 && sentance[2] == "Done", "message recive is not according to protocol");
             double lat = Double.Parse(sentance[4]);
             double lng = Double.Parse(sentance[5]);
             double alt = Double.Parse(sentance[3]);
+            double bearing = Double.Parse(sentance[6]);
 
             Logger.getInstance().debug("decode location update lat: " + lat + " lng: " + lng + " alt: " + alt);
 
-            Point p = new Point(lng, lat, alt);
+            Point p = new Point(lng, lat, alt, bearing);
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.StateMission, p);
             return res;
         }

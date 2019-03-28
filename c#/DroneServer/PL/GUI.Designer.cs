@@ -79,6 +79,7 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.homePanel.SuspendLayout();
@@ -108,7 +109,7 @@
             this.homeTab.Controls.Add(this.missionPanel);
             this.homeTab.Location = new System.Drawing.Point(4, 25);
             this.homeTab.Name = "homeTab";
-            this.homeTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.homeTab.Padding = new System.Windows.Forms.Padding(3);
             this.homeTab.Size = new System.Drawing.Size(1392, 771);
             this.homeTab.TabIndex = 0;
             this.homeTab.Text = "Home";
@@ -401,6 +402,7 @@
             // 
             // dummyTab
             // 
+            this.dummyTab.Controls.Add(this.button1);
             this.dummyTab.Controls.Add(this.RotateDroneBtn);
             this.dummyTab.Controls.Add(this.stop_dummy_btn);
             this.dummyTab.Controls.Add(this.Yaw);
@@ -706,6 +708,16 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(181, 62);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 38;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -788,6 +800,7 @@
         private System.Windows.Forms.Button clear_home_btn;
         private System.Windows.Forms.Button clear_create_btn;
         private System.Windows.Forms.Button RotateDroneBtn;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -8,7 +8,7 @@ using DroneServer.SharedClasses;
 
 namespace DroneServer.BL.Missions
 {
-    internal class MoveMissionImpl : LeafMission
+    public class MoveMissionImpl : LeafMission
     {
         private double distance;
         private Direction direction;

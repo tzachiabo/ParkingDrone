@@ -11,8 +11,9 @@ public class GetGPSLocationMission extends Mission {
     double Altitude;
     double Latitude;
     double Longitude;
+    float Bearing;
 
-    public GetGPSLocationMission(int index){
+    public GetGPSLocationMission(int index) {
         super("getLocation", index);
     }
 
@@ -21,21 +22,23 @@ public class GetGPSLocationMission extends Mission {
         Logger.info("start getGPSLocation mission num " + index);
         IDrone drone = DroneFactory.getDroneManager();
         FlightControllerState droneState = null;
-        while (droneState == null){
+        while (droneState == null) {
             droneState = drone.getDroneState();
         }
         LocationCoordinate3D lc3d = droneState.getAircraftLocation();
         Altitude = lc3d.getAltitude();
         Latitude = lc3d.getLatitude();
         Longitude = lc3d.getLongitude();
+        Bearing = drone.getDroneBearing();
         onResult.onResult(null);
     }
 
     @Override
-    public void stop() { }
+    public void stop() {
+    }
 
     @Override
     public String encode() {
-        return getName() +" "+ getIndex()+ " Done " + Altitude + " " + Latitude + " " + Longitude;
+        return getName() + " " + getIndex() + " Done " + Altitude + " " + Latitude + " " + Longitude + " " + Bearing;
     }
 }

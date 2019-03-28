@@ -16,4 +16,5 @@ public interface IDrone {
     void goHome(final Promise cb);
     void stopGoHome();
     FlightControllerState getDroneState();
+    float getDroneBearing();
 }

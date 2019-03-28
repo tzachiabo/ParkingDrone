@@ -2,6 +2,9 @@ package BL.Drone.DJIM210;
 
 import android.support.annotation.NonNull;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import BL.Drone.DroneFactory;
 import BL.Drone.IDrone;
 import SharedClasses.AssertionViolation;
@@ -27,6 +30,8 @@ public class ControllerManager {
     FlightControllerState flight_controller_state;
     private boolean isInitiated;
     private boolean hasStoped;
+    Timer bearingTimer;
+    float bearing;
 
     public ControllerManager(Aircraft aircraft){
         m_flight_controller = aircraft.getFlightController();
@@ -42,6 +47,21 @@ public class ControllerManager {
             }
         });
         initFlightController();
+        initBearingThread();
+    }
+    private void initBearingThread() {
+        bearingTimer = new Timer();
+        bearingTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                bearing = m_flight_controller.getCompass().getHeading();
+            }
+        }, 0, 1500);
+
+    }
+
+    public float getBearing() {
+        return bearing;
     }
 
     public void takeOff(final Promise cb) {

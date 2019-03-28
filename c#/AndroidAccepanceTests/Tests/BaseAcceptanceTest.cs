@@ -47,7 +47,7 @@ namespace AndroidAccepanceTests
 
         protected CompletionHanlder move(Direction direction, double distance, bool isAsync = false)
         {
-            MoveMission move = new MoveMission(direction, distance);
+            MoveMissionImpl move = new MoveMissionImpl(direction, distance);
             return comm.sendMission(move, isAsync);
         }
 

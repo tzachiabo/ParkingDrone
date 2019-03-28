@@ -68,4 +68,9 @@ public class M210Manager implements IDrone{
     public synchronized void stopGoHome(){ m_controller.stopGoHome(); }
 
     public synchronized FlightControllerState getDroneState(){ return m_controller.getDroneState(); }
+
+    @Override
+    public float getDroneBearing() {
+        return m_controller.getBearing();
+    }
 }
