@@ -17,7 +17,7 @@ namespace DroneServer.BL.Missions
             }
             else if (algo == "SIFT")
             {
-                m_SubMission.Enqueue(new VerifyLocationBySift(this));
+                //m_SubMission.Enqueue(new VerifyLocationBySift(this));
             }
             else if (algo == "GPS")
             {

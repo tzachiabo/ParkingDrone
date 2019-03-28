@@ -64,11 +64,6 @@ namespace DroneServer
             initParkingList();
             initMaps();
 
-            PixelConverterHelper.init(52);
-            Point p= VerifyLocationSift.getLocation("./b.jpg", "s.jpg", 52 / 7);
-            Console.WriteLine(p.lng+" "+p.lat);
-
-
         }
 
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
