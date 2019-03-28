@@ -13,7 +13,8 @@
 <enable_location_manager_verification>false</enable_location_manager_verification>
 <num_of_width_pixels>1280</num_of_width_pixels>
 <num_of_height_pixels>720</num_of_height_pixels>
-
+<width_pixels_ratio>1.09</width_pixels_ratio>
+<height_pixels_ratio>0.65</height_pixels_ratio>
 <height_of_drone_when_moving_in_parking>30</height_of_drone_when_moving_in_parking> 
 <height_of_drone_when_get_close_to_car>5</height_of_drone_when_get_close_to_car> 
 <height_of_drone_when_verify_location>10</height_of_drone_when_verify_location> 

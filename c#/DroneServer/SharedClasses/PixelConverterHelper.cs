@@ -22,12 +22,12 @@ namespace DroneServer.SharedClasses
         {
             int num_of_width_pixels = Int32.Parse(Configuration.getInstance().get("num_of_width_pixels"));
             int num_of_height_pixels = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels"));
-            int cameraOpeningDegree = Int32.Parse(Configuration.getInstance().get("cameraOpeningDegree"));
 
-            double length = 2 * above_ground * Math.Tan(to_rad(cameraOpeningDegree));
+            double width_ratio = Double.Parse(Configuration.getInstance().get("width_pixels_ratio"));
+            double height_ratio = Double.Parse(Configuration.getInstance().get("height_pixels_ratio"));
 
-            size_of_pixel_h = length / num_of_height_pixels;
-            size_of_pixel_w = length / num_of_width_pixels;
+            size_of_pixel_h = height_ratio * above_ground / num_of_height_pixels;
+            size_of_pixel_w = width_ratio * above_ground / num_of_width_pixels;
         }
         public static PixelConverterHelper getInstance()
         {
