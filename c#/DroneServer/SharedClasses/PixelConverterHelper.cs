@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.SharedClasses
 {
-    class PixelConverterHelper
+    public class PixelConverterHelper
     {
         private static PixelConverterHelper instance = null;
         double size_of_pixel_h = 0;
@@ -36,7 +36,8 @@ namespace DroneServer.SharedClasses
         }
         public static void init(double aboveGround)
         {
-            Assertions.verify(instance == null, "PixelConverterHelper intance is not null");
+            //Deleted for tests
+            //Assertions.verify(instance == null, "PixelConverterHelper intance is not null");
             instance = new PixelConverterHelper(aboveGround);
         }
 

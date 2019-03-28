@@ -29,7 +29,7 @@ namespace DroneServer.SharedClasses
             this.alt = alt;
         }
 
-        internal List<KeyValuePair<Direction, double>> get_moves(Point des_point)
+        public List<KeyValuePair<Direction, double>> get_moves(Point des_point)
         {
             List<KeyValuePair<Direction, double>> res = new List<KeyValuePair<Direction, double>>();
 
@@ -69,7 +69,7 @@ namespace DroneServer.SharedClasses
         }
 
 
-        internal bool is_close(Point other_point, Double acceptable_delta_for_error_in_distance = -1)
+        public bool is_close(Point other_point, Double acceptable_delta_for_error_in_distance = -1)
         {
             if (acceptable_delta_for_error_in_distance == -1)
             {
