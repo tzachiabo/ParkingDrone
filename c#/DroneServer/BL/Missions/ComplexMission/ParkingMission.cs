@@ -46,5 +46,10 @@ namespace DroneServer.BL.Missions
             m_SubMission.Enqueue(new Landing(this));
 
         }
+
+        public override void done(Response response)
+        {
+            base.done(new Response(m_index, Status.Ok, MissionType.MainMission, BLManagger.getInstance().num_of_scaned_cars));
+        }
     }
 }

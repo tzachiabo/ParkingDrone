@@ -16,6 +16,7 @@ using DroneServer.PL;
 using DroneServer.PL.Observers;
 using System.Collections.Generic;
 using System.Net;
+using DroneServerIntegration;
 
 namespace DroneServer.BL 
 {
@@ -29,6 +30,7 @@ namespace DroneServer.BL
         private static bool stayInSafeZone = false;
         private String m_base_photo_path = null;
         private Parking m_parking = null;
+        public int num_of_scaned_cars;
 
         private BLManagger()
         {
@@ -160,12 +162,14 @@ namespace DroneServer.BL
                 status.setStatus(ds);
         }
 
-        public void startMission(Parking parking)
+        public MissionWraper startMission(Parking parking)
         {
+            num_of_scaned_cars = 0;
             LocationManager.init(parking);
 
             ParkingMission start_mission = new ParkingMission(parking);
-            start_mission.execute();
+
+            return new MissionWraper(start_mission);
         }
 
         public void shutdown()

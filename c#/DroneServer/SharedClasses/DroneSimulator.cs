@@ -6,17 +6,17 @@ using System.Threading;
 
 namespace DroneServerIntegration
 {
-    class Drone
+    public class DroneSimulator
     {
         private Process myDroneProcess;
         private bool is_drone_running;
 
-        public Drone()
+        public DroneSimulator()
         {
             is_drone_running = false;
         }
 
-        public void start_drone()
+        public void start_drone(string override_params="")
         {
             ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("python");
 
@@ -25,7 +25,7 @@ namespace DroneServerIntegration
             myProcessStartInfo.RedirectStandardOutput = true;
             myProcessStartInfo.CreateNoWindow = true;
 
-            String myPythonApp = "Drone.py";
+            String myPythonApp = "Drone.py "+ override_params;
 
             myProcessStartInfo.Arguments = myPythonApp;
 
@@ -50,7 +50,7 @@ namespace DroneServerIntegration
             return is_drone_running;
         }
 
-        ~Drone()
+        ~DroneSimulator()
         {
             if (is_drone_runing())
             {

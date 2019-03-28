@@ -55,6 +55,7 @@ namespace DroneServer.BL.Missions
             else
             {
                 Logger.getInstance().info("finish scan single car");
+                BL.BLManagger.getInstance().num_of_scaned_cars++;
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, m_res.Data));
             }
         }

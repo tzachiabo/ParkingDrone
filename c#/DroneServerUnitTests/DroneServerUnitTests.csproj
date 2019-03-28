@@ -53,10 +53,12 @@
     <Compile Include="BL\CV\CarDetectorTest.cs" />
     <Compile Include="BL\CV\VerifyLocationTest.cs" />
     <Compile Include="Comm\DecoderTest.cs" />
-    <Compile Include="ParkingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DL\DBTest.cs" />
     <Compile Include="SharedClasses\CarTests.cs" />
+    <Compile Include="SharedClasses\ParkingTests.cs" />
+    <Compile Include="SharedClasses\PixelConverterTests.cs" />
+    <Compile Include="SharedClasses\PointTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

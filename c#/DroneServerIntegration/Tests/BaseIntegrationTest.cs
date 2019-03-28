@@ -8,7 +8,7 @@ namespace DroneServerIntegration
     [TestClass]
     public class BaseIntegrationTest
     {
-        Drone drone = null;
+        DroneSimulator drone = null;
 
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
@@ -20,7 +20,7 @@ namespace DroneServerIntegration
         [TestInitialize]
         public void TestInitialize()
         {
-            drone = new Drone();
+            drone = new DroneSimulator();
             drone.start_drone();
         }
 

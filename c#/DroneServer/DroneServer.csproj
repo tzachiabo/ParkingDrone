@@ -137,6 +137,7 @@
     <Compile Include="SharedClasses\Car.cs" />
     <Compile Include="SharedClasses\CompletionHanlder.cs" />
     <Compile Include="SharedClasses\ConnectionStatus.cs" />
+    <Compile Include="SharedClasses\DroneSimulator.cs" />
     <Compile Include="SharedClasses\DroneStatus.cs" />
     <Compile Include="SharedClasses\LngLatHelper.cs" />
     <Compile Include="SharedClasses\Map.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="SharedClasses\Gimbal.cs" />
     <Compile Include="SharedClasses\Logger.cs" />
     <Compile Include="SharedClasses\MissionType.cs" />
+    <Compile Include="SharedClasses\MissionWraper.cs" />
     <Compile Include="SharedClasses\Parking.cs" />
     <Compile Include="SharedClasses\PixelConverterHelper.cs" />
     <Compile Include="SharedClasses\Point.cs" />
@@ -221,6 +223,9 @@
     </Content>
     <Content Include="DL\DroneDB_log.ldf">
       <DependentUpon>DroneDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Drone.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
