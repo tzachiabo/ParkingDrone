@@ -21,10 +21,10 @@
 
 <acceptable_delta_for_error_in_distance>1.7</acceptable_delta_for_error_in_distance> 
 
-<car_min_margin_left>20</car_min_margin_left>
-<car_min_margin_top>20</car_min_margin_top>
-<car_min_height>1</car_min_height>
-<car_min_width>1</car_min_width>
+<car_min_margin_left>10</car_min_margin_left>
+<car_min_margin_top>10</car_min_margin_top>
+<car_min_height>3</car_min_height>
+<car_min_width>3</car_min_width>
 
 <verify_location_alguritums>[Template_Matching, SIFT, GPS]</verify_location_alguritums>
 <verify_location_alguritum>GPS</verify_location_alguritum>

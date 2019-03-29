@@ -16,9 +16,9 @@ namespace DroneServer.BL.Missions
             Point edge_point = parking.getMidleEdgePoint();
             Point base_point = parking.getBasePoint();
 
-           // m_SubMission.Enqueue(new MoveToGPSPoint(this, edge_point.lat, edge_point.lng, edge_point.alt));
-            m_SubMission.Enqueue(new MoveToGPSPoint(this, base_point.lat, base_point.lng, base_point.alt));
             m_SubMission.Enqueue(new AbsoluteMoveGimbalMission(this, Gimbal.left, 0, -90, 0));
+            // m_SubMission.Enqueue(new MoveToGPSPoint(this, edge_point.lat, edge_point.lng, edge_point.alt));
+            m_SubMission.Enqueue(new MoveToGPSPoint(this, base_point.lat, base_point.lng, base_point.alt));
             m_SubMission.Enqueue(new AbsoulteRotateMission(0, this));
             m_SubMission.Enqueue(new TakePhoto(this));
         }

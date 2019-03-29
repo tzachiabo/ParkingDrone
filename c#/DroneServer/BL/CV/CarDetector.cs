@@ -15,6 +15,8 @@ namespace DroneServer.BL
         {
             Logger.getInstance().info("start carDetector with YOLOV3");
 
+            System.Threading.Thread.Sleep(2000);
+
             String[] module_result = run_car_detector_module(base_photo_path);
 
             List<Car> cars = generate_cars_objects(module_result, base_photo_height);

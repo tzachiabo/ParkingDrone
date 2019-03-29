@@ -43,12 +43,6 @@ namespace DroneServer.BL.Missions
             }
             else if (response.Key == m_get_to_certain_height)
             {
-                AbsoluteMoveGimbalMission absolute_move_gimbal = new AbsoluteMoveGimbalMission(this, Gimbal.left, 0, -90, 0);
-                m_move_gimbal_index = absolute_move_gimbal.m_index;
-                absolute_move_gimbal.execute();
-            }
-            else if (response.Key == m_move_gimbal_index)
-            {
                 TakePhoto take_photo = new TakePhoto(this);
                 take_photo.execute();
             }

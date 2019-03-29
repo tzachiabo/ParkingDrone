@@ -10,7 +10,8 @@ namespace DroneServer.BL.Missions
     class AbsoulteRotateMission : ComplexMission
     {
         private double destinated_bearing;
-      
+        Random rnd = new Random();
+
         public AbsoulteRotateMission(double destinated_bearing, ComplexMission ParentMission = null) : base(ParentMission)
         {
             this.destinated_bearing = destinated_bearing;
@@ -37,11 +38,11 @@ namespace DroneServer.BL.Missions
                 MoveMission mission = null;
                 if (destinated_bearing > curr_bearing)
                 {
-                    mission = new MoveMission(Direction.rotate, destinated_bearing- curr_bearing);
+                    mission = new MoveMission(Direction.rotate, destinated_bearing - curr_bearing);
                 }
                 else
-                {
-                    mission = new MoveMission(Direction.rotate, 360 + destinated_bearing - curr_bearing);
+                {   
+                    mission = new MoveMission(Direction.rotate, 360 + destinated_bearing - curr_bearing - rnd.Next(0, 20));
                 }
 
                 mission.register_to_notification(move_mission_finished);
