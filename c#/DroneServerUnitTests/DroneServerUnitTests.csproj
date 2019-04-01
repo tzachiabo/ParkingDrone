@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\CV\CarDetectorTest.cs" />
+    <Compile Include="BL\CV\CarPlateDetectorTest.cs" />
     <Compile Include="BL\CV\VerifyLocationSiftTest.cs" />
     <Compile Include="Comm\DecoderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +72,15 @@
     </Content>
     <Content Include="BL\CV\CarDetectorTestFiles\car.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\CV\CarPlateDetectorTestFiles\car2.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\CV\CarPlateDetectorTestFiles\car3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BL\CV\CarPlateDetectorTestFiles\car5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BL\CV\VerifyLocationTestFiles\big_pic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
