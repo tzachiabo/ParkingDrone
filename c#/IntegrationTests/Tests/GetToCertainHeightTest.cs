@@ -14,7 +14,7 @@ namespace IntegrationTests
             getToCertainHeight(10);
             Point location = (Point)getLocation().m_res.Data;
 
-            //Assert.IsTrue(is_close(location.alt, 10));
+            Assert.IsTrue(is_close(location.alt, 10));
         }
 
 
@@ -25,7 +25,7 @@ namespace IntegrationTests
             getToCertainHeight(50);
             Point location = (Point)getLocation().m_res.Data;
 
-            //Assert.IsTrue(is_close(location.alt, 50));
+            Assert.IsTrue(is_close(location.alt, 50));
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace IntegrationTests
             getToCertainHeight(1);
             Point location = (Point)getLocation().m_res.Data;
 
-            //Assert.IsTrue(is_close(location.alt, 1));
+            Assert.IsTrue(is_close(location.alt, 1));
         }
     }
 }

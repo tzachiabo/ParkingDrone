@@ -2,6 +2,7 @@ using DroneServer.BL;
 using DroneServer.BL.Comm;
 using DroneServer.BL.Missions;
 using DroneServer.SharedClasses;
+using DroneServerIntegration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IntegrationTests
@@ -15,7 +16,7 @@ namespace IntegrationTests
         public static void AssemblyInit(TestContext context)
         {
             BLManagger bl = BLManagger.getInstance();
-            bl.initComm();
+            bl.init();
         }
 
         [TestInitialize]
@@ -37,7 +38,7 @@ namespace IntegrationTests
             CommManager.getInstance().shutDown();
         }
 
-        protected bool is_close(double a, double b, double delta=1)
+        protected bool is_close(double a, double b, double delta=3)
         {
             return System.Math.Abs(a - b) < delta;
         }
@@ -45,6 +46,36 @@ namespace IntegrationTests
         protected MissionWraper takeoff(bool is_async = false)
         {
             MissionWraper mission = new MissionWraper(new TakeOff());
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
+        protected MissionWraper landing(bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new Landing());
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
+        protected MissionWraper move(Direction direction, double amount, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new MoveMission(direction, amount));
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
+        protected MissionWraper goHome(bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new ComplexGoHome());
             if (!is_async)
             {
                 mission.Wait();

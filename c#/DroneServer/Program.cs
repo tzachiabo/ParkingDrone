@@ -17,7 +17,7 @@ namespace DroneServer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            BLManagger.getInstance().initComm();
+            BLManagger.getInstance().init();
             Application.Run(new GUI());
             
         }

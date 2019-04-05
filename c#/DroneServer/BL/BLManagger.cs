@@ -90,10 +90,11 @@ namespace DroneServer.BL
             return m_parking;
         }
 
-        public void initComm()
+        public void init()
         {
             CommManager.getInstance();
             statusManager.init();
+            LocationManager.init();
         }
 
 
@@ -171,7 +172,6 @@ namespace DroneServer.BL
         public MissionWraper startMission(Parking parking)
         {
             num_of_scaned_cars = 0;
-            LocationManager.init(parking);
 
             ParkingMission start_mission = new ParkingMission(parking);
 

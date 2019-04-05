@@ -53,9 +53,14 @@
     <Compile Include="Tests\GetToCertainHeightTest.cs" />
     <Compile Include="Tests\ComunicationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\ComplexGoHomeTest.cs" />
+    <Compile Include="Tests\LandingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DroneServer\DroneServer.csproj">

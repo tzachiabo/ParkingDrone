@@ -23,6 +23,14 @@ def _align_bearing(bearing):
     return bearing
 
 
+def _get_range(start, end, num_of_points):
+    if start != end:
+        delta = end - start
+        return numpy.arange(start, end, delta / num_of_points)
+    else:
+        return [start for _ in range(num_of_points)]
+
+
 class Drone:
     # not support delay and stop
     # not support rotate the drone
@@ -63,11 +71,8 @@ class Drone:
     def _get_points_in_the_middle(self, destination, distance):
         amount_of_points = abs(int(distance / self.move_step_size))
 
-        lat_delta = destination.latitude - self.lat
-        lng_delta = destination.longitude - self.lng
-
-        lat_points = numpy.arange(self.lat, destination.latitude, lat_delta/amount_of_points)
-        lng_points = numpy.arange(self.lng, destination.longitude, lng_delta/amount_of_points)
+        lat_points = _get_range(self.lat, destination.latitude, amount_of_points)
+        lng_points = _get_range(self.lng, destination.longitude, amount_of_points)
 
         if len(lat_points) > len(lng_points):
             lat_points = lat_points[:len(lng_points)]
@@ -82,6 +87,8 @@ class Drone:
         destination = getLocationByBearingAndDistance(self.lat, self.lng, distance/1000, bearing)
 
         logging.info(f'start relative_move_inner drone-bearing: {self.bearing_radians} '
+                     f'bearing direction {bearing} '
+                     f'distance: {distance} '
                      f'from: lat: {self.lat}, lng: {self.lng} '
                      f'to: lat: {destination.latitude}, lng {destination.longitude}')
 
