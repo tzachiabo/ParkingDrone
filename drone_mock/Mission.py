@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import logging
-
+import math
 
 class Mission(ABC):
     def __init__(self, index, drone):
@@ -81,7 +81,8 @@ class GetLocation(StatusMission):
         pass
 
     def encode_result(self):
-        return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng} 0'
+        drone_bearing_degree = self.drone.bearing_radians / math.pi * 180
+        return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng} {drone_bearing_degree}'
 
 
 class TakeOff(MainMission):
@@ -113,7 +114,7 @@ class Move(MainMission):
         self.amount = amount
 
     def execute(self):
-        self.drone.move(self.direction, self.amount)
+        self.drone.relative_move(self.direction, self.amount)
 
     def encode_result(self):
         return f'move {self.index} Done'

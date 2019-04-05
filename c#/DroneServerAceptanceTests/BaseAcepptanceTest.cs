@@ -1,6 +1,7 @@
 using DroneServer.BL;
 using DroneServer.BL.Comm;
 using DroneServer.BL.Missions;
+using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DroneServerIntegration

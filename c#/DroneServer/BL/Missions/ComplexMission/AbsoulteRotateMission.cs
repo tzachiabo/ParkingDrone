@@ -31,18 +31,22 @@ namespace DroneServer.BL.Missions
             double curr_bearing = location.bearing;
 
             double dgree_to_rotate = destinated_bearing-curr_bearing;
-
+            Logger.getInstance().info("absoulote-rotate: current bearing: " + curr_bearing + " destination bearing: " + destinated_bearing);
   
             if (Math.Abs(destinated_bearing - curr_bearing) > 5)
             {
                 MoveMission mission = null;
                 if (destinated_bearing > curr_bearing)
                 {
-                    mission = new MoveMission(Direction.rotate, destinated_bearing - curr_bearing);
+                    double rotating_amount = destinated_bearing - curr_bearing;
+                    Assertions.verify(rotating_amount < 360, "it is not make sense to rotate more than 360 degree");
+                    mission = new MoveMission(Direction.rotate, rotating_amount);
                 }
                 else
-                {   
-                    mission = new MoveMission(Direction.rotate, 360 + destinated_bearing - curr_bearing - rnd.Next(0, 20));
+                {
+                    double rotating_amount = 360 + destinated_bearing - curr_bearing - rnd.Next(0, 20);
+                    Assertions.verify(rotating_amount < 360, "it is not make sense to rotate more than 360 degree");
+                    mission = new MoveMission(Direction.rotate, rotating_amount);
                 }
 
                 mission.register_to_notification(move_mission_finished);

@@ -35,7 +35,9 @@
         "move_step_size": "0.5",
 
         "gimbal_delay_in_sec": "0.5",
-        "speed_in_ms": "5"
+        "speed_in_ms": "5",
+
+        "without_delay": "true"
     },
 
     "transport":

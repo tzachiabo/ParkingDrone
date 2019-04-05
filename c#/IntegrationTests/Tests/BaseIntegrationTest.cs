@@ -1,14 +1,15 @@
 using DroneServer.BL;
 using DroneServer.BL.Comm;
 using DroneServer.BL.Missions;
+using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DroneServerIntegration
+namespace IntegrationTests
 {
     [TestClass]
     public class BaseIntegrationTest
     {
-        DroneSimulator drone = null;
+        protected DroneSimulator drone = null;
 
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
