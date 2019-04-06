@@ -145,7 +145,7 @@ namespace DroneServer.BL.Comm
             }
             catch(Exception e)
             {
-                Assertions.verify(false, "failed to write to network stream with error " + e.ToString());
+                Assertions.verify(!mission.isMainMission(), "failed to write to network stream with error " + e.ToString());
             }
 
         }

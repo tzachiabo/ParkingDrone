@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class ScanCars : ComplexMission
+    public class ScanCars : ComplexMission
     {
         private Queue<Car> cars;
 

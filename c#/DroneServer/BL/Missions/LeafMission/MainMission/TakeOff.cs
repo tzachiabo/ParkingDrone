@@ -1,5 +1,4 @@
-﻿using DroneServer.SharedClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    public class GetLocation : LeafMission
+    public class TakeOff : LeafMainMission
     {
-
-
-        public GetLocation(ComplexMission ParentMission = null) :base(ParentMission)
+        public TakeOff(ComplexMission ParentMission=null) : base(ParentMission)
         {
-        }
 
-        public GetLocation()
-        {
         }
 
         public override void stop()
@@ -26,7 +20,8 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "getLocation " + m_index;
+            return "takeOff " + m_index;
         }
+
     }
 }

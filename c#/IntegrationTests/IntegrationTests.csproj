@@ -52,7 +52,9 @@
   <ItemGroup>
     <Compile Include="Tests\BaseIntegrationTest.cs" />
     <Compile Include="Tests\absoluteRotateTest.cs" />
+    <Compile Include="Tests\scanCarsTest.cs" />
     <Compile Include="Tests\scanSingleCarTest.cs" />
+    <Compile Include="Tests\moveTest.cs" />
     <Compile Include="Tests\verifyLocationTest.cs" />
     <Compile Include="Tests\goToCarTest.cs" />
     <Compile Include="Tests\parkingTest.cs" />

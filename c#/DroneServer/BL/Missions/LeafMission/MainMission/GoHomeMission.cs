@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DroneServer.BL.Missions
 {
     [Obsolete("Not used any more", true)]
-    public class GoHomeMission : LeafMission
+    public class GoHomeMission : LeafMainMission
     {
 
         public GoHomeMission(ComplexMission ParentMission = null) : base(ParentMission)

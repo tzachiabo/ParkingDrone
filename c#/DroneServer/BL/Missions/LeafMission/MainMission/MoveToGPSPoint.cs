@@ -7,7 +7,7 @@ using DroneServer.SharedClasses;
 
 namespace DroneServer.BL.Missions
 {
-    public class MoveToGPSPoint : LeafMission
+    public class MoveToGPSPoint : LeafMainMission
     {
         private double m_lat;
         private double m_lng;

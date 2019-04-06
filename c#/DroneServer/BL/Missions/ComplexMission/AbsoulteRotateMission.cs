@@ -37,22 +37,21 @@ namespace DroneServer.BL.Missions
 
             double dgree_to_rotate = destinated_bearing-curr_bearing;
             Logger.getInstance().info("absoulote-rotate: current bearing: " + curr_bearing + " destination bearing: " + destinated_bearing);
-  
-            if (Math.Abs(destinated_bearing - curr_bearing) > 5)
+
+            if (!is_bearing_close(destinated_bearing, curr_bearing, 5))
             {
-                MoveMission mission = null;
+                double delta;
                 if (destinated_bearing > curr_bearing)
                 {
-                    double rotating_amount = destinated_bearing - curr_bearing - rnd.Next(0, 20);
-                    Assertions.verify(rotating_amount < 360, "it is not make sense to rotate more than 360 degree");
-                    mission = new MoveMission(Direction.rotate, rotating_amount);
+                    delta = destinated_bearing - curr_bearing;
                 }
                 else
                 {
-                    double rotating_amount = 360 + destinated_bearing - curr_bearing - rnd.Next(0, 20);
-                    Assertions.verify(rotating_amount < 360, "it is not make sense to rotate more than 360 degree");
-                    mission = new MoveMission(Direction.rotate, rotating_amount);
+                    delta = 360 + destinated_bearing - curr_bearing;          
                 }
+                double rotating_amount = delta - rnd.Next(0, Math.Min(20, (int)delta - 1));
+                Assertions.verify(rotating_amount < 360 && rotating_amount > 0, "it is not make sense to rotate more than 360 degree");
+                MoveMission mission = new MoveMission(Direction.rotate, rotating_amount);
 
                 mission.register_to_notification(move_mission_finished);
                 mission.execute();
@@ -61,6 +60,22 @@ namespace DroneServer.BL.Missions
             {
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
             }
+        }
+
+        public static bool is_bearing_close(double bearing_1, double bearing_2, double delta)
+        {
+            double max_value_of_bearing_1 = (bearing_1 + delta) % 360;
+            double min_value_of_bearing_1 = bearing_1 - delta;
+
+            if (min_value_of_bearing_1 < 0)
+            {
+                min_value_of_bearing_1 += 360;
+            }
+
+            if (min_value_of_bearing_1 < max_value_of_bearing_1)
+                return min_value_of_bearing_1 <= bearing_2 && bearing_2 <= max_value_of_bearing_1;
+            else
+                return min_value_of_bearing_1 <= bearing_2 || bearing_2 <= max_value_of_bearing_1;
         }
 
         public void move_mission_finished(Response response)

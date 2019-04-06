@@ -10,8 +10,6 @@ namespace DroneServer.BL.Missions
 {
     public abstract class LeafMission : Mission
     {
-        
-
         public LeafMission(ComplexMission ParentMission = null) : base(ParentMission)
         {
 
@@ -29,5 +27,7 @@ namespace DroneServer.BL.Missions
         }
 
         public abstract string encode();
+
+        public abstract bool isMainMission();
     }
 }

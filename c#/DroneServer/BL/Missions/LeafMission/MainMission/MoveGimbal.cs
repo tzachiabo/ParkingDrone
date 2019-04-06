@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    public class MoveGimbal : LeafMission
+    public class MoveGimbal : LeafMainMission
     {
         private Gimbal m_gimbal;
         private GimbalMovementType m_gimbal_movement_type;

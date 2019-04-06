@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import logging
 import math
+from common import verify
 
 class Mission(ABC):
     def __init__(self, index, drone):
@@ -110,6 +111,7 @@ class Landing(MainMission):
 class Move(MainMission):
     def __init__(self, index, drone, direction, amount):
         super(Move, self).__init__(index, drone)
+        verify(amount > 0, "cannot move with negative number")
         self.direction = direction
         self.amount = amount
 

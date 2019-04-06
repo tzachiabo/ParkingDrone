@@ -15,6 +15,7 @@ namespace DroneServer.BL.Missions
 
         public MoveMission(ComplexMission ParentMission, Direction direction, double distance) : base(ParentMission)
         {
+            Assertions.verify(distance > 0, "cannot move with negative distance");
             m_SubMission.Enqueue(new MoveMissionImpl(this, direction, distance));
         }
 

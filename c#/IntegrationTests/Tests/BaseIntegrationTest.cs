@@ -28,6 +28,7 @@ namespace IntegrationTests
         {
             drone = new DroneSimulator();
             drone.start_drone();
+            while (!CommManager.getInstance().isSocketInitiated);
         }
 
         [TestCleanup]
@@ -44,7 +45,7 @@ namespace IntegrationTests
 
         protected bool is_close(double a, double b, double delta=3)
         {
-            return System.Math.Abs(a - b) < delta;
+            return System.Math.Abs(a - b) <= delta;
         }
 
         protected MissionWraper takeoff(bool is_async = false)
@@ -147,6 +148,15 @@ namespace IntegrationTests
             return mission;
         }
 
+        protected MissionWraper scanCarsMission(Parking parking, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new ScanCars(parking));
+            if (!is_async)
+            {
+                mission.Wait(60 * 3);
+            }
+            return mission;
+        }
 
         protected MissionWraper initParkingMission(Parking parking, bool is_async = false)
         {

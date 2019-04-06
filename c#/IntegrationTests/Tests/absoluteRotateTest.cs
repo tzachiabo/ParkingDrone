@@ -63,7 +63,7 @@ namespace IntegrationTests
             absoluteRotateMission(359);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.IsTrue(is_close(location.bearing, -1));
+            Assert.IsTrue(is_close(location.bearing, -1, 5));
         }
 
     }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    public class TakeOff:LeafMission
+    public class ConfirmLanding : LeafMainMission
     {
-        public TakeOff(ComplexMission ParentMission=null) : base(ParentMission)
+
+        public ConfirmLanding(ComplexMission ParentMission = null) :base(ParentMission)
         {
 
         }
@@ -20,8 +21,7 @@ namespace DroneServer.BL.Missions
 
         public override string encode()
         {
-            return "takeOff " + m_index;
+            return "confirmLanding " + m_index;
         }
-
     }
 }

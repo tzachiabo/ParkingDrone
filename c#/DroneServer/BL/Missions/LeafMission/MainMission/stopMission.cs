@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    public class stopMission : LeafMission
+    public class stopMission : LeafMainMission
     {
         public stopMission(ComplexMission ParentMission=null) : base(ParentMission)
         {
