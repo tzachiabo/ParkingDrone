@@ -47,11 +47,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\BaseIntegrationTest.cs" />
+    <Compile Include="Tests\InitParkingTest.cs" />
     <Compile Include="Tests\GetToCertainHeightTest.cs" />
-    <Compile Include="Tests\ComunicationTests.cs" />
+    <Compile Include="Tests\ComunicationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ComplexGoHomeTest.cs" />
     <Compile Include="Tests\LandingTest.cs" />

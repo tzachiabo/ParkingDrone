@@ -112,6 +112,7 @@ class Drone:
             self.bearing_radians -= 2 * math.pi
 
     def relative_move(self, direction, amount):
+        verify(self.alt != 0, 'drone cannot move relative before take_off')
         logging.info(f'start drone move with direction: {direction} and amount: {amount}')
         error = amount * self.mistake_in_move
         actual_move_amount = random.uniform(amount - error, amount + error)
@@ -170,6 +171,8 @@ class Drone:
 
     def go_to_gps(self, lng, lat, alt):
         logging.info('start go to gps')
+        verify(self.alt != 0, 'drone cannot go to gps before take_off')
+        verify(alt != 0, 'drone cannot go to gps with 0 height')
 
         if alt != self.alt:
             distance_in_meters = alt - self.alt

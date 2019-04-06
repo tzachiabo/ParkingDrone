@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace DroneServer.SharedClasses
 {
-    class LngLatHelper
+    public class LngLatHelper
     {
+        private const double DegreesToRadians = Math.PI / 180.0;
+        private const double RadiansToDegrees = 180.0 / Math.PI;
+        private const double EarthRadius = 6378137.0;
+
         public static Point toMarginFromBasePhoto(Point location)  // not support bearing
         {
             Point base_photo_location = BL.BLManagger.getInstance().get_parking().getBasePoint();
@@ -34,9 +38,26 @@ namespace DroneServer.SharedClasses
             return res;
         }
 
-        public static Point getLocationByBearingAndDistance(double latitude, double longitude, double distance, double bearing)
+
+        public static GeoCoordinate getLocationByBearingAndDistance(GeoCoordinate source, double range, double bearing)
         {
-            return null;
+            var latA = source.Latitude * DegreesToRadians;
+            var lonA = source.Longitude * DegreesToRadians;
+            var angularDistance = range / EarthRadius;
+            var trueCourse = bearing * DegreesToRadians;
+
+            var lat = Math.Asin(
+                Math.Sin(latA) * Math.Cos(angularDistance) +
+                Math.Cos(latA) * Math.Sin(angularDistance) * Math.Cos(trueCourse));
+
+            var dlon = Math.Atan2(
+                Math.Sin(trueCourse) * Math.Sin(angularDistance) * Math.Cos(latA),
+                Math.Cos(angularDistance) - Math.Sin(latA) * Math.Sin(lat));
+
+            var lon = ((lonA + dlon + Math.PI) % (Math.PI * 2)) - Math.PI;
+
+            GeoCoordinate res = new GeoCoordinate(lat * RadiansToDegrees, lon * RadiansToDegrees, source.Altitude);
+            return res;
         }
     }
 }

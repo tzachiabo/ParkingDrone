@@ -4,6 +4,9 @@ using DroneServer.BL.Missions;
 using DroneServer.SharedClasses;
 using DroneServerIntegration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Device.Location;
 
 namespace IntegrationTests
 {
@@ -11,6 +14,7 @@ namespace IntegrationTests
     public class BaseIntegrationTest
     {
         protected DroneSimulator drone = null;
+        protected Random rnd = new Random();
 
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
@@ -103,6 +107,36 @@ namespace IntegrationTests
             return mission;
         }
 
-       
+        protected MissionWraper initParkingMission(Parking parking, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new InitParkingMission(parking));
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
+        private Point gen_near_random_point(Point location)
+        {
+            GeoCoordinate geo_point_src = new GeoCoordinate(location.lat, location.lng);
+            double range = rnd.NextDouble() * 100; // range is 0-100 meters
+            double bearing = rnd.NextDouble() * 2 * Math.PI;
+            GeoCoordinate geo_point_dst = LngLatHelper.getLocationByBearingAndDistance(geo_point_src, range, bearing);
+
+            return new Point(geo_point_dst.Longitude, geo_point_dst.Latitude);
+        }
+
+        protected Parking genRandomParking(Point location)
+        {
+            List<Point> borders = new List<Point>();
+            for (int i = 0; i < 4; i++)
+            {
+                borders.Add(gen_near_random_point(location));
+            }
+
+            return new Parking("random parking", borders);
+        }
+
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class InitParkingMission : ComplexMission
+    public class InitParkingMission : ComplexMission
     {
         public InitParkingMission(Parking parking, ComplexMission ParentMission = null) : base(ParentMission)
         {
