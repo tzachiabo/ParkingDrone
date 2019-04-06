@@ -56,7 +56,7 @@ class Drone:
 
         self.move_step_size = float(drone_configuration['move_step_size'])
 
-        self.without_delay = drone_configuration['without_delay'] == 'true'
+        self.without_delay = drone_configuration['without_delay'] in ['true', 'True']
 
     def take_off(self):
         verify(self.alt == 0, "drone height should have been 0")
@@ -140,7 +140,7 @@ class Drone:
 
     def move_gimbal(self, gimbal_position, gimbal_movment_type, roll, pitch, yaw):
         logging.info('start move gimbal')
-        time.sleep(self.gimbal_delay_in_sec)
+        self.sleep(self.gimbal_delay_in_sec)
         if gimbal_position == GimbalPosition.left:
             if gimbal_movment_type == GimbalMoveType.absolute:
                 self.left_gimbal.move_absolute(roll, pitch, yaw)
@@ -204,7 +204,7 @@ class Drone:
         self.camera.take_photo(self)
 
     def sleep(self, amount):
-        if self.without_delay:
+        if not self.without_delay:
             time.sleep(amount)
 
 class Gimbal:

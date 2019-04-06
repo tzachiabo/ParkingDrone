@@ -148,6 +148,7 @@ class AerialViewCamera(Camera):
     def generate_and_send_photo(self, drone):
         # verify(self.base_photo_bearing == 0, 'bearing is not align with photo currently not support rotating')
         logging.info('start generate_and_send_photo')
+        logging.info('start generate_and_send_photo')
 
         height_pixel_in_base_photo, width_pixel_in_base_photo = self.get_pixels_size_of_base_photo(drone.alt)
         img = cv2.imread(self.base_photo_location, 0)

@@ -24,7 +24,7 @@ namespace IntegrationTests
         }
 
         [TestInitialize]
-        public void TestInitialize()
+        public virtual void TestInitialize()
         {
             drone = new DroneSimulator();
             drone.start_drone();
@@ -106,6 +106,37 @@ namespace IntegrationTests
             }
             return mission;
         }
+
+        protected MissionWraper verifyLocationMission(bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new VerifyLocation());
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
+        protected MissionWraper absoluteRotateMission(double destinated_bearing, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new AbsoulteRotateMission(destinated_bearing));
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
+        protected MissionWraper goToCarMission(Point curr_position, Car car, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new GoToCar(curr_position, car));
+            if (!is_async)
+            {
+                mission.Wait();
+            }
+            return mission;
+        }
+
 
         protected MissionWraper initParkingMission(Parking parking, bool is_async = false)
         {

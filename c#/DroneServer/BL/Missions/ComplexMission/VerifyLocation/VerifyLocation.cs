@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class VerifyLocation : ComplexMission
+    public class VerifyLocation : ComplexMission
     {
         public VerifyLocation(ComplexMission ParentMission = null) : base(ParentMission)
         {

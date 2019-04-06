@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class GoToCar : ComplexMission
+    public class GoToCar : ComplexMission
     {
         public GoToCar(SharedClasses.Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
         {

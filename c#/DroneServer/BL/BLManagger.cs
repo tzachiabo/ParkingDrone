@@ -80,7 +80,11 @@ namespace DroneServer.BL
 
         public void set_parking(Parking parking)
         {
-            Assertions.verify(m_parking == null, "cannot set parking twice");
+            if (m_parking != null)
+            {
+                Logger.getInstance().warn("parking was set twice in BL_Manager");
+            }
+
             m_parking = parking;
         }
 

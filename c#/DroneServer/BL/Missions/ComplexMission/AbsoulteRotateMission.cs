@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class AbsoulteRotateMission : ComplexMission
+    public class AbsoulteRotateMission : ComplexMission
     {
         private double destinated_bearing;
         Random rnd = new Random();
@@ -30,6 +30,11 @@ namespace DroneServer.BL.Missions
             Point location = (Point)response.Data;
             double curr_bearing = location.bearing;
 
+            if (curr_bearing < 0)
+            {
+                curr_bearing += 360;
+            }
+
             double dgree_to_rotate = destinated_bearing-curr_bearing;
             Logger.getInstance().info("absoulote-rotate: current bearing: " + curr_bearing + " destination bearing: " + destinated_bearing);
   
@@ -38,7 +43,7 @@ namespace DroneServer.BL.Missions
                 MoveMission mission = null;
                 if (destinated_bearing > curr_bearing)
                 {
-                    double rotating_amount = destinated_bearing - curr_bearing;
+                    double rotating_amount = destinated_bearing - curr_bearing - rnd.Next(0, 20);
                     Assertions.verify(rotating_amount < 360, "it is not make sense to rotate more than 360 degree");
                     mission = new MoveMission(Direction.rotate, rotating_amount);
                 }
