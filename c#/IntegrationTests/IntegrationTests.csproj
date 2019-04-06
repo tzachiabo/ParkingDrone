@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\BaseIntegrationTest.cs" />
+    <Compile Include="Tests\parkingTest.cs" />
     <Compile Include="Tests\InitParkingTest.cs" />
     <Compile Include="Tests\GetToCertainHeightTest.cs" />
     <Compile Include="Tests\ComunicationTest.cs" />

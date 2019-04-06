@@ -117,6 +117,16 @@ namespace IntegrationTests
             return mission;
         }
 
+        protected MissionWraper parkingMission(Parking parking, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new ParkingMission(parking));
+            if (!is_async)
+            {
+                mission.Wait(60*5);
+            }
+            return mission;
+        }
+
         private Point gen_near_random_point(Point location)
         {
             GeoCoordinate geo_point_src = new GeoCoordinate(location.lat, location.lng);
@@ -137,6 +147,8 @@ namespace IntegrationTests
 
             return new Parking("random parking", borders);
         }
+
+        
 
     }
 }

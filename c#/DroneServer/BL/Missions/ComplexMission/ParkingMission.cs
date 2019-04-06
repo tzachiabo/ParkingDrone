@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class ParkingMission : ComplexMission
+    public class ParkingMission : ComplexMission
     {
         protected Parking m_parking;
 
