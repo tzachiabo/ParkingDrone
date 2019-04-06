@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DroneServer.BL.Missions
 {
-    class ScanSingleCar : ComplexMission
+    public class ScanSingleCar : ComplexMission
     {
         private Point m_curr_position;
         private int m_go_to_car_index;

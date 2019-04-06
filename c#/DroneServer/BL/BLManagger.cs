@@ -96,7 +96,7 @@ namespace DroneServer.BL
 
         public void init()
         {
-            CommManager.getInstance();
+            while (!CommManager.getInstance().isRunning());
             statusManager.init();
             LocationManager.init();
         }

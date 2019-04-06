@@ -137,6 +137,16 @@ namespace IntegrationTests
             return mission;
         }
 
+        protected MissionWraper scanSingleCarMission(Point curr_position, Car car, bool is_async = false)
+        {
+            MissionWraper mission = new MissionWraper(new ScanSingleCar(curr_position, car));
+            if (!is_async)
+            {
+                mission.Wait(60*3);
+            }
+            return mission;
+        }
+
 
         protected MissionWraper initParkingMission(Parking parking, bool is_async = false)
         {

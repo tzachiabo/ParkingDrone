@@ -22,7 +22,7 @@ namespace DroneServerIntegration
             m_mission.execute();
         }
 
-        public Boolean Wait(int timeout=60)
+        public Boolean Wait(int timeout=3 * 60)
         {
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond;
             while (!m_is_finished)

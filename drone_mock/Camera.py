@@ -158,8 +158,21 @@ class AerialViewCamera(Camera):
 
         pixel_margin_top, pixel_margin_left = self.get_margins(drone.lat, drone.lng)
 
-        cropped_img = img[pixel_margin_top - height_radius:pixel_margin_top + height_radius,
-                          pixel_margin_left - width_radius:pixel_margin_left + width_radius]
+        margin_top_min = pixel_margin_top - height_radius
+        margin_top_max = pixel_margin_top + height_radius
+        margin_left_min = pixel_margin_left - width_radius
+        margin_left_max = pixel_margin_left + width_radius
+
+        verify(margin_top_min >= 0, f'margin_top_min need to be more then 0, height_radius: {height_radius}')
+        verify(margin_top_max <= self.num_of_height_pixels,
+               f'margin_top_max need to be less then {self.num_of_height_pixels}, height_radius: {height_radius}')
+        verify(margin_left_min >= 0, f'margin_top_min need to be more then 0, width_radius: {width_radius} '
+                                     f'margin_top_min is {margin_top_min}')
+        verify(margin_left_max <= self.num_of_width_pixels,
+               f'margin_left_max need to be less then {self.num_of_width_pixels}, width_radius: {width_radius} '
+               f'margin_left_max is {margin_left_max}')
+
+        cropped_img = img[margin_top_min:margin_top_max, margin_left_min:margin_left_max]
 
         resized_img = cv2.resize(cropped_img, (self.num_of_width_pixels, self.num_of_height_pixels))
         time_stamp = int(time.time())

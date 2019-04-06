@@ -24,7 +24,7 @@ namespace DroneServer.BL.Comm
         internal ConcurrentQueue<Response> m_main_responses;
         internal ConcurrentQueue<Response> m_status_responses;
         private TcpListener m_server;
-        private Boolean running;
+        private Boolean running = false;
         private CommReader comm_reader;
         private ResponseConsumer m_main_mission_consumer;
         private ResponseConsumer m_status_mission_consumer;
@@ -32,7 +32,6 @@ namespace DroneServer.BL.Comm
 
         private CommManager()
         {
-            running = true;
             isSocketInitiated = false;
             Logger.getInstance().debug("Initiate Comm manager");
 
@@ -52,6 +51,8 @@ namespace DroneServer.BL.Comm
                 TcpClient client;
                 try
                 {
+                    running = true;
+
                     client = m_server.AcceptTcpClient();
                 }
                 catch (System.Net.Sockets.SocketException)
@@ -152,6 +153,11 @@ namespace DroneServer.BL.Comm
         ~CommManager()
         {
             shutDown();
+        }
+
+        public bool isRunning()
+        {
+            return running;
         }
 
         public void shutDown()
