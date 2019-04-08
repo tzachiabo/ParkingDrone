@@ -79,7 +79,7 @@ namespace UnitTestProject.Comm
         [TestMethod]
         public void DecodeGetLocationTest()
         {
-            Response r = Decoder.decode("getLocation 1234 Done 1 2 3");
+            Response r = Decoder.decode("getLocation 1234 Done 1 2 3 5");
             Assert.IsTrue(r.Key == 1234);
             Assert.IsTrue(r.Status == Status.Ok);
             Assert.IsTrue(r.Type == MissionType.StateMission);
