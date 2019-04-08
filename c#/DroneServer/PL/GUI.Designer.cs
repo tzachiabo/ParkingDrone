@@ -33,7 +33,6 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.homeTab = new System.Windows.Forms.TabPage();
             this.homePanel = new System.Windows.Forms.Panel();
-            this.clear_home_btn = new System.Windows.Forms.Button();
             this.connected_home_lbl = new System.Windows.Forms.Label();
             this.androidLogger_home_lst = new System.Windows.Forms.ListBox();
             this.start_home_btn = new System.Windows.Forms.Button();
@@ -50,6 +49,8 @@
             this.abort_mission_btn = new System.Windows.Forms.Button();
             this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
             this.createTab = new System.Windows.Forms.TabPage();
+            this.bearingBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.clear_create_btn = new System.Windows.Forms.Button();
             this.map_create_map = new GMap.NET.WindowsForms.GMapControl();
             this.finish_create_btn = new System.Windows.Forms.Button();
@@ -81,8 +82,7 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.bearingBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.homePanel.SuspendLayout();
@@ -120,7 +120,6 @@
             // 
             // homePanel
             // 
-            this.homePanel.Controls.Add(this.clear_home_btn);
             this.homePanel.Controls.Add(this.connected_home_lbl);
             this.homePanel.Controls.Add(this.androidLogger_home_lst);
             this.homePanel.Controls.Add(this.start_home_btn);
@@ -131,17 +130,6 @@
             this.homePanel.Name = "homePanel";
             this.homePanel.Size = new System.Drawing.Size(1386, 726);
             this.homePanel.TabIndex = 4;
-            // 
-            // clear_home_btn
-            // 
-            this.clear_home_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clear_home_btn.Location = new System.Drawing.Point(501, 17);
-            this.clear_home_btn.Name = "clear_home_btn";
-            this.clear_home_btn.Size = new System.Drawing.Size(222, 63);
-            this.clear_home_btn.TabIndex = 10;
-            this.clear_home_btn.Text = "Clear";
-            this.clear_home_btn.UseVisualStyleBackColor = true;
-            this.clear_home_btn.Click += new System.EventHandler(this.clear_home_btn_Click);
             // 
             // connected_home_lbl
             // 
@@ -321,6 +309,7 @@
             // 
             // createTab
             // 
+            this.createTab.Controls.Add(this.label2);
             this.createTab.Controls.Add(this.bearingBox);
             this.createTab.Controls.Add(this.label1);
             this.createTab.Controls.Add(this.clear_create_btn);
@@ -334,6 +323,24 @@
             this.createTab.TabIndex = 1;
             this.createTab.Text = "Create";
             this.createTab.UseVisualStyleBackColor = true;
+            // 
+            // bearingBox
+            // 
+            this.bearingBox.Location = new System.Drawing.Point(499, 56);
+            this.bearingBox.Name = "bearingBox";
+            this.bearingBox.Size = new System.Drawing.Size(100, 22);
+            this.bearingBox.TabIndex = 9;
+            this.bearingBox.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(345, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(145, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Enter parking bearing";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // clear_create_btn
             // 
@@ -389,7 +396,7 @@
             // 
             // parkName_create_txt
             // 
-            this.parkName_create_txt.Location = new System.Drawing.Point(8, 52);
+            this.parkName_create_txt.Location = new System.Drawing.Point(158, 55);
             this.parkName_create_txt.Name = "parkName_create_txt";
             this.parkName_create_txt.Size = new System.Drawing.Size(163, 22);
             this.parkName_create_txt.TabIndex = 2;
@@ -734,22 +741,14 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(177, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 17);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Enter parking bearing";
-            // 
-            // bearingBox
-            // 
-            this.bearingBox.Location = new System.Drawing.Point(329, 55);
-            this.bearingBox.Name = "bearingBox";
-            this.bearingBox.Size = new System.Drawing.Size(100, 22);
-            this.bearingBox.TabIndex = 9;
-            this.bearingBox.Text = "0";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(132, 17);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Enter parking name";
             // 
             // GUI
             // 
@@ -830,13 +829,13 @@
         private System.Windows.Forms.ListBox androidLogger_home_lst;
         private System.Windows.Forms.ListBox androidLogger_mission_lst;
         private System.Windows.Forms.Label connected_home_lbl;
-        private System.Windows.Forms.Button clear_home_btn;
         private System.Windows.Forms.Button clear_create_btn;
         private System.Windows.Forms.Button RotateDroneBtn;
         private System.Windows.Forms.Button GetLocation_btn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox bearingBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

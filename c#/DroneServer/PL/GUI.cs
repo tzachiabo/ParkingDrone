@@ -445,5 +445,10 @@ namespace DroneServer
         {
             BLManagger.getInstance().absoutle_postision();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
