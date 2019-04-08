@@ -11,14 +11,17 @@ namespace DroneServer.SharedClasses.Tests
     [TestClass()]
     public class CarTests
     {
+
+
         [TestMethod()]
         public void getPointOfCarTest()
         {
+            PixelConverterHelper.init(50);
             Car loc = new Car("car", 97, 10, 10, 10, 15, 50);
             Point p = loc.getPointOfCar();
 
-            Assert.AreEqual(p.lng, 15);
-            Assert.AreEqual(p.lat, 12.5);
+            Assert.AreEqual(0.63867187500000022, p.lng);
+            Assert.AreEqual(0.78993055555555558, p.lat);
         }
 
         [TestMethod()]

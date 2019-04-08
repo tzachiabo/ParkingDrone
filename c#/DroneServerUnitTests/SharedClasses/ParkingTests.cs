@@ -20,22 +20,6 @@ namespace UnitTestProject.SharedClasses
 
         }
 
-        [TestMethod]
-        public void smallParking()
-        {
-            Parking park = new Parking("aviad", makeSmallBorder());
-            Point basePoint = park.getBasePoint();
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void bigParking()
-        {
-            Parking park = new Parking("aviad", makeBigBorder());
-            Point basePoint = park.getBasePoint();
-            Assert.Fail();
-        }
-
         private List<Point> makeBorder()
         {
             List<Point> border = new List<Point>();
