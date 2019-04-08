@@ -48,7 +48,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, points);
             DB.addParking(park);
             List<Parking> parkings = DB.selectAllParkings();
             Assert.IsTrue(parkings.Count==1);
@@ -63,7 +63,7 @@ namespace UnitTestProject
         [TestMethod]
         public void AddParkingWithoutBorder()
         {
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, null);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, null);
             DB.addParking(park);
             List<Parking> parkings = DB.selectAllParkings();
             Assert.IsTrue(parkings.Count == 0);
@@ -76,7 +76,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("", 0, 0, 0, 0, 0, 37, points);
             
             DB.addParking(park);
             List<Parking> parkings = DB.selectAllParkings();
@@ -90,7 +90,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, points);
 
             DB.addParking(park);
             Assert.IsTrue(DB.existParkingName("aviad park"));
@@ -103,7 +103,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, points);
 
             DB.addParking(park);
             Assert.IsFalse(DB.existParkingName("bar park"));
@@ -121,7 +121,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, points);
 
             DB.addParking(park);
             Assert.IsFalse(DB.existParkingName(""));
@@ -134,7 +134,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, points);
 
             DB.addParking(park);
             DB.deleteParking("aviad park");
@@ -148,7 +148,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 0, points);
 
             DB.addParking(park);
             DB.deleteParking("aviad");
@@ -168,7 +168,7 @@ namespace UnitTestProject
             {
                 points.Add(new Point(i, i, i));
             }
-            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, points);
+            Parking park = new Parking("aviad park", 0, 0, 0, 0, 0, 37, points);
 
             DB.addParking(park);
             DB.deleteParking("");

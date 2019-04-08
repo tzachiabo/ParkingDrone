@@ -56,6 +56,7 @@
             this.parkName_create_txt = new System.Windows.Forms.TextBox();
             this.points_create_lst = new System.Windows.Forms.ListBox();
             this.dummyTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.GetLocation_btn = new System.Windows.Forms.Button();
             this.RotateDroneBtn = new System.Windows.Forms.Button();
             this.stop_dummy_btn = new System.Windows.Forms.Button();
@@ -80,7 +81,8 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.bearingBox = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.homePanel.SuspendLayout();
@@ -319,6 +321,8 @@
             // 
             // createTab
             // 
+            this.createTab.Controls.Add(this.bearingBox);
+            this.createTab.Controls.Add(this.label1);
             this.createTab.Controls.Add(this.clear_create_btn);
             this.createTab.Controls.Add(this.map_create_map);
             this.createTab.Controls.Add(this.finish_create_btn);
@@ -432,6 +436,16 @@
             this.dummyTab.TabIndex = 3;
             this.dummyTab.Text = "Dummy";
             this.dummyTab.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(181, 120);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 38);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "AbsulotePosition";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.absoultepostion);
             // 
             // GetLocation_btn
             // 
@@ -720,15 +734,22 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // button1
+            // label1
             // 
-            this.button1.Location = new System.Drawing.Point(181, 120);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 38);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "AbsulotePosition";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.absoultepostion);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(177, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(145, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Enter parking bearing";
+            // 
+            // bearingBox
+            // 
+            this.bearingBox.Location = new System.Drawing.Point(329, 55);
+            this.bearingBox.Name = "bearingBox";
+            this.bearingBox.Size = new System.Drawing.Size(100, 22);
+            this.bearingBox.TabIndex = 9;
+            this.bearingBox.Text = "0";
             // 
             // GUI
             // 
@@ -814,6 +835,8 @@
         private System.Windows.Forms.Button RotateDroneBtn;
         private System.Windows.Forms.Button GetLocation_btn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox bearingBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 

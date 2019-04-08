@@ -20,6 +20,7 @@ namespace DroneServer.SharedClasses
         public double zoom;
         public double maxZoom;
         public double minZoom;
+        public double bearing;
         public List<Point> border;
         public Point basePossition;
 
@@ -32,8 +33,9 @@ namespace DroneServer.SharedClasses
             this.maxZoom = 0;
             this.minZoom = 0;
             this.border = null;
+            this.bearing = 404;
         }
-        public Parking(string name, double lat, double lng, double zoom, double maxZoom, double minZoom, List<Point> border)
+        public Parking(string name, double lat, double lng, double zoom, double maxZoom, double minZoom, double bearing, List<Point> border)
         {
             this.name = name;
             this.lat = lat;
@@ -42,6 +44,7 @@ namespace DroneServer.SharedClasses
             this.maxZoom = maxZoom;
             this.minZoom = minZoom;
             this.border = border;
+            this.bearing = bearing;
         }
         public Parking(string name, List<Point> border)
         {

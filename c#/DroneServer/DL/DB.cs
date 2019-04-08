@@ -28,8 +28,8 @@ namespace DroneServer
             con = new SqlConnection(cs);
 
 
-            string qry = "INSERT INTO Parking (Name, MinZoom,MaxZoom,Zoom,LocationLat,LocationLng)" +
-                         "VALUES(N'" + parking.name + "', " + parking.minZoom + ", " + parking.maxZoom + ", " + parking.zoom + ", " + parking.lat + ", " + parking.lng + ");";
+            string qry = "INSERT INTO Parking (Name, MinZoom,MaxZoom,Zoom,LocationLat,LocationLng,Bearing)" +
+                         "VALUES(N'" + parking.name + "', " + parking.minZoom + ", " + parking.maxZoom + ", " + parking.zoom + ", " + parking.lat + ", " + parking.lng +"," + parking.bearing + ");";
 
             con.Open();
             cmd = new SqlCommand(qry, con);
@@ -38,9 +38,9 @@ namespace DroneServer
             {
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("err");
+                Console.WriteLine(e);
                 cmd.Dispose();
                 con.Close();
                 return;
@@ -136,6 +136,7 @@ namespace DroneServer
                                             Convert.ToDouble(reader.GetValue(3)),
                                             Convert.ToDouble(reader.GetValue(2)),
                                             Convert.ToDouble(reader.GetValue(1)),
+                                            Convert.ToDouble(reader.GetValue(6)),
                                             new List<Point>());
                     s.Add(p);
                 }

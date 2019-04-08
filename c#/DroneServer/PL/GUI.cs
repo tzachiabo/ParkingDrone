@@ -155,6 +155,7 @@ namespace DroneServer
 
         private void finish_create_btn_Click(object sender, EventArgs e)
         {
+            double bearing;
             if (parkName_create_txt.Text == "")
             {
                 MessageBox.Show("Please enter parking name");
@@ -170,11 +171,26 @@ namespace DroneServer
                 MessageBox.Show("Parking name is already exist");
                 return;
             }
+            try
+            {
+                bearing = Convert.ToDouble(bearingBox.Text);
+                if(bearing < 0 || bearing > 360)
+                {
+                    MessageBox.Show("invalid degree! must be in range 0 - 360 ");
+                    return;
+                }
+            }
+            catch(FormatException)
+            {
+                MessageBox.Show("Parking bearing must be a number");
+                return;
+            }
+            
           
             List<Point> lp = new List<Point>();
             foreach (string item in points_create_lst.Items)
                 lp.Add(new SharedClasses.Point(Convert.ToDouble(item.Split(' ')[1]), Convert.ToDouble(item.Split(' ')[0])));
-            Parking tmp = new Parking(parkName_create_txt.Text, map_create_map.Position.Lat, map_create_map.Position.Lng, map_create_map.Zoom, map_create_map.MaxZoom, map_create_map.MinZoom, lp);
+            Parking tmp = new Parking(parkName_create_txt.Text, map_create_map.Position.Lat, map_create_map.Position.Lng, map_create_map.Zoom, map_create_map.MaxZoom, map_create_map.MinZoom,bearing, lp);
 
             if (bl.validateParkingHeight(tmp)==false)
             {
