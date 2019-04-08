@@ -1,5 +1,5 @@
 import random
-from common import Direction, GimbalMoveType, GimbalPosition, verify
+from common import Direction, GimbalMoveType, GimbalPosition, verify, rad_to_deg
 import Camera
 import math
 import time
@@ -115,7 +115,7 @@ class Drone:
         logging.info(f'start drone move with direction: {direction} and amount: {amount}')
         error = amount * self.mistake_in_move
         actual_move_amount = random.uniform(amount - error, amount + error)
-        logging.info(f'drone actual move amount is {actual_move_amount}')
+        logging.info(f'drone actual move amount is {actual_move_amount} current drone bearing is {rad_to_deg(self.bearing_radians)}')
 
         if direction == Direction.up:
             self.alt += actual_move_amount

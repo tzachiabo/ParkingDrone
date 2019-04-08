@@ -12,11 +12,27 @@ namespace DroneServer.BL.Missions
     {
         private Point m_curr_position;
         private Car m_car;
+        private double pic_bearing; // it is better to pass this val to ctor
 
         public GoToCarByRelativeMove(Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_curr_position = curr_position;
             m_car = car;
+
+            GetLocation get_location = new GetLocation();
+            get_location.register_to_notification(get_location_finished);
+            m_SubMission.Enqueue(get_location);
+        }
+
+        public override void stop()
+        {
+
+        }
+
+        public void get_location_finished(Response response)
+        {
+            Point location = (Point)response.Data;
+            pic_bearing = location.bearing;
 
             int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
             m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_moving_in_parking, this));
@@ -26,26 +42,26 @@ namespace DroneServer.BL.Missions
             VerifyLocation vl = new VerifyLocation();
             vl.register_to_notification(verify_location_done);
             m_SubMission.Enqueue(vl);
-        }
 
-        public override void stop()
-        {
-
+            Mission m = m_SubMission.Dequeue();
+            m.execute();
         }
 
         private void build_moves()
         {
             Logger.getInstance().info("GoToCar : start build moves");
-            Point car_position = m_car.getPointOfCar();
+            Point car_position = m_car.getPointOfCar();  // inside_pic
             Logger.getInstance().info("GoToCar at position margin-left: " + car_position.lng + " margin-top: " + car_position.lat);
 
-            List<KeyValuePair<Direction, double>> moves_direction = m_curr_position.get_moves(car_position);
-            foreach (KeyValuePair<Direction, double> single_move in moves_direction)
-            {
-                Logger.getInstance().info("enqueue move mission direction : " + single_move.Key + " amount : " + single_move.Value);
-                m_SubMission.Enqueue(new MoveMission(this, single_move.Key, single_move.Value));
-            }
+            double relative_bearing = LngLatHelper.getBearingBetweenMarginPoints(m_curr_position, car_position);
+            m_SubMission.Enqueue(new AbsoulteRotateMission(relative_bearing + pic_bearing, this));
+
+            double distance = LngLatHelper.getDistanceBetweenMarginPoints(m_curr_position, car_position);
+            m_SubMission.Enqueue(new MoveMission(this, Direction.forward, distance));
+
+            m_SubMission.Enqueue(new AbsoulteRotateMission(pic_bearing, this));
         }
+
 
         public override void notify(Response response)
         {

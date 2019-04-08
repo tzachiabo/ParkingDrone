@@ -1,5 +1,6 @@
 from enum import Enum
 import logging
+import math
 
 
 class CameraType(Enum):
@@ -34,3 +35,6 @@ def verify(predicate, msg):
         logging.shutdown()
         assert False, msg
 
+
+def rad_to_deg(rad):
+    return rad / math.pi * 180

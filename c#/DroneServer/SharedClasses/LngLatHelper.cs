@@ -59,5 +59,66 @@ namespace DroneServer.SharedClasses
             GeoCoordinate res = new GeoCoordinate(lat * RadiansToDegrees, lon * RadiansToDegrees, source.Altitude);
             return res;
         }
+
+        public static double getBearingBetweenLatLngPoints(Point source, Point destination)
+        {
+            double lat1 = degreeToRad(source.lat);
+            double lng1 = degreeToRad(source.lng);
+
+            double lat2 = degreeToRad(source.lat);
+            double lng2 = degreeToRad(source.lng);
+
+            double dLon = (lng2 - lng1);
+            double y = Math.Sin(dLon) * Math.Cos(lat2);
+            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(dLon);
+            double brng = radToDegree((Math.Atan2(y, x)));
+            brng = (360 - ((brng + 360) % 360));
+
+            return brng;
+        }
+
+        public static double getBearingBetweenMarginPoints(Point source, Point destination)
+        {
+            double delta_y = Math.Abs(source.lat - destination.lat);
+            double delta_x = Math.Abs(source.lng - destination.lng);
+
+            double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+            if (destination.lat > source.lat && destination.lng > source.lng)
+            {
+                return degree_res;
+            }
+            else if (destination.lat > source.lat && destination.lng < source.lng)
+            {
+                return degree_res + 90;
+            }
+            else if (destination.lat < source.lat && destination.lng < source.lng)
+            {
+                return degree_res + 180;
+            }
+            else if (destination.lat < source.lat && destination.lng > source.lng)
+            {
+                return degree_res + 270;
+            }
+
+            return 0;
+        }
+
+        public static double getDistanceBetweenMarginPoints(Point source, Point destination)
+        {
+            double delta_y = Math.Abs(source.lat - destination.lat);
+            double delta_x = Math.Abs(source.lng - destination.lng);
+
+            return Math.Sqrt(Math.Pow(delta_x, 2) + Math.Pow(delta_y, 2));
+        }
+
+        public static double radToDegree(double rad)
+        {
+            return rad * 180 / Math.PI;
+        }
+
+        public static double degreeToRad(double degree)
+        {
+            return degree * Math.PI / 180;
+        }
     }
 }
