@@ -50,6 +50,9 @@ namespace DroneServer.BL.Missions
             {
                 Logger.getInstance().info("finish scan single car");
                 BL.BLManagger.getInstance().num_of_scaned_cars++;
+                Assertions.verify(m_res != null, "response should not be null at this point");
+                Assertions.verify(m_res.Data != null, "response data should not be null");
+                Assertions.verify(m_res.Data is Point, "response data should be point");
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, m_res.Data));
             }
         }

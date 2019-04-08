@@ -32,8 +32,7 @@ def _get_range(start, end, num_of_points):
 
 
 class Drone:
-    # not support delay and stop
-    # not support rotate the drone
+    # not support stop
     def __init__(self, drone_configuration):
         logging.info('start drone')
         self.alt = 0
@@ -206,6 +205,7 @@ class Drone:
     def sleep(self, amount):
         if not self.without_delay:
             time.sleep(amount)
+
 
 class Gimbal:
     def __init__(self):

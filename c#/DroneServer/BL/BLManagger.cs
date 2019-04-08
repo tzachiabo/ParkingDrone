@@ -68,7 +68,11 @@ namespace DroneServer.BL
 
         public void set_base_photo_path(String base_photo_path)
         {
-            Assertions.verify(m_base_photo_path == null, "cannot set base photo twice");
+            if (m_base_photo_path != null)
+            {
+                Logger.getInstance().warn("cannot set base photo twice");
+            }
+
             m_base_photo_path = base_photo_path;
         }
 
