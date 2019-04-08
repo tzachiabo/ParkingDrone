@@ -82,22 +82,45 @@ namespace DroneServer.SharedClasses
             double delta_y = Math.Abs(source.lat - destination.lat);
             double delta_x = Math.Abs(source.lng - destination.lng);
 
-            double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
             if (destination.lat > source.lat && destination.lng > source.lng)
             {
+                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+
                 return degree_res;
             }
             else if (destination.lat > source.lat && destination.lng < source.lng)
             {
+                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+
                 return degree_res + 90;
             }
             else if (destination.lat < source.lat && destination.lng < source.lng)
             {
+                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+
                 return degree_res + 180;
             }
             else if (destination.lat < source.lat && destination.lng > source.lng)
             {
+                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+
                 return degree_res + 270;
+            }
+            else if (destination.lat == source.lat && destination.lng > source.lng)
+            {
+                return 0;
+            }
+            else if (destination.lat == source.lat && destination.lng < source.lng)
+            {
+                return 180;
+            }
+            else if (destination.lat > source.lat && destination.lng == source.lng)
+            {
+                return 90;
+            }
+            else if (destination.lat < source.lat && destination.lng == source.lng)
+            {
+                return 270;
             }
 
             return 0;
