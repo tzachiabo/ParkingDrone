@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DroneServer.BL;
+using DroneServer.BL.Comm;
 using DroneServer.SharedClasses;
 using DroneServerIntegration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,19 +9,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DroneServerAceptanceTests
 {
     [TestClass]
-    public class FullScenarioTests
+    public class FullScenarioTests : BaseAcepptanceTest
     {
         [TestMethod]
         public void NoCar()
         {
             DroneSimulator drone = new DroneSimulator();
             drone.start_drone("drone.camera.images_path=../c#/DroneServerAceptanceTests/BasePhotoImages drone.camera.base_photo_location=3.JPG");
-            BLManagger bl = BLManagger.getInstance();
-            List<Parking> parkings = bl.DBGetAllParkings();
+            while (!CommManager.getInstance().isSocketInitiated) ;
 
-            Parking park = parkings[0];
+            Point location = (Point)getLocation().m_res.Data;
 
-            MissionWraper mission = bl.startMission(park);
+            Parking park = genRandomParking(location);
+
+            MissionWraper mission = BLManagger.getInstance().startMission(park);
 
             Assert.IsTrue(mission.Wait(60 * 5));
 
@@ -35,14 +37,15 @@ namespace DroneServerAceptanceTests
         {
             DroneSimulator drone = new DroneSimulator();
             drone.start_drone("drone.camera.images_path=../c#/DroneServerAceptanceTests/BasePhotoImages drone.camera.base_photo_location=1.JPG");
-            BLManagger bl = BLManagger.getInstance();
-            List<Parking> parkings = bl.DBGetAllParkings();
+            while (!CommManager.getInstance().isSocketInitiated) ;
 
-            Parking park = parkings[0];
+            Point location = (Point)getLocation().m_res.Data;
 
-            MissionWraper mission = bl.startMission(park);
+            Parking park = genRandomParking(location);
 
-            Assert.IsTrue(mission.Wait(60 * 5));
+            MissionWraper mission = BLManagger.getInstance().startMission(park);
+
+            Assert.IsTrue(mission.Wait(60 * 10));
 
             int num_of_scaned_car = (int)mission.m_res.Data;
             Assert.AreEqual(num_of_scaned_car, 2);

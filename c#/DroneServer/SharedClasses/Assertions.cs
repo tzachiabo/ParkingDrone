@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.BL.Comm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace DroneServer.SharedClasses
         {
             if (!predicat)
             {
+                CommManager.getInstance().shutDown();
                 Logger.getInstance().error("assertion failure with message : " + message);
 
                 //System.Windows.Forms.Application.Exit();
