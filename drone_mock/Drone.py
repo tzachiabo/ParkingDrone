@@ -116,6 +116,7 @@ class Drone:
         error = amount * self.mistake_in_move
         actual_move_amount = random.uniform(amount - error, amount + error)
         logging.info(f'drone actual move amount is {actual_move_amount} current drone bearing is {rad_to_deg(self.bearing_radians)}')
+        verify(self.alt > 0.5, "drone must be above 0.5 meter height when moving")
 
         if direction == Direction.up:
             self.alt += actual_move_amount
@@ -134,6 +135,8 @@ class Drone:
             self.rotate_drone(actual_move_amount)
         else:
             verify(False, "Unknown direction")
+
+        verify(self.alt > 0.5, "drone must be above 0.5 meter height when moving")
 
         logging.info(f'end drone move with direction: {direction} and amount: {amount}')
 

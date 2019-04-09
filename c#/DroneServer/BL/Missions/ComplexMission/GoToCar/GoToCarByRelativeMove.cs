@@ -13,6 +13,7 @@ namespace DroneServer.BL.Missions
         private Point m_curr_position;
         private Car m_car;
         private double pic_bearing; // it is better to pass this val to ctor
+        private Response response;
 
         public GoToCarByRelativeMove(Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
         {
@@ -58,8 +59,6 @@ namespace DroneServer.BL.Missions
 
             double distance = LngLatHelper.getDistanceBetweenMarginPoints(m_curr_position, car_position);
             m_SubMission.Enqueue(new MoveMission(this, Direction.forward, distance));
-
-            m_SubMission.Enqueue(new AbsoulteRotateMission(pic_bearing, this));
         }
 
 
@@ -83,7 +82,11 @@ namespace DroneServer.BL.Missions
             if (curr_position.is_close(m_car.getPointOfCar()))
             {
                 Logger.getInstance().info("GoToCar : got to the car pic at position " + PicTransferServer.getLastPicPath());
-                done(res);
+                response = res;
+
+                Mission m = new AbsoulteRotateMission(pic_bearing);
+                m.register_to_notification(final_mission);
+                m.execute();
             }
             else
             {
@@ -99,6 +102,12 @@ namespace DroneServer.BL.Missions
                 Mission mission = m_SubMission.Dequeue();
                 mission.execute();
             }
+        }
+
+        private void final_mission(Response res)
+        {
+            done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
+
         }
 
     }

@@ -7,7 +7,7 @@
     },
     "drone":
     {
-        "mistake_in_move": "0.3",
+        "mistake_in_move": "0.1",
 
         "initial_lng": "34.8053044080734",
         "initial_lat": "31.2643830184825",

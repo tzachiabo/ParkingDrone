@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseAcepptanceTest.cs" />
+    <Compile Include="ParkingAcceptanceTests.cs" />
     <Compile Include="FullScenarioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,8 +64,11 @@
       <Name>DroneServer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="BasePhotoImages\" />
+    <Content Include="BasePhotoImages\1.jpg" />
+    <Content Include="BasePhotoImages\2.jpg" />
+    <Content Include="BasePhotoImages\3.jpg" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

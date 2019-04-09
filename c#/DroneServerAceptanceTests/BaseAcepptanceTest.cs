@@ -31,7 +31,7 @@ namespace DroneServerIntegration
         private Point gen_near_random_point(Point location)
         {
             GeoCoordinate geo_point_src = new GeoCoordinate(location.lat, location.lng);
-            double range = rnd.NextDouble() * 100; // range is 0-100 meters
+            double range = rnd.NextDouble() * 30; // range is 0-30 meters
             double bearing = rnd.NextDouble() * 2 * Math.PI;
             GeoCoordinate geo_point_dst = LngLatHelper.getLocationByBearingAndDistance(geo_point_src, range, bearing);
 

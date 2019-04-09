@@ -3,7 +3,7 @@ using DroneServer.BL.Comm;
 using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTestProject.Comm
+namespace UnitTestProject
 {
     [TestClass]
     public class DecoderTest

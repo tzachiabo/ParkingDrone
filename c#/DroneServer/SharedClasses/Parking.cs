@@ -50,6 +50,7 @@ namespace DroneServer.SharedClasses
         {
             this.name = name;
             this.border = border;
+            bearing = 0;
         }
 
         public Parking(TextBox parkingName ,GMapControl map,ListBox points)

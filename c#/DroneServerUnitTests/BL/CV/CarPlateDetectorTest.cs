@@ -5,7 +5,7 @@ using DroneServer.BL.CV;
 using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTestProject.BL
+namespace UnitTestProject
 {
     [TestClass]
     public class CarPlateDetectorTest
