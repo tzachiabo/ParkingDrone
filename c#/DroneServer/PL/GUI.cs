@@ -198,9 +198,15 @@ namespace DroneServer
                 return;
             }
 
+            if (!bl.DBAddParking(tmp))
+            {
+                MessageBox.Show("failed to add parking");
+                return;
+            }
+
             parkingList.Add(tmp);
             parkings_home_lst.Items.Add(parkName_create_txt.Text);
-            bl.DBAddParking(tmp);
+            
 
 
             //clear page and move to Home page

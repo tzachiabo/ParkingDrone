@@ -112,10 +112,14 @@ namespace DroneServer.BL
             return DB.selectAllParkings();
         }
 
-        public void DBAddParking(Parking p)
+        public Boolean DBAddParking(Parking p)
         {
+            if (!validateParkingHeight(p)){
+                return false;
+            }
             DB.addParking(p);
-            logger.debug("The Parking " +p.name + " has added to DB");
+            logger.info("The Parking " +p.name + " has added to DB");
+            return true;
         }
 
         public bool DBExistParkingName(string name)
@@ -255,9 +259,9 @@ namespace DroneServer.BL
 
         public bool validateParkingHeight(Parking p)
         {
-            //if (p.getBasePoint().alt > Convert.ToInt32(Configuration.getInstance().get("max_parking_height")))
-            //    return false;
-            // TODO zabow
+            if (p.getBasePoint().alt > Convert.ToDouble(Configuration.getInstance().get("max_parking_height")))
+                return false;
+
             return true;
         }
         
