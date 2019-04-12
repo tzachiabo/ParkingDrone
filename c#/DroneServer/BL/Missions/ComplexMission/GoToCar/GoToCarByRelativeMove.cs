@@ -12,7 +12,6 @@ namespace DroneServer.BL.Missions
     {
         private Point m_curr_position;
         private Car m_car;
-        private double pic_bearing; // it is better to pass this val to ctor
         private Response response;
 
         public GoToCarByRelativeMove(Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)
@@ -33,7 +32,6 @@ namespace DroneServer.BL.Missions
         public void get_location_finished(Response response)
         {
             Point location = (Point)response.Data;
-            pic_bearing = location.bearing;
 
             int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
             m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_moving_in_parking, this));
@@ -53,9 +51,11 @@ namespace DroneServer.BL.Missions
             Logger.getInstance().info("GoToCar : start build moves");
             Point car_position = m_car.getPointOfCar();  // inside_pic
             Logger.getInstance().info("GoToCar at position margin-left: " + car_position.lng + " margin-top: " + car_position.lat);
+            double pic_bearing = BL.BLManagger.getInstance().get_parking().bearing;
 
             double relative_bearing = LngLatHelper.getBearingBetweenMarginPoints(m_curr_position, car_position);
-            m_SubMission.Enqueue(new AbsoulteRotateMission(relative_bearing + pic_bearing, this));
+            double absoulte_rotate_des = (relative_bearing + pic_bearing) % 360;
+            m_SubMission.Enqueue(new AbsoulteRotateMission(absoulte_rotate_des, this));
 
             double distance = LngLatHelper.getDistanceBetweenMarginPoints(m_curr_position, car_position);
             m_SubMission.Enqueue(new MoveMission(this, Direction.forward, distance));
@@ -83,6 +83,7 @@ namespace DroneServer.BL.Missions
             {
                 Logger.getInstance().info("GoToCar : got to the car pic at position " + PicTransferServer.getLastPicPath());
                 response = res;
+                double pic_bearing = BL.BLManagger.getInstance().get_parking().bearing;
 
                 Mission m = new AbsoulteRotateMission(pic_bearing);
                 m.register_to_notification(final_mission);

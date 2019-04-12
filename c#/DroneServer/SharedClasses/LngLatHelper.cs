@@ -14,27 +14,28 @@ namespace DroneServer.SharedClasses
         private const double RadiansToDegrees = 180.0 / Math.PI;
         private const double EarthRadius = 6378137.0;
 
-        public static Point toMarginFromBasePhoto(Point location)  // not support bearing
+        public static Point toMarginFromBasePhoto(Point location)
         {
             Point base_photo_location = BL.BLManagger.getInstance().get_parking().getBasePoint();
 
-            var sCoord = new GeoCoordinate(location.lat, base_photo_location.lng);
-            var eCoord = new GeoCoordinate(location.lat, location.lng);
-            double x_distance = sCoord.GetDistanceTo(eCoord);
-            if (base_photo_location.lng > location.lng)
-                x_distance *= -1;
-
-            sCoord = new GeoCoordinate(base_photo_location.lat, location.lng);
-            eCoord = new GeoCoordinate(location.lat, location.lng);
-            double y_distance = sCoord.GetDistanceTo(eCoord);
-
-            if (base_photo_location.lat < location.lat)
-                y_distance *= -1;
-
             int mid_width_pixel = Int32.Parse(Configuration.getInstance().get("num_of_width_pixels")) / 2;
             int mid_height_pixel = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels")) / 2;
+            double margin_top_base_location = PixelConverterHelper.convert_height(mid_height_pixel);
+            double margin_left_base_location = PixelConverterHelper.convert_width(mid_width_pixel);
 
-            Point res = new Point(PixelConverterHelper.convert_width(mid_width_pixel) + x_distance, PixelConverterHelper.convert_height(mid_height_pixel) + y_distance);
+            var sCoord = new GeoCoordinate(base_photo_location.lat, base_photo_location.lng);
+            var eCoord = new GeoCoordinate(location.lat, location.lng);
+            double distance = sCoord.GetDistanceTo(eCoord);
+
+            double bearing = DegreeBearing(base_photo_location.lat, base_photo_location.lng, 
+                                           location.lat, location.lng);
+
+            double pic_bearing = bearing - BL.BLManagger.getInstance().get_parking().bearing;
+
+            double distance_x = distance * Math.Sin(ToRad(pic_bearing));
+            double distance_y = distance * Math.Cos(ToRad(pic_bearing));
+
+            Point res = new Point(margin_left_base_location + distance_x, margin_top_base_location - distance_y);
             return res;
         }
 
@@ -60,27 +61,36 @@ namespace DroneServer.SharedClasses
             return res;
         }
 
-        public static double getBearingBetweenLatLngPoints(Point source, Point destination)
+        public static double DegreeBearing(double lat1, double lon1, double lat2, double lon2)
         {
-            double lat1 = degreeToRad(source.lat);
-            double lng1 = degreeToRad(source.lng);
+            var dLon = ToRad(lon2 - lon1);
+            var dPhi = Math.Log(
+                Math.Tan(ToRad(lat2) / 2 + Math.PI / 4) / Math.Tan(ToRad(lat1) / 2 + Math.PI / 4));
+            if (Math.Abs(dLon) > Math.PI)
+                dLon = dLon > 0 ? -(2 * Math.PI - dLon) : (2 * Math.PI + dLon);
+            return ToBearing(Math.Atan2(dLon, dPhi));
+        }
 
-            double lat2 = degreeToRad(source.lat);
-            double lng2 = degreeToRad(source.lng);
+        public static double ToRad(double degrees)
+        {
+            return degrees * (Math.PI / 180);
+        }
 
-            double dLon = (lng2 - lng1);
-            double y = Math.Sin(dLon) * Math.Cos(lat2);
-            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(dLon);
-            double brng = radToDegree((Math.Atan2(y, x)));
-            brng = (360 - ((brng + 360) % 360));
+        public static double ToDegrees(double radians)
+        {
+            return radians * 180 / Math.PI;
+        }
 
-            return brng;
+        public static double ToBearing(double radians)
+        {
+            // convert radians to degrees (as bearing: 0...360)
+            return (ToDegrees(radians) + 360) % 360;
         }
 
         public static double getBearingBetweenMarginPoints(Point source, Point destination)
         {
-            double delta_y = source.lat - destination.lat;
-            double delta_x = source.lng - destination.lng;
+            double delta_y = Math.Abs(source.lat - destination.lat);
+            double delta_x = Math.Abs(source.lng - destination.lng);
 
             if (destination.lat < source.lat && destination.lng > source.lng)
             {

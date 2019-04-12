@@ -1,6 +1,7 @@
 ﻿using DroneServer.BL;
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,20 +45,24 @@ namespace DroneServer.SharedClasses
             Point car_location_with_margin_to_base_photo = getPointOfCar();
             Point base_photo_point = BL.BLManagger.getInstance().get_parking().getBasePoint();
 
-            int cameraOpeningDegree = Int32.Parse(Configuration.getInstance().get("cameraOpeningDegree"));
-            double radius = base_photo_point.alt * Math.Tan(DegreesToRadians(cameraOpeningDegree));
+            int max_width = Int32.Parse(Configuration.getInstance().get("num_of_width_pixels"));
+            int max_height = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels"));
+            Point base_photo_point_margin = new Point(max_width/2, max_height/2);
 
-            GeoLocation geo_base_loc = new GeoLocation();
-            geo_base_loc.Latitude = base_photo_point.lat;
-            geo_base_loc.Longitude = base_photo_point.lng;
+            double parking_bearing = BLManagger.getInstance().get_parking().bearing;
+            double car_relative_bearing = LngLatHelper.DegreeBearing(base_photo_point_margin.lat, base_photo_point_margin.lng,
+                                           car_location_with_margin_to_base_photo.lat, car_location_with_margin_to_base_photo.lng);
 
-            GeoLocation left = FindPointAtDistanceFrom(geo_base_loc, (3 / 2) * Math.PI, radius / 1000);
-            GeoLocation top_left = FindPointAtDistanceFrom(left, 0, radius / 1000);
+            double absolute_bearing = parking_bearing + car_relative_bearing;
+            double distance = LngLatHelper.getDistanceBetweenMarginPoints(base_photo_point_margin, car_location_with_margin_to_base_photo);
 
-            GeoLocation margin_left_from_top_left = FindPointAtDistanceFrom(top_left, Math.PI / 2, car_location_with_margin_to_base_photo.lng / 1000);
-            GeoLocation car_location_geo = FindPointAtDistanceFrom(margin_left_from_top_left, Math.PI, car_location_with_margin_to_base_photo.lat / 1000);
+            GeoCoordinate middle = new GeoCoordinate();
+            middle.Latitude = base_photo_point.lat;
+            middle.Longitude = base_photo_point.lng;
 
-            return new Point(car_location_geo.Longitude, car_location_geo.Latitude);
+            GeoCoordinate car_location = LngLatHelper.getLocationByBearingAndDistance(middle, distance, absolute_bearing);
+
+            return new Point(car_location.Longitude, car_location.Latitude);
         }
 
         public static GeoLocation FindPointAtDistanceFrom(GeoLocation startPoint, double initialBearingRadians, double distanceKilometres)

@@ -123,7 +123,7 @@ class AerialViewCamera(Camera):
 
             return geopy.distance.geodesic(coords_1, coords_2).m
 
-        width_dif_from_base_photo = measure(self.lat_of_base_photo, lng)
+        width_dif_from_base_photo = measure(self.lat_of_base_photo, lng) # bug not think of bearing
         if lng < self.lng_of_base_photo:
             width_dif_from_base_photo = width_dif_from_base_photo * -1
 

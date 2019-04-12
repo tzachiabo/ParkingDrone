@@ -99,6 +99,9 @@ class Drone:
             self.lng = point.longitude
             self.sleep(self.move_step_size / self.speed_in_ms)
 
+        self.lat = destination.latitude
+        self.lng = destination.longitude
+
         logging.info(f'finish relative_move_inner drone distance: {distance}, bearing: {bearing}')
 
     def rotate_drone(self, rotataion_degree):
@@ -106,6 +109,11 @@ class Drone:
 
         if self.bearing_radians > math.pi:
             self.bearing_radians -= 2 * math.pi
+
+        if self.bearing_radians < -1 * math.pi:
+            self.bearing_radians += 2 * math.pi
+
+        logging.info(f'drone bearing after rotate {self.bearing_radians * 180 / math.pi}')
 
     def relative_move(self, direction, amount):
         verify(self.alt != 0, 'drone cannot move relative before take_off')
@@ -202,6 +210,9 @@ class Drone:
             self._go_to_gps_inner(distance_in_meters, self.lat, lat, update_lat)
 
         self.bearing_radians = random.uniform(-1 * math.pi, math.pi)
+        self.alt = alt
+        self.lng = lng
+        self.lat = lat
 
     def take_photo(self):
         self.camera.take_photo(self)
