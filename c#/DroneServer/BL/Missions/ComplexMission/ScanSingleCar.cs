@@ -15,6 +15,8 @@ namespace DroneServer.BL.Missions
         private int m_move_back_index;
         private int m_get_plate;
 
+        private int m_get_plate;
+
         private Car m_car;
 
         public ScanSingleCar(Point curr_position, Car car, ComplexMission ParentMission = null) : base(ParentMission)

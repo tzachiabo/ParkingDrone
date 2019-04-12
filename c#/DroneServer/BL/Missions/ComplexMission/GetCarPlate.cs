@@ -77,5 +77,22 @@ namespace DroneServer.BL.Missions
         }
 
 
+
+        private Tuple<double, double, double> getGimbalRotation()
+        {
+            return Tuple.Create(0.0, 0.0, 0.0);
+        }
+
+        public override void notify(Response response)
+        {
+            if (response.Key == m_take_photo)
+            {
+                String car_plate_photo_path = (String)response.Data;
+
+
+            }
+            done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
+
+        }
     }
 }
