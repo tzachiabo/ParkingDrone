@@ -462,6 +462,13 @@ namespace DroneServer
         {
 
         }
-        
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int roll = Convert.ToInt32(Roll.Value);
+            int pitch = Convert.ToInt32(Pitch.Value);
+            int yaw = Convert.ToInt32(Yaw.Value);
+            BLManagger.getInstance().MoveAbsoulteGimbalTest(Gimbal.left, roll, pitch, yaw);
+        }
     }
 }

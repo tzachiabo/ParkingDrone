@@ -67,7 +67,7 @@ public class MoveCameraGimbalMission extends Mission {
                     else{
                         Logger.debug("move gimbal has finished");
                         try {
-                            Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000);
+                            Thread.sleep(Config.TIME_OF_GIMBAL_MOVE * 1000 * 2);
                         } catch (InterruptedException e) {
                         }
                         onResult.onResult(djiError);
