@@ -50,6 +50,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\ReportManagerTests.cs" />
     <Compile Include="BL\CV\CarDetectorTest.cs" />
     <Compile Include="BL\CV\CarPlateDetectorTest.cs" />
     <Compile Include="BL\CV\VerifyLocationSiftTest.cs" />
