@@ -13,6 +13,10 @@ namespace DroneServer.BL.Missions
         private int m_go_to_car_index;
         private int m_get_to_certain_height;
         private int m_move_gimbal_index;
+        private int m_move_back_index;
+        private int m_take_photo;
+        private int m_get_plate;
+
         private Response m_res;
         private Car m_car;
 
@@ -35,7 +39,13 @@ namespace DroneServer.BL.Missions
         {
             if (response.Key == m_go_to_car_index)
             {
-                m_res = response;
+                Mission move_back = new MoveMission(Direction.backward, 2.0);//todo:change dictance(2.0) to car hight/wight 
+                m_move_back_index = move_back.m_index;
+                move_back.execute();
+
+            }
+            else if (response.Key == m_move_back_index)
+            { 
                 int height = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_get_close_to_car"));
                 Mission m = new GetToCertainHeight(height, this);
                 m_get_to_certain_height = m.m_index;
@@ -43,17 +53,20 @@ namespace DroneServer.BL.Missions
             }
             else if (response.Key == m_get_to_certain_height)
             {
-                TakePhoto take_photo = new TakePhoto(this);
-                take_photo.execute();
+                GetCarPlate get_plate = new GetCarPlate(this);
+                m_get_plate = get_plate.m_index;
+                get_plate.execute();
+            }
+            else if (response.Key == m_get_plate)
+            {
+                GetLocation get_location = new GetLocation(this);
+                get_location.execute();
             }
             else
             {
                 Logger.getInstance().info("finish scan single car");
                 BL.BLManagger.getInstance().num_of_scaned_cars++;
-                Assertions.verify(m_res != null, "response should not be null at this point");
-                Assertions.verify(m_res.Data != null, "response data should not be null");
-                Assertions.verify(m_res.Data is Point, "response data should be point");
-                done(new Response(m_index, Status.Ok, MissionType.MainMission, m_res.Data));
+                done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
             }
         }
 
