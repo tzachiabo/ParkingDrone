@@ -37,7 +37,7 @@ namespace DroneServer.BL.Missions
                 MoveMission mission = null;
                 if (curr_height > m_height_destination)
                 {
-                    mission = new MoveMission(Direction.down, distance_to_move);
+                    mission = new MoveMission(Direction.down, distance_to_move / 2);
                 }
                 else
                 {

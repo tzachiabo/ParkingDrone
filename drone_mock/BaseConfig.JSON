@@ -7,7 +7,7 @@
     },
     "drone":
     {
-        "mistake_in_move": "0.1",
+        "mistake_in_move": "0.5",
 
         "initial_lng": "34.8053044080734",
         "initial_lat": "31.2643830184825",
@@ -37,7 +37,7 @@
         "gimbal_delay_in_sec": "0.5",
         "speed_in_ms": "5",
 
-        "without_delay": "false"
+        "without_delay": "true"
     },
 
     "transport":
