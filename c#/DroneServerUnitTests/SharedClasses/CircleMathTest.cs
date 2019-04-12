@@ -2,7 +2,7 @@
 using DroneServer.SharedClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTestProject.SharedClasses
+namespace UnitTestProject
 {
     [TestClass]
     public class CircleMathTest

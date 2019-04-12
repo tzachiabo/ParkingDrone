@@ -13,7 +13,7 @@ namespace UnitTestProject
         {
             Parking park = new Parking("aviad", makeBorder());
             Point basePoint = park.getBasePoint();
-            Assert.AreEqual(24, basePoint.alt, 0.5);
+            Assert.AreEqual(11, basePoint.alt, 0.5);
             Assert.AreEqual(35, basePoint.lat, 0.5);
             Assert.AreEqual(31, basePoint.lng, 0.5);
             Assert.AreEqual("aviad", park.name);

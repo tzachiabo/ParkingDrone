@@ -79,32 +79,32 @@ namespace DroneServer.SharedClasses
 
         public static double getBearingBetweenMarginPoints(Point source, Point destination)
         {
-            double delta_y = Math.Abs(source.lat - destination.lat);
-            double delta_x = Math.Abs(source.lng - destination.lng);
+            double delta_y = source.lat - destination.lat;
+            double delta_x = source.lng - destination.lng;
 
-            if (destination.lat > source.lat && destination.lng > source.lng)
+            if (destination.lat < source.lat && destination.lng > source.lng)
             {
-                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+                double degree_res = radToDegree(Math.Atan(delta_x / delta_y));
 
                 return degree_res;
             }
+            else if (destination.lat > source.lat && destination.lng > source.lng)
+            {
+                double degree_res = radToDegree(Math.Atan(delta_x / delta_y));
+
+                return 180 - degree_res;
+            }
             else if (destination.lat > source.lat && destination.lng < source.lng)
             {
-                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
-
-                return degree_res + 90;
-            }
-            else if (destination.lat < source.lat && destination.lng < source.lng)
-            {
-                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+                double degree_res = radToDegree(Math.Atan(delta_x / delta_y));
 
                 return degree_res + 180;
             }
-            else if (destination.lat < source.lat && destination.lng > source.lng)
+            else if (destination.lat < source.lat && destination.lng < source.lng)
             {
-                double degree_res = radToDegree(Math.Atan(delta_y / delta_x));
+                double degree_res = radToDegree(Math.Atan(delta_x / delta_y));
 
-                return degree_res + 270;
+                return 360 - degree_res;
             }
             else if (destination.lat == source.lat && destination.lng > source.lng)
             {

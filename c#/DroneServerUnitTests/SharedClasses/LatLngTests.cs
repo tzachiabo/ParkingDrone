@@ -15,7 +15,7 @@ namespace UnitTestProject
             Point p2 = new Point(10, 10, 0);
 
             double bearing = LngLatHelper.getBearingBetweenMarginPoints(p1, p2);
-            Assert.AreEqual(bearing, 45);
+            Assert.AreEqual(bearing, 135);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace UnitTestProject
             Point p2 = new Point(-10, -10, 0);
 
             double bearing = LngLatHelper.getBearingBetweenMarginPoints(p1, p2);
-            Assert.AreEqual(bearing, 225);
+            Assert.AreEqual(bearing, 315);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace UnitTestProject
             Point p2 = new Point(10, -10, 0);
 
             double bearing = LngLatHelper.getBearingBetweenMarginPoints(p1, p2);
-            Assert.AreEqual(bearing, 315);
+            Assert.AreEqual(bearing, -45);
         }
 
         [TestMethod]
