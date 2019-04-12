@@ -1,4 +1,5 @@
-﻿using DroneServer.SharedClasses;
+﻿using DroneServer.BL.CV;
+using DroneServer.SharedClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,14 @@ namespace DroneServer.BL.Missions
     {
         private int m_take_photo;
         private int tries = 0;
+        private ReportManager report_mannager;
 
         public GetCarPlate(ComplexMission ParentMission = null) : base(ParentMission)
         {
             Tuple<double,double,double> gimbal_rotaion = getGimbalRotation();
             AbsoluteMoveGimbalMission rotate_mission = new AbsoluteMoveGimbalMission(this, Gimbal.left, gimbal_rotaion.Item1, gimbal_rotaion.Item2, gimbal_rotaion.Item3);
             TakePhoto take_photo = new TakePhoto(this);
+            report_mannager = ReportManager.getInstance();
             m_take_photo = take_photo.m_index;
             m_SubMission.Enqueue(rotate_mission);
             m_SubMission.Enqueue(take_photo);
@@ -38,10 +41,18 @@ namespace DroneServer.BL.Missions
             if (response.Key == m_take_photo)
             {
                 String car_plate_photo_path = (String)response.Data;
+                List<string> cars = CarPlateDetector.getCarPlates(car_plate_photo_path);
+                if (cars.Count > 0)
+                {
+                    report_mannager.addCarPlate(cars, car_plate_photo_path);
+                    done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
+                }
+                else
+                {
 
+                }
 
             }
-            done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
 
         }
     }
