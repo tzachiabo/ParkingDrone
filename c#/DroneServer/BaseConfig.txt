@@ -7,7 +7,7 @@
 <getStatusInterval>5000</getStatusInterval>
 <print_get_status>false</print_get_status>
 <print_get_location>false</print_get_location>
-<cameraOpeningDegree>57</cameraOpeningDegree>
+<cameraOpeningDegree>33</cameraOpeningDegree>
 <max_parking_height>95</max_parking_height>
 <Home_Location_Hight>30</Home_Location_Hight>
 <enable_location_manager_verification>false</enable_location_manager_verification>
