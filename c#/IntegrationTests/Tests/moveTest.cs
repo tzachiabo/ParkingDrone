@@ -60,7 +60,7 @@ namespace IntegrationTests
         [TestMethod]
         public void rotateMove()
         {
-            move(Direction.rotate, 10);
+            move(Direction.rtt_right, 10);
         }
     }
 }

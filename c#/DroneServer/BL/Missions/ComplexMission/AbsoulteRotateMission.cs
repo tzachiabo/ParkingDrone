@@ -40,18 +40,12 @@ namespace DroneServer.BL.Missions
 
             if (!is_bearing_close(destinated_bearing, curr_bearing, 5))
             {
-                double delta;
-                if (destinated_bearing > curr_bearing)
+                Direction direction = Direction.rtt_right;
+                if (destinated_bearing < curr_bearing)
                 {
-                    delta = destinated_bearing - curr_bearing;
+                    direction = Direction.rtt_left;
                 }
-                else
-                {
-                    delta = 360 + destinated_bearing - curr_bearing;          
-                }
-                double rotating_amount = delta - rnd.Next(0, Math.Min(20, (int)delta - 1));
-                Assertions.verify(rotating_amount < 360 && rotating_amount > 0, "it is not make sense to rotate more than 360 degree");
-                MoveMission mission = new MoveMission(Direction.rtt_right, rotating_amount);
+                MoveMission mission = new MoveMission(direction, dgree_to_rotate);
 
                 mission.register_to_notification(move_mission_finished);
                 mission.execute();
