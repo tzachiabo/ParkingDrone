@@ -19,7 +19,10 @@ namespace DroneServerIntegration
         public static void AssemblyInit(TestContext context)
         {
             BLManagger bl = BLManagger.getInstance();
+
             bl.init();
+            LocationManager.init();
+
         }
 
         [AssemblyCleanup()]

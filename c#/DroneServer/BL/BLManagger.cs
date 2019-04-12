@@ -102,7 +102,6 @@ namespace DroneServer.BL
         {
             while (!CommManager.getInstance().isRunning());
             statusManager.init();
-            LocationManager.init();
             num_of_scaned_cars = 0;
         }
 
@@ -185,6 +184,7 @@ namespace DroneServer.BL
         public MissionWraper startMission(Parking parking)
         {
             num_of_scaned_cars = 0;
+            LocationManager.init();
 
             ParkingMission start_mission = new ParkingMission(parking);
 

@@ -21,6 +21,8 @@ namespace IntegrationTests
         {
             BLManagger bl = BLManagger.getInstance();
             bl.init();
+            LocationManager.init();
+
         }
 
         [TestInitialize]
