@@ -75,7 +75,7 @@ namespace AndroidAccepanceTests
         public void moveRotate()
         {
             take_off();
-            move(Direction.rotate, 90);
+            move(Direction.rtt_right, 90);
             landing();
         }
 

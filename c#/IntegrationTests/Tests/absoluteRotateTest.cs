@@ -25,7 +25,7 @@ namespace IntegrationTests
             absoluteRotateMission(50);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.IsTrue(is_close(location.bearing, 50, 5));
+            Assert.IsTrue(is_close_angle(location.bearing, 50, 5));
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace IntegrationTests
             absoluteRotateMission(10);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.IsTrue(is_close(location.bearing, 10, 5));
+            Assert.IsTrue(is_close_angle(location.bearing, 10, 5));
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace IntegrationTests
             absoluteRotateMission(0);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.IsTrue(is_close(location.bearing, 0, 5));
+            Assert.IsTrue(is_close_angle(location.bearing, 0, 5));
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace IntegrationTests
             Point location = (Point)getLocation().m_res.Data;
 
 
-            Assert.IsTrue(is_close(location.bearing, 179, 5));
+            Assert.IsTrue(is_close_angle(location.bearing, 179, 5));
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace IntegrationTests
             absoluteRotateMission(359);
             Point location = (Point)getLocation().m_res.Data;
 
-            Assert.IsTrue(is_close(location.bearing, -1, 5));
+            Assert.IsTrue(is_close_angle(location.bearing, -1, 5));
         }
 
     }

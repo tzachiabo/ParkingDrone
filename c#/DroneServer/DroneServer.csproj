@@ -149,6 +149,7 @@
     <Compile Include="DL\DB.cs" />
     <Compile Include="PL\Observers\MapObserver.cs" />
     <Compile Include="SharedClasses\Car.cs" />
+    <Compile Include="SharedClasses\CircleMath.cs" />
     <Compile Include="SharedClasses\CompletionHanlder.cs" />
     <Compile Include="SharedClasses\ConnectionStatus.cs" />
     <Compile Include="SharedClasses\DroneSimulator.cs" />

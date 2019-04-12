@@ -49,6 +49,10 @@ namespace IntegrationTests
         {
             return System.Math.Abs(a - b) <= delta;
         }
+        protected bool is_close_angle(double a, double b, double delta = 3)
+        {
+            return CircleMath.is_close_angle(a, b, delta);
+        }
 
         protected MissionWraper takeoff(bool is_async = false)
         {

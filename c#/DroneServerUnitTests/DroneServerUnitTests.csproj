@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DL\DBTest.cs" />
     <Compile Include="SharedClasses\CarTests.cs" />
+    <Compile Include="SharedClasses\CircleMathTest.cs" />
     <Compile Include="SharedClasses\ParkingTests.cs" />
     <Compile Include="SharedClasses\PixelConverterTests.cs" />
     <Compile Include="SharedClasses\LatLngTests.cs" />

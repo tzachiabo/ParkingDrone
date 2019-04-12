@@ -29,22 +29,13 @@ namespace DroneServer.BL.Missions
         {
             Point location = (Point)response.Data;
             double curr_bearing = location.bearing;
-
-            if (curr_bearing < 0)
-            {
-                curr_bearing += 360;
-            }
-
-            double dgree_to_rotate = destinated_bearing-curr_bearing;
+            double dgree_to_rotate = CircleMath.angular_distance(destinated_bearing, curr_bearing);
             Logger.getInstance().info("absoulote-rotate: current bearing: " + curr_bearing + " destination bearing: " + destinated_bearing);
 
             if (!is_bearing_close(destinated_bearing, curr_bearing, 5))
             {
-                Direction direction = Direction.rtt_right;
-                if (destinated_bearing < curr_bearing)
-                {
-                    direction = Direction.rtt_left;
-                }
+                Direction direction = CircleMath.leftOrRight(destinated_bearing, curr_bearing);
+
                 MoveMission mission = new MoveMission(direction, dgree_to_rotate);
 
                 mission.register_to_notification(move_mission_finished);
@@ -56,20 +47,23 @@ namespace DroneServer.BL.Missions
             }
         }
 
-        public static bool is_bearing_close(double bearing_1, double bearing_2, double delta)
+        public static bool is_bearing_close(double dest_bearing, double curr_bearing, double delta)
         {
-            double max_value_of_bearing_1 = (bearing_1 + delta) % 360;
-            double min_value_of_bearing_1 = bearing_1 - delta;
 
-            if (min_value_of_bearing_1 < 0)
-            {
-                min_value_of_bearing_1 += 360;
-            }
+            //double max_value_of_bearing_1 = (bearing_1 + delta) % 360;
+            //double min_value_of_bearing_1 = bearing_1 - delta;
 
-            if (min_value_of_bearing_1 < max_value_of_bearing_1)
-                return min_value_of_bearing_1 <= bearing_2 && bearing_2 <= max_value_of_bearing_1;
-            else
-                return min_value_of_bearing_1 <= bearing_2 || bearing_2 <= max_value_of_bearing_1;
+            //if (min_value_of_bearing_1 < 0)
+            //{
+            //    min_value_of_bearing_1 += 360;
+            //}
+
+            //if (min_value_of_bearing_1 < max_value_of_bearing_1)
+            //    return min_value_of_bearing_1 <= bearing_2 && bearing_2 <= max_value_of_bearing_1;
+            //else
+            //    return min_value_of_bearing_1 <= bearing_2 || bearing_2 <= max_value_of_bearing_1;
+            return CircleMath.is_close_angle(dest_bearing, curr_bearing, delta);
+
         }
 
         public void move_mission_finished(Response response)
