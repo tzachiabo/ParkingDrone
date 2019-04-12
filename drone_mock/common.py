@@ -15,7 +15,8 @@ class Direction(Enum):
     left = 3
     up = 4
     down = 5
-    rotate = 6
+    rtt_right = 6
+    rtt_left = 7
 
 
 class GimbalMoveType(Enum):

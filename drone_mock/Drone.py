@@ -102,9 +102,6 @@ class Drone:
         logging.info(f'finish relative_move_inner drone distance: {distance}, bearing: {bearing}')
 
     def rotate_drone(self, rotataion_degree):
-        if rotataion_degree > 360:
-            rotataion_degree -= 360
-
         self.bearing_radians += rotataion_degree / 180 * math.pi
 
         if self.bearing_radians > math.pi:
@@ -115,7 +112,8 @@ class Drone:
         logging.info(f'start drone move with direction: {direction} and amount: {amount}')
         error = amount * self.mistake_in_move
         actual_move_amount = random.uniform(amount - error, amount + error)
-        logging.info(f'drone actual move amount is {actual_move_amount} current drone bearing is {rad_to_deg(self.bearing_radians)}')
+        logging.info(f'drone actual move amount is {actual_move_amount} '
+                     f'current drone bearing is {rad_to_deg(self.bearing_radians)}')
         verify(self.alt > 0.5, "drone must be above 0.5 meter height when moving")
 
         if direction == Direction.up:
@@ -130,9 +128,12 @@ class Drone:
             self.relative_move_inner(actual_move_amount, self.bearing_radians + math.pi / 2)
         elif direction == Direction.left:
             self.relative_move_inner(actual_move_amount, self.bearing_radians + 3 * math.pi / 2)
-        elif direction == Direction.rotate:
-            verify(amount < 360, "drone cant rotate more than 360 degrees")
+        elif direction == Direction.rtt_right:
+            verify(amount <= 180, "drone cant rotate more than 180 degrees")
             self.rotate_drone(actual_move_amount)
+        elif direction == Direction.rtt_left:
+            verify(amount <= 180, "drone cant rotate more than 180 degrees")
+            self.rotate_drone(-1 * actual_move_amount)
         else:
             verify(False, "Unknown direction")
 
