@@ -51,7 +51,7 @@ namespace DroneServer.BL.Missions
                 }
                 double rotating_amount = delta - rnd.Next(0, Math.Min(20, (int)delta - 1));
                 Assertions.verify(rotating_amount < 360 && rotating_amount > 0, "it is not make sense to rotate more than 360 degree");
-                MoveMission mission = new MoveMission(Direction.rotate, rotating_amount);
+                MoveMission mission = new MoveMission(Direction.rtt_right, rotating_amount);
 
                 mission.register_to_notification(move_mission_finished);
                 mission.execute();

@@ -49,6 +49,7 @@
             this.abort_mission_btn = new System.Windows.Forms.Button();
             this.map_mission_map = new GMap.NET.WindowsForms.GMapControl();
             this.createTab = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.bearingBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.clear_create_btn = new System.Windows.Forms.Button();
@@ -57,6 +58,7 @@
             this.parkName_create_txt = new System.Windows.Forms.TextBox();
             this.points_create_lst = new System.Windows.Forms.ListBox();
             this.dummyTab = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.GetLocation_btn = new System.Windows.Forms.Button();
             this.RotateDroneBtn = new System.Windows.Forms.Button();
@@ -82,7 +84,6 @@
             this.moveForward_dummy_btn = new System.Windows.Forms.Button();
             this.move_dummy_btn = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.homeTab.SuspendLayout();
             this.homePanel.SuspendLayout();
@@ -324,6 +325,15 @@
             this.createTab.Text = "Create";
             this.createTab.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(132, 17);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Enter parking name";
+            // 
             // bearingBox
             // 
             this.bearingBox.Location = new System.Drawing.Point(499, 56);
@@ -414,6 +424,7 @@
             // 
             // dummyTab
             // 
+            this.dummyTab.Controls.Add(this.button2);
             this.dummyTab.Controls.Add(this.button1);
             this.dummyTab.Controls.Add(this.GetLocation_btn);
             this.dummyTab.Controls.Add(this.RotateDroneBtn);
@@ -444,6 +455,16 @@
             this.dummyTab.Text = "Dummy";
             this.dummyTab.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(546, 75);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(371, 48);
+            this.button2.TabIndex = 40;
+            this.button2.Text = "rotate left";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.rotateleft);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(181, 120);
@@ -471,9 +492,9 @@
             this.RotateDroneBtn.Name = "RotateDroneBtn";
             this.RotateDroneBtn.Size = new System.Drawing.Size(371, 48);
             this.RotateDroneBtn.TabIndex = 37;
-            this.RotateDroneBtn.Text = "Move rotate";
+            this.RotateDroneBtn.Text = "rotate right";
             this.RotateDroneBtn.UseVisualStyleBackColor = true;
-            this.RotateDroneBtn.Click += new System.EventHandler(this.RotateDroneBtn_Click);
+            this.RotateDroneBtn.Click += new System.EventHandler(this.rotateright);
             // 
             // stop_dummy_btn
             // 
@@ -741,15 +762,6 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 17);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Enter parking name";
-            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -836,6 +848,7 @@
         private System.Windows.Forms.TextBox bearingBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button2;
     }
 }
 

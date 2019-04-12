@@ -29,7 +29,7 @@ public class MoveMission extends Mission {
     public void start() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
         long totalTime;
-        if(direction == Direction.rotate) {
+        if(direction == Direction.rtt_left || direction == Direction.rtt_right) {
             totalTime = ((long)distance/(long)Config.BASE_ANGULAR_SPEED) * 1000;
             totalTime -= 800;
         }
@@ -115,8 +115,11 @@ public class MoveMission extends Mission {
             case down:
                 fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED);
                 break;
-            case rotate:
+            case rtt_right:
                 fcd = new FlightControlData(0,0,Config.BASE_ANGULAR_SPEED, 0);
+                break;
+            case rtt_left:
+                fcd = new FlightControlData(0,0,-Config.BASE_ANGULAR_SPEED, 0);
                 break;
             default:
                 Logger.error("Couldnt parse move direction");
@@ -148,8 +151,11 @@ public class MoveMission extends Mission {
             case down:
                 fcd = new FlightControlData(0,0,0,-1);
                 break;
-            case rotate:
+            case rtt_right:
                 fcd = new FlightControlData(0,0,Config.BASE_ANGULAR_SPEED, 0);
+                break;
+            case rtt_left:
+                fcd = new FlightControlData(0,0,-Config.BASE_ANGULAR_SPEED, 0);
                 break;
             default:
                 Logger.error("Couldnt parse move direction");
