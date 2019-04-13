@@ -40,10 +40,10 @@ namespace DroneServer.BL.Missions
         private void after_take_photo(Response response)
         {
             String car_plate_photo_path = (String)response.Data;
-            List<string> cars = CarPlateDetector.getCarPlates(car_plate_photo_path);
-            if (cars.Count > 0)
+            List<string> cars_plate = CarPlateDetector.getCarPlates(car_plate_photo_path);
+            if (cars_plate.Count > 0)
             {
-                report_mannager.addCarPlate(cars, car_plate_photo_path);
+                report_mannager.addCarPlate(cars_plate, car_plate_photo_path);
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, "succes"));
             }
             else
@@ -74,25 +74,6 @@ namespace DroneServer.BL.Missions
             m_take_photo = take_pic.m_index;
             take_pic.register_to_notification(after_take_photo);
             take_pic.execute();
-        }
-
-
-
-        private Tuple<double, double, double> getGimbalRotation()
-        {
-            return Tuple.Create(0.0, 0.0, 0.0);
-        }
-
-        public override void notify(Response response)
-        {
-            if (response.Key == m_take_photo)
-            {
-                String car_plate_photo_path = (String)response.Data;
-
-
-            }
-            done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
-
         }
     }
 }
