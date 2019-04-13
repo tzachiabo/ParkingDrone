@@ -36,7 +36,7 @@ namespace DroneServer.BL.Missions
         {
             if (response.Key == m_go_to_car_index)
             {
-                Mission move_back = new MoveMission(this, Direction.backward, 2.0);//todo:change dictance(2.0) to car hight/wight 
+                Mission move_back = new MoveMission(this, Direction.backward, 3.0);//todo:change dictance(2.0) to car hight/wight 
                 m_move_back_index = move_back.m_index;
                 move_back.execute();
 

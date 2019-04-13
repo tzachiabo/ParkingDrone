@@ -44,8 +44,8 @@ namespace DroneServer.BL.Missions
         public void get_location_finished(Response response)
         {
             start_location = (Point)response.Data;
-            int height_of_drone_when_get_close_to_car = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_verify_location"));
-            GetToCertainHeight get_to_ceratin_height = new GetToCertainHeight(height_of_drone_when_get_close_to_car);
+            int height_of_drone_when_verify_location = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_verify_location"));
+            GetToCertainHeight get_to_ceratin_height = new GetToCertainHeight(height_of_drone_when_verify_location);
             get_to_ceratin_height.register_to_notification(move_to_low_height_finished);
             get_to_ceratin_height.execute();
         }
