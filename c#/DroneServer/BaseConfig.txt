@@ -9,6 +9,8 @@
 <print_get_location>false</print_get_location>
 <cameraOpeningDegree>57</cameraOpeningDegree>
 <max_parking_height>95</max_parking_height>
+<min_parking_height>50</min_parking_height>
+
 <Home_Location_Hight>30</Home_Location_Hight>
 <enable_location_manager_verification>false</enable_location_manager_verification>
 <num_of_width_pixels>1280</num_of_width_pixels>

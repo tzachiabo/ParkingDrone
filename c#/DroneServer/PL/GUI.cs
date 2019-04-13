@@ -192,9 +192,15 @@ namespace DroneServer
                 lp.Add(new SharedClasses.Point(Convert.ToDouble(item.Split(' ')[1]), Convert.ToDouble(item.Split(' ')[0])));
             Parking tmp = new Parking(parkName_create_txt.Text, map_create_map.Position.Lat, map_create_map.Position.Lng, map_create_map.Zoom, map_create_map.MaxZoom, map_create_map.MinZoom,bearing, lp);
 
-            if (bl.validateParkingHeight(tmp)==false)
+            int res = bl.validateParkingHeight(tmp);
+            if (res == -1)
             {
                 MessageBox.Show("Parking area is too big");
+                return;
+            }
+            else if (res == -2)
+            {
+                MessageBox.Show("Parking area is too small");
                 return;
             }
 

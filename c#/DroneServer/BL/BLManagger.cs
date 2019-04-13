@@ -113,7 +113,7 @@ namespace DroneServer.BL
 
         public Boolean DBAddParking(Parking p)
         {
-            if (!validateParkingHeight(p)){
+            if (validateParkingHeight(p) != 0){
                 return false;
             }
             DB.addParking(p);
@@ -257,12 +257,13 @@ namespace DroneServer.BL
 
         }
 
-        public bool validateParkingHeight(Parking p)
+        public int validateParkingHeight(Parking p)
         {
             if (p.getBasePoint().alt > Convert.ToDouble(Configuration.getInstance().get("max_parking_height")))
-                return false;
-
-            return true;
+                return -1;
+            if (p.getBasePoint().alt < Convert.ToDouble(Configuration.getInstance().get("min_parking_height")))
+                return -2;
+            return 0;
         }
         
         public void setSafeZone(bool safeZone)
