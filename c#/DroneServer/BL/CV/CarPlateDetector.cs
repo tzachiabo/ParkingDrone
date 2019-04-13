@@ -15,6 +15,10 @@ namespace DroneServer.BL.CV
         {
             String[] res = run_car_plate_detector_module(image_path);
             
+            if (res[0] == "No license plates found.\r")
+            {
+                return new List<string>();
+            }
             return parse_result(res);
         }
 

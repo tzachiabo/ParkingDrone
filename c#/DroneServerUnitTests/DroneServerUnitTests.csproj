@@ -77,6 +77,9 @@
     <Content Include="BL\CV\CarDetectorTestFiles\car.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="BL\CV\CarPlateDetectorTestFiles\2.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BL\CV\CarPlateDetectorTestFiles\car2.JPG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -35,5 +35,12 @@ namespace UnitTestProject
             Assert.IsTrue(car_plates[0] == "8954478");
         }
 
+        [TestMethod]
+        public void get_car_plate_no_cars()
+        {
+            List<String> car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/2.JPG");
+
+            Assert.IsTrue(car_plates.Count == 0);
+        }
     }
 }
