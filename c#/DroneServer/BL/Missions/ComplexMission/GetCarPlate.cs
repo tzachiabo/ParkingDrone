@@ -1,4 +1,5 @@
-﻿using DroneServer.BL.CV;
+﻿using DroneServer.BL.Comm;
+using DroneServer.BL.CV;
 using DroneServer.SharedClasses;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace DroneServer.BL.Missions
 
         private void after_take_photo(Response response)
         {
-            String car_plate_photo_path = (String)response.Data;
+            String car_plate_photo_path = PicTransferServer.getLastPicPath();
             List<string> cars_plate = CarPlateDetector.getCarPlates(car_plate_photo_path);
             if (cars_plate.Count > 0)
             {
