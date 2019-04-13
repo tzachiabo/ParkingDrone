@@ -98,6 +98,11 @@ namespace DroneServer.SharedClasses
             public double Longitude { get; set; }
         }
 
+        public double getCarHeight()
+        {
+            return m_height_of_car;
+        }
+
         public static double DegreesToRadians(double degrees)
         {
             const double degToRadFactor = Math.PI / 180;

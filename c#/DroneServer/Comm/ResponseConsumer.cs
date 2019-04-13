@@ -34,7 +34,8 @@ namespace DroneServer.BL.Comm
                         Mission mission;
 
                         bool res = m_missions.TryRemove(current_response.Key, out mission);
-                        Assertions.verify(res, "main mission thread tried faild to remove a response from queue");
+
+                        Assertions.verify(res, "main mission thread tried faild to remove a response from queue " + current_response.Key);
 
                         mission.done(current_response); 
                     }

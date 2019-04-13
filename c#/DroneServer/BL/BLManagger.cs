@@ -309,7 +309,9 @@ namespace DroneServer.BL
 
         public void MoveForTest(int amount_to_move, Direction d)
         {
-            MoveMission parkingMission = new MoveMission(d, amount_to_move);
+            double real_amount = amount_to_move;
+            real_amount /= 10;
+            MoveMission parkingMission = new MoveMission(d, real_amount);
             parkingMission.execute();
         }
 

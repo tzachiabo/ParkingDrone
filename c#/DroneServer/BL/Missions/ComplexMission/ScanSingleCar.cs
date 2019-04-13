@@ -36,7 +36,7 @@ namespace DroneServer.BL.Missions
         {
             if (response.Key == m_go_to_car_index)
             {
-                Mission move_back = new MoveMission(this, Direction.backward, 3.0);//todo:change dictance(2.0) to car hight/wight 
+                Mission move_back = new MoveMission(this, Direction.backward, calc_amount_to_move_backward());
                 m_move_back_index = move_back.m_index;
                 move_back.execute();
 
@@ -65,6 +65,14 @@ namespace DroneServer.BL.Missions
                 BL.BLManagger.getInstance().num_of_scaned_cars++;
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
             }
+        }
+
+        private double calc_amount_to_move_backward()
+        {
+            double car_height = m_car.getCarHeight();
+            double amount_to_move_backward_of_car = Double.Parse(Configuration.getInstance().get("amount_to_move_backward_of_car"));
+
+            return car_height + amount_to_move_backward_of_car;
         }
 
     }

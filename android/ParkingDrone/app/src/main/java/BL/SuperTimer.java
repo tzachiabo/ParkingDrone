@@ -4,12 +4,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import BL.Drone.DJIM210.M210Manager;
+import BL.Drone.DroneFactory;
+import BL.Drone.IDrone;
 import BL.missions.Mission;
 import SharedClasses.AssertionViolation;
 import SharedClasses.Assertions;
 import SharedClasses.Config;
+import SharedClasses.LatLngHelper;
 import SharedClasses.Logger;
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.common.flightcontroller.virtualstick.FlightControlData;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
@@ -36,29 +40,46 @@ public class SuperTimer extends Timer {
     public void scheduleBearingTask(double targetBearing){
         super.schedule(new BearingTimerTask(this, targetBearing),0,interval);
     }
+    public void scheduleMoveUpTask(double targetHeight){
+        super.schedule(new MoveUpTask(this, targetHeight),0,interval);
+    }
+    public void scheduleMoveDownTask(double targetHeight){
+        super.schedule(new MoveDownTask(this, targetHeight),0,interval);
+    }
+    public void scheduleSmartMoveTask(double distance){
+        super.schedule(new SmartMoveTask(this, distance),0,interval);
+    }
+
 
     private class MissionTimerTask extends TimerTask
     {
         SuperTimer superTimer;
         int counter;
+        private boolean is_finished;
 
         private MissionTimerTask(SuperTimer superTimer){
             this.superTimer = superTimer;
             this.counter = 0;
+            is_finished = false;
         }
 
         @Override
         public void run() {
             if(counter * interval > totalTime)
             {
+                boolean local_is_finished = is_finished;
+                is_finished = true;
                 superTimer.cancel();
+                hoverCommand();
                 Logger.info("a mission "+ mission.getName()+" was ended");
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                mission.getOnResult().onResult(null);
+                if (!local_is_finished) {
+                    mission.getOnResult().onResult(null);
+                }
             }
             else
             {
@@ -75,6 +96,7 @@ public class SuperTimer extends Timer {
         double targetBearing;
         double previousAngularDistance;
         FlightController flightController;
+
         private BearingTimerTask(SuperTimer superTimer, double targetBearing){
             this.superTimer = superTimer;
             this.targetBearing = targetBearing;
@@ -95,7 +117,7 @@ public class SuperTimer extends Timer {
                 Logger.info("BEARING : canceling timer");
                 Logger.info("a mission "+ mission.getName()+" was ended");
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -104,6 +126,122 @@ public class SuperTimer extends Timer {
             else
             {
                 previousAngularDistance = angularDistance(currentBearing, targetBearing);
+                task.run();
+            }
+        }
+    }
+
+    private class MoveUpTask extends TimerTask
+    {
+        SuperTimer superTimer;
+        double targetHeight;
+        FlightController flightController;
+
+        private MoveUpTask(SuperTimer superTimer, double targetHeight){
+            this.superTimer = superTimer;
+            this.targetHeight = targetHeight;
+            Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+            this.flightController = aircraft.getFlightController();
+        }
+
+        @Override
+        public void run() {
+            IDrone drone = DroneFactory.getDroneManager();
+            double currentHeight = drone.getDroneState().getAircraftLocation().getAltitude();
+            if(currentHeight > targetHeight - Config.Movement_APRROXIMATION)
+            {
+                superTimer.cancel();
+                hoverCommand();
+                Logger.info("BEARING : canceling timer");
+                Logger.info("a mission "+ mission.getName()+" was ended");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mission.getOnResult().onResult(null);
+            }
+            else
+            {
+                task.run();
+            }
+        }
+    }
+
+    private class MoveDownTask extends TimerTask
+    {
+        SuperTimer superTimer;
+        double targetHeight;
+        FlightController flightController;
+
+        private MoveDownTask(SuperTimer superTimer, double targetHeight){
+            this.superTimer = superTimer;
+            this.targetHeight = targetHeight;
+            Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+            this.flightController = aircraft.getFlightController();
+        }
+
+        @Override
+        public void run() {
+            IDrone drone = DroneFactory.getDroneManager();
+            double currentHeight = drone.getDroneState().getAircraftLocation().getAltitude();
+            if(currentHeight < targetHeight + Config.Movement_APRROXIMATION)
+            {
+                superTimer.cancel();
+                hoverCommand();
+                Logger.info("BEARING : canceling timer");
+                Logger.info("a mission "+ mission.getName()+" was ended");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mission.getOnResult().onResult(null);
+            }
+            else
+            {
+                task.run();
+            }
+        }
+    }
+
+    private class SmartMoveTask extends TimerTask
+    {
+        SuperTimer superTimer;
+        double distance;
+        LocationCoordinate3D source_location;
+        FlightController flightController;
+
+        private SmartMoveTask(SuperTimer superTimer, double distance){
+            this.superTimer = superTimer;
+            this.distance = distance;
+            IDrone drone = DroneFactory.getDroneManager();
+            this.source_location = drone.getDroneState().getAircraftLocation();
+            Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+            this.flightController = aircraft.getFlightController();
+        }
+
+        @Override
+        public void run() {
+            IDrone drone = DroneFactory.getDroneManager();
+            LocationCoordinate3D currentLocation = drone.getDroneState().getAircraftLocation();
+            double distance_passed = LatLngHelper.getDistanceBetweenTwoPoints(currentLocation, source_location);
+            Logger.info("distance passed " + distance_passed);
+
+            if(distance_passed > distance - Config.Movement_APRROXIMATION)
+            {
+                superTimer.cancel();
+                hoverCommand();
+                Logger.info("a mission "+ mission.getName()+" was ended");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mission.getOnResult().onResult(null);
+            }
+            else
+            {
                 task.run();
             }
         }

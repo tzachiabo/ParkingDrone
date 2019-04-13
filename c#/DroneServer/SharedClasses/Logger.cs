@@ -45,9 +45,9 @@ namespace DroneServer.SharedClasses
 
         public void debug(string message)
         {
-            //Log.Debug(message);
-            //llogs.Insert(0, message);
-            //notifyAll(); TODO zabow
+            Log.Debug(message);
+            llogs.Insert(0, message);
+            notifyAll();
         }
         public void info(string message)
         {

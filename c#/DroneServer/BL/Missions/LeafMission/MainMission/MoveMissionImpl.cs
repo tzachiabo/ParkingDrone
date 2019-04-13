@@ -34,6 +34,11 @@ namespace DroneServer.BL.Missions
             base.execute();
         }
 
+        public override void done(Response res)
+        {
+            base.done(res);
+        }
+
         public override string encode()
         {
             return "move " + m_index + " " + direction + " " + distance;

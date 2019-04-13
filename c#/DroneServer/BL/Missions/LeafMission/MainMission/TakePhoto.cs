@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneServer.SharedClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,13 @@ namespace DroneServer.BL.Missions
         public override void stop()
         {
 
+        }
+
+
+        public override void execute()
+        {
+            Logger.getInstance().info("start take photo");
+            base.execute();
         }
 
         public override string encode()
