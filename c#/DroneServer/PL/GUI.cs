@@ -461,7 +461,9 @@ namespace DroneServer
 
         private void absoultepostion(object sender, EventArgs e)
         {
-            BLManagger.getInstance().absoutle_postision();
+            int move_amount = Convert.ToInt32(MoveAmount.Value);
+
+            BLManagger.getInstance().absoutle_postision(move_amount);
         }
 
         private void label1_Click(object sender, EventArgs e)

@@ -32,7 +32,7 @@ namespace DroneServer.BL.Missions
             double dgree_to_rotate = CircleMath.angular_distance(destinated_bearing, curr_bearing);
             Logger.getInstance().info("absoulote-rotate: current bearing: " + curr_bearing + " destination bearing: " + destinated_bearing);
 
-            if (!is_bearing_close(destinated_bearing, curr_bearing, 5))
+            if (!is_bearing_close(destinated_bearing, curr_bearing, 2))
             {
                 Direction direction = CircleMath.leftOrRight(destinated_bearing, curr_bearing);
 

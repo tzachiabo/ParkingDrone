@@ -56,7 +56,7 @@ public class ControllerManager {
             public void run() {
                 bearing = m_flight_controller.getCompass().getHeading();
             }
-        }, 0, 1500);
+        }, 0, 100);
 
     }
 

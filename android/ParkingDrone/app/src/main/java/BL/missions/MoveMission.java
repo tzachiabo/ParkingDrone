@@ -1,6 +1,7 @@
 package BL.missions;
 import java.util.TimerTask;
 
+import BL.Drone.DJIM210.M210Manager;
 import SharedClasses.AssertionViolation;
 import SharedClasses.Config;
 import BL.SuperTimer;
@@ -28,10 +29,12 @@ public class MoveMission extends Mission {
     @Override
     public void start() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
-        long totalTime;
+        long totalTime =0;
+        boolean isBearing = false;
         if(direction == Direction.rtt_left || direction == Direction.rtt_right) {
             totalTime = ((long)distance/(long)Config.BASE_ANGULAR_SPEED) * 1000;
             totalTime -= 800;
+            isBearing = true;
         }
         else
         {
@@ -39,7 +42,7 @@ public class MoveMission extends Mission {
             totalTime -= 1200;
         }
 
-        if (totalTime <= 0){
+        if (!isBearing && totalTime <= 0){
             FlightControlData fcd = getFCBShort();
             aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
                 @Override
@@ -78,7 +81,21 @@ public class MoveMission extends Mission {
                 });
             }
         },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
-        st.schedule();
+
+        if(isBearing) {
+            double finalTarget;
+            if(direction == Direction.rtt_left) {
+                finalTarget = M210Manager.getInstance().getDroneBearing() - distance;
+            }
+            else {
+                finalTarget = M210Manager.getInstance().getDroneBearing() + distance;
+            }
+            Logger.info("BEARING : schedule bearing task target angle is : " + finalTarget);
+            st.scheduleBearingTask(finalTarget);
+        }
+        else {
+            st.schedule();
+        }
     }
 
     @Override
@@ -164,6 +181,32 @@ public class MoveMission extends Mission {
         }
 
         return fcd;
+    }
+
+    public void rotate(long totalTime) {
+        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        st = new SuperTimer(new TimerTask() {
+            @Override
+            public void run() {
+                FlightControlData fcd = getFCB();
+
+                aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
+                    @Override
+                    public void onResult(DJIError djiError) {
+                        try {
+                            if (djiError != null) {
+                                Logger.error("after move djierror is " + djiError.toString());
+                                Assertions.verify(false, "failed to move drone");
+                            }
+                        }
+                        catch (AssertionViolation e){
+                            Logger.fatal("catch - failed to move drone with dji error");
+                        }
+                    }
+                });
+            }
+        },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
+        st.schedule();
     }
 
 }

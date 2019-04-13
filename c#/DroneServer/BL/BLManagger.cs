@@ -342,9 +342,9 @@ namespace DroneServer.BL
             tp.execute();
         }
 
-        public void absoutle_postision()
+        public void absoutle_postision(double bearing)
         {
-            new AbsoulteRotateMission(0).execute();
+            new AbsoulteRotateMission(bearing).execute();
         }
     }
 }
