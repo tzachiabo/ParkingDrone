@@ -43,7 +43,7 @@ namespace DroneServer.BL.Missions
         private void scan_cars_finished(Response res)
         {
             DateTime date = DateTime.Now;
-            ReportManager.getInstance().make_report(m_parking.name + "- " + date.ToString());
+            ReportManager.getInstance().make_report(m_parking.name + ".PDF");
             m_SubMission.Enqueue(new ComplexGoHome(this));
             m_SubMission.Enqueue(new Landing(this));
 
