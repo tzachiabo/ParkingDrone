@@ -14,33 +14,33 @@ namespace UnitTestProject
         [TestMethod]
         public void get_car_plate2()
         {
-            List<String> car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car2.JPG");
+            String car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car2.JPG");
 
-            Assert.IsTrue(car_plates[0] == "296733O1");
+            Assert.IsTrue(car_plates != "");
         }
 
         [TestMethod]
         public void get_car_plate3()
         {
-            List<String> car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car3.JPG");
+            String car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car3.JPG");
 
-            Assert.IsTrue(car_plates[0] == "5954237");
+            Assert.IsTrue(car_plates != "");
         }
 
         [TestMethod]
         public void get_car_plate5()
         {
-            List<String> car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car5.JPG");
+            String car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car5.JPG");
 
-            Assert.IsTrue(car_plates[0] == "8954478");
+            Assert.IsTrue(car_plates != "");
         }
 
         [TestMethod]
         public void get_car_plate_no_cars()
         {
-            List<String> car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/2.JPG");
+            String car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/2.JPG");
 
-            Assert.IsTrue(car_plates.Count == 0);
+            Assert.IsTrue(car_plates == "");
         }
     }
 }

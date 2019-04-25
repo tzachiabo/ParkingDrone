@@ -104,6 +104,11 @@ namespace DroneServer.SharedClasses
             return basePossition;
         }
 
+        public void set_base_position(Point pos)
+        {
+            basePossition = pos;
+        }
+
         public Point getMidleEdgePoint()
         {
             var XList = new List<double>();

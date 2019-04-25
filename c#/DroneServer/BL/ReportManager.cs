@@ -30,16 +30,12 @@ namespace DroneServer.BL
             return instance;
         }
 
-        public void addCarPlate(List<string> car_plates, string path_to_car_image)
+        public void addCarPlate(string car_plate, string path_to_car_image)
         {
-            foreach (string car_plate in car_plates)
+            if (isUnauthorizedCarPlate(car_plate))
             {
-                if (isUnauthorizedCarPlate(car_plate))
-                {
-                    UnauthorizedCars.Add(new KeyValuePair<string, string>(car_plate, path_to_car_image));
-                }
+                UnauthorizedCars.Add(new KeyValuePair<string, string>(car_plate, path_to_car_image));
             }
-
         }
 
         public void make_report(string path)

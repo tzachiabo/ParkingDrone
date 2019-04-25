@@ -78,8 +78,8 @@ class AerialViewCamera(Camera):
         self.lng_of_base_photo = None
 
     def take_photo(self, drone):
-        verify(self.gimbal.roll == 0 and self.gimbal.pitch == -90 and self.gimbal.yaw == 0,
-               'gimbal is not set to aerial position')
+        # verify(self.gimbal.roll == 0 and self.gimbal.pitch == -90 and self.gimbal.yaw == 0,
+        #        'gimbal is not set to aerial position')
 
         if not self.base_photo_height:
             self.send_base_photo(drone)

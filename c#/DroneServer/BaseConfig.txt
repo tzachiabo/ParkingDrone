@@ -19,11 +19,11 @@
 <height_pixels_ratio>0.65</height_pixels_ratio>
 
 <height_of_drone_when_moving_in_parking>5</height_of_drone_when_moving_in_parking> 
-<height_of_drone_when_get_close_to_car>2</height_of_drone_when_get_close_to_car> 
+<height_of_drone_when_get_close_to_car>1.5</height_of_drone_when_get_close_to_car> 
 
-<height_of_drone_when_verify_location>5</height_of_drone_when_verify_location> 
+<height_of_drone_when_verify_location>25</height_of_drone_when_verify_location> 
 
-<acceptable_delta_for_error_in_distance>1.3</acceptable_delta_for_error_in_distance> 
+<acceptable_delta_for_error_in_distance>1.5</acceptable_delta_for_error_in_distance> 
 
 <amount_to_move_backward_of_car>3</amount_to_move_backward_of_car> 
 

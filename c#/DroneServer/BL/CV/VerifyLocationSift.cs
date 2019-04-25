@@ -26,7 +26,7 @@ namespace DroneServer.BL.CV
         private static String run_verify_location_module(String base_photo_path, String current_photo_path, Double ratio)
         {
 
-            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("python2");
+            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("C:\\Python27\\python");
 
             // make sure we can read the output from stdout 
             myProcessStartInfo.UseShellExecute = false;
@@ -53,6 +53,8 @@ namespace DroneServer.BL.CV
 
         private static Point parseStringToPoint(String point_str)
         {
+            if (point_str == "")
+                return null;
             int start = point_str.IndexOf('(') + 1;
             int end = point_str.IndexOf(')') - 1;
             String sub_point_str = point_str.Substring(start, end);

@@ -67,6 +67,7 @@ def get_mid(bucket, little, big,ratio):
 
 img1_path = sys.argv[2]
 img2_path = sys.argv[1]
+
 ratio= float(sys.argv[3])
 
 img1 = cv2.imread(img1_path, 0)          # queryImage (little)
@@ -88,6 +89,8 @@ matches = bf.match(des1, des2)
 # Sort them in the order of their distance.
 matches = sorted(matches, key=lambda x: x.distance)
 
+#sift
+
 little = cv2.imread(img1_path, 1)
 big = cv2.imread(img2_path, 1)
 
@@ -96,7 +99,7 @@ points = corelate_points(matches, kp1, kp2)
 wb = filter_buckets(make_buckets(points, 0))
 mid_point = get_mid(wb[1], little, big,ratio)
 print mid_point
-#rec(big, mid_point)
+rec(big, mid_point)
 #rec(big,wb[1][0][0])
 #rec(little,wb[1][0][1])
 
@@ -106,10 +109,12 @@ print mid_point
 #plt.show()
 
 
+img_output = '{}_{}'.format(img1_path[0:img1_path.find('.')], img2_path[0:img2_path.find('.')])
 
-
-
-
+img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches, img1)
+#plt.imshow(img3),plt.show()
+cv2.imwrite('{}_a.jpg'.format(img_output), img3)
+cv2.imwrite('{}_b.jpg'.format(img_output), big)
 
 
 

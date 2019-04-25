@@ -61,12 +61,36 @@ namespace DroneServer.BL.Missions
         {
             String curr_photo_path = PicTransferServer.getLastPicPath();
             String base_photo_path = BLManagger.getInstance().get_base_photo_path();
-            double base_height=BLManagger.getInstance().get_parking().getBasePoint().alt;
+            double base_height = BLManagger.getInstance().get_parking().getBasePoint().alt;
             double current_height = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_verify_location"));
-            double ratio = base_height/ current_height;
+            double ratio = base_height / current_height;
             Point locationFromCV = CV.VerifyLocationSift.getLocation(base_photo_path, curr_photo_path,ratio);
-            res = new Response(m_index, Status.Ok, MissionType.MainMission, locationFromCV);
+            if (locationFromCV == null)
+            {
+                Point loction_from_GPS_in_margin = LngLatHelper.toMarginFromBasePhoto(start_location);
+                Logger.getInstance().info("sift result is null");
+                res = new Response(m_index, Status.Ok, MissionType.MainMission, loction_from_GPS_in_margin);
+            }
+            else
+            {
+                Point loction_from_sift_in_margin = new Point(PixelConverterHelper.convert_width((int)locationFromCV.lng),
+                                                              PixelConverterHelper.convert_height((int)locationFromCV.lat));
+                Logger.getInstance().info("location from sift is x: " + loction_from_sift_in_margin.lng + " y: " + loction_from_sift_in_margin.lat);
 
+                Point loction_from_GPS_in_margin = LngLatHelper.toMarginFromBasePhoto(start_location);
+
+                Boolean is_sift_close = loction_from_sift_in_margin.is_close(loction_from_GPS_in_margin, 3);
+
+                if (is_sift_close)
+                {
+                    res = new Response(m_index, Status.Ok, MissionType.MainMission, locationFromCV);
+                }
+                else
+                {
+                    Logger.getInstance().info("sift result is wrong in more than 3 meters");
+                    res = new Response(m_index, Status.Ok, MissionType.MainMission, loction_from_GPS_in_margin);
+                }
+            }
             GetToCertainHeight back_to_the_real_height = new GetToCertainHeight(start_location.alt, this);
 
             back_to_the_real_height.execute();

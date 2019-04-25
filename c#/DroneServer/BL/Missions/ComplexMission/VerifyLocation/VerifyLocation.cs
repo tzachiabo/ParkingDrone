@@ -9,15 +9,19 @@ namespace DroneServer.BL.Missions
 {
     public class VerifyLocation : ComplexMission
     {
-        public VerifyLocation(ComplexMission ParentMission = null) : base(ParentMission)
+        public VerifyLocation(ComplexMission ParentMission = null, string algo="") : base(ParentMission)
         {
-            String algo = Configuration.getInstance().get("verify_location_alguritum");
+            if (algo == "")
+            {
+                algo = Configuration.getInstance().get("verify_location_alguritum");
+            }
+
             if (algo == "Template_Matching") { 
                 m_SubMission.Enqueue(new VerifyLocationByTemplateMatching(this));
             }
             else if (algo == "SIFT")
             {
-                //m_SubMission.Enqueue(new VerifyLocationBySift(this));
+                m_SubMission.Enqueue(new VerifyLocationBySift(this));
             }
             else if (algo == "GPS")
             {

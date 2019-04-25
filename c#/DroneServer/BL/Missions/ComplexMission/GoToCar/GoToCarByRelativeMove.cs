@@ -83,6 +83,7 @@ namespace DroneServer.BL.Missions
             {
                 Logger.getInstance().info("GoToCar : got to the car pic at position " + PicTransferServer.getLastPicPath());
                 response = res;
+
                 double pic_bearing = BL.BLManagger.getInstance().get_parking().bearing;
 
                 Mission m = new AbsoulteRotateMission(pic_bearing);
@@ -108,7 +109,6 @@ namespace DroneServer.BL.Missions
         private void final_mission(Response res)
         {
             done(new Response(m_index, Status.Ok, MissionType.MainMission, response.Data));
-
         }
 
     }

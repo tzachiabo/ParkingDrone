@@ -24,6 +24,7 @@ namespace DroneServer.SharedClasses
 
             this.m_left_margin = PixelConverterHelper.convert_width(left_margin);
             this.m_top_margin = PixelConverterHelper.convert_height(top_margin);
+
             this.m_width_of_car = PixelConverterHelper.convert_width(width);
             this.m_height_of_car = PixelConverterHelper.convert_height(height);
 
@@ -36,6 +37,12 @@ namespace DroneServer.SharedClasses
         {
             double width = m_left_margin + m_width_of_car / 2;
             double height = m_top_margin + m_height_of_car / 2;
+            if (width > 2)
+            {
+
+                Logger.getInstance().info("adjusting car width by -1");
+                width -= 1;
+            }
 
             return new Point(width, height); 
         }

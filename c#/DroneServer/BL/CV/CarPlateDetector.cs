@@ -11,15 +11,11 @@ namespace DroneServer.BL.CV
 {
     public class CarPlateDetector
     {
-        public static List<String> getCarPlates(String image_path)
+        public static String getCarPlates(String image_path)
         {
             String[] res = run_car_plate_detector_module(image_path);
-            
-            if (res[0] == "No license plates found.\r")
-            {
-                return new List<string>();
-            }
-            return parse_result(res);
+
+            return res[0].Replace('\r', ' ');
         }
 
         private static List<String> parse_result(String[] output_of_car_plate_module)
@@ -42,7 +38,7 @@ namespace DroneServer.BL.CV
             myProcessStartInfo.RedirectStandardOutput = true;
             myProcessStartInfo.CreateNoWindow = true;
 
-            String myPythonApp = "number_plate_detector.py " + image_path;
+            String myPythonApp = "car_plate_detector.py --image " + image_path;
             Logger.getInstance().info("CV CarPlate params: " + myPythonApp);
             myProcessStartInfo.Arguments = myPythonApp;
 

@@ -43,7 +43,7 @@ namespace DroneServer.BL.Missions
             }
             else if (response.Key == m_move_back_index)
             { 
-                int height = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_get_close_to_car"));
+                double height = Double.Parse(Configuration.getInstance().get("height_of_drone_when_get_close_to_car"));
                 Mission m = new GetToCertainHeight(height, this);
                 m_get_to_certain_height = m.m_index;
                 m.execute();

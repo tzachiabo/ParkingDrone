@@ -32,12 +32,14 @@ namespace DroneServer.BL.Missions
 
             double distance_to_move = Math.Abs(curr_height - m_height_destination);
 
-            if (distance_to_move > 2)
+            if (distance_to_move > 0.5)
             {
                 MoveMission mission = null;
                 if (curr_height > m_height_destination)
                 {
-                    mission = new MoveMission(Direction.down, distance_to_move / 2);
+                    if (distance_to_move > 3)
+                        distance_to_move -= 1; // wierd fix
+                    mission = new MoveMission(Direction.down, distance_to_move);
                 }
                 else
                 {
