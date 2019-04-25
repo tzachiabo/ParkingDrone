@@ -27,7 +27,7 @@ def detect_car_plate_number(car_img_path):
     text_detection = response['TextDetections']
     texts_detected = list(map(lambda x: x['DetectedText'], text_detection))
     plates_detected = list(filter(lambda x: 12>len(x)>7, texts_detected))
-    return plates_detected[0]
+    return plates_detected[0] if len(plates_detected) > 0 else ""
 
 
 def detect_object_in_pic(image_path):
@@ -74,8 +74,9 @@ def get_car_img(image_path):
 
 
 def main():
-    car_img_path = 'car.JPG'
     image_path = args["image"]
+
+    car_img_path = f'car_{image_path[:image_path.find(".")]}.JPG'
 
     car_img = get_car_img(image_path)
     cv2.imwrite(car_img_path, car_img)
