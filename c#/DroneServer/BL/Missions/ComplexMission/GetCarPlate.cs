@@ -66,7 +66,7 @@ namespace DroneServer.BL.Missions
         {
             String car_plate_photo_path = PicTransferServer.getLastPicPath();
             string car_plate = CarPlateDetector.getCarPlates(car_plate_photo_path);
-            if (car_plate != "")
+            if (car_plate != "" && car_plate != " ")
             {
                 report_mannager.addCarPlate(car_plate, car_plate_photo_path);
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, "succes"));
