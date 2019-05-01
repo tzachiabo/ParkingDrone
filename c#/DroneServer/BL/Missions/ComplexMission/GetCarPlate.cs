@@ -13,9 +13,13 @@ namespace DroneServer.BL.Missions
     {
         private int m_tries = 0;
         private ReportManager report_mannager;
+        private Car m_car;
 
-        public GetCarPlate(ComplexMission ParentMission = null) : base(ParentMission)
+        public GetCarPlate(Car car, ComplexMission ParentMission = null) : base(ParentMission)
         {
+            Assertions.verify(car != null, "car should not be null");
+            m_car = car;
+
             List<Tuple<double,double,double>> gimbal_rotaions = getGimbalRotation();
 
             double yaw = 0;
@@ -68,7 +72,7 @@ namespace DroneServer.BL.Missions
             string car_plate = CarPlateDetector.getCarPlates(car_plate_photo_path);
             if (car_plate != "" && car_plate != " ")
             {
-                report_mannager.addCarPlate(car_plate, car_plate_photo_path);
+                report_mannager.addCarPlate(car_plate, car_plate_photo_path, m_car);
                 done(new Response(m_index, Status.Ok, MissionType.MainMission, "succes"));
             }
             else

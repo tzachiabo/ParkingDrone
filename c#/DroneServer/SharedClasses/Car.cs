@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,6 +121,17 @@ namespace DroneServer.SharedClasses
         {
             const double radToDegFactor = 180 / Math.PI;
             return radians * radToDegFactor;
+        }
+
+        public Rectangle GetRectangle()
+        {
+            int x = PixelConverterHelper.re_convert_width(this.m_left_margin);
+            int y = PixelConverterHelper.re_convert_height(this.m_top_margin);
+
+            int width = PixelConverterHelper.re_convert_width(this.m_width_of_car);
+            int height = PixelConverterHelper.re_convert_height(this.m_height_of_car);
+
+            return new Rectangle(x, y, width, height);
         }
 
     }

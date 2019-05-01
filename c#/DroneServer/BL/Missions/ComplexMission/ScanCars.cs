@@ -19,6 +19,7 @@ namespace DroneServer.BL.Missions
             Point base_point = parking.getBasePoint();
 
             cars = new Queue<Car>(CarDetector.getCarsFromBasePhoto(BLManagger.getInstance().get_base_photo_path(), base_point.alt));
+            ReportManager.getInstance().init(BLManagger.getInstance().get_base_photo_path());
 
             Logger.getInstance().info("number of cars in parking = " + cars.Count);
             if (cars.Count > 0)

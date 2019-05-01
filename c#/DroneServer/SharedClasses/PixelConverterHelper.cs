@@ -50,6 +50,13 @@ namespace DroneServer.SharedClasses
             return pixel * instance.size_of_pixel_w;
         }
 
+        public static int re_convert_width(double margin)
+        {
+            int num_of_width_pixels = Int32.Parse(Configuration.getInstance().get("num_of_width_pixels"));
+
+            return (int)(margin / instance.size_of_pixel_w);
+        }
+
         public static double convert_height(int pixel)
         {
             int num_of_height_pixels = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels"));
@@ -57,6 +64,13 @@ namespace DroneServer.SharedClasses
             Assertions.verify(pixel > 0, "PixelConverter cannot pixel less than zero");
 
             return pixel * instance.size_of_pixel_h;
+        }
+
+        public static int re_convert_height(double margin)
+        {
+            int num_of_height_pixels = Int32.Parse(Configuration.getInstance().get("num_of_height_pixels"));
+
+            return (int)(margin / instance.size_of_pixel_h);
         }
     }
 }

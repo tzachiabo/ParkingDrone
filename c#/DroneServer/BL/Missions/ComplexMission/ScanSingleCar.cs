@@ -50,7 +50,7 @@ namespace DroneServer.BL.Missions
             }
             else if (response.Key == m_get_to_certain_height)
             {
-                GetCarPlate get_plate = new GetCarPlate(this);
+                GetCarPlate get_plate = new GetCarPlate(m_car, this);
                 m_get_plate = get_plate.m_index;
                 get_plate.execute();
             }
