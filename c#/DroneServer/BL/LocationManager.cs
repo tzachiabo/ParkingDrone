@@ -9,7 +9,7 @@ using System.Timers;
 
 namespace DroneServer.BL
 {
-    class LocationManager
+    public class LocationManager
     {
         private static LocationManager instance = null;
         private static Timer aTimer = null;
@@ -68,7 +68,7 @@ namespace DroneServer.BL
             Point p = (Point)response.Data;
             current_position = p;
             Logger.getInstance().debug("update map location with this params :" + p.lat + " " + p.lng);
-            BLManagger.getInstance().setLocation(p.lat, p.lng);
+            BLManagger.getInstance().setLocation(p.lat, p.lng, p.alt);
             if (HomeLocation == null)
             {
                 HomeLocation = p;

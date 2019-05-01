@@ -259,7 +259,7 @@ namespace DroneServer
         {
             double lat = 31.2656169738942;
             double lng = 34.8071413572861;
-            bl.setLocation(lat, lng);
+            bl.setLocation(lat, lng, 0);
         }        
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -402,6 +402,8 @@ namespace DroneServer
             }
             
         }
+
+
         public void initParkingList()
         {
             List<Parking> tmp = bl.DBGetAllParkings();
@@ -477,6 +479,11 @@ namespace DroneServer
             int pitch = Convert.ToInt32(Pitch.Value);
             int yaw = Convert.ToInt32(Yaw.Value);
             BLManagger.getInstance().MoveAbsoulteGimbalTest(Gimbal.left, roll, pitch, yaw);
+        }
+
+        private void map_create_map_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

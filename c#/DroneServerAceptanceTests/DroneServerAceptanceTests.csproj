@@ -65,7 +65,6 @@
       <Name>DroneServer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="BasePhotoImages\1.jpg" />
     <Content Include="BasePhotoImages\2.jpg" />

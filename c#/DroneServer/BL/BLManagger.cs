@@ -31,6 +31,7 @@ namespace DroneServer.BL
         private String m_base_photo_path = null;
         private Parking m_parking = null;
         public int num_of_scaned_cars;
+        private Label m_location_label;
 
         private BLManagger()
         {
@@ -169,10 +170,17 @@ namespace DroneServer.BL
             logger.debug("The Gmap " + Gmap.Name + " has registered");
         }
 
-        public void setLocation(double lat,double lng)
+        public void setLocation(double lat,double lng, double alt)
         {
             if (map!=null)
                 map.setLocation(new Point(lng, lat));
+            if (m_location_label != null)
+            {
+                m_location_label.BeginInvoke((Action)(() =>
+                {
+                    m_location_label.Text = lng + "\n" + lat + "\n" + alt;
+                }));
+            }
         }
 
         public void setStatus(DroneStatus ds)
@@ -273,6 +281,11 @@ namespace DroneServer.BL
         public bool getSafeZone()
         {
             return stayInSafeZone;
+        }
+
+        public void register_location_label(Label location_label)
+        {
+            m_location_label = location_label;
         }
 
         //----------------------------------tests-------------------------------//
