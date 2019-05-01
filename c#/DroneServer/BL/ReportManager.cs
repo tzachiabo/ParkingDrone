@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DroneServer.SharedClasses;
 using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -33,6 +34,7 @@ namespace DroneServer.BL
 
         public void addCarPlate(string car_plate, string path_to_car_image)
         {
+            Logger.getInstance().info("adding car_plate: " + car_plate + " to report");
             if (isUnauthorizedCarPlate(car_plate))
             {
                 UnauthorizedCars.Add(new KeyValuePair<string, string>(car_plate, path_to_car_image));
@@ -89,7 +91,6 @@ namespace DroneServer.BL
             {
                 allowed_car_plates = DB.getAllAllowedCarPlates();
             }
-
 
             return !allowed_car_plates.Contains(car_plate);
         }

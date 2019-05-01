@@ -26,7 +26,8 @@ def detect_car_plate_number(car_img_path):
 
     text_detection = response['TextDetections']
     texts_detected = list(map(lambda x: x['DetectedText'], text_detection))
-    plates_detected = list(filter(lambda x: 12>len(x)>7, texts_detected))
+    texts_detected = list(map(lambda x: ''.join(filter(lambda x: x.isdigit(),x)), texts_detected))
+    plates_detected = list(filter(lambda x: 12>len(x)>=7, texts_detected))
     return plates_detected[0] if len(plates_detected) > 0 else ""
 
 

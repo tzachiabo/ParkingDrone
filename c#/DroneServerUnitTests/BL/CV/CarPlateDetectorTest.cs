@@ -16,7 +16,7 @@ namespace UnitTestProject
         {
             String car_plates = CarPlateDetector.getCarPlates(@"./BL/CV/CarPlateDetectorTestFiles/car2.JPG");
 
-            Assert.IsTrue(car_plates != "");
+            Assert.IsTrue(car_plates == "29673301");
         }
 
         [TestMethod]
