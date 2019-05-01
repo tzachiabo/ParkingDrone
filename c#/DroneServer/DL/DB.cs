@@ -110,6 +110,40 @@ namespace DroneServer
             return ans;
         }
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static List<String> getAllAllowedCarPlates()
+        {
+            SqlConnection con;
+            SqlCommand cmd;
+            con = new SqlConnection(cs);
+
+            string qry = "select * from CarPlate";
+
+            con.Open();
+            cmd = new SqlCommand(qry, con);
+
+            List<String> res = new List<String>();
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    res.Add(reader.GetValue(0) + "");
+                }
+
+                return res;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("err");
+                cmd.Dispose();
+                con.Close();
+                return null;
+            }
+        }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static List<Parking> selectAllParkings()
         {

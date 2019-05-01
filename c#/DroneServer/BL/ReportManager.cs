@@ -14,6 +14,7 @@ namespace DroneServer.BL
     {
         private static ReportManager instance = null;
         private HashSet<KeyValuePair<string, string>> UnauthorizedCars;
+        private List<String> allowed_car_plates;
 
         private ReportManager()
         {
@@ -84,7 +85,13 @@ namespace DroneServer.BL
 
         private Boolean isUnauthorizedCarPlate(string car_plate)
         {
-            return true;
+            if (allowed_car_plates == null)
+            {
+                allowed_car_plates = DB.getAllAllowedCarPlates();
+            }
+
+
+            return !allowed_car_plates.Contains(car_plate);
         }
 
         //private void drawImageToPDF(XGraphics gfx, int number, String jpegSamplePath)

@@ -175,6 +175,13 @@ namespace UnitTestProject
             Assert.IsTrue(DB.selectAllParkings().Count == 1);
         }
 
+        [TestMethod]
+        public void getAllAllowedCarPlatesTest()
+        {
+            List<String> allowed_car_plates = DB.getAllAllowedCarPlates();
+            Assert.IsNotNull(allowed_car_plates);
+        }
+
 
     }
 }
