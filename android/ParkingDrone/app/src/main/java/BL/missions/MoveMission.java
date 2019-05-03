@@ -1,9 +1,11 @@
 package BL.missions;
+
 import java.util.TimerTask;
 
 import BL.Drone.DJIM210.M210Manager;
 import BL.Drone.DroneFactory;
 import BL.Drone.IDrone;
+import SharedClasses.AngularHelper;
 import SharedClasses.AssertionViolation;
 import SharedClasses.Config;
 import BL.SuperTimer;
@@ -24,15 +26,15 @@ public class MoveMission extends Mission {
     private double distance;
     private SuperTimer st;
 
-    public MoveMission(int index, Direction direction, double distance){
+    public MoveMission(int index, Direction direction, double distance) {
         super("move", index);
-        this.direction=direction;
-        this.distance=distance;
+        this.direction = direction;
+        this.distance = distance;
     }
 
     @Override
     public void start() {
-        switch (direction){
+        switch (direction) {
             case rtt_left:
             case rtt_right:
                 rotate();
@@ -62,12 +64,12 @@ public class MoveMission extends Mission {
 
     @Override
     public String encode() {
-        return getName() +" "+ getIndex() + " " + "Done";
+        return getName() + " " + getIndex() + " " + "Done";
     }
 
     private FlightControlData getFCB(float speed){
         FlightControlData fcd = null;
-        switch (direction){
+        switch (direction) {
             case forward:
                 fcd = new FlightControlData(0,speed,0,0);
                 break;
@@ -101,32 +103,32 @@ public class MoveMission extends Mission {
         return fcd;
     }
 
-    private FlightControlData getFCBShort(){
+    private FlightControlData getFCBShort() {
         FlightControlData fcd = null;
-        switch (direction){
+        switch (direction) {
             case forward:
-                fcd = new FlightControlData(0,Config.BASE_SPEED_when_close,0,0);
+                fcd = new FlightControlData(0, Config.BASE_SPEED_when_close, 0, 0);
                 break;
             case right:
-                fcd = new FlightControlData(Config.BASE_SPEED_when_close,0,0,0);
+                fcd = new FlightControlData(Config.BASE_SPEED_when_close, 0, 0, 0);
                 break;
             case left:
-                fcd = new FlightControlData(-Config.BASE_SPEED_when_close,0,0,0);
+                fcd = new FlightControlData(-Config.BASE_SPEED_when_close, 0, 0, 0);
                 break;
             case backward:
-                fcd = new FlightControlData(0,-Config.BASE_SPEED_when_close,0,0);
+                fcd = new FlightControlData(0, -Config.BASE_SPEED_when_close, 0, 0);
                 break;
             case up:
-                fcd = new FlightControlData(0,0,0,Config.BASE_SPEED_when_close);
+                fcd = new FlightControlData(0, 0, 0, Config.BASE_SPEED_when_close);
                 break;
             case down:
-                fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED_when_close);
+                fcd = new FlightControlData(0, 0, 0, -Config.BASE_SPEED_when_close);
                 break;
             case rtt_right:
-                fcd = new FlightControlData(0,0,Config.BASE_ANGULAR_SPEED, 0);
+                fcd = new FlightControlData(0, 0, Config.BASE_ANGULAR_SPEED, 0);
                 break;
             case rtt_left:
-                fcd = new FlightControlData(0,0,-Config.BASE_ANGULAR_SPEED, 0);
+                fcd = new FlightControlData(0, 0, -Config.BASE_ANGULAR_SPEED, 0);
                 break;
             default:
                 Logger.error("Couldnt parse move direction");
@@ -137,32 +139,32 @@ public class MoveMission extends Mission {
         return fcd;
     }
 
-    private FlightControlData getFCBVeryShort(){
+    private FlightControlData getFCBVeryShort() {
         FlightControlData fcd = null;
-        switch (direction){
+        switch (direction) {
             case forward:
-                fcd = new FlightControlData(0,Config.BASE_SPEED_when_close / 2,0,0);
+                fcd = new FlightControlData(0, Config.BASE_SPEED_when_close / 2, 0, 0);
                 break;
             case right:
-                fcd = new FlightControlData(Config.BASE_SPEED_when_close / 2,0,0,0);
+                fcd = new FlightControlData(Config.BASE_SPEED_when_close / 2, 0, 0, 0);
                 break;
             case left:
-                fcd = new FlightControlData(-Config.BASE_SPEED_when_close / 2,0,0,0);
+                fcd = new FlightControlData(-Config.BASE_SPEED_when_close / 2, 0, 0, 0);
                 break;
             case backward:
-                fcd = new FlightControlData(0,-Config.BASE_SPEED_when_close/ 2,0,0);
+                fcd = new FlightControlData(0, -Config.BASE_SPEED_when_close / 2, 0, 0);
                 break;
             case up:
-                fcd = new FlightControlData(0,0,0,Config.BASE_SPEED_when_close/2);
+                fcd = new FlightControlData(0, 0, 0, Config.BASE_SPEED_when_close / 2);
                 break;
             case down:
-                fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED_when_close/2);
+                fcd = new FlightControlData(0, 0, 0, -Config.BASE_SPEED_when_close / 2);
                 break;
             case rtt_right:
-                fcd = new FlightControlData(0,0,Config.BASE_ANGULAR_SPEED, 0);
+                fcd = new FlightControlData(0, 0, Config.BASE_ANGULAR_SPEED, 0);
                 break;
             case rtt_left:
-                fcd = new FlightControlData(0,0,-Config.BASE_ANGULAR_SPEED, 0);
+                fcd = new FlightControlData(0, 0, -Config.BASE_ANGULAR_SPEED, 0);
                 break;
             default:
                 Logger.error("Couldnt parse move direction");
@@ -173,7 +175,7 @@ public class MoveMission extends Mission {
         return fcd;
     }
 
-    public void move_up(){
+    public void move_up() {
         long totalTime = 1000000000;
 
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
@@ -189,6 +191,7 @@ public class MoveMission extends Mission {
 
                 double remainig_distance = finalHeight - currentHeight;
                 FlightControlData fcd;
+
                 if (remainig_distance > 5)
                 {
                     fcd = getFCB(Config.BASE_SPEED);
@@ -196,9 +199,7 @@ public class MoveMission extends Mission {
                 else if (remainig_distance > 2)
                 {
                     fcd = getFCBShort();
-                }
-                else
-                {
+                } else {
                     fcd = getFCBVeryShort();
                 }
 
@@ -210,20 +211,19 @@ public class MoveMission extends Mission {
                                 Logger.error("after move djierror is " + djiError.toString());
                                 Assertions.verify(false, "failed to move drone");
                             }
-                        }
-                        catch (AssertionViolation e){
+                        } catch (AssertionViolation e) {
                             Logger.fatal("catch - failed to move drone with dji error");
                         }
                     }
                 });
             }
-        },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
+        }, this, Config.MOVMENT_BASE_INTERVAL, totalTime);
 
 
         st.scheduleMoveUpTask(finalHeight);
     }
 
-    public void move_down(){
+    public void move_down() {
         long totalTime = 1000000000;
 
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
@@ -240,6 +240,7 @@ public class MoveMission extends Mission {
 
                 double remainig_distance = currentHeight - finalHeight;
                 FlightControlData fcd;
+
                 if (remainig_distance > 5)
                 {
                     fcd = getFCB(Config.BASE_SPEED);
@@ -247,9 +248,7 @@ public class MoveMission extends Mission {
                 else if (remainig_distance > 2)
                 {
                     fcd = getFCBShort();
-                }
-                else
-                {
+                } else {
                     fcd = getFCBVeryShort();
                 }
 
@@ -261,24 +260,21 @@ public class MoveMission extends Mission {
                                 Logger.error("after move djierror is " + djiError.toString());
                                 Assertions.verify(false, "failed to move drone");
                             }
-                        }
-                        catch (AssertionViolation e){
+                        } catch (AssertionViolation e) {
                             Logger.fatal("catch - failed to move drone with dji error");
                         }
                     }
                 });
             }
-        },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
+        }, this, Config.MOVMENT_BASE_INTERVAL, totalTime);
 
         Assertions.verify(finalHeight > 0, "cannot move to less than zero height");
 
         st.scheduleMoveDownTask(finalHeight);
     }
 
-    public void smart_normal_move()
-    {
+    public void smart_normal_move() {
         distance -= 0.3;
-        Logger.info("total distance is " + distance);
         IDrone drone = DroneFactory.getDroneManager();
         final LocationCoordinate3D start_location = drone.getDroneState().getAircraftLocation();
 
@@ -306,8 +302,7 @@ public class MoveMission extends Mission {
                                 Logger.error("after move djierror is " + djiError.toString());
                                 Assertions.verify(false, "failed to move drone");
                             }
-                        }
-                        catch (AssertionViolation e){
+                        } catch (AssertionViolation e) {
                             Logger.fatal("catch - failed to move drone with dji error");
                         }
                     }
@@ -319,46 +314,53 @@ public class MoveMission extends Mission {
     }
 
 
-   public void rotate() {
-        long totalTime = ((long)distance/(long)Config.BASE_ANGULAR_SPEED) * 1000;
-        totalTime -= 800;
-
+    public void rotate() {
         final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
 
-        Logger.debug("start-move-mission "+"distance is "+distance+" totalTime is "+totalTime);
+        Logger.debug("start-move-mission " + "distance is " + distance);
+
+        final double finalTarget;
+        if (direction == Direction.rtt_left) {
+            finalTarget = M210Manager.getInstance().getDroneBearing() - distance;
+        } else {
+            finalTarget = M210Manager.getInstance().getDroneBearing() + distance;
+        }
+
         st = new SuperTimer(new TimerTask() {
             @Override
             public void run() {
-                FlightControlData fcd = getFCB(Config.BASE_ANGULAR_SPEED);
-
-                aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
-                    @Override
-                    public void onResult(DJIError djiError) {
-                        try {
-                            if (djiError != null) {
-                                Logger.error("after move djierror is " + djiError.toString());
-                                Assertions.verify(false, "failed to move drone");
+                aircraft.getFlightController()
+                        .sendVirtualStickFlightControlData(clacAngularSpeed(finalTarget), new CommonCallbacks.CompletionCallback() {
+                            @Override
+                            public void onResult(DJIError djiError) {
+                                try {
+                                    if (djiError != null) {
+                                        Logger.error("after move djierror is " + djiError.toString());
+                                        Assertions.verify(false, "failed to move drone");
+                                    }
+                                } catch (AssertionViolation e) {
+                                    Logger.fatal("catch - failed to move drone with dji error");
+                                }
                             }
-                        }
-                        catch (AssertionViolation e){
-                            Logger.fatal("catch - failed to move drone with dji error");
-                        }
-                    }
-                });
+                        });
             }
-        },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
+        }, this, Config.MOVMENT_BASE_INTERVAL, 0);
 
-        double finalTarget;
-        if(direction == Direction.rtt_left) {
-            finalTarget = M210Manager.getInstance().getDroneBearing() - distance;
-        }
-        else {
-            finalTarget = M210Manager.getInstance().getDroneBearing() + distance;
-        }
+
         Logger.info("BEARING : schedule bearing task target angle is : " + finalTarget);
         st.scheduleBearingTask(finalTarget);
     }
 
+    private FlightControlData clacAngularSpeed(double target) {
+        final Aircraft aircraft = (Aircraft) DJISDKManager.getInstance().getProduct();
+        float heading = aircraft.getFlightController().getCompass().getHeading();
+        double distance = AngularHelper.angularDistance(target, heading);
+        int sign = direction == Direction.rtt_left ? -1 : 1;
+        FlightControlData fcd = new FlightControlData(0, 0,
+                (float) (sign * Math.min(Math.max(distance, 5), 25)), 0);
+
+        return fcd;
+    }
 }
 
 

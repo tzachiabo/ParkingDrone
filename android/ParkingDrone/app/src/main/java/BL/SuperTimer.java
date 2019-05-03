@@ -7,6 +7,7 @@ import BL.Drone.DJIM210.M210Manager;
 import BL.Drone.DroneFactory;
 import BL.Drone.IDrone;
 import BL.missions.Mission;
+import SharedClasses.AngularHelper;
 import SharedClasses.AssertionViolation;
 import SharedClasses.Assertions;
 import SharedClasses.Config;
@@ -108,7 +109,7 @@ public class SuperTimer extends Timer {
         @Override
         public void run() {
             float currentBearing = flightController.getCompass().getHeading();
-            double angularDistance = angularDistance(currentBearing, targetBearing);
+            double angularDistance = AngularHelper.angularDistance(currentBearing, targetBearing);
             Logger.info("BEARING: angular distance is : " + angularDistance + "previous is : " + previousAngularDistance);
             if(angularDistance < Config.BEARING_APRROXIMATION || previousAngularDistance < angularDistance)
             {
@@ -125,7 +126,7 @@ public class SuperTimer extends Timer {
             }
             else
             {
-                previousAngularDistance = angularDistance(currentBearing, targetBearing);
+                previousAngularDistance = AngularHelper.angularDistance(currentBearing, targetBearing);
                 task.run();
             }
         }
@@ -245,22 +246,6 @@ public class SuperTimer extends Timer {
                 task.run();
             }
         }
-    }
-
-    private static double toRads(double degrees)
-    {
-        return degrees * Math.PI / 180;
-    }
-    private static double toDegrees(double rads)
-    {
-        return rads * 180 / Math.PI;
-    }
-
-    private static double angularDistance(double destBearing, double currBearing)
-    {
-        destBearing = toRads(destBearing);
-        currBearing = toRads(currBearing);
-        return Math.abs(toDegrees(Math.atan2(Math.sin(destBearing - currBearing), Math.cos(destBearing - currBearing))));
     }
 
     private void hoverCommand() {
