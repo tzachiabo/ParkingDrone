@@ -15,6 +15,7 @@ public interface Config {
     int MAX_TIME_FOR_SETP_IN_GO_TO_GPS = 60000;//ms
     double MAX_WAYPOINT_GAP_XY = 0.00050;
     double MAX_WAYPOINT_GAP_Z = 20;
+    float GO_TO_GPS_SPEED = 7.0f;
     int NUM_OF_LOG_IN_BUCKET = 200;
     float BASE_ANGULAR_SPEED = 7;
     double BEARING_APRROXIMATION = 1;

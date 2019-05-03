@@ -54,8 +54,8 @@ public class MissionControlManager {
             mission_builder
                     .headingMode(headingMode)
                     .finishedAction(on_finish)
-                    .autoFlightSpeed(2.0f)
-                    .maxFlightSpeed(3.0f)
+                    .autoFlightSpeed(Config.GO_TO_GPS_SPEED)
+                    .maxFlightSpeed(Config.GO_TO_GPS_SPEED + 1)
                     .flightPathMode(WaypointMissionFlightPathMode.NORMAL);
             WaypointMission.Builder mod_builder = buildWithSubWaypoints(x, y, z, mission_builder);
 
