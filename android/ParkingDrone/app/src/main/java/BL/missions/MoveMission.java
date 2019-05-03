@@ -65,32 +65,32 @@ public class MoveMission extends Mission {
         return getName() +" "+ getIndex() + " " + "Done";
     }
 
-    private FlightControlData getFCB(){
+    private FlightControlData getFCB(float speed){
         FlightControlData fcd = null;
         switch (direction){
             case forward:
-                fcd = new FlightControlData(0,Config.BASE_SPEED,0,0);
+                fcd = new FlightControlData(0,speed,0,0);
                 break;
             case right:
-                fcd = new FlightControlData(Config.BASE_SPEED,0,0,0);
+                fcd = new FlightControlData(speed,0,0,0);
                 break;
             case left:
-                fcd = new FlightControlData(-Config.BASE_SPEED,0,0,0);
+                fcd = new FlightControlData(-speed,0,0,0);
                 break;
             case backward:
-                fcd = new FlightControlData(0,-Config.BASE_SPEED,0,0);
+                fcd = new FlightControlData(0,-speed,0,0);
                 break;
             case up:
-                fcd = new FlightControlData(0,0,0,Config.BASE_SPEED);
+                fcd = new FlightControlData(0,0,0,speed);
                 break;
             case down:
-                fcd = new FlightControlData(0,0,0,-Config.BASE_SPEED);
+                fcd = new FlightControlData(0,0,0,-speed);
                 break;
             case rtt_right:
-                fcd = new FlightControlData(0,0,Config.BASE_ANGULAR_SPEED, 0);
+                fcd = new FlightControlData(0,0,speed, 0);
                 break;
             case rtt_left:
-                fcd = new FlightControlData(0,0,-Config.BASE_ANGULAR_SPEED, 0);
+                fcd = new FlightControlData(0,0,-speed, 0);
                 break;
             default:
                 Logger.error("Couldnt parse move direction");
@@ -191,7 +191,7 @@ public class MoveMission extends Mission {
                 FlightControlData fcd;
                 if (remainig_distance > 5)
                 {
-                    fcd = getFCB();
+                    fcd = getFCB(Config.BASE_SPEED);
                 }
                 else if (remainig_distance > 2)
                 {
@@ -242,7 +242,7 @@ public class MoveMission extends Mission {
                 FlightControlData fcd;
                 if (remainig_distance > 5)
                 {
-                    fcd = getFCB();
+                    fcd = getFCB(Config.BASE_SPEED);
                 }
                 else if (remainig_distance > 2)
                 {
@@ -278,7 +278,7 @@ public class MoveMission extends Mission {
     public void smart_normal_move()
     {
         distance -= 0.3;
-        long totalTime = ((long)distance/(long)Config.BASE_ANGULAR_SPEED) * 1000;
+        Logger.info("total distance is " + distance);
         IDrone drone = DroneFactory.getDroneManager();
         final LocationCoordinate3D start_location = drone.getDroneState().getAircraftLocation();
 
@@ -291,20 +291,12 @@ public class MoveMission extends Mission {
                 LocationCoordinate3D currentLocation = drone.getDroneState().getAircraftLocation();
 
                 double distance_passed = LatLngHelper.getDistanceBetweenTwoPoints(currentLocation, start_location);
-                double remainig_distance = distance_passed - distance;
-                FlightControlData fcd;
-                if (remainig_distance > 5)
-                {
-                    fcd = getFCB();
-                }
-                else if (remainig_distance > 2)
-                {
-                    fcd = getFCBShort();
-                }
-                else
-                {
-                    fcd = getFCBVeryShort();
-                }
+                Logger.debug("distance passed " + distance_passed);
+
+                double remainig_distance = distance - distance_passed;
+                float speed = Math.min(Config.BASE_SUPER_SPEED, (float)remainig_distance);
+
+                FlightControlData fcd = getFCB(speed);
 
                 aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
                     @Override
@@ -321,7 +313,7 @@ public class MoveMission extends Mission {
                     }
                 });
             }
-        },this, Config.MOVMENT_BASE_INTERVAL, totalTime);
+        },this, Config.MOVMENT_BASE_INTERVAL, Long.MAX_VALUE);
 
         st.scheduleSmartMoveTask(distance);
     }
@@ -337,7 +329,7 @@ public class MoveMission extends Mission {
         st = new SuperTimer(new TimerTask() {
             @Override
             public void run() {
-                FlightControlData fcd = getFCB();
+                FlightControlData fcd = getFCB(Config.BASE_ANGULAR_SPEED);
 
                 aircraft.getFlightController().sendVirtualStickFlightControlData(fcd, new CommonCallbacks.CompletionCallback() {
                     @Override

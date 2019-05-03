@@ -2,6 +2,7 @@ package SharedClasses;
 
 public interface Config {
     float BASE_SPEED = 2;
+    float BASE_SUPER_SPEED = 7;
     float BASE_SPEED_when_close = 1;
 
     long MOVMENT_BASE_INTERVAL = 25;
