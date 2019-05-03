@@ -59,7 +59,7 @@ namespace DroneServer.BL.Missions
             {
                 //for (int pitch = -10; pitch < 20; pitch += 4)
                 //{
-                    res.Add(new Tuple<double, double, double>(0, 10, yaw));
+                    res.Add(new Tuple<double, double, double>(0, -20, yaw));
                 //}
             }
 
