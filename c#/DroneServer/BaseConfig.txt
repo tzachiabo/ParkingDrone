@@ -18,8 +18,8 @@
 <width_pixels_ratio>1.07</width_pixels_ratio>
 <height_pixels_ratio>0.65</height_pixels_ratio>
 
-<height_of_drone_when_moving_in_parking>5</height_of_drone_when_moving_in_parking> 
-<height_of_drone_when_get_close_to_car>1.5</height_of_drone_when_get_close_to_car> 
+<height_of_drone_when_moving_in_parking>4</height_of_drone_when_moving_in_parking> 
+<height_of_drone_when_get_close_to_car>4</height_of_drone_when_get_close_to_car> 
 
 <height_of_drone_when_verify_location>25</height_of_drone_when_verify_location> 
 

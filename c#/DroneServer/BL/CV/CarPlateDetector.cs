@@ -16,7 +16,12 @@ namespace DroneServer.BL.CV
             String[] res = run_car_plate_detector_module(image_path);
 
             String result = res[0].Replace('\r', ' ');
-            return result.Substring(0, result.Length - 1);
+            if (result.Length > 0)
+                return result.Substring(0, result.Length - 1);
+            else
+            {
+                return "";
+            }
         }
 
         private static List<String> parse_result(String[] output_of_car_plate_module)
