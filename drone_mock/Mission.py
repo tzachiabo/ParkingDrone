@@ -86,6 +86,17 @@ class GetLocation(StatusMission):
         return f'getLocation {self.index} Done {self.drone.alt} {self.drone.lat} {self.drone.lng} {drone_bearing_degree}'
 
 
+class GetHeight(MainMission):
+    def __init__(self, index, drone):
+        super(GetHeight, self).__init__(index, drone)
+
+    def execute(self):
+        pass
+
+    def encode_result(self):
+        return f'getHeight {self.index} Done {self.drone.alt}'
+
+
 class TakeOff(MainMission):
     def __init__(self, index, drone):
         super(TakeOff, self).__init__(index, drone)

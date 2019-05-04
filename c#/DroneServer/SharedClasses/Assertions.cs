@@ -15,7 +15,6 @@ namespace DroneServer.SharedClasses
             {
                 CommManager.getInstance().shutDown();
                 Logger.getInstance().error("assertion failure with message : " + message);
-
                 //System.Windows.Forms.Application.Exit();
                 Environment.Exit(1);
             }

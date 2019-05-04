@@ -361,5 +361,10 @@ namespace DroneServer.BL
         {
             new AbsoulteRotateMission(bearing).execute();
         }
+
+        public void get_height()
+        {
+            new getHeight().execute();
+        }
     }
 }

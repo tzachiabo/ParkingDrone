@@ -130,6 +130,7 @@
     <Compile Include="BL\Missions\ComplexMission\AbsoulteRotateMission.cs" />
     <Compile Include="BL\CV\VerifyLocationSift.cs" />
     <Compile Include="BL\Missions\ComplexMission\VerifyLocation\VerifyLocationBySift.cs" />
+    <Compile Include="BL\Missions\LeafMission\MainMission\getHeight.cs" />
     <Compile Include="BL\Missions\LeafMission\MainMission\LeafMainMission.cs" />
     <Compile Include="BL\Missions\LeafMission\StatusMission\LeafStatusMission.cs" />
     <Compile Include="BL\ReportManager.cs" />
@@ -258,7 +259,6 @@
     <Content Include="Drone.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="License-LGPL.txt" />
     <Content Include="sift.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

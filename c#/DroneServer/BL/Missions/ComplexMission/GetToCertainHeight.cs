@@ -15,20 +15,19 @@ namespace DroneServer.BL.Missions
         public GetToCertainHeight(double height_destination, ComplexMission ParentMission = null) : base(ParentMission)
         {
             m_height_destination = height_destination;
-            GetLocation get_location = new GetLocation();
+            getHeight get_height = new getHeight();
 
-            get_location.register_to_notification(get_location_finished);
-            m_SubMission.Enqueue(get_location);
+            get_height.register_to_notification(get_height_finished);
+            m_SubMission.Enqueue(get_height);
         }
 
         public override void stop()
         {
         }
 
-        public void get_location_finished(Response response)
+        public void get_height_finished(Response response)
         {
-            Point location = (Point)response.Data;
-            double curr_height = location.alt;
+            double curr_height = (double)response.Data;
 
             double distance_to_move = Math.Abs(curr_height - m_height_destination);
 
@@ -57,10 +56,10 @@ namespace DroneServer.BL.Missions
 
         public void move_mission_finished(Response response)
         {
-            GetLocation get_location = new GetLocation();
+            getHeight get_height = new getHeight();
 
-            get_location.register_to_notification(get_location_finished);
-            get_location.execute();
+            get_height.register_to_notification(get_height_finished);
+            get_height.execute();
         }
 
         public override void notify(Response response)

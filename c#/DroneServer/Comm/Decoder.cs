@@ -50,6 +50,9 @@ namespace DroneServer.BL.Comm
                 case "setVirtualStick":
                     return parseSetVirtualStick(words);
 
+                case "getHeight":
+                    return parseGetHeight(words);
+
                 case "":
                     return new Response(0, Status.Ok, MissionType.EndOfSocket);
             }
@@ -110,6 +113,15 @@ namespace DroneServer.BL.Comm
 
             Point p = new Point(lng, lat, alt, bearing);
             Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.StateMission, p);
+            return res;
+        }
+
+        private static Response parseGetHeight(string[] sentance)
+        {
+            Assertions.verify(sentance.Length == 4 && sentance[2] == "Done", "message recive is not according to protocol");
+            double alt = Double.Parse(sentance[3]);
+
+            Response res = new Response(Int32.Parse(sentance[1]), Status.Ok, MissionType.StateMission, alt);
             return res;
         }
 

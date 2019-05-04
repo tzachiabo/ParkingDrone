@@ -485,5 +485,10 @@ namespace DroneServer
         {
 
         }
+
+        private void get_height_btn_Click(object sender, EventArgs e)
+        {
+            BLManagger.getInstance().get_height();
+        }
     }
 }

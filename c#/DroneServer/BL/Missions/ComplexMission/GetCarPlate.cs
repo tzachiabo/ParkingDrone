@@ -55,15 +55,16 @@ namespace DroneServer.BL.Missions
         {
             List<Tuple<double, double, double>> res = new List<Tuple<double, double, double>>();
 
-            for (int yaw = -10; yaw < 20; yaw += 10)
-            {
-                //for (int pitch = -10; pitch < 20; pitch += 4)
-                //{
-                    res.Add(new Tuple<double, double, double>(0, -35, yaw));
-                res.Add(new Tuple<double, double, double>(0, -25, yaw));
+            //for (int yaw = -10; yaw < 20; yaw += 10)
+            //{
+            //for (int pitch = -10; pitch < 20; pitch += 4)
+            //{
+            res.Add(new Tuple<double, double, double>(0, -25, 0));
+
+            res.Add(new Tuple<double, double, double>(0, -35, 0));
 
                 //}
-            }
+            //}
 
             return res;
         }

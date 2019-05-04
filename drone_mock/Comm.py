@@ -52,6 +52,8 @@ class Comm:
             return GoToGps(index, self.drone, lng, lat, alt)
         if sub_message[0] == 'takePhoto':
             return TakePhoto(index, self.drone)
+        if sub_message[0] == 'getHeight':
+            return GetHeight(index, self.drone)
 
         logging.fatal(f'failed to decode {message}')
         print(sub_message[0])
