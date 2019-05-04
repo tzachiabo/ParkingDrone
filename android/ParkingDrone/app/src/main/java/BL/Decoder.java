@@ -62,6 +62,9 @@ public class Decoder {
             case "getLocation":
                 to_return = new GetGPSLocationMission(index);
                 break;
+            case "getHeight":
+                to_return = new GetHeightMission(index);
+                break;
             case "setVirtualStick":
                 to_return = new setVirtualStick(index);
                 break;
