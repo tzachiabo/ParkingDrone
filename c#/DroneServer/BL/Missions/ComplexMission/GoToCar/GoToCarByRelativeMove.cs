@@ -33,7 +33,7 @@ namespace DroneServer.BL.Missions
         {
             Point location = (Point)response.Data;
 
-            int height_of_drone_when_moving_in_parking = Int32.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
+            double height_of_drone_when_moving_in_parking = Double.Parse(Configuration.getInstance().get("height_of_drone_when_moving_in_parking"));
             m_SubMission.Enqueue(new GetToCertainHeight(height_of_drone_when_moving_in_parking, this));
 
             build_moves();
