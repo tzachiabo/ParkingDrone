@@ -56,7 +56,7 @@ namespace DroneServer.BL.Missions
             }
             else if (response.Key == m_get_plate)
             {
-                GetLocation get_location = new GetLocation(this);
+                VerifyLocation get_location = new VerifyLocation(this);
                 get_location.execute();
             }
             else
