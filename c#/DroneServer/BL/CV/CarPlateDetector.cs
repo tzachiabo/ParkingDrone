@@ -13,8 +13,18 @@ namespace DroneServer.BL.CV
     {
         public static String getCarPlates(String image_path)
         {
-            String[] res = run_car_plate_detector_module(image_path);
-
+            String[] res = new String[0];
+            int timeout = int.Parse(Configuration.getInstance().get("timeout"));
+            var task = Task.Run(() => run_car_plate_detector_module(image_path));
+            if (task.Wait(TimeSpan.FromSeconds(timeout)))
+            {
+                res = task.Result;
+            }
+            else
+            {
+                res[0] = "";
+                Logger.getInstance().info("time out in getCarPlates with path: " + image_path);
+            }
             String result = res[0].Replace('\r', ' ');
             if (result.Length > 0)
                 return result.Substring(0, result.Length - 1);

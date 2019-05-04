@@ -11,6 +11,8 @@
 <max_parking_height>95</max_parking_height>
 <min_parking_height>50</min_parking_height>
 
+<timeout>30</timeout>
+
 <Home_Location_Hight>30</Home_Location_Hight>
 <enable_location_manager_verification>false</enable_location_manager_verification>
 <num_of_width_pixels>1280</num_of_width_pixels>
