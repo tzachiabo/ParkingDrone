@@ -12,7 +12,4 @@ Server which uses computer vision modules to analyze real-time photos and manage
 
 **Car detector** is using YOLOV3 for detecting cars from aerial view 
 
-**Location detector** not implemented yet used for detecting the drone location base on CV alguritums
-
-**Car plate detector** not implemented yet used for detecting car plate number 
-
+**Car plate detector** is using AWS rekognition
